@@ -20,7 +20,7 @@
         <a class="header-link" href="../index.html">
           PerfectLib Docs
         </a>
-         (81% documented)
+         (95% documented)
       </p>
     
         <p class="header-col header-col--secondary">
@@ -55,15 +55,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/File/OpenMode.html">– OpenMode</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKDecoder.html">HPACKDecoder</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKDecoder/Exception.html">– Exception</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKEncoder.html">HPACKEncoder</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/HTTPServer.html">HTTPServer</a>
@@ -255,6 +246,9 @@
                 <a class="nav-group-task-link" href="../Structs/Cookie.html">Cookie</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Cookie/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Dir.html">Dir</a>
               </li>
               <li class="nav-group-task">
@@ -268,6 +262,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs.html#/s:V10PerfectLib3Log">Log</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MimeType.html">MimeType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/NotificationResponse.html">NotificationResponse</a>
@@ -317,6 +314,34 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:OV10PerfectLib6Cookie10Expiration"></a>
+                    <a name="//apple_ref/swift/Enum/Expiration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OV10PerfectLib6Cookie10Expiration">Expiration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cookie expiration type</p>
+
+                        <a href="../Structs/Cookie/Expiration.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Expiration</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:vV10PerfectLib6Cookie4nameGSqSS_"></a>
                     <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
                     <a class="token" href="#/s:vV10PerfectLib6Cookie4nameGSqSS_">name</a>
@@ -327,14 +352,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Cookie name</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -354,14 +379,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Cookie value</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -381,14 +406,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Cookie domain</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">domain</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -398,9 +423,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV10PerfectLib6Cookie7expiresGSqSS_"></a>
+                    <a name="/s:vV10PerfectLib6Cookie7expiresGSqOS0_10Expiration_"></a>
                     <a name="//apple_ref/swift/Property/expires" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV10PerfectLib6Cookie7expiresGSqSS_">expires</a>
+                    <a class="token" href="#/s:vV10PerfectLib6Cookie7expiresGSqOS0_10Expiration_">expires</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -408,41 +433,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Cookie expiration</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV10PerfectLib6Cookie9expiresInSd"></a>
-                    <a name="//apple_ref/swift/Property/expiresIn" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV10PerfectLib6Cookie9expiresInSd">expiresIn</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">expires</span><span class="p">:</span> <span class="kt"><a href="../Structs/Cookie/Expiration.html">Expiration</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -462,14 +460,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Cookie path</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -489,14 +487,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Cookie secure flag</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">secure</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -516,14 +514,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Cookie http only flag</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">httpOnly</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -533,9 +531,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV10PerfectLib6CookiecFT4nameGSqSS_5valueGSqSS_6domainGSqSS_7expiresGSqSS_9expiresInSd4pathGSqSS_6secureGSqSb_8httpOnlyGSqSb__S0_"></a>
-                    <a name="//apple_ref/swift/Method/init(name:value:domain:expires:expiresIn:path:secure:httpOnly:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV10PerfectLib6CookiecFT4nameGSqSS_5valueGSqSS_6domainGSqSS_7expiresGSqSS_9expiresInSd4pathGSqSS_6secureGSqSb_8httpOnlyGSqSb__S0_">init(name:value:domain:expires:expiresIn:path:secure:httpOnly:)</a>
+                    <a name="/s:FV10PerfectLib6CookiecFT4nameGSqSS_5valueGSqSS_6domainGSqSS_7expiresGSqOS0_10Expiration_4pathGSqSS_6secureGSqSb_8httpOnlyGSqSb__S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(name:value:domain:expires:path:secure:httpOnly:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV10PerfectLib6CookiecFT4nameGSqSS_5valueGSqSS_6domainGSqSS_7expiresGSqOS0_10Expiration_4pathGSqSS_6secureGSqSb_8httpOnlyGSqSb__S0_">init(name:value:domain:expires:path:secure:httpOnly:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -543,14 +541,20 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Cookie public initializer</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cookie</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+		<span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+		<span class="nv">domain</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+		<span class="nv">expires</span><span class="p">:</span> <span class="kt"><a href="../Structs/Cookie/Expiration.html">Expiration</a></span><span class="p">?,</span>
+		<span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+		<span class="nv">secure</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?,</span>
+		<span class="nv">httpOnly</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>

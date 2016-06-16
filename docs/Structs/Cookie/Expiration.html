@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Exception Enum Reference</title>
+    <title>Expiration Enum Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -11,16 +11,16 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/Exception" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/Expiration" class="dashAnchor"></a>
 
-    <a title="Exception Enum Reference"></a>
+    <a title="Expiration Enum Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../../index.html">
           PerfectLib Docs
         </a>
-         (81% documented)
+         (95% documented)
       </p>
     
         <p class="header-col header-col--secondary">
@@ -35,7 +35,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html">PerfectLib Reference</a>
       <img class="carat" src="../../img/carat.png" />
-      Exception Enum Reference
+      Expiration Enum Reference
     </p>
 
     <div class="content-wrapper">
@@ -55,15 +55,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/File/OpenMode.html">– OpenMode</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/HPACKDecoder.html">HPACKDecoder</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/HPACKDecoder/Exception.html">– Exception</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/HPACKEncoder.html">HPACKEncoder</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/HTTPServer.html">HTTPServer</a>
@@ -255,6 +246,9 @@
                 <a class="nav-group-task-link" href="../../Structs/Cookie.html">Cookie</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Cookie/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/Dir.html">Dir</a>
               </li>
               <li class="nav-group-task">
@@ -268,6 +262,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs.html#/s:V10PerfectLib3Log">Log</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/MimeType.html">MimeType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/NotificationResponse.html">NotificationResponse</a>
@@ -298,8 +295,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Exception</h1>
-            <p>Undocumented</p>
+            <h1>Expiration</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Expiration</span></code></pre>
+
+                </div>
+              </div>
+            <p>Cookie expiration type</p>
 
           </div>
         </section>
@@ -311,9 +314,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FOC10PerfectLib12HPACKDecoder9Exception22decompressionExceptionFMS1_S1_"></a>
-                    <a name="//apple_ref/swift/Element/decompressionException" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FOC10PerfectLib12HPACKDecoder9Exception22decompressionExceptionFMS1_S1_">decompressionException</a>
+                    <a name="/s:FOV10PerfectLib6Cookie10Expiration7sessionFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/session" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOV10PerfectLib6Cookie10Expiration7sessionFMS1_S1_">session</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -321,18 +324,30 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Session cookie with no explicit expiration</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">session</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FOC10PerfectLib12HPACKDecoder9Exception17illegalIndexValueFMS1_S1_"></a>
-                    <a name="//apple_ref/swift/Element/illegalIndexValue" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FOC10PerfectLib12HPACKDecoder9Exception17illegalIndexValueFMS1_S1_">illegalIndexValue</a>
+                    <a name="/s:FOV10PerfectLib6Cookie10Expiration15relativeSecondsFMS1_FSiS1_"></a>
+                    <a name="//apple_ref/swift/Element/relativeSeconds" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOV10PerfectLib6Cookie10Expiration15relativeSecondsFMS1_FSiS1_">relativeSeconds</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -340,18 +355,30 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Expiratiuon in a number of seconds from now</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="nf">relativeSeconds</span><span class="p">(</span><span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FOC10PerfectLib12HPACKDecoder9Exception26invalidMaxDynamicTableSizeFMS1_S1_"></a>
-                    <a name="//apple_ref/swift/Element/invalidMaxDynamicTableSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FOC10PerfectLib12HPACKDecoder9Exception26invalidMaxDynamicTableSizeFMS1_S1_">invalidMaxDynamicTableSize</a>
+                    <a name="/s:FOV10PerfectLib6Cookie10Expiration15absoluteSecondsFMS1_FSiS1_"></a>
+                    <a name="//apple_ref/swift/Element/absoluteSeconds" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOV10PerfectLib6Cookie10Expiration15absoluteSecondsFMS1_FSiS1_">absoluteSeconds</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -359,18 +386,30 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Expiration at an absolute time given in seconds from epoch</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="nf">absoluteSeconds</span><span class="p">(</span><span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FOC10PerfectLib12HPACKDecoder9Exception34maxDynamicTableSizeChangeRequestedFMS1_S1_"></a>
-                    <a name="//apple_ref/swift/Element/maxDynamicTableSizeChangeRequested" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FOC10PerfectLib12HPACKDecoder9Exception34maxDynamicTableSizeChangeRequestedFMS1_S1_">maxDynamicTableSizeChangeRequested</a>
+                    <a name="/s:FOV10PerfectLib6Cookie10Expiration12absoluteDateFMS1_FSSS1_"></a>
+                    <a name="//apple_ref/swift/Element/absoluteDate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOV10PerfectLib6Cookie10Expiration12absoluteDateFMS1_FSSS1_">absoluteDate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -378,8 +417,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Custom expiration date string</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="nf">absoluteDate</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

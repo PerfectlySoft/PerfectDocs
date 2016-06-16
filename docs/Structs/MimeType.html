@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>HPACKDecoder Class Reference</title>
+    <title>MimeType Struct Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -11,16 +11,16 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Class/HPACKDecoder" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/MimeType" class="dashAnchor"></a>
 
-    <a title="HPACKDecoder Class Reference"></a>
+    <a title="MimeType Struct Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
           PerfectLib Docs
         </a>
-         (81% documented)
+         (95% documented)
       </p>
     
         <p class="header-col header-col--secondary">
@@ -35,7 +35,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">PerfectLib Reference</a>
       <img class="carat" src="../img/carat.png" />
-      HPACKDecoder Class Reference
+      MimeType Struct Reference
     </p>
 
     <div class="content-wrapper">
@@ -55,15 +55,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/File/OpenMode.html">– OpenMode</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKDecoder.html">HPACKDecoder</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKDecoder/Exception.html">– Exception</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKEncoder.html">HPACKEncoder</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/HTTPServer.html">HTTPServer</a>
@@ -255,6 +246,9 @@
                 <a class="nav-group-task-link" href="../Structs/Cookie.html">Cookie</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Cookie/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Dir.html">Dir</a>
               </li>
               <li class="nav-group-task">
@@ -268,6 +262,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs.html#/s:V10PerfectLib3Log">Log</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MimeType.html">MimeType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/NotificationResponse.html">NotificationResponse</a>
@@ -298,15 +295,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>HPACKDecoder</h1>
+            <h1>MimeType</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">HPACKDecoder</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MimeType</span></code></pre>
 
                 </div>
               </div>
-            <p>Decodes headers which have been HPACK encoded.
-Decoding takes a HeaderListener object which receives each field/value as they are decoded.</p>
+            <p>Provides access to a table of mime types keyed by extension.</p>
 
           </div>
         </section>
@@ -318,9 +314,9 @@ Decoding takes a HeaderListener object which receives each field/value as they a
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:OC10PerfectLib12HPACKDecoder9Exception"></a>
-                    <a name="//apple_ref/swift/Enum/Exception" class="dashAnchor"></a>
-                    <a class="token" href="#/s:OC10PerfectLib12HPACKDecoder9Exception">Exception</a>
+                    <a name="/s:ZFV10PerfectLib8MimeType12forExtensionFSSSS"></a>
+                    <a name="//apple_ref/swift/Method/forExtension(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFV10PerfectLib8MimeType12forExtensionFSSSS">forExtension(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -328,69 +324,14 @@ Decoding takes a HeaderListener object which receives each field/value as they a
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
-                        <a href="../Classes/HPACKDecoder/Exception.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">HPACKDecoder</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FC10PerfectLib12HPACKDecodercFT13maxHeaderSizeSi18maxHeaderTableSizeSi_S0_"></a>
-                    <a name="//apple_ref/swift/Method/init(maxHeaderSize:maxHeaderTableSize:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC10PerfectLib12HPACKDecodercFT13maxHeaderSizeSi18maxHeaderTableSizeSi_S0_">init(maxHeaderSize:maxHeaderTableSize:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Construct an HPACKDecoder with the given memory constraints.</p>
+                        <p>Returns the mime type for the given extension. Defaults to application/octet-stream.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">maxHeaderSize</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="nv">maxHeaderTableSize</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">256</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FC10PerfectLib12HPACKDecoder6decodeFzT5inputCS_5Bytes14headerListenerPS_14HeaderListener__T_"></a>
-                    <a name="//apple_ref/swift/Method/decode(input:headerListener:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC10PerfectLib12HPACKDecoder6decodeFzT5inputCS_5Bytes14headerListenerPS_14HeaderListener__T_">decode(input:headerListener:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Decode the headers, sending them sequentially to headerListener.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">decode</span><span class="p">(</span><span class="n">input</span> <span class="nv">inpt</span><span class="p">:</span> <span class="kt"><a href="../Classes/Bytes.html">Bytes</a></span><span class="p">,</span> <span class="nv">headerListener</span><span class="p">:</span> <span class="kt"><a href="../Protocols/HeaderListener.html">HeaderListener</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">forExtension</span><span class="p">(</span><span class="n">_</span> <span class="nv">ext</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>

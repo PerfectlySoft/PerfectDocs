@@ -20,7 +20,7 @@
         <a class="header-link" href="../index.html">
           PerfectLib Docs
         </a>
-         (81% documented)
+         (95% documented)
       </p>
     
         <p class="header-col header-col--secondary">
@@ -55,15 +55,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/File/OpenMode.html">– OpenMode</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKDecoder.html">HPACKDecoder</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKDecoder/Exception.html">– Exception</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKEncoder.html">HPACKEncoder</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/HTTPServer.html">HTTPServer</a>
@@ -255,6 +246,9 @@
                 <a class="nav-group-task-link" href="../Structs/Cookie.html">Cookie</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Cookie/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Dir.html">Dir</a>
               </li>
               <li class="nav-group-task">
@@ -268,6 +262,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs.html#/s:V10PerfectLib3Log">Log</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MimeType.html">MimeType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/NotificationResponse.html">NotificationResponse</a>
@@ -357,14 +354,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Called by handlers to complete the current request.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">WebResponse</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">requestCompleted</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="o">=</span> <span class="p">{}</span></code></pre>
 
                         </div>
                       </div>
@@ -438,7 +435,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Adds the cookie object to the response</p>
+                        <p>Adds the cookie object to the response.</p>
 
                       </div>
                       <div class="declaration">
@@ -465,7 +462,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Appends the given bytes to the outgoing content body</p>
+                        <p>Appends the given bytes to the outgoing content body.</p>
 
                       </div>
                       <div class="declaration">
@@ -492,8 +489,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Appends the given string to the outgoing content body
-String is converted to UTF8 bytes</p>
+                        <p>Appends the given string to the outgoing content body.
+String is converted to UTF8 bytes.</p>
 
                       </div>
                       <div class="declaration">
@@ -579,7 +576,7 @@ The parameter to the handler will be true if the data was successfully pushed. I
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Perform a 302 redirect to the given url</p>
+                        <p>Perform a 302 redirect to the given url.</p>
 
                       </div>
                       <div class="declaration">
@@ -606,7 +603,7 @@ The parameter to the handler will be true if the data was successfully pushed. I
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Add an outgoing HTTP header</p>
+                        <p>Add an outgoing HTTP header.</p>
 
                       </div>
                       <div class="declaration">
@@ -633,7 +630,7 @@ The parameter to the handler will be true if the data was successfully pushed. I
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Set a HTTP header, replacing all existing instances of said header</p>
+                        <p>Set a HTTP header, replacing all existing instances of said header.</p>
 
                       </div>
                       <div class="declaration">

@@ -19,7 +19,7 @@
         <a class="header-link" href="index.html">
           PerfectLib Docs
         </a>
-         (81% documented)
+         (95% documented)
       </p>
     
         <p class="header-col header-col--secondary">
@@ -54,15 +54,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/File/OpenMode.html">– OpenMode</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/HPACKDecoder.html">HPACKDecoder</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/HPACKDecoder/Exception.html">– Exception</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/HPACKEncoder.html">HPACKEncoder</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/HTTPServer.html">HTTPServer</a>
@@ -254,6 +245,9 @@
                 <a class="nav-group-task-link" href="Structs/Cookie.html">Cookie</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Cookie/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Dir.html">Dir</a>
               </li>
               <li class="nav-group-task">
@@ -267,6 +261,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs.html#/s:V10PerfectLib3Log">Log</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/MimeType.html">MimeType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/NotificationResponse.html">NotificationResponse</a>
@@ -305,13 +302,20 @@
 <p><a href="https://developer.apple.com/swift/"><img src="https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat" alt="Swift 3.0"></a>
 <a href="https://developer.apple.com/swift/"><img src="https://img.shields.io/badge/Platforms-OS%20X%20%7C%20Linux%20-lightgray.svg?style=flat" alt="Platforms OS X | Linux"></a>
 <a href="http://perfect.org/licensing.html"><img src="https://img.shields.io/badge/License-Apache-lightgrey.svg?style=flat" alt="License Apache"></a>
-<a href="http://www.perfect.org/docs/"><img src="https://img.shields.io/badge/docs-83%-yellow.svg?style=flat" alt="Docs"></a>
+<a href="http://www.perfect.org/docs/"><img src="https://img.shields.io/badge/docs-83%25-yellow.svg?style=flat" alt="Docs"></a>
 <a href="https://github.com/PerfectlySoft/Perfect/issues"><img src="https://img.shields.io/github/release/qubyte/rubidium.svg" alt="Issues"></a>
 <a href="https://paypal.me/perfectlysoft"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat" alt="Donate"></a>
 <a href="http://twitter.com/PerfectlySoft"><img src="https://img.shields.io/badge/Twitter-@PerfectlySoft-brightgreen.svg?style=flat" alt="Twitter"></a>
 <a href="https://gitter.im/PerfectlySoft/Perfect?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://img.shields.io/badge/Gitter-Join%20Chat-brightgreen.svg" alt="Join the chat at https://gitter.im/PerfectlySoft/Perfect"></a></p>
 
-<p><strong>The master branch of this project currently compiles with the 3.0 <em>DEVELOPMENT-SNAPSHOT-2016-06-06-a</em> toolchain using Swift Package Manager.</strong></p>
+<p><strong>The master branch of this project currently compiles with <em>Swift 3.0 Preview 1</em> released June 13, 2016 using Swift Package Manager.</strong></p>
+
+<p><strong>Important:</strong> On OS X you must set the Xcode command line tools preference as follows:
+<img src="assets/xcode_prefs.png" alt="Xcode Prefs"> </p>
+
+<p>If you do not do this you will experience compile time errors when using SPM on the command line.</p>
+
+<p>&ndash;</p>
 
 <p>Perfect is an application server for Linux or OS X which provides a framework for developing web and other REST services in the Swift programming language. Its primary focus is on facilitating mobile apps which require backend server software, enabling you to use one language for both front and back ends.</p>
 
@@ -326,7 +330,7 @@
 </code></pre>
 
 <p>should produce something like the following:</p>
-<pre class="highlight plaintext"><code>Apple Swift version 3.0-dev (LLVM 3863c393d9, Clang d03752fe45, Swift e996f0c248)
+<pre class="highlight plaintext"><code>Apple Swift version 3.0 (swiftlang-800.0.30 clang-800.0.24)
 Target: x86_64-apple-macosx10.9
 </code></pre>
 <a href='#os-x' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='os-x'>OS X</h3>
@@ -367,6 +371,60 @@ swift build
 </code></pre>
 
 <p>Open the generated file <q>PerfectTemplate.xcodeproj</q>. Ensure that you have selected the executable target and selected it to run on <q>My Mac</q>. You can now run and debug the server.</p>
+<a href='#next-steps' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='next-steps'>Next Steps</h2>
+
+<p>These example snippets show how to accomplish several common tasks that one might need to do when developing a Web/REST application. In all cases, the <code>request</code> and <code>response</code> variables refer, respectively, to the <code>WebRequest</code> and <code>WebResponse</code> objects which are given to your URL handlers.</p>
+
+<p>Consult the <a href="http://www.perfect.org/docs/">API reference</a> for more details.</p>
+<a href='#get-a-client-request-header' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='get-a-client-request-header'>Get a client request header</h3>
+<pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">acceptEncoding</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="nf">header</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"Accept-Encoding"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+<span class="c1">// Many common HTTP request headers have their own accessors</span>
+<span class="k">if</span> <span class="k">let</span> <span class="nv">acceptEncoding2</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">httpAcceptEncoding</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre>
+<a href='#get-client-get-or-post-parameters' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='get-client-get-or-post-parameters'>Get client GET or POST parameters</h3>
+<pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">foo</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>   
+<span class="k">if</span> <span class="k">let</span> <span class="nv">foo</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="nf">param</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">,</span> <span class="n">defaultValue</span><span class="p">:</span> <span class="s">"default foo"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+<span class="k">let</span> <span class="nv">foos</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="nf">params</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"foo"</span><span class="p">)</span>
+</code></pre>
+<a href='#get-the-current-request-uri' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='get-the-current-request-uri'>Get the current request URI</h3>
+<pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">uri</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">requestURI</span> <span class="p">{</span>
+    <span class="o">...</span>        
+<span class="p">}</span>
+</code></pre>
+<a href='#access-the-server-39-s-document-directory-and-return-an-image-file-to-the-client' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='access-the-server-39-s-document-directory-and-return-an-image-file-to-the-client'>Access the server&rsquo;s document directory and return an image file to the client</h3>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">docRoot</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">documentRoot</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">mrPebbles</span> <span class="o">=</span> <span class="kt">File</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">docRoot</span><span class="se">)</span><span class="s">/mr_pebbles.jpg"</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">imageSize</span> <span class="o">=</span> <span class="n">mrPebbles</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">let</span> <span class="nv">imageBytes</span> <span class="o">=</span> <span class="k">try</span> <span class="n">mrPebbles</span><span class="o">.</span><span class="nf">readSomeBytes</span><span class="p">(</span><span class="nv">count</span><span class="p">:</span> <span class="n">imageSize</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="nf">replaceHeader</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Content-Type"</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">MimeType</span><span class="o">.</span><span class="nf">forExtension</span><span class="p">(</span><span class="s">"jpg"</span><span class="p">))</span>
+    <span class="n">response</span><span class="o">.</span><span class="nf">replaceHeader</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Content-Length"</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="s">"</span><span class="se">\(</span><span class="n">imageBytes</span><span class="o">.</span><span class="n">count</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="nf">appendBody</span><span class="p">(</span><span class="nv">bytes</span><span class="p">:</span> <span class="n">imageBytes</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="nf">setStatus</span><span class="p">(</span><span class="nv">code</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Internal Server Error"</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="nf">appendBody</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"Error handling request: </span><span class="se">\(</span><span class="n">error</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">response</span><span class="o">.</span><span class="nf">requestCompleted</span><span class="p">()</span>
+</code></pre>
+<a href='#get-client-cookies' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='get-client-cookies'>Get client cookies</h3>
+<pre class="highlight swift"><code><span class="k">for</span> <span class="p">(</span><span class="n">cookieName</span><span class="p">,</span> <span class="n">cookieValue</span><span class="p">)</span> <span class="k">in</span> <span class="n">request</span><span class="o">.</span><span class="n">cookies</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre>
+<a href='#set-client-cookie' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='set-client-cookie'>Set client cookie</h3>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">cookie</span> <span class="o">=</span> <span class="kt">Cookie</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"cookie-name"</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="s">"the value"</span><span class="p">,</span> <span class="nv">domain</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+                    <span class="nv">expires</span><span class="p">:</span> <span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"/"</span><span class="p">,</span>
+                    <span class="nv">secure</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">httpOnly</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="nf">addCookie</span><span class="p">(</span><span class="nv">cookie</span><span class="p">:</span> <span class="n">cookie</span><span class="p">)</span>
+</code></pre>
 <a href='#repository-layout' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='repository-layout'>Repository Layout</h2>
 
 <p>We have finished refactoring Perfect to support Swift Package Manager. The Perfect project has been split up into the following repositories:</p>

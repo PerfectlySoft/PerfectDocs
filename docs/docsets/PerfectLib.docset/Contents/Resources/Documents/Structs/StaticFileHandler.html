@@ -20,7 +20,7 @@
         <a class="header-link" href="../index.html">
           PerfectLib Docs
         </a>
-         (81% documented)
+         (95% documented)
       </p>
     
         <p class="header-col header-col--secondary">
@@ -55,15 +55,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/File/OpenMode.html">– OpenMode</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKDecoder.html">HPACKDecoder</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKDecoder/Exception.html">– Exception</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/HPACKEncoder.html">HPACKEncoder</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/HTTPServer.html">HTTPServer</a>
@@ -255,6 +246,9 @@
                 <a class="nav-group-task-link" href="../Structs/Cookie.html">Cookie</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Cookie/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Dir.html">Dir</a>
               </li>
               <li class="nav-group-task">
@@ -268,6 +262,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs.html#/s:V10PerfectLib3Log">Log</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MimeType.html">MimeType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/NotificationResponse.html">NotificationResponse</a>
@@ -299,7 +296,14 @@
         <section class="section">
           <div class="section-content">
             <h1>StaticFileHandler</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StaticFileHandler</span></code></pre>
+
+                </div>
+              </div>
+            <p>A web request handler which can be used to return static disk-based files to the client.
+Supports byte ranges, ETags and streaming very large files.</p>
 
           </div>
         </section>
@@ -321,8 +325,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Public initializer</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -340,8 +352,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Main entry point. A registered URL handler should call this and pass the request and response objects.
+After calling this, the StaticFileHandler owns the request and will handle it until completion.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">handleRequest</span><span class="p">(</span><span class="n">request</span> <span class="nv">req</span><span class="p">:</span> <span class="kt"><a href="../Classes/WebRequest.html">WebRequest</a></span><span class="p">,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt"><a href="../Classes/WebResponse.html">WebResponse</a></span><span class="p">)</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
