@@ -1,7 +1,23 @@
 {
 	"contents": [
-		"Getting Started" : {
-			"doc":  "gettingStarted.md"
+		{
+			"name": "Getting Started",
+			"doc":  "gettingStarted"
+		},
+		{
+			"name": "Deployment",
+			"doc":  "deployment",
+			"contents": [
+				{
+					"name": "Docker",
+					"doc":  "docker"
+				},
+				{
+					"name": "Heroku",
+					"doc":  "heroku"
+				}
+
+			]
 		}
 	]
 }
