@@ -58,7 +58,7 @@ The returned value is the status of the renaming action.
 
 ### Drop collection
 
-```.drop``` removes a collection from the database. The method also removes any indexes associated with the dropped collection.
+`.drop` removes a collection from the database. The method also removes any indexes associated with the dropped collection.
 
 ``` swift
 collection.drop()
@@ -124,13 +124,14 @@ Updates an existing document or inserts a new document, depending on its documen
 ``` swift
 collection.save(document: <BSON>)
 ```
+
 #### Parameters
 * **document:** BSON document to save
 
 The returned value is the status of the save action.
 
-* If the document does not contain an ```_id``` field, a new document will be created.
-* If an ```_id``` is specified, ```save``` will perform an "upsert": If a matching ```_id``` is found in the collection an update will occur, otherwise an insert will be performed
+* If the document does not contain an `_id` field, a new document will be created.
+* If an `_id` is specified, `save` will perform an "upsert": If a matching `_id` is found in the collection an update will occur, otherwise an insert will be performed
 
 ``` swift
 let bson = BSON()
