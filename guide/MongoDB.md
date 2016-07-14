@@ -8,8 +8,9 @@ be stand-alone and so does not require PerfectLib or any other components.
 
 Ensure you have installed and activated the latest Swift 3.0 tool chain.
 
-OS X Build Notes
-----------------
+## Platform specific preparation
+
+### OS X
 
 This package requires the [Home Brew](http://brew.sh) build of mongo-c.
 
@@ -25,19 +26,23 @@ To install mongo-c:
 brew install mongo-c
 ```
 
-Linux Build Notes
------------------
+### Linux
 
 Ensure that you have installed libmongoc.
 
-Building
---------
+```
+sudo apt-get install libmongoc
+```
+
+## Including the MongoDB Driver in your project
 
 Add this project as a dependency in your Package.swift file.
 
 ```
 .Package(url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git", versions: Version(0,0,0)..<Version(10,0,0))
 ```
+
+For more information about using Perfect libraries with your project please see the chapter on "Building with Swift Package Manager".
 
 Quick Start
 -----------

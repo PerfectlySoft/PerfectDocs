@@ -23,7 +23,7 @@ You will also need to adjust your Package.swift file. You should only need to ch
 https://github.com/PerfectlySoft/Perfect-HTTPServer.git
 ```
 
---
+----------------
 
 **The master branch of this project currently compiles with the default Swift 3.0 toolchain included in Xcode 8 beta 2. On Ubuntu use the *Swift 3.0 Preview 2* toolchain, released July 7th.**
 
@@ -39,7 +39,7 @@ swift build --clean=dist;
 swift build
 ```
 
---
+----------------
 
 Perfect is an application server for Linux or OS X which provides a framework for developing web and other REST services in the Swift programming language. Its primary focus is on facilitating mobile apps which require backend server software, enabling you to use one language for both front and back ends.
 
