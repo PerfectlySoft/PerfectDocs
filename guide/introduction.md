@@ -34,7 +34,10 @@ If you do not do this you will experience compile time errors when using SPM on 
 
 If you are still having build problems with any of the code in our repositories, try doing a clean build with Swift Package Manager by typing:
 
-```swift build --clean=dist ; swift build```
+```
+swift build --clean=dist;
+swift build
+```
 
 --
 
