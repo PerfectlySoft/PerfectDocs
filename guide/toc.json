@@ -125,6 +125,10 @@
 						{
 							"name": "MongoDB Collections",
 							"doc":  "MongoDB-Collections"
+						},
+						{
+							"name": "Working with BSON",
+							"doc":  "MongoDB-BSON"
 						}
 		
 					]
