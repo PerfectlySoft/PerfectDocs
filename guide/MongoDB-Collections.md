@@ -173,7 +173,7 @@ A cursor to the documents that match the query criteria. When the find() method 
 
 ### Find and Modify
 
-...
+Modifies and returns a single document. By default, the returned document does not include the modifications made on the update. To return the document with the modifications made on the update, use the **new** option.
 
 ``` swift
 collection.findAndModify(
@@ -197,12 +197,100 @@ collection.findAndModify(
 
 ### Count
 
+Returns the count of documents that would match a `find()` query. The `count() `method does not perform the `find()` operation but instead counts and returns the number of results that match a query.
+
+``` swift
+collection.count(
+	query: <BSON>, 
+	fields: <BSON>, 
+	flags: <MongoQueryFlag>, 
+	skip: <Int>, 
+	limit: <Int>, 
+	batchSize: <Int>
+	)
+```
+
+#### Parameters
+* **query:** The query selection criteria.
+* **fields:** Optional. Specifies the fields to return in the documents that match the query filter. To return all fields in the matching documents, omit this parameter.
+* **flags:** Optional. set queryFlags for the current search
+* **skip:** Optional. Skip the supplied number of records.
+* **limit:** Optional. return no more than the supplied number of records.
+* **batchSize:** Optional. Change number of automatically iterated documents.
+
+#### Return Value
+The count of documents that would match a `find()` query. The `count()` method does not perform the `find()` operation but instead counts and returns the number of results that match a query.
+
+
+
 ### Deleting
+Remove the document found using selector returning a result status
+
+``` swift 
+collection.remove(
+	selector: <BSON>, 
+	flag: <MongoRemoveFlag>
+	)
+```
+
+#### Parameters
+* **selector:** BSON document with selection criteria
+* **flag:** *Optional* MongoRemoveFlag defaults to .None
+
 
 ### Creating an Index
+Creates indexes on collections.
+
+``` swift 
+collection.createIndex(
+	keys: <BSON>, 
+	options: <MongoIndexOptions>
+	)
+```
+
+#### Parameters
+* **keys:** A document that conains the field and value pairs where the field is the index key and the value describes the type of index for that field. For an ascending index on a field, specify a value of 1; for descending index, specify a value of -1.
+* **options:** *Optional*. A document that contains a set of options that controls the creation of the index. see MongoIndexOptions for details.
 
 ### Dropping an Index
+Drops or removes the specified index from a collection.
+
+``` swift
+collection.dropIndex(name: <String>)
+```
 
 ### Stats
+Returns statistics about the collection formatted according to the options document.
+
+``` swift
+collection.stats(options: <BSON>)
+```
+
+The options document can contain the following fields and values:
+
+* **scale:** *number, Optional*. The scale used in the output to display the sizes of items. By default, output displays sizes in bytes. To display kilobytes rather than bytes, specify a scale value of 1024.
+
+* **indexDetails:** *boolean, Optional*. If true, stats() returns index details in addition to the collection stats. Only works for WiredTiger storage engine. Defaults to false.
+
+* **indexDetailsKey:** *document, Optional*. If indexDetails is true, you can use indexDetailsKey to filter index details by specifying the index key specification. Only the index that exactly matches indexDetailsKey will be returned. If no match is found, indexDetails will display statistics for all indexes.
+
+* **indexDetailsName:** *string, Optional*. If indexDetails is true, you can use indexDetailsName to filter index details by specifying the index name. Only the index name that exactly matches indexDetailsName will be returned. If no match is found, indexDetails will display statistics for all indexes.
+
+### Validate
+
+Validates a collection. The method scans a collection's data structures for correctness and returns a single document that describes the relationship between the logical collection and the physical representation of the data.
+
+``` swift
+collection.validate(full: <bool>)
+```
+
+The full parameter is optional. Specify true to enable a full validation and to return full statistics. MongoDB disables full validation by default because it is a potentially resource-intensive operation
+
 
 ### GetLastError
+
+`getLastError()` returns a BSON document with description of last transaction status.
+
+``` swift
+collection.getLastError()
+```
