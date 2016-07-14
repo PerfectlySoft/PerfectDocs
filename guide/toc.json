@@ -123,8 +123,16 @@
 					"doc":  "MongoDB",
 					"contents": [
 						{
+							"name": "MongoDB Databases",
+							"doc":  "MongoDB-Database"
+						},
+						{
 							"name": "MongoDB Collections",
 							"doc":  "MongoDB-Collections"
+						},
+						{
+							"name": "MongoDB Client",
+							"doc":  "MongoDB-Client"
 						},
 						{
 							"name": "Working with BSON",
