@@ -34,7 +34,7 @@ The database is accessed via it’s local file path, so the fist step is to stor
 
 Once you’ve got that, you can open a connection to the database: 
 
-```let dbPath = "./db/database"
+`let dbPath = "./db/database"
 
 do {
 	let sqlite = try SQLite(dbPath)
@@ -43,4 +43,4 @@ do {
 	}
 } catch {
 	//Handle Errors
-}```
+}`
