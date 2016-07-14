@@ -120,7 +120,14 @@
 				},
 				{
 					"name": "MongoDB",
-					"doc":  "MongoDB"
+					"doc":  "MongoDB",
+					"contents": [
+						{
+							"name": "MongoDB Collections",
+							"doc":  "MongoDB-Collections"
+						}
+		
+					]
 				},
 				{
 					"name": "Redis",
