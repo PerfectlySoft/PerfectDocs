@@ -1,3 +1,3 @@
 # MySQL
-...
 
+Assigned to @rymcol
