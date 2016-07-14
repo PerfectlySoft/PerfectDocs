@@ -32,9 +32,10 @@ The database is accessed via it’s local file path, so the fist step is to stor
 
 `let dbPath = "./db/database"`
 
-Once you’ve got that, you can open a connection to the database: 
+Once you’ve got that, you can open a connection to the database using a do-try-catch to make sure that errors are handled: 
 
-`let dbPath = "./db/database"
+```
+let dbPath = "./db/database"
 
 do {
 	let sqlite = try SQLite(dbPath)
@@ -43,4 +44,9 @@ do {
 	}
 } catch {
 	//Handle Errors
-}`
+}
+```
+
+### Run Queries
+
+
