@@ -56,7 +56,7 @@ cd PerfectTemplate
 
 Add to the Package.swift file the dependency:
 
-```
+``` swift
 let package = Package(
  name: "PerfectTemplate",
  targets: [],
