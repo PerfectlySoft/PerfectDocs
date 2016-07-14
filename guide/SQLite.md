@@ -2,7 +2,7 @@
 
 The SQLite connector provides a wrapper around SQLite3, allowing interaction between your Perfect Applications &amp; SQLite databases. 
 
-## System Requirements
+## 🖥 System Requirements
 
 ### macOS
 
@@ -12,13 +12,11 @@ No additional configuration should be required, as SQlite3 is already built in.
 Make sure that you are running SQLite3:
 `sudo apt-get install sqlite3`
 
-## Setup
+## 🛠 Setup
 
 Add the "Perfect-SQLite" project as a dependency in your Package.swift file:
 
 `.Package(url: "https://github.com/PerfectlySoft/Perfect-SQLite.git", versions: Version(0,0,0)..<Version(10,0,0))`
-
-## Setup
 
 ### Import
 
@@ -26,7 +24,7 @@ Fist and foremost, in any of the source files you intend to use with SQLite, imp
 
 `import SQLite`
 
-## Access the Database
+## 🗄 Access the Database
 
 The database is accessed via it’s local file path, so the fist step is to store the file path to your sqlite data. 
 
@@ -47,11 +45,11 @@ do {
 }
 ```
 
-## Create Some Tables
+## 📝 Create Some Tables
 
 
 
-## Run Queries
+## 📖 Run Queries
 
 
 
@@ -59,5 +57,5 @@ do {
 
 Variables in queries do not work as interpolated strings. In order to use variables, you need to use the binding system, described in the next section. 
 
-## Binding Variables to Queries
+## 🎉 Binding Variables to Queries
 
