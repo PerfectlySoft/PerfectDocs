@@ -140,9 +140,3 @@ do {
 ```
 
 If that looks a little tricky, that’s okay. Our "doBindings:" argument takes a closure to handle adding variables to the positions you’ve defined, and our last argument (technically "handleRow:") is omitted and passed the closure it takes afterwards, as it’s the standard Swifty way. After a few practice runs, it gets much easier to read. 
-
-## Example Code!
-
-
-
-## Delving Deeper into the API
