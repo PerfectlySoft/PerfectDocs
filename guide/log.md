@@ -14,7 +14,12 @@ The built-in log levels, in order of increasing severity:
 ### To log information to the console:
 
 ``` swift
-Log.warning(message: "Hello, World!")
+Log.debug(message: "Line 123: value \(myVar)")
+Log.info(message: "At Line 123")
+Log.warning(message: "Entered error handler")
+Log.error(message: "Error condition: \(errorMessage)")
+Log.critical(message: "Exception Caught: \(exceptionVar)")
+Log.terminal(message: "Uncaught exception, terminating. \(infoVar)")
 ```
 
 ### To log information to the System Log:
