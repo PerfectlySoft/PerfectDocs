@@ -70,6 +70,8 @@ do {
 
 ### Run Queries
 
+* A quick note about string interpolation: Variables in queries do not work as interpolated strings. In order to use variables, you need to use the binding system, described in the next section. *
+
 Once you have a database &amp; tables, the next step is to query and return data. In this example, we will store our statement in a string, and pass it into the the *forEachRow* method, which will iterate though each returned row, where you can (most often) append to a dictionary. 
 
 ```
@@ -97,10 +99,6 @@ do {
 	//Handle Errors
 }
 ```
-
-### A quick note about string interpolation
-
-Variables in queries do not work as interpolated strings. In order to use variables, you need to use the binding system, described next:
 
 ### Binding Variables to Queries
 
