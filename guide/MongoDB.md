@@ -56,7 +56,7 @@ cd PerfectTemplate
 
 Add to the Package.swift file the dependency:
 
-```
+``` swift
 let package = Package(
  name: "PerfectTemplate",
  targets: [],
@@ -81,95 +81,58 @@ The project will now build in Xcode and start a server on localhost port 8181.
 >   Package Manager must be invoked to generate a new Xcode project file. Be
 >   aware that any customizations that have been made to this file will be lost.
 
-Creating a MongoDB connection and query a collection
-----------------------------------------------------
+### Importing MongoDB for use in your project
 
-In Xcode, open Sources/PerfectTemplate/main.swift, and update the code to the
-following:
+At the head of your Swift file, import the MongoDB package:
 
-```
-import PerfectLib
-
-// Initialize base-level services
-PerfectServer.initializeServices()
-
-// Add routes
-addURLRoutes()
-
-do {
-    // Launch the HTTP server on port 8181
-    try HTTPServer(documentRoot: "./webroot").start(port: 8181)
-} catch PerfectError.networkError(let err, let msg) {
-    print("Network error thrown: \(err) \(msg)")
-}
-```
-
-Create a new file at the same level as `main.swift`, called
-`routingHandlers.swift`
-
-Next
-
--   add the import directives for PerfectLib and MongoDB connector;
-
--   add some testing routes;
-
--   register the routes with Perfect.
-
-```
-import PerfectLib
+``` swift
 import MongoDB
+```
 
-func addURLRoutes() {
-    Routing.Routes["/test" ] = testHandler
-    Routing.Routes["/mongo" ] = mongoHandler
+### Creating a MongoDB connection
+
+When you are opening a new connection to a MongoDB server, firstly obtain the connection URL. This will be the fully qualified domain name or IP address of the MongoDB server, with an optional port. 
+
+Once you know the connection URL, open a connection as follows:
+
+``` swift
+let client = try! MongoClient(uri: "mongodb://localhost")
+```
+
+Where "localhost" is replaced by the actual server address.
+
+### Defining a database
+
+Once the connection has been opened, a database can be assigned:
+
+``` swift
+let db = client.getDatabase(name: "test")
+```
+
+### Defining a collection to work with
+
+In order to work with a MongoDB Collection, it first be defined:
+
+``` swift
+let collection = db.getCollection(name: "testcollection")
+```
+
+### Closing open connections
+
+Once a connection and associated connections are defined, it is wise to set them up to be closed using a ```defer``` statement.
+
+``` swift
+defer {
+    collection.close()
+    db.close()
+    client.close()
 }
-
-// Register any handlers or perform any one-time tasks.
-public func PerfectServerModuleInit() {
-    addURLRoutes()
-}
 ```
+### Performing a Find
 
-Note that the two routes are handed off to functions.
+Using the ```find``` method to find all documents in the collection:
 
-The function handling the “/test” url simply return some “Hello, World!” JSON.
-
-```
-func testHandler(request: WebRequest, _ response: WebResponse) {
-    let returning = "{Hello, World!}"
-    response.appendBody(string: returning)
-    response.requestCompleted()
-}
-```
-
-More information is available in the “URL Routing” example
-(<https://github.com/PerfectlySoft/PerfectExample-URLRouting>)
-
-A sample MongoDB handler function would be as follows:
-
-```
-func mongoHandler(request: WebRequest, _ response: WebResponse) {
-
-    // open a connection
-    let client = try! MongoClient(uri: "mongodb://localhost")
-
-    // set database, assuming "test" exists
-    let db = client.getDatabase(name: "test")
-
-    // define collection
-    guard let collection = db.getCollection(name: "testcollection") else {
-        return
-    }
-
-    // Here we clean up our connection, 
-    // by backing out in reverse order created
-    defer {
-        collection.close()
-        db.close()
-        client.close()
-    }
-
-    // Perform a "find" on the perviously defined collection
+``` swift
     let fnd = collection.find(query: BSON())
 
     // Initialize empty array to receive formatted results
@@ -180,11 +143,6 @@ func mongoHandler(request: WebRequest, _ response: WebResponse) {
         arr.append(x.asString)
     }
 
-    // return a formatted JSON array.
-    let returning = "{\"data\":[\(arr.joined(separator: ","))]}"
-
-    // Return the JSON string
-    response.appendBody(string: returning)
-    response.requestCompleted()
-}
 ```
+
+For more detailed documentation on the MongoCollection class, please see the MongoCollection documentation.
