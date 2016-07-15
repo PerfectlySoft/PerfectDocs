@@ -24,7 +24,9 @@ Fist and foremost, in any of the source files you intend to use with SQLite, imp
 
 `import SQLite`
 
-## Access the Database
+## Quick Start
+
+### Access the Database
 
 The database is accessed via it’s local file path, so the fist step is to store the file path to your sqlite data. 
 
@@ -45,18 +47,102 @@ do {
 }
 ```
 
-## Create Some Tables
+### Create Tables
+
+Expanding on our connection above, we’re able to run queries to create database tables by trying the *execute* method on our connection like so:
+
+```
+let dbPath = "./db/database"
+
+do {
+	let sqlite = try SQLite(dbPath)
+	defer {
+		sqlite.close() // This makes sure we close our connection.
+	}
+	
+	try sqlite.execute(statement: "CREATE TABLE IF NOT EXISTS demo (id INTEGER PRIMARY KEY NOT NULL, option TEXT NOT NULL, value TEXT)")
+	
+} catch {
+	//Handle Errors
+}
+```
 
 
+### Run Queries
 
+Once you have a database &amp; tables, the next step is to query and return data. In this example, we will store our statement in a string, and pass it into the the *forEachRow* method, which will iterate though each returned row, where you can (most often) append to a dictionary. 
 
-## Run Queries
+```
+let dbPath = "./db/database"
+Var contentDict = [String: Any]()
 
+do {
+	let sqlite = try SQLite(dbPath)
+		defer {
+			sqlite.close() // This makes sure we close our connection.
+		}
+	
+	let demoStatement = "SELECT * FROM demo"
+	
+	try sqlite.forEachRow(statement: demoStatement) {(statement: SQLiteStmt, i:Int) -> () in
 
+        self.contentDict.append([
+                "id": statement.columnText(position: 0),
+                "second_field": statement.columnText(position: 1),
+                "third_field": statement.columnText(position: 2)
+            ])
+  }
+	
+} catch {
+	//Handle Errors
+}
+```
 
 ### A quick note about string interpolation
 
-Variables in queries do not work as interpolated strings. In order to use variables, you need to use the binding system, described in the next section. 
+Variables in queries do not work as interpolated strings. In order to use variables, you need to use the binding system, described next:
 
-## Binding Variables to Queries
+### Binding Variables to Queries
 
+One thing you’ll definitely want to do is add variables to your queries. As noted above, you cannot do this with string interpolation, instead you can use the binding system like so: 
+
+```
+let dbPath = "./db/database"
+Var contentDict = [String: Any]()
+
+do {
+	let sqlite = try SQLite(dbPath)
+		defer {
+			sqlite.close() // This makes sure we close our connection.
+		}
+	
+	let demoStatement = "SELECT post_title, post_content FROM posts ORDER BY id DESC LIMIT :1"
+	
+	try sqlite.forEachRow(statement: demoStatement, doBindings {
+		
+		(statement: SQLiteStmt) -> () in
+		
+		let bindValue = 5
+		try statement.bind(position: 1, bindValue)
+		
+	}) {(statement: SQLiteStmt, i:Int) -> () in
+
+        self.contentDict.append([
+                "id": statement.columnText(position: 0),
+                "second_field": statement.columnText(position: 1),
+                "third_field": statement.columnText(position: 2)
+            ])
+  }
+	
+} catch {
+	//Handle Errors
+}
+```
+
+If that looks a little tricky, that’s okay. Our "doBindings:" argument takes a closure to handle adding variables to the positions you’ve defined, and our last argument (technically "handleRow:") is omitted and passed the closure it takes afterwards, as it’s the standard Swifty way. After a few practice runs, it gets much easier to read. 
+
+## Example Code!
+
+
+
+## Delving Deeper into the API
