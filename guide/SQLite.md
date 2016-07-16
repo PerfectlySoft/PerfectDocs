@@ -138,3 +138,114 @@ do {
 ```
 
 If that looks a little tricky, that’s okay. Our "doBindings:" argument takes a closure to handle adding variables to the positions you’ve defined, and our last argument (technically "handleRow:") is omitted and passed the closure it takes afterwards, as it’s the standard Swifty way. After a few practice runs, it gets much easier to read. 
+
+## Full API Reference
+
+The full API Consists of: 
+
+```
+init(_:readOnly:)
+close()
+prepare(_:)
+lastInsertRowID()
+totalChanges()
+changes()
+errCode()
+errMsg()
+execute(_:)
+execute(_:doBindings:)
+execute(_:count:doBindings:)
+doWithTransaction(_:)
+forEachRow(_:handleRow:)
+forEachRow(_:doBindings:handleRow:)
+```
+
+### init
+
+`public init(_ path: String, readOnly: Bool = false) throws` 
+
+Is the basic initializer for creating a new instance of the class. It’s utilized by passing a file path to an SQLite database and has a secondary parameter used to put the database in read only mode, as necessary. Since readOnly: defaults to false, it’s not necessary to include it if you want to both read and write to the file. This function also throws, which means that you must utilize it within do-try-catch. 
+
+### close
+
+`public func close()` 
+
+This does exactly what you think it does: it closes the database connection. It’s default usage is a defer method inside the do-try-catch that you initialize the database with. This way you are guaranteed to close the connection to the database whether or not your try succeeds or terminates in an error. 
+
+### prepare
+
+`public func prepare(stat: String) throws -> SQLiteStmt`
+
+This function returns a compiled SQLite Statement object that represents the compiled statement. This function is a dependency of other class functions (like execute and forEachRow) which take strings as arguments, pass them to this function, and utilized the returned object to communicate with the database. There is a very low chance you will ever need to use this function directly, but it is available if you come up with a use case. 
+
+### lastInsertRowID
+
+`public func lastInsertRowID() -> Int`
+
+This function returns the value of the last row that was inserted into the database. It must be used within your do-try-catch BEFORE the connection to the database is severed, otherwise it will always return 0. A return value of 0 either means that there is no open connection OR that there are no rows. If it is called while another insert is being performed on the same table by a different thread, the result can be slightly unpredictable, so be careful with this. You can visit the [SQLite3 Documentation](https://www.sqlite.org/c3ref/last_insert_rowid.html) for further information about how this function works. 
+
+### totalChanges
+
+`public func totalChanges() -> Int`
+
+Returns the value of sqlite3_total_changes. From SQLite3’s Documentation found [here](https://www.sqlite.org/c3ref/total_changes.html):
+
+*"This function returns the total number of rows inserted, modified or deleted by all INSERT, UPDATE or DELETE statements completed since the database connection was opened, including those executed as part of trigger programs. Executing any other type of SQL statement does not affect the value returned by sqlite3_total_changes()."*
+
+Again, once the connection closes, you are not going to get much value from this, so make sure you include that in the do-try-catch where the related statements are executing. 
+
+### changes
+
+`public func changes() -> Int`
+
+Not to sound like a repeater, but this does return the value of sqlite3_changes. The major difference between this and totalChanges is that the resulting number of changes will not include anything that the statement triggers, only those rows affected directly by the statement itself. 
+
+### errCode
+
+`public func errCode() -> Int`
+
+Returns the value of sqlite3_errcode. You can learn more about what those mean [here](https://www.sqlite.org/rescode.html)
+
+### errMsg
+
+`public func errMsg() -> String`
+
+It returns the value of sqlite3_errmsg. Learn more about error codes and messages [here](https://www.sqlite.org/c3ref/errcode.html).
+
+###  execute
+
+`public func execute(statement: String) throws`
+
+Execute runs a statement that expects no return (Such as an *INSERT* or *CREATE TABLE*). Since this function throws, make sure to use it within your do-try-catch. 
+
+### execute with doBindings:
+
+`public func execute(statement: String, doBindings: (SQLiteStmt) throws -> ()) throws`
+
+A variant on execute that also allows for binding variables to the statement before it runs. Also must be in the do-try-catch, as it throws. Learn more about binding variables [here](#binding-variables-to-queries)
+
+### execute with count: and doBindings:
+
+`public func execute(statement: String, count: Int, doBindings: (SQLiteStmt, Int) throws -> ()) throws`
+
+The last variant on the execute function, this allows you to specify repeating the statement by count: number of times. This is especially useful in situations where you need to loop an insert. Also allows for the [binding of variables](#binding-variables-to-queries). Must be in the do-try-catch, as it throws.
+
+### doWithTransaction
+
+`public func doWithTransaction(closure: () throws -> ()) throws`
+
+"Executes a BEGIN, calls the provided closure and executes a ROLLBACK if an exception occurs or a COMMIT if no exception occurs." 
+
+That means that you can run a closure with a result, and if that result fails, no changes will actually be made to the database unless that result succeeds. You can read more about SQLite3 transactions [here](https://www.sqlite.org/lang_transaction.html). 
+
+### forEachRow with handleRow:
+
+`public func forEachRow(statement: String, handleRow: (SQLiteStmt, Int) -> ()) throws`
+
+Executes the given statement, then calls the closure given at handleRow for every row returned. This is especially useful for appending items from the rows returned by the statement into things like dictionaries and arrays. As it throws, it must be placed in your do-try-catch. 
+
+### forEachRow with doBindings: and  handleRow:
+
+`public func forEachRow(statement: String, doBindings: (SQLiteStmt) throws -> (), handleRow: (SQLiteStmt, Int) -> ()) throws`
+
+As with the previous, this also allows for calling a closure on each row given, but includes the ability to bind variables to the query before it is run. Again, throws means that you need to include this in the do-try-catch.
