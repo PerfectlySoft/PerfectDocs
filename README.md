@@ -37,7 +37,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
-	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md)
+	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md)
 	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md)
 	* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
