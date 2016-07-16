@@ -2,6 +2,25 @@
 
 Perfect provides the ability to execute local processes or shell commands through the `SysProcess` type. This type allows local processes to be launched with an array of parameters and shell variables. Some processes will execute and return a result immediately. Other processes can be left open for interactive read/write operations.
 
+### Setup
+
+Add the "Perfect" project as a dependency in your Package.swift file:
+
+``` swift
+.Package(url: "https://github.com/PerfectlySoft/Perfect.git", versions: Version(0,0,0)..<Version(10,0,0))
+```
+In your file where you wish to use SysProcess, import the PerfectLib and add either SwiftGlibc or Darwin:
+
+``` swift
+import PerfectLib
+
+#if os(Linux)
+	import SwiftGlibc
+#else
+	import Darwin
+#endif
+```
+
 ## Executing a SysProcess command
 
 The following function `runProc` accepts a command, an array of arguments and optionally outputs the response from the command.
