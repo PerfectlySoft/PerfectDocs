@@ -160,6 +160,8 @@ forEachRow(_:handleRow:)
 forEachRow(_:doBindings:handleRow:)
 ```
 
+Each of these is detailed below:
+
 ### init
 
 `public init(_ path: String, readOnly: Bool = false) throws` 
@@ -204,7 +206,7 @@ Not to sound like a repeater, but this does return the value of sqlite3_changes.
 
 `public func errCode() -> Int`
 
-Returns the value of sqlite3_errcode. You can learn more about what those mean [here](https://www.sqlite.org/rescode.html)
+Returns the value of sqlite3_errcode. You can learn more about what those mean [here](https://www.sqlite.org/rescode.html).
 
 ### errMsg
 
@@ -222,7 +224,7 @@ Execute runs a statement that expects no return (Such as an *INSERT* or *CREATE 
 
 `public func execute(statement: String, doBindings: (SQLiteStmt) throws -> ()) throws`
 
-A variant on execute that also allows for binding variables to the statement before it runs. Also must be in the do-try-catch, as it throws. Learn more about binding variables [here](#binding-variables-to-queries)
+A variant on execute that also allows for binding variables to the statement before it runs. Also must be in the do-try-catch, as it throws. Learn more about binding variables [here](#binding-variables-to-queries).
 
 ### execute with count: and doBindings:
 
@@ -249,3 +251,40 @@ Executes the given statement, then calls the closure given at handleRow for ever
 `public func forEachRow(statement: String, doBindings: (SQLiteStmt) throws -> (), handleRow: (SQLiteStmt, Int) -> ()) throws`
 
 As with the previous, this also allows for calling a closure on each row given, but includes the ability to bind variables to the query before it is run. Again, throws means that you need to include this in the do-try-catch.
+
+## Example
+
+The following example is part of a blog system. It’s a function that encapsulates loading page content for a blog post kept in an SQLite database and appending it to a dictionary declared in the class as `var content = [String: Any]()`, which in this particular case would be further used as part of a mustache template that displays that content. It will load content for a page of five posts, given the page number as an argument:
+
+	func loadPageContent(forPage: Int) {
+	      do {
+	          let sqlite = try SQLite(DB_PATH)
+	          defer {
+	              sqlite.close()  // defer ensures we close our db connection at the end of this request
+	          }
+	          let sqlStatement = "SELECT post_content, post_title FROM posts ORDER BY id DESC LIMIT 5 OFFSET :1"
+	
+	          try sqlite.forEachRow(statement: sqlStatement, doBindings: {
+	              (statement: SQLiteStmt) -> () in
+	
+	              let bindPage: Int
+	              
+	              if self.page == 0 || self.page == 1 {
+	                  bindPage = 0
+	              } else {
+	                  bindPage = forPage * 5 - 5
+	              }
+	
+	              try statement.bind(position: 1, bindPage)
+	          }) {
+	              (statement: SQLiteStmt, i:Int) -> () in
+	
+	                    self.content.append([
+	                            "postContent": statement.columnText(position: 0),
+	                            "postTitle": statement.columnText(position: 1)
+	                        ])
+	              }
+	
+	          } catch {
+	        }
+	    }
