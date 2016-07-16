@@ -34,7 +34,7 @@ The database is accessed via it’s local file path, so the fist step is to stor
 
 Once you’ve got that, you can open a connection to the database using a do-try-catch to make sure that errors are handled: 
 
-```
+``` swift
 let dbPath = "./db/database"
 
 do {
@@ -51,7 +51,7 @@ do {
 
 Expanding on our connection above, we’re able to run queries to create database tables by trying the [execute](#execute) method on our connection like so:
 
-```
+``` swift
 let dbPath = "./db/database"
 
 do {
@@ -74,7 +74,7 @@ do {
 
 Once you have a database &amp; tables, the next step is to query and return data. In this example, we will store our statement in a string, and pass it into the the [forEachRow](#foreachrow-with-handlerow) method, which will iterate though each returned row, where you can (most often) append to a dictionary. 
 
-```
+``` swift
 let dbPath = "./db/database"
 Var contentDict = [String: Any]()
 
@@ -104,7 +104,7 @@ do {
 
 One thing you’ll definitely want to do is add variables to your queries. As noted above, you cannot do this with string interpolation, instead you can use the binding system like so: 
 
-```
+``` swift
 let dbPath = "./db/database"
 Var contentDict = [String: Any]()
 
@@ -256,35 +256,37 @@ As with the previous, this also allows for calling a closure on each row given, 
 
 The following example is part of a blog system. It’s a function that encapsulates loading page content for a blog post kept in an SQLite database and appending it to a dictionary declared in the class as `var content = [String: Any]()`, which in this particular case would be further used as part of a mustache template that displays that content. It will load content for a page of five posts, given the page number as an argument:
 
-	func loadPageContent(forPage: Int) {
-	      do {
-	          let sqlite = try SQLite(DB_PATH)
-	          defer {
-	              sqlite.close()  // defer ensures we close our db connection at the end of this request
-	          }
-	          let sqlStatement = "SELECT post_content, post_title FROM posts ORDER BY id DESC LIMIT 5 OFFSET :1"
-	
-	          try sqlite.forEachRow(statement: sqlStatement, doBindings: {
-	              (statement: SQLiteStmt) -> () in
-	
-	              let bindPage: Int
-	              
-	              if self.page == 0 || self.page == 1 {
-	                  bindPage = 0
-	              } else {
-	                  bindPage = forPage * 5 - 5
-	              }
-	
-	              try statement.bind(position: 1, bindPage)
-	          }) {
-	              (statement: SQLiteStmt, i:Int) -> () in
-	
-	                    self.content.append([
-	                            "postContent": statement.columnText(position: 0),
-	                            "postTitle": statement.columnText(position: 1)
-	                        ])
-	              }
-	
-	          } catch {
-	        }
-	    }
+``` swift
+func loadPageContent(forPage: Int) {
+      do {
+          let sqlite = try SQLite(DB_PATH)
+          defer {
+              sqlite.close()  // defer ensures we close our db connection at the end of this request
+          }
+          let sqlStatement = "SELECT post_content, post_title FROM posts ORDER BY id DESC LIMIT 5 OFFSET :1"
+
+          try sqlite.forEachRow(statement: sqlStatement, doBindings: {
+              (statement: SQLiteStmt) -> () in
+
+              let bindPage: Int
+              
+              if self.page == 0 || self.page == 1 {
+                  bindPage = 0
+              } else {
+                  bindPage = forPage * 5 - 5
+              }
+
+              try statement.bind(position: 1, bindPage)
+          }) {
+              (statement: SQLiteStmt, i:Int) -> () in
+
+                    self.content.append([
+                            "postContent": statement.columnText(position: 0),
+                            "postTitle": statement.columnText(position: 1)
+                        ])
+              }
+
+          } catch {
+        }
+    }
+```
