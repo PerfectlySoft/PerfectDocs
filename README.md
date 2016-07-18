@@ -55,3 +55,5 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [Heroku](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/heroku.md)
 	* [Azure](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/azure.md)
 	* [AWS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/AWS.md)
+	* Linode
+	* Digital Ocean
