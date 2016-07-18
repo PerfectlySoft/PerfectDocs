@@ -110,7 +110,7 @@ Use `setAsWorkingDir` to set the current working directory to the location of th
 
 ``` swift
 let thisDir = Dir("/path/to/directory/")
-thisDir.setAsWorkingDir()
+try thisDir.setAsWorkingDir()
 ```
 
 
