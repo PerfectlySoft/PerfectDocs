@@ -14,44 +14,47 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 
 ## Table of Contents
 
-* [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
-* [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
+* [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]() @fareedQ @shaneN21
+* [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]() @fareedQ @shaneN21
 * [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
-* [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)
+* [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md) @kjessup
 * [Handling Requests](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/handlingRequests.md)
-	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md)
-	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md)
-	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md)
-	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md)
-	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md)
-		* [mustacheRequest()](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustacheRequest.md)
-	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md)
-		* [StaticFileHandler](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileHandler.md)
-	* [Multipart Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/multipartFormData.md)
+	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md) @kjessup
+	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md) @fareedQ
+	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md) @fareedQ
+	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md) @shaneN21
+	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) @kjessup
+		* [mustacheRequest()](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustacheRequest.md) @kjessup
+	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md) @iamjono
+		* [StaticFileHandler](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileHandler.md) @iamjono
+	* [Multipart Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/multipartFormData.md) @iamjono
 * [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
-	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md)
+	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md) @jimleavitt82
 	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [Dir](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [UUID](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/UUID.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
-	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
+	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)  @jimleavitt82
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
-	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md)
-	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md)
+	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md) @ryancol
+	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md) @iamjono
 	* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 		* [MongoDB Databases](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Database.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 		* [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 		* [MongoDB Client](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Client.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 		* [Working with BSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-BSON.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
-	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md)
-* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md)
-	* [WebSocketHandler](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSocketHandler.md)
-* [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md)
-	* [NotificationPusher](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/notificationPusher.md)
+	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @iamjono
+* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md) @kjessup
+	* [WebSocketHandler](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSocketHandler.md) @kjessup
+* [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
+	* [NotificationPusher](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/notificationPusher.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
-	* [Docker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/docker.md)
-	* [Heroku](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/heroku.md)
-	* [Azure](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/azure.md)
-	* [AWS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/AWS.md)
+	* [Docker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/docker.md) @shao
+	* [Heroku](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/heroku.md) @shao
+	* [Azure](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/azure.md) @shao
+	* [AWS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/AWS.md) @shao
+	* Linode
+	* Digital Ocean
+
