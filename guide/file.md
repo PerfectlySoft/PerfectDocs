@@ -16,6 +16,28 @@ Specify the absolute or relative path to the file:
 let thisFile = File("/path/to/file/helloWorld.txt")
 ```
 
+
+### Opening a file for read or write access
+
+> **Important:** Before writing to a file - even if it is a new file - the file must be opened with the appropriate permissions.
+
+To open a file:
+
+``` swift
+try thisFile.open(<OpenMode>,permissions:<PermissionMode>)
+```
+
+For example, to write a file:
+
+``` swift
+let thisFile = File("helloWorld.txt")
+try thisFile.open(.readWrite)
+try thisFile.write(string: "Hello, World!")
+thisFile.close()
+```
+
+For full outlines of [OpenMode](#OpenMode) and [PermissionMode](PermissionMode) values please see their definitions later in this document.
+
 ### Checking if a file exists
 
 Use the `exists` method to return a boolean value.
@@ -23,6 +45,7 @@ Use the `exists` method to return a boolean value.
 ``` swift
 thisFile.exists
 ```
+
 
 ### Get the modification time for a file
 
@@ -148,6 +171,8 @@ let contents = try thisFile.readString()
 
 ## Writing, Copying and Moving Files
 
+> **Important:** Before writing to a file - even if it is a new file - the file must be opened with the appropriate permissions.
+
 
 ### Writing a string to a file
 
@@ -267,3 +292,61 @@ Tests if the indicated bytes are locked. Returns a boolean true or false.
 ``` swift
 let isLocked = try thisFile.testLock(byteCount: <Int>)
 ```
+
+## File OpenMode
+
+The OpenMode of a file is defined as an enum:
+
+* .read: Opens the file for read-only access.
+* .write: Opens the file for write-only access, creating the file if it did not exist.
+* .readWrite: Opens the file for read-write access, creating the file if it did not exist.
+* .append: Opens the file for read-write access, creating the file if it did not exist and moving the file marker to the end.
+* .truncate: Opens the file for read-write access, creating the file if it did not exist and setting the file's size to zero.
+
+For example, to write a file:
+
+``` swift
+let thisFile = File("helloWorld.txt")
+try thisFile.open(.readWrite)
+try thisFile.write(string: "Hello, World!")
+thisFile.close()
+```
+
+## File PermissionMode
+
+The PermissionMode for a directory or file is provided as a single option or as an array of options.
+
+For example, to create a directory with specific permissions:
+
+``` swift
+let thisDir = Dir("/path/to/dir/")
+do {
+	try thisDir.create(perms: [.rwxUser, .rxGroup, .rxOther])
+} catch {
+	print("error")
+}
+//or
+do {
+	try thisDir.create(perms: .rwxUser)
+} catch {
+	print("error")
+}
+```
+
+### PermissionMode options
+
+* `.readUser`: Readable by user
+* `.writeUser`: Writable by user
+* `.executeUser`: Executable by user
+* `.readGroup`: Readable by group
+* `.writeGroup`: Writable by group
+* `.executeGroup`: Executable by group
+* `.readOther`: Readable by others
+* `.writeOther`: Writable by others
+* `.executeOther`: Executable by others
+* `.rwxUser`: Read, write, execute by user
+* `.rwUserGroup`: Read, write by user and group
+* `.rxGroup`: Read, execute by group
+* `.rxOther`: Read, execute by other
+
+
