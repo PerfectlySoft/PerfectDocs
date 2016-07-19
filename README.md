@@ -42,7 +42,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md) @ryancol
-	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md) @iamjono
+	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md)  [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 		* [MongoDB Databases](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Database.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 		* [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
