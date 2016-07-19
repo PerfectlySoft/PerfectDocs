@@ -91,6 +91,7 @@ Swift Package Manager provides the following commands for building your project 
 This command will download any dependencies if they haven't been already acquired and attempt to build the project. If the build is successful then the resulting executable will be placed in the (hidden) ```.build/debug/``` directory. When building the PerfectTemplate project you will see as the last line of SPM output: ```Linking .build/debug/PerfectTemplate```. Entering ```.build/debug/PerfectTemplate``` will run the server. By default, a debug verison of the executable will be generated. To build a production ready release version, you would issue the command ```swift build -c release```. This will place the resulting executable in the ```.build/release/``` directory.
 
 ```swift build --clean```
+
 ```swift build --clean=dist```
 
 It can often be useful to wipe out all intermediate data and do a fresh build. Providing the ```--clean``` argument will delete the ```.build``` directory and permit a fresh build. Providing the ```--clean=dist``` argument will delete both the ```.build``` directory and the ```Packages``` directory. After doing this building will re-download all project dependencies. This can often be useful to ensure you have the latest version of a dependent project.
