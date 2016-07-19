@@ -79,9 +79,9 @@ routes.add(routes: api2Routes)
 Both the HTTP 1.1 and FastCGI Perfect servers support routing. To add routes to a server call the server's ```addRoutes``` function. This can be called several times to add more routes if needed. Routes can not be added or modified after a server has started listening for requests.
 
 ```swift
-// Create server object.
+// Create server object
 let server = HTTPServer()
-// Add our routes.
+// Add our routes
 let routes = Routes()
 ...
 // Add routes to server
