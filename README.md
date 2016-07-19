@@ -14,15 +14,15 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 
 ## Table of Contents
 
-* [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]() @fareedQ @shaneN21
-* [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]() @fareedQ @shaneN21
+* [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]() @fareedQ @shanetreefrog
+* [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]() @fareedQ @shanetreefrog
 * [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 * [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 * [Handling Requests](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/handlingRequests.md)
 	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md) @kjessup
 	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md) @fareedQ
 	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md) @fareedQ
-	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md) @shaneN21
+	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md) @shanetreefrog
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) @kjessup
 		* [mustacheRequest()](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustacheRequest.md) @kjessup
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md) @iamjono
