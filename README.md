@@ -17,7 +17,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 * [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]() @fareedQ @shaneN21
 * [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]() @fareedQ @shaneN21
 * [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
-* [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md) @kjessup
+* [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 * [Handling Requests](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/handlingRequests.md)
 	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md) @kjessup
 	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md) @fareedQ
