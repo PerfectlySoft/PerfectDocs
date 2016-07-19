@@ -22,6 +22,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md) @kjessup
 	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md) @fareedQ
 	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md) @fareedQ
+	* [Request &amp; Response Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filters.md) @kjessup
 	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md) @shaneN21
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) @kjessup
 		* [mustacheRequest()](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustacheRequest.md) @kjessup
@@ -32,6 +33,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md) @jimleavitt82
 	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [Dir](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
+	* [Networking](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/net.md) @kjessup
 	* [UUID](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/UUID.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
