@@ -24,10 +24,10 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md) @fareedQ
 	* [Request &amp; Response Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filters.md) @kjessup
 	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md) @shaneN21
-	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) @kjessup
-		* [mustacheRequest()](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustacheRequest.md) @kjessup
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md) @iamjono
 		* [StaticFileHandler](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileHandler.md) @iamjono
+	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) @kjessup
+		* [mustacheRequest()](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustacheRequest.md) @kjessup
 	* [Multipart Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/multipartFormData.md) @iamjono
 * [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
 	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md) @jimleavitt82
