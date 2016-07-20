@@ -1,6 +1,17 @@
 # Routing
 
-Routing, in Perfect, refers to the act of directing a request to its proper handler. Requests are routed based on two pieces of information: the HTTP request method and the request path. A route refers to a HTTP method, path and handler combination. Routes are created and added to the server before it starts listening for connections. Once the server fully reads a request it will pass the request object through any request filters which might have been registered. These filters have a chance to modify the request object in ways which might affect the routing process, such as changing the request path. The server will then search for a route which matches the current request method and path. If a route is successfully found for the request, the server will deliver both the request and response objects to the found handler. If a route is not found for a request the server will return a 404 response to the client.
+Routing, in Perfect, refers to the act of directing a request to its proper handler. Requests are routed based on two pieces of information: the HTTP request method and the request path. A route refers to a HTTP method, path and handler combination. Routes are created and added to the server before it starts listening for connections. 
+
+```swift
+var routes = Routes()
+routes..add(method: .get, uri: "/path/one", handler: { request, response in
+	response.setBody(string: "Handler was called")
+	response.completed()
+})
+server.addRoutes(routes)
+```
+
+Once the server fully reads a request it will pass the request object through any request filters which might have been registered. These filters have a chance to modify the request object in ways which might affect the routing process, such as changing the request path. The server will then search for a route which matches the current request method and path. If a route is successfully found for the request, the server will deliver both the request and response objects to the found handler. If a route is not found for a request the server will return a 404 response to the client.
 
 ### Creating Routes
 
