@@ -2,7 +2,9 @@
 
 Perfect includes basic JSON encoding and decoding functionality. JSON encoding is provided through a series of extensions on many of the built-in Swift data types. Decoding is provided through an extension on the Swift String type.
 
-To utilize this ystem, first ensure that PerfectLib is imported:
+It seems important to note that although Perfect provides this particular JSON encoding/decoding system, it is not required that your application use it. Feel free to import your own favourite JSON related functionality.
+
+To utilize this system, first ensure that PerfectLib is imported:
 
 ``` swift
 import PerfectLib
@@ -54,7 +56,7 @@ Decoding the String will produce the following Dictionary:
 ["2nd Place": 230.44999999999999, "1st Place": 300, "3rd Place": 150]
 ```
 
-Though decoding a JSON string can produce any of the permitted value, it is most common to deal with JSON objects (Dictionaries) or Arrays. You will need to cast the resulting value to the expected type.
+Though decoding a JSON string can produce any of the permitted values, it is most common to deal with JSON objects (Dictionaries) or Arrays. You will need to cast the resulting value to the expected type.
 
 #### Using the Decoded Data
 
@@ -123,7 +125,7 @@ The key "4th place" had a null value
 
 ### JSON Convertible Object
 
-Perfect's JSON system provides the facilities for encoding and decoding custom classes. Any eligable class must inherit from the JSONConvertibleObject base class.
+Perfect's JSON system provides the facilities for encoding and decoding custom classes. Any eligable class must inherit from the JSONConvertibleObject base class which is defined as follows:
 
 ```swift
 /// Base for a custom object which can be converted to and from JSON.
@@ -146,18 +148,18 @@ Any object wishing to be JSON encode/decoded must first register itself with the
 ```swift
 public class JSONDecoding {
 	/// Function which returns a new instance of a custom object which will have its members set based on the JSON data.
-    public typealias JSONConvertibleObjectCreator = () -> JSONConvertibleObject
+	public typealias JSONConvertibleObjectCreator = () -> JSONConvertibleObject
 	static public func registerJSONDecodable(name: String, creator: JSONConvertibleObjectCreator)
 }
 ```
 
 Registering an object requires a unique name which can be any String provided it is unique. It also requires a "creator" function which returns a new instance of the object in question.
 
-When the system encodes a ```JSONConvertibleObject``` it call the object's ```getJSONValues``` function. This function should return a [String:Any] dictionary containing the names and values for any properties which should be encoded into the resulting JSON string. This dictionary **must** also contain a value identifying the object type. The value must match the name by which the object was originally registered. The dictionary key for the value is identified by the ```JSONDecoding.objectIdentifierKey``` property.
+When the system encodes a ```JSONConvertibleObject``` it calls the object's ```getJSONValues``` function. This function should return a [String:Any] dictionary containing the names and values for any properties which should be encoded into the resulting JSON string. This dictionary **must** also contain a value identifying the object type. The value must match the name by which the object was originally registered. The dictionary key for the value is identified by the ```JSONDecoding.objectIdentifierKey``` property.
 
-When the system decodes such an object it will find the ```JSONDecoding.objectIdentifierKey``` value and look up the object creator which had been previously registered. It will create a new instance of the type by calling that function and will then call the new object's ```setJSONValues(_ values:[String:Any])``` function. It will pass in a dictionary containing all of the deconverted values. These values will match those previously returns by the ```getJSONValues``` function when the object was first converted. Within the ```setJSONValues``` function the object should retreive all properties which it wants to reinstate.
+When the system decodes such an object it will find the ```JSONDecoding.objectIdentifierKey``` value and look up the object creator which had been previously registered. It will create a new instance of the type by calling that function and will then call the new object's ```setJSONValues(_ values:[String:Any])``` function. It will pass in a dictionary containing all of the deconverted values. These values will match those previously returned by the ```getJSONValues``` function when the object was first converted. Within the ```setJSONValues``` function the object should retreive all properties which it wants to reinstate.
 
-The following example defines a custom ```JSONConvertibleObject ``` and converts it to a JSON string. It then decodes the object  and compares it to the original. Note that this example object calls the convenience function ```getJSONValue``` which will pull a named value from the dictionary and permits providing a default value which will be returned if the dictionary does not contain the indicated key.
+The following example defines a custom ```JSONConvertibleObject ``` and converts it to a JSON string. It then decodes the object and compares it to the original. Note that this example object calls the convenience function ```getJSONValue``` which will pull a named value from the dictionary and permits providing a default value which will be returned if the dictionary does not contain the indicated key.
 
 This example is split up into several sections.
 
@@ -220,7 +222,7 @@ XCTAssert(user.age == user2.age)
 
 ### JSON Conversion Error
 
-As an object is converted to or from a JSON string, the process may throw a ```JSONConversionError``` object. This is defined as follows:
+As an object is converted to or from a JSON string, the process may throw a ```JSONConversionError```. This is defined as follows:
 
 ```swift
 /// An error occurring during JSON conversion.
