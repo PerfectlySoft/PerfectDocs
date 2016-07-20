@@ -27,7 +27,8 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md) @shaneN21
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) @kjessup
-	* [Multipart Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/multipartFormData.md) @iamjono
+	* [Using Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md) @iamjono
+	* [File Uploads](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/fileUploads.md) @iamjono
 * [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
 	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md) @jimleavitt82
 	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
@@ -39,7 +40,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)  @jimleavitt82
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
-	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md) @ryancol
+	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md) @rymcol
 	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md)  [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 		* [MongoDB Databases](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Database.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
