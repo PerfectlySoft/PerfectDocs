@@ -23,7 +23,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md) @fareedQ
 	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md) @fareedQ
-	* [Request &amp; Response Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filters.md) @kjessup
+	* [Request &amp; Response Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filters.md)  [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md) @shaneN21
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md) [![Docs](https://img.shields.io/badge/docs-complete-green.svg?maxAge=2592000)]()
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) @kjessup
