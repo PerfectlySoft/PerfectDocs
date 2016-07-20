@@ -1,97 +1,94 @@
 ## JSON Converter
 
-Perfect makes encoding and decoding JSON data very easy to implement
+Perfect includes basic JSON encoding and decoding functionality. JSON encoding is provided through a series of extensions on many of the built-in Swift data types. Decoding is provided through an extension on the Swift String type.
 
-First, ensure the PerfectLib is imported in your Swift file:
+To utilize this ystem, first ensure that PerfectLib is imported:
 
 ``` swift
 import PerfectLib
 ```
 
-You are now able to use the JSONConvertible file to encode and decode information to and from JSON
-
 ### Encoding To JSON Data
 
-You can convert a JSON object from the following data types:
+You can convert any of the following types directly into JSON string data:
 
-* Array: [Any]
-* Dictionary: String:Any
 * String
+* Int
+* UInt
+* Double
+* Bool
+* Array<Any>
+* Dictionary<String, Any>
+* Optional
+* Custom classes which inherit from JSONConvertibleObject
 
-All you need to do is call the function jsonEncodedString() for the corresponding data type you are converting.  If you are wondering, JSONConvertible adds this function to the data types listed above.  Call the function to encode JSON data like so:
+Note that only Optionals which contain any of the above types are directly convertible. Optionals which are nil will output as a JSON "null".
+
+To encode any of these values, call the ```jsonEncodedString()``` function which is provided as an extension on the objects. This function may potentially throw a ```JSONConversionError.notConvertible``` error.
+
+Example:
 
 ``` swift
-//Initialize encoded variable:  This is going to contain your encoded data in a JSON formatted String
-var encoded = ""
-let scoreArray : [String : Any] = ["1st Place" : 300, "2nd Place" : 230.45, "3rd Place" : 150] //Array of dictionary objects
-
-//Set up a do-catch statement:  If the result of the try statement is successful, then the data will be encode. If not, then the code in the catch statement(print(error)) will be called
-
-do {
-encoded = try scoreArray.jsonEncodedString()
-} catch let error {
-print(error)		
-}
-
-print(encoded)
-
+let scoreArray: [String:Any] = ["1st Place": 300, "2nd Place": 230.45, "3rd Place": 150]
+let encoded = try scoreArray.jsonEncodedString()
 ```
 
-If you ran the above code, you will see the following outputted to your console in Xcode:
+The result of the encoding would be the following String:
 
-``` swift
+```
 {"2nd Place":230.45,"1st Place":300,"3rd Place":150}
 ```
 
-### Decoding JSON Data To Usable Data Types
+### Decoding JSON Data
 
-Try and decode the data you just encoded by using jsonDecode()
+String objects which contain JSON string data can be decoded by using the ```jsonDecode()``` function. This function can throw a ```JSONConversionError.syntaxError``` error if the String does not contain valid JSON data.
 
 ``` swift
-var decoded: [String:Any]?
-do {
-decoded = try encoded.jsonDecode() as? [String:Any]
-} catch let error {
-print(error)
-return
-}
-print(decoded)
+let encoded = "{\"2nd Place\":230.45,\"1st Place\":300,\"3rd Place\":150}"
+let decoded = try encoded.jsonDecode() as? [String:Any]
 ```
 
-After running the above code, the following is outputted to your console in Xcode:
+Decoding the String will produce the following Dictionary:
 
 ``` swift
 ["2nd Place": 230.44999999999999, "1st Place": 300, "3rd Place": 150]
 ```
 
-One caveat to decoding JSON objects is that you have to know the type of object being transmitted through JSON.  In the example above, we knew from the previous example that the encoded data was an Array of Dictionaries, thus the decoded variable's type was initialized as an array of dictionaries.
+Though decoding a JSON string can produce any of the permitted value, it is most common to deal with JSON objects (Dictionaries) or Arrays. You will need to cast the resulting value to the expected type.
 
 #### Using the Decoded Data
 
-So now that you have your decoded data from JSON, you can iterate through the result and assign the values to variables/class properties.
+Because decoded Dictionaries or Arrays are always of type [String:Any] or [Any], respectively, you will need to cast the contained values to usable types.
+
+For example:
 
 ``` swift
-var firstPlace = Int()
-var secondPlace = Double()
-var thirdPlace = Int()
+var firstPlace = 0
+var secondPlace = 0.0
+var thirdPlace = 0
 
-for result in decoded! {
-switch result.key {
-case "1st Place":
-firstPlace = result.value as! Int
-case "2nd Place":
-secondPlace = result.value as! Double
-case "3rd Place":
-thirdPlace = result.value as! Int
-default:
-break
+let encoded = "{\"2nd Place\":230.45,\"1st Place\":300,\"3rd Place\":150}"
+guard let decoded = try encoded.jsonDecode() as? [String:Any] else {
+	return
 }
+
+for (key, value) in decoded {
+	switch key {
+	case "1st Place":
+		firstPlace = value as! Int
+	case "2nd Place":
+		secondPlace = value as! Double
+	case "3rd Place":
+		thirdPlace = value as! Int
+	default:
+		break
+	}
 }
 
 print("The top scores are: \r" + "First Place: " + "\(firstPlace)" + " Points\r" + "Second Place: " + "\(secondPlace)" + " Points\r" + "Third Place: " + "\(thirdPlace)" + " Points")
 ```
 
-The console will display the following:
+The output would be the following:
 
 ``` swift
 The top scores are: 
@@ -99,57 +96,140 @@ First Place: 300 Points
 Second Place: 230.45 Points
 Third Place: 150 Points
 ```
+
 #### Decoding Empty Values From JSON Data
 
-What if the data the was returned was an empty array or dictionary?  
+As JSON null values are untyped, the system will substitute a ```JSONConvertibleNull``` in place of all JSON nulls.
 
-Lets say you retrieved the following data:
+Example:
 
 ``` swift 
-{"1st Place":300,"2nd Place":230.45,"3rd Place":150,"4th place":null}
+let jsonString = "{\"1st Place\":300,\"4th place\":null,\"2nd Place\":230.45,\"3rd Place\":150}"
+
+if let decoded = try jsonString.jsonDecode() as? [String:Any] {
+	for (key, value) in decoded {
+		if let value as? JSONConvertibleNull {
+			print("The key \"\(key)\" had a null value")
+		}
+	}
+}
 ```
 
-The 4th place value is null.  Don't worry!  Perfect handles this :)
+The output would be:
 
-These null data values are converted into JSONConvertibleNull() objects, making it simple to handle empty data values.
-
-For example:
-
-``` swift
-var decoded = [String:Any]()
-
-do {
-decoded = try "{\"1st Place\":300,\"4th place\":null,\"2nd Place\":230.45,\"3rd Place\":150}".jsonDecode() as! [String:Any]
-print(decoded)
-} catch let error {
-print(error)
-return
-}
-
-var firstPlace = Int()
-var secondPlace = Double()
-var thirdPlace = Int()
-
-var resultArray = [String:Any]()
-
-for result in decoded {
-if !(result.value is JSONConvertibleNull) {
-resultArray[result.key] = result.value
-}
-}
-
-print(resultArray)
 ```
-The console output of this code is the following:
-
-```swift
-["2nd Place": 230.44999999999999, "1st Place": 300, "3rd Place": 150]
+The key "4th place" had a null value
 ```
-
-By checking if the result is not a JSONConvertibleNull value, we can handle the data accordingly.  In this example, we omitted it from our printed output.
 
 ### JSON Convertible Object
 
+Perfect's JSON system provides the facilities for encoding and decoding custom classes. Any eligable class must inherit from the JSONConvertibleObject base class.
 
+```swift
+/// Base for a custom object which can be converted to and from JSON.
+public class JSONConvertibleObject: JSONConvertible {
+    /// Default initializer.
+    public init() {}
+    /// Get the JSON keys/value.
+    public func setJSONValues(_ values:[String:Any]) {}
+    /// Set the object properties based on the JSON keys/values.
+    public func getJSONValues() -> [String:Any] { return [String:Any]() }
+    /// Encode the object into JSON text
+    public func jsonEncodedString() throws -> String {
+        return try self.getJSONValues().jsonEncodedString()
+    }
+}
+```
+
+Any object wishing to be JSON encode/decoded must first register itself with the system. This registration should take place once when your application starts up. Call the ```JSONDecoding.registerJSONDecodable``` function to register your object. This function is defined as follows:
+
+```swift
+public class JSONDecoding {
+	/// Function which returns a new instance of a custom object which will have its members set based on the JSON data.
+    public typealias JSONConvertibleObjectCreator = () -> JSONConvertibleObject
+	static public func registerJSONDecodable(name: String, creator: JSONConvertibleObjectCreator)
+}
+```
+
+Registering an object requires a unique name which can be any String provided it is unique. It also requires a "creator" function which returns a new instance of the object in question.
+
+When the system encodes a ```JSONConvertibleObject``` it call the object's ```getJSONValues``` function. This function should return a [String:Any] dictionary containing the names and values for any properties which should be encoded into the resulting JSON string. This dictionary **must** also contain a value identifying the object type. The value must match the name by which the object was originally registered. The dictionary key for the value is identified by the ```JSONDecoding.objectIdentifierKey``` property.
+
+When the system decodes such an object it will find the ```JSONDecoding.objectIdentifierKey``` value and look up the object creator which had been previously registered. It will create a new instance of the type by calling that function and will then call the new object's ```setJSONValues(_ values:[String:Any])``` function. It will pass in a dictionary containing all of the deconverted values. These values will match those previously returns by the ```getJSONValues``` function when the object was first converted. Within the ```setJSONValues``` function the object should retreive all properties which it wants to reinstate.
+
+The following example defines a custom ```JSONConvertibleObject ``` and converts it to a JSON string. It then decodes the object  and compares it to the original. Note that this example object calls the convenience function ```getJSONValue``` which will pull a named value from the dictionary and permits providing a default value which will be returned if the dictionary does not contain the indicated key.
+
+This example is split up into several sections.
+
+Define the class:
+
+```swift
+class User: JSONConvertibleObject {
+	static let registerName = "user"
+	var firstName = ""
+	var lastName = ""
+	var age = 0
+	override func setJSONValues(_ values: [String : Any]) {
+		self.firstName = getJSONValue(named: "firstName", from: values, defaultValue: "")
+		self.lastName = getJSONValue(named: "lastName", from: values, defaultValue: "")
+		self.age = getJSONValue(named: "age", from: values, defaultValue: 0)
+	}
+	override func getJSONValues() -> [String : Any] {
+		return [
+			JSONDecoding.objectIdentifierKey:User.registerName,
+			"firstName":firstName,
+			"lastName":lastName,
+			"age":age
+		]
+	}
+}
+```
+Register the class:
+
+```swift
+// do this once
+JSONDecoding.registerJSONDecodable(name: User.registerName, creator: { return User() })
+```
+Encode the object:
+
+```swift
+let user = User()
+user.firstName = "Donnie"
+user.lastName = "Darko"
+user.age = 17
+
+let encoded = user.jsonEncodedString()
+```
+The value of "encoded" will look as follows:
+
+```
+{"lastName":"Darko","age":17,"_jsonobjid":"user","firstName":"Donnie"}
+```
+Decode the object:
+
+```swift
+guard let user2 = try encoded.jsonDecode() as? User else {
+	return // error
+}
+
+// check the values
+XCTAssert(user.firstName == user2.firstName)
+XCTAssert(user.lastName == user2.lastName)
+XCTAssert(user.age == user2.age)
+```
 
 ### JSON Conversion Error
+
+As an object is converted to or from a JSON string, the process may throw a ```JSONConversionError``` object. This is defined as follows:
+
+```swift
+/// An error occurring during JSON conversion.
+public enum JSONConversionError: ErrorProtocol {
+    /// The object did not suppport JSON conversion.
+    case notConvertible(Any)
+    /// A provided key was not a String.
+    case invalidKey(Any)
+    /// The JSON text contained a syntax error.
+    case syntaxError
+}
+```
