@@ -208,12 +208,16 @@ struct Filter4: HTTPResponseFilter {
 	
 var routes = Routes()
 routes.add(method: .get, uri: "/", handler: {
-		request, response in
-		response.addHeader(.contentType, value: "text/plain")
-		response.appendBody(string: "ABZABZ")
+	request, response in
+	response.addHeader(.contentType, value: "text/plain")
+	response.isStreaming = true
+	response.setBody(string: "ABZ")
+	response.push {
+		_ in
+		response.setBody(string: "ABZ")
 		response.completed()
 	}
-)
+})
 	
 let responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = [
 	(Filter1(), HTTPFilterPriority.high),
