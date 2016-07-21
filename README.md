@@ -49,9 +49,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 		* [Working with BSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-BSON.md) (COMPLETED)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @iamjono
 * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md) @kjessup
-	* [WebSocketHandler](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSocketHandler.md) @kjessup
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
-	* [NotificationPusher](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/notificationPusher.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
 	* [Docker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/docker.md) @shao
 	* [Heroku](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/heroku.md) @shao
