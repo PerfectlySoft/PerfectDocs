@@ -149,7 +149,7 @@ Choosing the database is great, but it is much more helpful to run queries, such
 
 ### Run Queries
 
-Getting data from your schema is essential. It’s relatively easy to do. After running a query, we simply need to save our data and then act on it:
+Getting data from your schema is essential. It’s relatively easy to do. After running a query, we simply need to save our data and then act on it. In our example below, we’re assuming we have a table called options with a row id, an option name (text) and an option value (text). 
 
 ```swift
 
@@ -169,9 +169,71 @@ Getting data from your schema is essential. It’s relatively easy to do. After 
 		        mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
 		    }
 		    
-		    
+				 // Run the Query (for example all rows in an options table)
+        let querySuccess = mysql.query(statement: "SELECT option_name, option_value FROM options")
+            // make sure the query worked
+            guard querySuccess else {
+            return
+            }
+            
+        // Save the results to use during this session
+        let results = mysql.storeResults()! //We can implicitly unwrap because of the guard on the querySuccess. You’re welcome to use an if-let here if you like. 
+
+        var ary = [[String:Any]]() //Create an array of dictionaries to store our results in for use
+
+        results.forEachRow { row in
+            let optionName = getRowString(forRow: row[0]) //Store our Option Name, which would be the first item in the row, and therefore row[0].
+            let optionName = getRowString(forRow: row[1]) //Store our Option Value
+
+
+            ary.append("\(optionName)":optionValue]) //store our options
+        }
 		}
 ```
 
-## Full API Reference
+## MySQL Server API
+
+### init
+
+Stuff
+
+### errorCode & errorMessage
+
+### serverVersion
+
+### connect
+
+### selectDatabase
+
+### listTables
+
+### listDatabases
+
+### commit
+
+### rollback
+
+### moreResults
+
+### nextResult
+
+### query
+
+### storeResults
+
+### setOption
+
+### setOption with boolean
+
+### setOption with interger
+
+### setOption with string
+
+## MySQL Results API
+
+### 
+
+## MySQL Statements API
+
+### 
 
