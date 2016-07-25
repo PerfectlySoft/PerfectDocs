@@ -33,6 +33,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md) (COMPLETED)
 	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) (COMPLETED)
 	* [Dir](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md) (COMPLETED)
+	* [Threading](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/thread.md) @kjessup
 	* [Networking](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/net.md) @kjessup
 	* [UUID](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/UUID.md) (COMPLETED)
 	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md) (COMPLETED)
