@@ -14,7 +14,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 
 ## Table of Contents
 
-* [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md) (COMPLETED) @fareedQ @shaneN21
+* [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md) (COMPLETED)
 * [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md) (COMPLETED) @fareedQ @shaneN21
 * An HTTP and Web Services Primer
 * [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md) (COMPLETED)
@@ -27,7 +27,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md) (COMPLETED)
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md) (COMPLETED)
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) @kjessup
-	* [Using Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md) @iamjono
+	* [Using Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md) (COMPLETED)
 	* [File Uploads](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/fileUploads.md) @iamjono
 * [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
 	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md) @jimleavitt82
