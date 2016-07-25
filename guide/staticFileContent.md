@@ -2,9 +2,37 @@
 
 As seen in the Routing chapter, Perfect is capable of complex dynamic routing. It is also capable of serving static content such as html, images, css, and javascript just to name a few.
 
-Static file serving can be handled in two ways: through a blanket `documentRoot` route; and specifically added routes that can include other processes like authentication verification.
+Static file content serving is handled through the ```StaticFileHandler``` object. Once a request is given to an instance of this object it will handle finding the indicated file or returning a 404 if it does not exist. ```StaticFileHandler``` also handles caching through use of the ETag header as well as byte range serving for very large files.
 
-An example of the "blanket" documentRoot statement usage is found in the PerfectTemplate:
+A ```StaticFileHandler``` object is initialized with a document root path parameter. This root path forms the prefix to which all file paths will be appended. The current HTTPRequest's ```path``` property will be used to indicate the path to the file which should be read and returned.
+
+```StaticFileHandler``` can be directly used by creating one in your web handler and calling its ```handleRequest``` method.
+
+For example, a handler which simply returns the request file might look as follows:
+
+```swift
+{
+	request, response in
+	StaticFileHandler(documentRoot: request.documentRoot).handleRequest(request: request, response: response)
+}
+```
+
+However, unless custom behaviour is required it is not nessesary to handle this manually. Setting the server's ```documentRoot``` property will automatically install a handler which will serve any files from the indicated directory. Setting the server's document root is analogous to the following snippet:
+
+```swift
+let dir = Dir(documentRoot)
+if !dir.exists {
+	try Dir(documentRoot).create()
+}
+routes.add(method: .get, uri: "/**", handler: {
+	request, response in
+	StaticFileHandler(documentRoot: request.documentRoot).handleRequest(request: request, response: response)
+})
+```
+
+The handler that gets installed will serve any files from the root or any sub-directories contained therein.
+
+An example of the documentRoot property usage is found in the PerfectTemplate:
 
 ``` swift
 import PerfectLib
@@ -50,30 +78,26 @@ do {
 
 ``` 
 
-Note the `server.documentRoot = "./webroot"` line: this means that if there is a styles.css document in the webroot directory specified, then a request to the webserver to "/styles.css" will return that file to the browser.
+Note the `server.documentRoot = "./webroot"` line: this means that if there is a styles.css document in the specified webroot directory, then a request to the uri "/styles.css" will return that file to the browser.
 
-Alternatively, adding a route to serve a specific file or group of files from a specific directory:
+For following example establishes a virtual documents path, serving all URIs which begin with "/files" from the physical directory "/var/www/htdocs".
 
 ``` swift
-routes.add(method: .get, uri: "/static", handler: {
+routes.add(method: .get, uri: "/files/**", handler: {
 	request, response in
 
-	// set the path to something specific, 
-	// or trim the "/static" from the path
-	request.path = "404.html"
-	
+	// get the portion of the request path which was matched by the wildcard
+	request.path = request.urlVariables[routeTrailingWildcardKey]
+
 	// Initialize the StaticFileHandler with a documentRoot
-	let handler = StaticFileHandler(documentRoot: "/path/to/httpdocs")
+	let handler = StaticFileHandler(documentRoot: "/var/www/htdocs")
 
 	// trigger the handling of the request, 
 	// with our documentRoot and modified path set
 	handler.handleRequest(request: request, response: response)
-	
-	// signal to the HTTPResponse object that the route is finished
-	response.completed()
 	}
 )
-
 ```
 
-In the route example above, a request to "/static" will return the 404.html file contained in the specified directory.
+In the route example above, a request to "/files/foo.html" would return the corresponding file "/var/www/htdocs/foo.html".
+
