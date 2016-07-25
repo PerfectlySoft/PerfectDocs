@@ -99,6 +99,12 @@ let routes = Routes()
 server.addRoutes(routes)
 ```
 
+### Variables
+
+Route URIs can also contain variable components. A variable component begins and ends with a set of curly brackets ```{ }```. Within the brackets is the variable identifier. A variable identifier can consist of any character except the closing curly bracket ```}```. Variable components work somewhat like single wildcards do in that they match any single literal path component value. The actual value of the URL component which is matched by the variable is saved and made available through the ```HTTPRequest.urlVariables``` dictionary. This dictionary is of type ```[String:String]```. URI variables are a good way to gather dynamic data from a request. For example a URL might make a usermanagement related request and include the user id as a component in the URL.
+
+To illustrate, when given the URI ```/foo/{bar}/baz```, a request to the URL ```/foo/123/baz``` would match and would place in the ```HTTPRequest.urlVariables``` dictionary the value "123" under the key "bar".
+
 ### Wildcards
 
 Beyond full literal URI paths, routes can contain wildcard segments. Wildcards match any portion of a URI and can be used to route groups of URIs to a single handler. Wildcards consist of either one or two asterisks. A single asterisk can occur anywhere in a URI path as long as it represents one full component of the URI. A double asterisk, or trailing wildcard, can occur only at the end of a URI. Trailing wildcards match any remaining portion of a URI.
@@ -119,11 +125,11 @@ A route with the URI ```/foo/**``` would match all of the following URLs:
 
 A route with the URI ```/**``` would match any request.
 
-### Variables
+A trailing wildcard route will save the URI portion which is matched by the wildcard. It will place this path segment in the ```HTTPRequest.urlVariables``` map under the key indicated by the gloval variable ```routeTrailingWildcardKey```. For example, given the route URI "/foo/**" and a request URI of "/foo/bar/baz", the following snippet would be true:
 
-Route URIs can also contain variable components. A variable component begins and ends with a set of curly brackets ```{ }```. Within the brackets is the variable identifier. A variable identifier can consist of any character except the closing curly bracket ```}```. Variable components work somewhat like single wildcards do in that they match any single literal path component value. The actual value of the URL component which is matched by the variable is saved and made available through the ```HTTPRequest.urlVariables``` dictionary. This dictionary is of type ```[String:String]```. URI variables are a good way to gather dynamic data from a request. For example a URL might make a usermanagement related request and include the user id as a component in the URL.
-
-To illustrate, when given the URI ```/foo/{bar}/baz```, a request to the URL ```/foo/123/baz``` would match and would place in the ```HTTPRequest.urlVariables``` dictionary the value "123" under the key "bar".
+```swift
+request.urlVariables[routeTrailingWildcardKey] == "/bar/baz"
+```
 
 ### Priority/Ordering
 
