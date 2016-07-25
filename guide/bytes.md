@@ -30,4 +30,3 @@ XCTAssert(i16 == bytes2.export16Bits())
 XCTAssert(bytes2.availableExportBytes == 1)
 XCTAssert(i8 == bytes2.export8Bits())
 ```
-
