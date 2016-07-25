@@ -1,27 +1,33 @@
 # Perfect-Mustache
 Mustache template support for Perfect.
 
-Mustache is a logic-less templating system. It permits you to use pre-written text files with placeholders. The placeholders will be filled in a run-time with values particular to a given request.
+Mustache is a logic-less templating system. It permits you to use pre-written text files with placeholders. The placeholders will be filled in at run-time with values particular to a given request.
 
-For more general information on Mustache, consult the [mustache documentation](https://mustache.github.io/mustache.5.html)
+For more general information on Mustache, consult the [mustache specification](https://mustache.github.io/mustache.5.html).
 
-To start, add this project as a dependency in your Package.swift file.
+To utilize this module, add this project as a dependency in your Package.swift file.
 
 ```swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", versions: Version(0,0,0)..<Version(10,0,0))
 ```
 
-The following snippet illustrates how to use mustache templates in your URL handler. In this example, the template named "test.html" would be located in your server's web root directory.
+Mustache templates can be used in either a HTTP server handler or stand-alone with no server.
+
+### Mustache Server Handler
+
+To utilize a mustache template as an HTTP response you will need to create a handler object which conforms to ```MustachePageHandler```. These handler objects generate the values which the template processor will use to produce its content.
 
 ```swift
-{
-	request, response in 
-	let webRoot = request.documentRoot
-	mustacheRequest(request: request, response: response, handler: TestHandler(), templatePath: webRoot + "/test.html")
+/// A mustache handler, which should be passed to `mustacheRequest`, generates values to fill a mustache template
+/// Call `context.extendValues(with: values)` one or more times and then
+/// `context.requestCompleted(withCollector collector)` to complete the request and output the resulting content to the client.
+public protocol MustachePageHandler {
+	/// Called by the system when the handler needs to add values for the template.
+	func extendValuesForResponse(context contxt: MustacheWebEvaluationContext, collector: MustacheEvaluationOutputCollector)
 }
 ```
 
-The template page handler, which you would impliment, might look like the following.
+The template page handler, which you would impliment, might look like the following:
 
 ```swift
 struct TestHandler: MustachePageHandler { // all template handlers must inherit from PageHandler
@@ -46,9 +52,50 @@ struct TestHandler: MustachePageHandler { // all template handlers must inherit 
 }
 ```
 
+To direct a web request to a mustache template, call the ```mustacheRequest``` function. This function is defined as follows:
+
+```swift
+public func mustacheRequest(request req: HTTPRequest, response: HTTPResponse, handler: MustachePageHandler, templatePath: String)
+```
+
+Pass to this function the current request and response objects, your ```MustachePageHandler``` and the path to the template file you wish to serve. ```mustacheRequest``` will perform the initial steps such as creating the mustache template parser, locating the template file and calling your mustache handler to generate the values which will be used when completing the template content.
+
+The following snippet illustrates how to use a mustache template in your URL handler. In this example, the template named "test.html" would be located in your server's web root directory.
+
+```swift
+{
+	request, response in 
+	let webRoot = request.documentRoot
+	mustacheRequest(request: request, response: response, handler: TestHandler(), templatePath: webRoot + "/test.html")
+}
+```
+
 Look at the [UploadEnumerator](https://github.com/PerfectlySoft/PerfectExample-UploadEnumerator) example for a more concrete example.
 
-**Tag Support**
+### Stand-Alone Usage
+
+It is possible to use this Mustache processor in a non-web, stand-alone manner. You can accomplish this by either providing the path to a template file or by supplying the template data as a String. In either case the template content will be parsed and any values that you supply will be filled in.
+
+The first example uses raw template text as the source. The second example passes in a file path for the template.
+
+```swift
+let templateText = "TOP {\n{{#name}}\n{{name}}{{/name}}\n}\nBOTTOM"
+let d = ["name":"The name"] as [String:Any]
+let context = MustacheEvaluationContext(templateContent: templateText, map: d)
+let collector = MustacheEvaluationOutputCollector()
+let responseString = try context.formulateResponse(withCollector: collector)
+XCTAssertEqual(responseString, "TOP {\n\nThe name\n}\nBOTTOM")
+```
+
+```swift
+let templatePath = "path/to/template.mustache"
+let d = ["name":"The name"] as [String:Any]
+let context = MustacheEvaluationContext(templatePath: templatePath, map: d)
+let collector = MustacheEvaluationOutputCollector()
+let responseString = try context.formulateResponse(withCollector: collector)
+```
+
+### Tag Support
 
 This mustache template processor supports:
 
