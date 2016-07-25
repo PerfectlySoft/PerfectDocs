@@ -193,9 +193,13 @@ Getting data from your schema is essential. It’s relatively easy to do. After 
 
 ## MySQL Server API
 
+The MySQL server API provides you with a set of tools to connect to and work with MySQL server instances. This includes basic connections, disconnections, querying the instance for databases/tables, and running queries (which is actually a light wrapper for the full [Statements API](#mysql-statements-api). Results are returned, however, they handled and manipulated with the [Results API](#mysql-results-api). Statements also have their own [Satements API](#mysql-statements-api) that lets you work with statements in much more detail that simply running queries though the main MySQL class.
+
 ### init
 
 Stuff
+
+### close
 
 ### errorCode & errorMessage
 
@@ -231,9 +235,54 @@ Stuff
 
 ## MySQL Results API
 
-### 
+The results API set provides a set of tools for working with result sets that are obtained from running queries. 
+
+### close
+
+### dataSeek
+
+### numRows
+
+### numFields
+
+### next
+
+### forEachRow
 
 ## MySQL Statements API
 
-### 
+### init
 
+### close
+
+### reset
+
+### clearBinds
+
+### freeResult
+
+### errorCode & errorMessage
+
+### prepare
+
+### execute
+
+### results
+
+### fetch
+
+### numRows
+
+### affectedRows
+
+### insertId
+
+### fieldCount
+
+### nextResult
+
+### dataSeek
+
+### paramCount
+
+### bindParam
