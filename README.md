@@ -30,7 +30,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md) (COMPLETED)
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md) (COMPLETED)
 * [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
-	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md) @jimleavitt82
+	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md) (COMPLETED)
 	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) (COMPLETED)
 	* [Dir](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md) (COMPLETED)
 	* [Networking](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/net.md) @kjessup
