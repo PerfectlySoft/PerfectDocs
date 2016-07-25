@@ -9,6 +9,8 @@ There are two main types of form encoding types:
 
 When you wish to include file upload elements, you must choose multipart/form-data as your form's `enctype` (encoding) type.
 
+All code used below can be seen in action as a complete example at [https://github.com/iamjono/perfect-file-uploads](https://github.com/iamjono/perfect-file-uploads)
+
 An example HTML form containing the correct encoding and file input element might be represented like this:
 
 ``` html
