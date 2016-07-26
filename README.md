@@ -2,13 +2,17 @@
 
 [![Gitter](https://badges.gitter.im/PerfectlySoft/PerfectDocs.svg)](https://gitter.im/PerfectlySoft/PerfectDocs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Reference and documentation for core Perfect library.
+Reference and documentation for the Perfect library.
+
+## Issues
+
+We are transitioning to using JIRA for all bugs and support related issues, therefore the GitHub issues has been disabled.
+
+If you find a mistake, bug, or any other helpful suggestion you'd like to make on the docs please head over to [http://jira.perfect.org:8080/](http://jira.perfect.org:8080/) and raise it.
 
 ## Contributing
 
 We welcome contributions to the documentation, small or large! If you have additions, errata or general corrections or suggestions please create a pull request.
-
-If you would like to write a chapter, please join the [Gitter channel](https://gitter.im/PerfectlySoft/PerfectDocs?utm_source=share-link&utm_medium=link&utm_campaign=share-link) and put up your hand for that section. Sections that still need completion do have stub files but are empty save the header title.
 
 We have a system (yet to be released) that picks up the markdown files dynamically from this repository and incorporates them in an HTML docs site. This will go live shortly.
 
@@ -16,7 +20,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 
 * [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md) (COMPLETED)
 * [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md) (COMPLETED) @fareedQ @shaneN21
-* An HTTP and Web Services Primer
+* An HTTP and Web Services Primer @iamjono
 * [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md) (COMPLETED)
 * [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md) (COMPLETED)
 * [Handling Requests](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/handlingRequests.md) (COMPLETED)
@@ -38,7 +42,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [UUID](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/UUID.md) (COMPLETED)
 	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md) (COMPLETED)
 	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md) (COMPLETED)
-	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)  @jimleavitt82
+	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)  @iamjono
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md) (COMPLETED)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md) @rymcol
@@ -48,7 +52,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 		* [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md) (COMPLETED)
 		* [MongoDB Client](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Client.md) (COMPLETED)
 		* [Working with BSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-BSON.md) (COMPLETED)
-	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @iamjono
+	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @ kjessup
 * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md) @kjessup
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
