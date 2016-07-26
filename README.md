@@ -44,7 +44,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [UUID](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/UUID.md) (COMPLETED)
 	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md) (COMPLETED)
 	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md) (COMPLETED)
-	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)  @iamjono
+	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)  (COMPLETED)
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md) (COMPLETED)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md) @rymcol
