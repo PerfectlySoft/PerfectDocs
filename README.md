@@ -10,6 +10,8 @@ We are transitioning to using JIRA for all bugs and support related issues, ther
 
 If you find a mistake, bug, or any other helpful suggestion you'd like to make on the docs please head over to [http://jira.perfect.org:8080/servicedesk/customer/portal/1](http://jira.perfect.org:8080/servicedesk/customer/portal/1) and raise it.
 
+A comprehensive list of open issues can be found at [http://jira.perfect.org:8080/projects/ISS/issues](http://jira.perfect.org:8080/projects/ISS/issues)
+
 ## Contributing
 
 We welcome contributions to the documentation, small or large! If you have additions, errata or general corrections or suggestions please create a pull request.
