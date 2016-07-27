@@ -200,7 +200,7 @@ user.firstName = "Donnie"
 user.lastName = "Darko"
 user.age = 17
 
-let encoded = user.jsonEncodedString()
+let encoded = try user.jsonEncodedString()
 ```
 The value of "encoded" will look as follows:
 
