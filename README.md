@@ -22,7 +22,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 
 * [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md)
 * [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md)
-* An HTTP and Web Services Primer @iamjono
+* [An HTTP and Web Services Primer](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/WebServicesPrimer.md) @iamjono
 * [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md)
 * [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)
 * [Handling Requests](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/handlingRequests.md)
@@ -58,12 +58,12 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md) @kjessup
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
-	* [Docker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/docker.md) @shao
-	* [Heroku](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/heroku.md) @shao
-	* [Azure](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/azure.md) @shao
-	* [AWS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/AWS.md) @shao
-	* Linode
-	* Digital Ocean
+	* [Docker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Docker.md) @shao
+	* [Heroku](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Heroku.md) @shao
+	* [Azure](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Azure.md) @shao
+	* [AWS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-AWS.md) @shao
+	* [Linode](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Linode.md) @shao
+	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md) @shao
 * Platform specific Notes
 	* Starting a Swift binary at boot on Ubuntu
 * Examples

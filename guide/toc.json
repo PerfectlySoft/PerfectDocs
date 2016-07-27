@@ -9,6 +9,10 @@
 			"doc":  "gettingStarted"
 		},
 		{
+			"name": "An HTTP and Web Services Primer",
+			"doc":  "WebServicesPrimer"
+		},
+		{
 			"name": "Repository Layout",
 			"doc":  "repositoryLayout"
 		},
@@ -26,11 +30,26 @@
 				},
 				{
 					"name": "HTTPRequest",
-					"doc":  "HTTPRequest"
+					"doc":  "HTTPRequest",
+					"contents" : [
+						{
+							"name": "Using Form Data",
+							"doc":  "formData"
+						},
+						{
+							"name": "File Uploads",
+							"doc":  "fileUploads"
+						}
+
+					]
 				},
 				{
 					"name": "HTTPResponse",
 					"doc":  "HTTPResponse"
+				},
+				{
+					"name": "Request & Response Filters",
+					"doc":  "filters"
 				},
 				{
 					"name": "Filters",
@@ -41,34 +60,13 @@
 					"doc":  "JSON"
 				},
 				{
-					"name": "Mustache",
-					"doc":  "mustache",
-					"contents": [
-						{
-							"name": "mustacheRequest()",
-							"doc":  "mustacheRequest"
-						}
-		
-					]
-
-				},
-				{
 					"name": "Static File Content",
-					"doc":  "staticFileContent",
-					"contents": [
-						{
-							"name": "StaticFileHandler",
-							"doc":  "staticFileHandler"
-						}
-		
-					]
-
+					"doc":  "staticFileContent"
 				},
 				{
-					"name": "Multipart Form Data",
-					"doc":  "multipartFormData"
+					"name": "Mustache",
+					"doc":  "mustache"
 				}
-
 			]
 		},
 		{
@@ -86,6 +84,10 @@
 				{
 					"name": "Dir",
 					"doc":  "dir"
+				},
+				{
+					"name": "Threading",
+					"doc":  "thread"
 				},
 				{
 					"name": "Networking",
@@ -158,45 +160,37 @@
 		},
 		{
 			"name": "WebSockets",
-			"doc":  "webSockets",
-			"contents": [
-				{
-					"name": "WebSocketHandler",
-					"doc":  "webSocketHandler"
-				}
-
-			]
-		},
+			"doc":  "webSockets"		},
 		{
 			"name": "iOS Notifications",
-			"doc":  "iOSNotifications",
-			"contents": [
-				{
-					"name": "NotificationPusher",
-					"doc":  "notificationPusher"
-				}
-
-			]
-		},
+			"doc":  "iOSNotifications"		},
 		{
 			"name": "Deployment",
 			"doc":  "deployment",
 			"contents": [
 				{
 					"name": "Docker",
-					"doc":  "docker"
+					"doc":  "deployment-Docker"
 				},
 				{
 					"name": "Heroku",
-					"doc":  "heroku"
+					"doc":  "deployment-Heroku"
 				},
 				{
 					"name": "Azure",
-					"doc":  "azure"
+					"doc":  "deployment-Azure"
 				},
 				{
 					"name": "AWS",
-					"doc":  "AWS"
+					"doc":  "deployment-AWS"
+				},
+				{
+					"name": "Linode",
+					"doc":  "deployment-Linode"
+				},
+				{
+					"name": "Digital Ocean",
+					"doc":  "deployment-DigitalOcean"
 				}
 
 			]
