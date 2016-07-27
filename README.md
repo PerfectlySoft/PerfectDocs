@@ -66,4 +66,4 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md) @shao
 * Platform specific Notes
 	* Starting a Swift binary at boot on Ubuntu
-* Examples
+
