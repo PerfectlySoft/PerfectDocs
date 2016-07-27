@@ -197,15 +197,59 @@ The MySQL server API provides you with a set of tools to connect to and work wit
 
 ### init
 
-Stuff
+```swift
+public init()
+```
+
+Creates an instance of the MySQL class that allows you to interact with MySQL databases. 
 
 ### close
 
+```swift
+public func close()
+```
+
+Closes a connection to MySQL. Most commonly used as a defer after guarding a connection, making sure that your session will close no matter what the outcome.
+
+### clientInfo
+
+```swift
+public static func clientInfo() -> String
+```
+
+This will give you a string of the MySQL client library version. i.e. "5.7.x" or similar depending on your MySQL installation. 
+
 ### errorCode & errorMessage
+
+```swift
+public func errorCode() -> UInt32
+```
+
+```swift
+public func errorMessage() -> String
+```
+
+Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You  can learn more about what those mean [here](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html). This is especially useful after connecting or running queries. Example:
+
+```swift
+let mysql = MySQL()
+let connected = mysql.connect(host: dbHost, user: dbUser, password: dbPassword, db: dbName)
+            guard connected else {
+                // verify we connected successfully
+                print(mysql.errorMessage())
+                return
+            }
+```
+
+In this case, the console output would print any error messages that came up during a connection failure. 
 
 ### serverVersion
 
+
+
 ### connect
+
+
 
 ### selectDatabase
 
@@ -262,6 +306,28 @@ The results API set provides a set of tools for working with result sets that ar
 ### freeResult
 
 ### errorCode & errorMessage
+
+```swift
+public func errorCode() -> UInt32
+```
+
+```swift
+public func errorMessage() -> String
+```
+
+Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You  can learn more about what those mean [here](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html). This is especially useful after connecting or running queries. Example:
+
+```swift
+let mysql = MySQL()
+let connected = mysql.connect(host: dbHost, user: dbUser, password: dbPassword, db: dbName)
+            guard connected else {
+                // verify we connected successfully
+                print(mysql.errorMessage())
+                return
+            }
+```
+
+In this case, the console output would print any error messages that came up during a connection failure. 
 
 ### prepare
 
