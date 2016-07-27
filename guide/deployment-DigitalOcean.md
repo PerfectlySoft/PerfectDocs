@@ -1,3 +1,3 @@
-# Linode Deployment
+# Digital Ocean Deployment
 ...
 
