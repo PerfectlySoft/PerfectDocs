@@ -245,21 +245,59 @@ In this case, the console output would print any error messages that came up dur
 
 ### serverVersion
 
+```swift
+public func serverVersion() -> Int
+```
 
+Returns an integer representation of the MySQL server’s version. 
 
 ### connect
 
+```swift
+public func connect(host hst: String? = nil, user: String? = nil, password: String? = nil, db: String? = nil, port: UInt32 = 0, socket: String? = nil, flag: UInt = 0) -> Bool
+```
 
+Opens a connection to the MySQL database when supplied with the bare minimum credentials for your server (Usually a host, user, &amp; password). Optionally, you can also specify the port, database, or socket. Specifying the schema is not required, as you can use the [selectDatabase()](#selectDatabase) method after the connection has been made. 
 
 ### selectDatabase
 
+```swift
+public func selectDatabase(named namd: String) -> Bool
+```
+
+Selects a database from the active MySQL connection. 
+
 ### listTables
+
+```swift
+public func listTables(wildcard wild: String? = nil) -> [String]
+```
+
+Returns an array of strings representing the different tables available on the selected database. 
 
 ### listDatabases
 
+```swift
+public func listDatabases(wildcard wild: String? = nil) -> [String]
+```
+
+Returns an array of strings representing the databases available on the MySQL server currently connected. 
+
 ### commit
 
+```swift
+public func commit() -> Bool
+```
+
+Commits the transaction. 
+
 ### rollback
+
+```swift
+public func rollback() -> Bool
+```
+
+Rolls back the transaction. 
 
 ### moreResults
 
