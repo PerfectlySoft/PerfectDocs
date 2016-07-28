@@ -58,7 +58,7 @@ We have a system (yet to be released) that picks up the markdown files dynamical
 * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md) @kjessup
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
-	* [Docker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Docker.md) @shao
+	* [Docker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Docker.md)
 	* [Heroku](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Heroku.md) @shao
 	* [Azure](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Azure.md) @shao
 	* [AWS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-AWS.md) @shao
