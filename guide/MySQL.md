@@ -382,27 +382,93 @@ The results API set provides a set of tools for working with result sets that ar
 
 ### close
 
+```swift
+public func close()
+```
+
+Closes the results set by releasing the results. make sure you have a close function that is always executed after each session with a connection, otherwise you are going to have some memory problems. This is most commonly found in the defer block, just like in the examples at the top of this page. 
+
 ### dataSeek
+
+```swift
+public func dataSeek(_ offset: UInt)
+```
+
+Moves to an arbitrary row number in the results given an unsigned integer as an offset. 
 
 ### numRows
 
+```swift
+public func numRows() -> Int
+```
+
+Lets you know how many rows are in a results set. 
+
 ### numFields
+
+```swift
+public func numFields() -> Int
+```
+
+Similar to numRows, but returns the number of columns in a results set instead. Very useful for `Select *` type queries where you may need to know how many columns are in the results. 
 
 ### next
 
+```swift
+public func next() -> Element?
+```
+
+Returns the next row in the results set as long as one exists. 
+
 ### forEachRow
+
+```swift
+public func forEachRow(callback: (Element) -> ())
+```
+
+Iterates through all rows in query results. Most useful for appending elements to an array or dictionary, just like we did in the [quick start guide](#Quick-Start).
 
 ## MySQL Statements API
 
 ### init
 
+```swift
+public init(_ mysql: MySQL)
+```
+
+Initializes the MySQL Statement Structure. This is very commonly used by other API functions to create a statement structure after you’ve passed in a string.
+
 ### close
+
+```swift
+public func close()
+```
+
+This frees the MySQL statement structure pointer. Use it or lose  valuable memory to the underlying MySQL C API. Most commonly in a defer block, just like we used in [quick start](#Quick-Start).  
 
 ### reset
 
+```swift
+public func reset()
+```
+
+Resets the statement buffers that are in the server. This doesn’t affect bindings or stored results sets. Learn more about this feature [here](https://dev.mysql.com/doc/refman/5.7/en/mysql-stmt-reset.html). 
+
 ### clearBinds
 
+```swift
+func clearBinds()
+```
+
+Clears the current bindings. 
+
 ### freeResult
+
+```swift
+public func freeResult(
+```
+
+Releases memory tied up in with the result set produced by execution of a prepared statement. Also closes a cursor if one is open for the statement. 
 
 ### errorCode & errorMessage
 
@@ -430,24 +496,103 @@ In this case, the console output would print any error messages that came up dur
 
 ### prepare
 
+```swift
+public func prepare(statement query: String) -> Bool
+```
+
+Prepares an SQL statement for execution. More commonly called by other functions in the API, but public if you need it. 
+
 ### execute
+
+```swift
+public func execute() -> Bool
+```
+
+Executes a prepared statement. 
 
 ### results
 
+```swift
+public func results() -> MySQLStmt.Results
+```
+
+Returns current results from the server. 
+
 ### fetch
+
+```swift
+public func fetch() -> FetchResult
+```
+
+Fetches the next row of data from the results set. 
 
 ### numRows
 
+```swift
+public func numRows() -> UInt
+```
+
+Returns the row count in a buffered statement results set. 
+
 ### affectedRows
+
+```swift
+public func affectedRows() -> UInt
+```
+
+Returns the number of rows that were changed, deleted, or inserted by prepared a UPDATE, DELETE, or INSERT statement that was executed. 
 
 ### insertId
 
+```swift
+public func insertId() -> UInt
+```
+
+Returns the row id number for the last row inserted by a prepared statement, as long as id was an auto-increment enabled column. 
+
 ### fieldCount
+
+```swift
+public func fieldCount() -> UInt
+```
+
+Returns the number of columns in the results for the most recently executed statement. 
 
 ### nextResult
 
+```swift
+public func nextResult() -> Int
+```
+
+Returns the next result in a multi-result execution. 
+
 ### dataSeek
+
+```swift
+public func dataSeek(offset: Int)
+```
+
+Given an offset, it will seek to an arbitrary row in a statement results set. 
 
 ### paramCount
 
+```swift
+public func paramCount() -> Int
+```
+
+Returns the number of parameters in a prepared statement. 
+
 ### bindParam
+
+```swift
+public func bindParam()
+func bindParam(_ s: String, type: enum_field_types)
+public func bindParam(_ d: Double)
+public func bindParam(_ i: Int)
+public func bindParam(_ i: UInt64)
+public func bindParam(_ s: String)
+public func bindParam(_ b: UnsafePointer<Int8>, length: Int)
+public func bindParam(_ b: [UInt8])
+```
+
+Variations above on the bindParam() allow binding to statement parameters with different types. If no arguments are passed, it creates a null binding. 
