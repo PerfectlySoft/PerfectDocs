@@ -301,19 +301,80 @@ Rolls back the transaction.
 
 ### moreResults
 
+```swift
+public func moreResults() -> Bool
+```
+
+Checks `mysql_more_results` to see if any more results exist. 
+
 ### nextResult
+
+```swift
+public func nextResult() -> Int
+```
+
+Returns the next result in a multi-result execution. Most commonly used in a while loop to produce an effect similar to running forEachRow(). e.g.:
+
+```swift
+    var results = [[String?]]()
+
+    while let row = results?.next() {
+        results.append(row)
+
+    }
+```
 
 ### query
 
+```swift
+public func query(statement stmt: String) -> Bool
+```
+
+Runs an SQL Query given as a string. 
+
 ### storeResults
+
+```swift
+public func storeResults() -> MySQL.Results?
+```
+
+This retrieves a complete results set from the server and stores it on the client. This should be run after your query and before a function like forEachRow() or next() so that you can ensure that you iterate through all results. 
 
 ### setOption
 
-### setOption with boolean
+```swift
+public func setOption(_ option: MySQLOpt) -> Bool
+public func setOption(_ option: MySQLOpt, _ b: Bool) -> Bool
+public func setOption(_ option: MySQLOpt, _ i: Int) -> Bool
+public func setOption(_ option: MySQLOpt, _ s: String) -> Bool
+```
 
-### setOption with interger
+Sets the options for connecting and returns a boolean for success or failure. Requires a MySQLOpt and has several versions to support setting options that require booleans, integers, or strings as values. 
 
-### setOption with string
+MySQLOpt values that are available to use are defined by the following enumeration:
+
+```swift
+public enum MySQLOpt {
+	case MYSQL_OPT_CONNECT_TIMEOUT, MYSQL_OPT_COMPRESS, MYSQL_OPT_NAMED_PIPE,
+		MYSQL_INIT_COMMAND, MYSQL_READ_DEFAULT_FILE, MYSQL_READ_DEFAULT_GROUP,
+		MYSQL_SET_CHARSET_DIR, MYSQL_SET_CHARSET_NAME, MYSQL_OPT_LOCAL_INFILE,
+		MYSQL_OPT_PROTOCOL, MYSQL_SHARED_MEMORY_BASE_NAME, MYSQL_OPT_READ_TIMEOUT,
+		MYSQL_OPT_WRITE_TIMEOUT, MYSQL_OPT_USE_RESULT,
+		MYSQL_OPT_USE_REMOTE_CONNECTION, MYSQL_OPT_USE_EMBEDDED_CONNECTION,
+		MYSQL_OPT_GUESS_CONNECTION, MYSQL_SET_CLIENT_IP, MYSQL_SECURE_AUTH,
+		MYSQL_REPORT_DATA_TRUNCATION, MYSQL_OPT_RECONNECT,
+		MYSQL_OPT_SSL_VERIFY_SERVER_CERT, MYSQL_PLUGIN_DIR, MYSQL_DEFAULT_AUTH,
+		MYSQL_OPT_BIND,
+		MYSQL_OPT_SSL_KEY, MYSQL_OPT_SSL_CERT,
+		MYSQL_OPT_SSL_CA, MYSQL_OPT_SSL_CAPATH, MYSQL_OPT_SSL_CIPHER,
+		MYSQL_OPT_SSL_CRL, MYSQL_OPT_SSL_CRLPATH,
+		MYSQL_OPT_CONNECT_ATTR_RESET, MYSQL_OPT_CONNECT_ATTR_ADD,
+		MYSQL_OPT_CONNECT_ATTR_DELETE,
+		MYSQL_SERVER_PUBLIC_KEY,
+		MYSQL_ENABLE_CLEARTEXT_PLUGIN,
+		MYSQL_OPT_CAN_HANDLE_EXPIRED_PASSWORDS
+}
+```
 
 ## MySQL Results API
 
