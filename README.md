@@ -46,7 +46,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md)
 	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
 	* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md)
-	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md) @iamjono
+	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md)
