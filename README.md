@@ -61,12 +61,12 @@ We have a system (yet to be released) that picks up markdown files dynamically f
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
 	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Ubuntu1510.md)
-	* [Docker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Docker.md)
-	* [Heroku](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Heroku.md) @shao
-	* [Azure](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Azure.md) @shao
-	* [AWS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-AWS.md) @shao
-	* [Linode](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Linode.md) @shao
-	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md) @shao
+	* Docker
+	* Heroku
+	* Azure
+	* AWS
+	* Linode
+	* Digital Ocean
 * Platform specific Notes
 	* Starting a Swift binary at boot on Ubuntu
 
