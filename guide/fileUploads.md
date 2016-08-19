@@ -1,8 +1,8 @@
 # File Uploads
 
-A special case of working with form data is handling file uploads.
+A special case of [using form data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md) is handling file uploads.
 
-There are two main types of form encoding types:
+There are two main form encoding types:
 
 * application/x-www-form-urlencoded (the default)
 * multipart/form-data
@@ -24,9 +24,9 @@ An example HTML form containing the correct encoding and file input element migh
 </form>
 ```
 
-## Receiving the file server-side
+## Receiving the File on the Server Side
 
-Because the form is a POST method, we will be handling the route with a `method: .post`:
+Because the form is a POST method, we will handle the route with a `method: .post`:
 
 ``` swift
 var routes = Routes()
@@ -61,11 +61,11 @@ if let uploads = request.postFileUploads where uploads.count > 0 {
 }
 ```
 
-As demonstrated in the code above, the file(s) uploaded are represented by the `request.postFileUploads` array, and the various properties such as `fileName`, `fileSize` and `tmpFileName` can be accessed from each array component.
+As demonstrated above, the file(s) uploaded are represented by the `request.postFileUploads` array, and the various properties such as `fileName`, `fileSize` and `tmpFileName` can be accessed from each array component.
 
-**Note:** The files uploaded are placed in a temporary directory. It is your responsibility to move them into the desired location.
+**Note: The files uploaded are placed in a temporary directory. It is your responsibility to move them into the desired location.**
 
-First, lets create the directory to hold the uploaded files. This directory is outside of the webroot directory for security:
+So let's create a directory to hold the uploaded files. This directory is outside of the webroot directory for security reasons:
 
 ``` swift 
 // create uploads dir to store files
@@ -77,7 +77,7 @@ do {
 }
 ```
 
-Next, inside the `for upload in uploads` code block we will action the file move:
+Next, inside the `for upload in uploads` code block, we will create the action for the file to be moved:
 
 ``` swift
 // move file to webroot
@@ -89,6 +89,6 @@ do {
 }
 ```
 
-The result of this will be that the uploaded files will be moved to the specified directory, with the original filename restored.
+Now the uploaded files will move to the specified directory with the original filename restored.
 
-For more information on file system manipulation, please see the "Dir" and "File" chapters. 
+For more information on file system manipulation, please see the [Directory Operations](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md) and [File Operations](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) chapters. 

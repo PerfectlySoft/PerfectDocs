@@ -1,12 +1,33 @@
 # Network Requests with cURL
 
-Perfect provides a complete interface to the open source curl library. Curl transfers data with URL syntax, supporting a wide variety of protocols such as “DICT”, “FILE”, “FTP”, “FTPS”, “Gopher”, “HTTP”, “HTTPS”, “IMAP”, “IMAPS”, “LDAP”, “LDAPS”, “POP3”, POP3S, “RTMP”, “RTSP”, “SCP”, “SFTP”, “SMTP”, “SMTPS”, “Telnet” and “TFTP”.
+Perfect provides a complete interface to the open source cURL library through the use of the cURL free and open command-line tool to transfer files on several supported protocols.cURL transfers data with URL syntax, and it supports the following protocols:
+- DICT 
+- FILE
+- FTP
+- FTPS
+- Gopher
+- HTTP
+- HTTPS
+- IMAP
+- IMAPS
+- LDAP
+- LDAPS
+- POP3
+- POP3S
+- RTMP
+- RTSP
+- SCP
+- SFTP
+- SMTP
+- SMTPS
+- Telnet
+- TFTP
 
-Curl has built-in support for SSL certificates, HTTP POST, HTTP PUT, FTP uploading, proxies, cookies, user+password authentication, proxy tunnelling, and more.
+cURL has built-in support for SSL certificates, HTTP POST, HTTP PUT, FTP uploading, proxies, cookies, user+password authentication, proxy tunnelling, and more.
 
-## Getting Started
+### Getting Started
 
-In addition to the PerfectLib, you will need the Perfect-CURL dependency in the Package.swift file:
+In addition to the PerfectLib, you will need the Perfect-cURL dependency in the Package.swift file:
 
 ``` swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-Curl.git", versions: Version(0,0,0)..<Version(10,0,0)),
@@ -47,28 +68,26 @@ Setting options for the cURL object is an important part of the process. Many op
 
 To set an option, use the appropriate `.setOption` variant as below:
 
-Where the type of the value is an Int or Int64
+Where the type of the value is an Int or Int64:
 
 ``` swift
 curlObject.setOption(<OPTION>, int: <INT>)
 ```
 
-Where the form of the value is a pointer option value
+Where the form of the value is a pointer option value:
 
 ``` swift
 curlObject.setOption(<OPTION>, v: <UnsafeMutablePointer<Void>>)
 ```
-> Note that the pointer value is not copied or otherwise manipulated or saved.
-It is up to the caller to ensure the pointer value has a lifetime which corresponds to its usage.
+> Note that the pointer value is not copied or otherwise manipulated or saved. It is up to the caller to ensure the pointer value has a lifetime which corresponds to its usage.
 
-
-Where a callback function option value is to be set
+Where a callback function option value is to be set:
 
 ``` swift
 curlObject.setOption(<OPTION>, f: <curl_func>)
 ```
 
-Where a string option value is to be set
+Where a string option value is to be set:
 
 ``` swift
 curlObject.setOption(<OPTION>, s: <String>)
@@ -92,12 +111,12 @@ var perf = curlObject.perform()
 
 Returning a tuple consisting of: 
 
-* `Bool` - should perform() be called again;
-* `Int` - the result code;
-* `[UInt8]` - the header bytes if any;
+* `Bool` - should perform() be called again
+* `Int` - the result code
+* `[UInt8]` - the header bytes if any
 * `[UInt8]` - the body bytes if any
 
-To perform the CURL request in a non-blocking manner - the closure will be called with the resulting code, header and body data:
+To perform the cURL request in a non-blocking manner, the closure will be called with the resulting code, header, and body data:
 
 ``` swift
 var perf = curlObject.perform { <Int>, <[UInt8]>, <[UInt8]> }
@@ -117,7 +136,7 @@ curlObject.perform {
 
 ```
 
-When it is necessary to execute the cURL request, blocking the current thread until it completes, use the `.performFully` method:
+When it is necessary to execute the cURL request, and blocking the current thread until it completes, use the `.performFully` method:
 
 ``` swift
 var perf = curlObject.performFully()
@@ -125,12 +144,12 @@ var perf = curlObject.performFully()
 
 Returning a tuple consisting of: 
 
-* `Int` - the result code;
-* `[UInt8]` - the header bytes if any;
+* `Int` - the result code
+* `[UInt8]` - the header bytes if any
 * `[UInt8]` - the body bytes if any
 
 
-### Reading cURL response data where result is a tuple
+### Reading cURL Response Data Where Result is a Tuple
 
 The parts of the cURL response can be read as follows when a tuple is returned:
 
@@ -169,7 +188,7 @@ print("Body size: \(body.count)")
 
 ### cURL Info and Error Codes
 
-`.getInfo` returns the String value for the given CURLINFO:
+`.getInfo` returns the string value for the given `CURLINFO`:
 
 ``` swift
 let (s:String, c:CURLCode) = curlObject.getInfo(<CURLINFO>)

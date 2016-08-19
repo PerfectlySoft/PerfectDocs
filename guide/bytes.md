@@ -1,10 +1,10 @@
 # Bytes
 
-The Bytes object provides simple streaming of common Swift values to and from a UInt8 array. It supports importing and exporting UInt8, UInt16, UInt32 and UInt64 values. When importing these values, they are appended to the end of the contained array. When exporting, a repositionable marker is kept indicating the current export location. The Bytes object is included as part of PerfectLib. Make sure to ```import PerfectLib``` if you wish to use the Bytes object.
+The bytes object provides simple streaming of common Swift values to and from a UInt8 array. It supports importing and exporting UInt8, UInt16, UInt32, and UInt64 values. When importing these values, they are appended to the end of the contained array. When exporting, a repositionable marker is kept indicating the current export location. The bytes object is included as part of PerfectLib. Make sure to ```import PerfectLib``` if you wish to use the Bytes object.
 
-The primary purpose behind the Bytes object is to enable binary network payloads to be easily assembled and decomposed. The resulting UInt8 array is available through the ```data``` property.
+The primary purpose behind the bytes object is to enable binary network payloads to be easily assembled and decomposed. The resulting UInt8 array is available through the ```data``` property.
 
-The following example illustrates importing values of various sizes and then exporting and validating the values. It also shows how to reposition the marker and how to determine how many bytes remain for export.
+The following example illustrates importing values of various sizes, and then exporting and validating the values. It also shows how to reposition the marker and how to determine how many bytes remain for export.
 
 ```swift
 let i8 = 254 as UInt8

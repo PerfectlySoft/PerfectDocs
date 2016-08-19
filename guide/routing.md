@@ -1,6 +1,6 @@
 # Routing
 
-Routing, in Perfect, refers to the act of directing a request to its proper handler. Requests are routed based on two pieces of information: the HTTP request method and the request path. A route refers to a HTTP method, path and handler combination. Routes are created and added to the server before it starts listening for connections. 
+Routing determines which handler receives a specific request. A handler is a routine, function, or method dedicated to receiving and acting on certain types of requests or signals. Requests are routed based on two pieces of information: the HTTP request method, and the request path. A route refers to an HTTP method, path, and handler combination. Routes are created and added to the server before it starts listening for requests or signals. For example:
 
 ```swift
 var routes = Routes()
@@ -11,21 +11,21 @@ routes..add(method: .get, uri: "/path/one", handler: { request, response in
 server.addRoutes(routes)
 ```
 
-Once the server fully reads a request it will pass the request object through any request filters which might have been registered. These filters have a chance to modify the request object in ways which might affect the routing process, such as changing the request path. The server will then search for a route which matches the current request method and path. If a route is successfully found for the request, the server will deliver both the request and response objects to the found handler. If a route is not found for a request the server will return a 404 response to the client.
+Once the Perfect server receives a request, it will pass the request object through any registered request filters. These filters have a chance to modify the request object in ways which may affect the routing process, such as changing the request path. The server will then search for a route which matches the current request method and path. If a route is successfully found for the request, the server will deliver both the request and response objects to the found handler. If a route is not found for a request, the server will send a “404” or “Not Found” error response to the client.
 
 ### Creating Routes
 
 The routing API is part of the [PerfectHTTP](https://github.com/PerfectlySoft/Perfect-HTTP) project. Interacting with the routing system requires that you first ```import PerfectHTTP```.
 
-Before adding a route you will need an appropriate handler function. Handler functions accept the request and response objects and are expected to generate content for the response and indicate when they have completed the task. The typealias for a request handler is as follows:
+Before adding any route, you will need an appropriate handler function. Handler functions accept the request and response objects, and are expected to generate content for the response. They will indicate when they have completed a task. The typealias for a request handler is as follows:
 
 ```swift
 /// Function which receives request and response objects and generates content.
 public typealias RequestHandler = (HTTPRequest, HTTPResponse) -> ()
 ```
-Requests are considered active until the handler indicates that it has concluded. This is done by calling the ```HTTPResponse.completed()``` function. Request handling in Perfect is fully asynchronous so a handler function can return, spin off into new threads or perform any other sort of asynchronous activity and the request will still be considered active up until ```HTTPResponse.completed()``` is called. Once the response is marked as completed the outgoing headers and body data, if any, will be sent to the client.
+Requests are considered active until the handler indicates that it has concluded. This is done by calling the ```HTTPResponse.completed()``` function. Request handling in Perfect is fully asynchronous, so a handler function can return, spin off into new threads, or perform any other sort of asynchronous activity. The request will still be considered active up until ```HTTPResponse.completed()``` is called. Once the response is marked as completed, the outgoing headers and body data, if any, will be sent to the client.
 
-Routes are initially added to a ```Routes``` object before they are added to the server. A Routes object is created and one or more routes are added using its ```add``` functions. Routes provides the following functions:
+Routes are added to a ```Routes``` object before they are added to the server. When a Routes object is created, and one or more routes are added using its ```add``` functions. Routes provides the following functions:
 
 ```swift
 public struct Routes {
@@ -50,7 +50,7 @@ public struct Routes {
 }
 ```
 
-A Routes object can be initialized with a baseURI. This baseURI will be prepended to any route added to the object. For example, one could initialize a Routes object for the version one of an API and give it a baseURI of "/v1". Every route added will be prefixed with /v1. Routes objects can also be added to other Routes objects and each route therein will be prefixed in the same manner. The following example shows the creation of two sets of routes for two versions of an API. The second version differs in behaviour in only one endpoint:
+A Routes object can be initialized with a baseURI. The baseURI will be prepended to any route added to the object. For example, one could initialize a Routes object for version one of an API, and give it a baseURI of "/v1". Every route added will be prefixed with /v1. Routes objects can also be added to other Routes objects, and each route therein will be prefixed in the same manner. The following example shows the creation of two sets of routes for two versions of an API. The second version differs in behavior in only one endpoint:
 
 ```swift
 var routes = Routes()
@@ -87,7 +87,7 @@ routes.add(routes: api2Routes)
 
 ### Adding Server Routes
 
-Both the HTTP 1.1 and FastCGI Perfect servers support routing. To add routes to a server call the server's ```addRoutes``` function. This can be called several times to add more routes if needed. Routes can not be added or modified after a server has started listening for requests.
+Both the HTTP 1.1 and FastCGI Perfect servers support routing. To add routes to a server, call the server's ```addRoutes``` function. The ```addRoutes``` function can be called several times to add more routes if needed. Routes cannot be added or modified after a server has started listening for requests.
 
 ```swift
 // Create server object
@@ -101,13 +101,15 @@ server.addRoutes(routes)
 
 ### Variables
 
-Route URIs can also contain variable components. A variable component begins and ends with a set of curly brackets ```{ }```. Within the brackets is the variable identifier. A variable identifier can consist of any character except the closing curly bracket ```}```. Variable components work somewhat like single wildcards do in that they match any single literal path component value. The actual value of the URL component which is matched by the variable is saved and made available through the ```HTTPRequest.urlVariables``` dictionary. This dictionary is of type ```[String:String]```. URI variables are a good way to gather dynamic data from a request. For example a URL might make a usermanagement related request and include the user id as a component in the URL.
+Route URIs can also contain variable components. A variable component begins and ends with a set of curly brackets ```{ }```. Within the brackets is the variable identifier. A variable identifier can consist of any character except the closing curly bracket ```}```. Variable components work somewhat like single wildcards do in that they match any single literal path component value. The actual value of the URL component which is matched by the variable is saved and made available through the ```HTTPRequest.urlVariables``` dictionary. This dictionary is of type ```[String:String]```. URI variables are a good way to gather dynamic data from a request. For example, a URL might make a user management related request, and include the user id as a component in the URL.
 
-To illustrate, when given the URI ```/foo/{bar}/baz```, a request to the URL ```/foo/123/baz``` would match and would place in the ```HTTPRequest.urlVariables``` dictionary the value "123" under the key "bar".
+For example, when given the URI ```/foo/{bar}/baz```, a request to the URL ```/foo/123/baz``` would match and place it in the ```HTTPRequest.urlVariables``` dictionary with the value "123" under the key "bar".
 
 ### Wildcards
 
-Beyond full literal URI paths, routes can contain wildcard segments. Wildcards match any portion of a URI and can be used to route groups of URIs to a single handler. Wildcards consist of either one or two asterisks. A single asterisk can occur anywhere in a URI path as long as it represents one full component of the URI. A double asterisk, or trailing wildcard, can occur only at the end of a URI. Trailing wildcards match any remaining portion of a URI.
+A wildcard, also referred to as a wild character, is a symbol used to replace or represent one or more characters. Beyond full literal URI paths, routes can contain wildcard segments. 
+
+Wildcards match any portion of a URI and can be used to route groups of URIs to a single handler. Wildcards consist of either one or two asterisks. A single asterisk can occur anywhere in a URI path as long as it represents one full component of the URI. A double asterisk, or trailing wildcard, can occur only at the end of a URI. Trailing wildcards match any remaining portion of a URI.
 
 A route with the the URI ```/foo/*/baz``` would match the both of the URLs:
 
@@ -125,7 +127,7 @@ A route with the URI ```/foo/**``` would match all of the following URLs:
 
 A route with the URI ```/**``` would match any request.
 
-A trailing wildcard route will save the URI portion which is matched by the wildcard. It will place this path segment in the ```HTTPRequest.urlVariables``` map under the key indicated by the gloval variable ```routeTrailingWildcardKey```. For example, given the route URI "/foo/**" and a request URI of "/foo/bar/baz", the following snippet would be true:
+A trailing wildcard route will save the URI portion which is matched by the wildcard. It will place this path segment in the ```HTTPRequest.urlVariables``` map under the key indicated by the global variable ```routeTrailingWildcardKey```. For example, given the route URI "/foo/**" and a request URI of "/foo/bar/baz", the following snippet would be true:
 
 ```swift
 request.urlVariables[routeTrailingWildcardKey] == "/bar/baz"
@@ -142,8 +144,8 @@ Because route URIs could potentially conflict, literal, wildcard and variable pa
 
 ### Implicit Trailing Wildcard
 
-When the ```.documentRoot``` property of the server is set the server will automatically add a ```/**``` trailing wildcard route which will enable the serving of static content from the indicated directory. For example, setting the document root to "./webroot" would permit the server to deliver any files located within that directory.
+When the ```.documentRoot``` property of the server is set, the server will automatically add a ```/**``` trailing wildcard route which will enable the serving of static content from the indicated directory. For example, setting the document root to "./webroot" would permit the server to deliver any files located within that directory.
 
 ### Further Information
 
-For more information and example of URL routing, please look to the [URL Routing](https://github.com/PerfectlySoft/PerfectExample-URLRouting) example application.
+For more information and example of URL routing, please see the [URL Routing](https://github.com/PerfectlySoft/PerfectExample-URLRouting) example application.

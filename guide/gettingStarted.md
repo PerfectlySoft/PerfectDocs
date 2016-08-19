@@ -1,44 +1,50 @@
-## Quick Start
+## Getting Started
+
+Are you eager to get programming with Swift and Perfect? This guide will provide you with everything you need to know to run Perfect, and to create your first application. After reading this guide, you will know:- How to create and run an HTTP/HTTPS server and get Perfect up and running- The prerequisite components you must install to run Perfect on either OS X or Ubuntu Linux- How to build, test, and manage dependencies for Swift projects- How to deploy Perfect in additional environments including Heroku, Amazon Web Services, Docker, Microsoft Azure, Google Cloud, IBM Bluemix CloudFoundry, and IBM Bluemix Docker
 
 ### Swift 3.0
 
-Ensure you have properly installed a Swift 3.0 toolchain from [Swift.org](https://swift.org/getting-started/). In the terminal, typing:
-
+After you have installed a Swift 3.0 toolchain from [Swift.org](https://swift.org/getting-started/), open up a terminal window and type
 ```
 swift --version
 ```
 
-should produce something like the following:
+It will produce a message similar to this one: 
 
 ```
 Apple Swift version 3.0 (swiftlang-800.0.33.1 clang-800.0.31)
 Target: x86_64-apple-macosx10.9
 ```
+Make sure you are running the latest version of Swift 3.0. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.
 
 ### OS X
-Perfect relies on [Home Brew](http://brew.sh) for installing dependencies on OS X. This is currently limited to OpenSSL. To install Home Brew, in the Terminal, type:
+You will need to install [Homebrew](http://brew.sh) and its dependencies before running Perfect on OS X. This is currently limited to OpenSSL. To install Homebrew, in the terminal, type:
 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-To install OpenSSL:
+To install OpenSSL, type:
 
 ```
 brew install openssl
 brew link openssl --force
 ```
 
-### Linux
-Perfect relies on OpenSSL, libssl-dev and uuid:
+### Ubuntu Linux
+Perfect runs in Ubuntu Linux 14.04 and 15.10 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
 
 ```
 sudo apt-get install openssl libssl-dev uuid-dev
 ```
 
+###Getting Started with Perfect
+
+Now you’re ready to build your first web application starter project. 
+
 ### Build Starter Project
 
-The following will clone and build an empty starter project and launch the server on port 8181.
+The following will clone and build an empty starter project.  It will launch a local server that will run on port 8181 on your computer:
 
 ```
 git clone https://github.com/PerfectlySoft/PerfectTemplate.git
@@ -53,13 +59,13 @@ You should see the following output:
 Starting HTTP server on 0.0.0.0:8181 with document root ./webroot
 ```
 
-This means the server is running and waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit control-c to terminate the server.
+The server is now running and it’s waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit "control-c" to terminate the server.
 
 You can view the full source code for [PerfectTemplate](https://github.com/PerfectlySoft/PerfectTemplate). 
 
 ### Xcode
 
-Swift Package Manager can generate an Xcode project which can run the PerfectTemplate server and provide full source code editing and debugging for your project. Enter the following in your terminal:
+Swift Package Manager (SPM) can generate an Xcode project which can run the PerfectTemplate server and provide full source code editing and debugging for your project. Enter the following in your terminal:
 
 ```
 swift package generate-xcodeproj
@@ -69,11 +75,11 @@ Open the generated file "PerfectTemplate.xcodeproj". Ensure that you have select
 
 ## Next Steps
 
-These example snippets show how to accomplish several common tasks that one might need to do when developing a Web/REST application. In all cases, the ```request``` and ```response``` variables refer, respectively, to the ```HTTPRequest``` and ```HTTPResponse``` objects which are given to your URL handlers.
+These example snippets show how to accomplish several common tasks that one might need to do when developing a web or REST application. In all cases, the ```request``` and ```response``` variables refer, respectively, to the ```HTTPRequest``` and ```HTTPResponse``` objects which are given to your URL handlers.
 
 Consult the [API reference](http://www.perfect.org/docs/) for more details.
 
-### Get a client request header
+### Get a Client Request Header
 
 ```swift
 if let acceptEncoding = request.header(.acceptEncoding) {
@@ -81,7 +87,7 @@ if let acceptEncoding = request.header(.acceptEncoding) {
 }
 ```
 
-### Get client GET or POST parameters
+### Client GET and POST Parameters
 
 ```swift
 if let foo = request.param(name: "foo") {
@@ -93,13 +99,13 @@ if let foo = request.param(name: "foo", defaultValue: "default foo") {
 let foos: [String] = request.params(named: "foo")
 ```
 
-### Get the current request path
+### Get the Current Request Path
 
 ```swift
 let path = request.path
 ```
 
-### Access the server's document directory and return an image file to the client
+### Accessing the Server's Document Directory and Returning an Image File to the Client
 
 ```swift
 let docRoot = request.documentRoot
@@ -117,7 +123,7 @@ do {
 response.completed()
 ```
 
-### Get client cookies
+### Getting Client Cookies
 
 ```swift
 for (cookieName, cookieValue) in request.cookies {
@@ -125,7 +131,7 @@ for (cookieName, cookieValue) in request.cookies {
 }
 ```
 
-### Set client cookie
+### Setting Client Cookies
 
 ```swift
 let cookie = HTTPCookie(name: "cookie-name", value: "the value", domain: nil,
@@ -134,7 +140,7 @@ let cookie = HTTPCookie(name: "cookie-name", value: "the value", domain: nil,
 response.addCookie(cookie)
 ```
 
-### Return JSON data to client
+### Returning JSON Data to Client
 
 ```swift
 response.setHeader(.contentType, value: "application/json")
@@ -147,9 +153,9 @@ do {
 }
 response.completed()
 ```
-*This snippet uses the built-in JSON encoding. Feel free to bring in your own favorite JSON encoder/decoder.*
+*This snippet uses built-in JSON encoding. Feel free to use the JSON encoder/decoder you prefer.*
 
-### Redirect the client
+### Redirecting the Client
 
 ```swift
 response.status = .movedPermanently
@@ -157,7 +163,7 @@ response.setHeader(.location, value: "http://www.perfect.org/")
 response.completed()
 ```
 
-### Filter and handle 404 errors in a custom manner
+### Filtering and Handling 404 Errors in a Custom Manner
 
 ```swift
 struct Filter404: HTTPResponseFilter {

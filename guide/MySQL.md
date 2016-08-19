@@ -1,8 +1,8 @@
 # MySQL
 
-The MySQL connector provides a wrapper around MySQL, allowing interaction between your Perfect Applications &amp; MySQL databases. 
+The MySQL connector provides a wrapper around MySQL, allowing interaction between your Perfect Applications and MySQL databases. 
 
-## System Requirements
+### System Requirements
 
 ### macOS
 
@@ -12,7 +12,7 @@ Requires the use of Homebrew’s MySQL.
 brew install mysql
 ```
 
-If you need home-brew, you can install it with: 
+If you need Homebrew, you can install it with: 
 
 ```shell
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -24,7 +24,7 @@ Unfortunately, at this point in time you will need to edit the mysqlclient.pc fi
 /usr/local/lib/pkgconfig/mysqlclient.pc
 ```
 
-Remove the occurrance of "-fno-omit-frame-pointer". This file is read-only by default so you will need to change that first.
+Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by default so you will need to change that first.
 
 ### Linux 
 
@@ -36,7 +36,7 @@ sudo apt-get install libmysqlclient-dev
 
 Please note that Ubuntu 14 defaults to including a version of MySQL client which will not compile with this package. Install MySQL client version 5.6 or greater manually. 
 
-## Setup
+### Setup
 
 Add the "Perfect-MySQL" project as a dependency in your Package.swift file:
 
@@ -54,11 +54,11 @@ import MySQL
 import PerfectHTTP
 ```
 
-## Quick Start
+### Quick Start
 
 ### Access the Database
 
-In order to access the database, first setup your credentials:
+In order to access the database, setup your credentials:
 
 ```swift
 let testHost = "127.0.0.1"
@@ -69,7 +69,7 @@ let testDB = "schema"
 //Obviously change these details to a database and user you already have setup
 ```
 
-There are two common ways to connect to MySQL. First, you can omit the schema, so that you can use a separate selector. This is handy if you have multiple schemas that your program can choose from. 
+There are two common ways to connect to MySQL. First, you can omit the schema, so that you can use a separate selector. This is handy if you have multiple schemas that your program can choose: 
 
 ```swift
 
@@ -149,7 +149,7 @@ Choosing the database is great, but it is much more helpful to run queries, such
 
 ### Run Queries
 
-Getting data from your schema is essential. It’s relatively easy to do. After running a query, we simply need to save our data and then act on it. In our example below, we’re assuming we have a table called options with a row id, an option name (text) and an option value (text). 
+Getting data from your schema is essential. It’s relatively easy to do. After running a query, save your data and then act on it. In the example below, we’re assuming we have a table called options with a row id, an option name (text) and an option value (text):
 
 ```swift
 
@@ -193,7 +193,7 @@ Getting data from your schema is essential. It’s relatively easy to do. After 
 
 ## MySQL Server API
 
-The MySQL server API provides you with a set of tools to connect to and work with MySQL server instances. This includes basic connections, disconnections, querying the instance for databases/tables, and running queries (which is actually a light wrapper for the full [Statements API](#mysql-statements-api). Results are returned, however, they handled and manipulated with the [Results API](#mysql-results-api). Statements also have their own [Satements API](#mysql-statements-api) that lets you work with statements in much more detail that simply running queries though the main MySQL class.
+The MySQL server API provides you with a set of tools to connect to and work with MySQL server instances. This includes basic connections, disconnections, querying the instance for databases/tables, and running queries (which is actually a light wrapper for the full [Statements API](#mysql-statements-api). Results returned, however, are handled and manipulated with the [Results API](#mysql-results-api). Statements also have a [Satements API](#mysql-statements-api) that lets you work with statements in much more detail that simply running queries though the main MySQL class.
 
 ### init
 
@@ -257,7 +257,7 @@ Returns an integer representation of the MySQL server’s version.
 public func connect(host hst: String? = nil, user: String? = nil, password: String? = nil, db: String? = nil, port: UInt32 = 0, socket: String? = nil, flag: UInt = 0) -> Bool
 ```
 
-Opens a connection to the MySQL database when supplied with the bare minimum credentials for your server (Usually a host, user, &amp; password). Optionally, you can also specify the port, database, or socket. Specifying the schema is not required, as you can use the [selectDatabase()](#selectDatabase) method after the connection has been made. 
+Opens a connection to the MySQL database when supplied with the bare minimum credentials for your server (usually a host, user, and password). As an option, you can specify the port, database, or socket. Specifying the schema is not required, as you can use the [selectDatabase()](#selectDatabase) method after the connection has been made. 
 
 ### selectDatabase
 
@@ -313,7 +313,7 @@ Checks `mysql_more_results` to see if any more results exist.
 public func nextResult() -> Int
 ```
 
-Returns the next result in a multi-result execution. Most commonly used in a while loop to produce an effect similar to running forEachRow(). e.g.:
+Returns the next result in a multi-result execution. Most commonly used in a while loop to produce an effect similar to running forEachRow(). For example:
 
 ```swift
     var results = [[String?]]()
@@ -349,7 +349,7 @@ public func setOption(_ option: MySQLOpt, _ i: Int) -> Bool
 public func setOption(_ option: MySQLOpt, _ s: String) -> Bool
 ```
 
-Sets the options for connecting and returns a boolean for success or failure. Requires a MySQLOpt and has several versions to support setting options that require booleans, integers, or strings as values. 
+Sets the options for connecting and returns a Boolean for success or failure. Requires a MySQLOpt and has several versions to support setting options that require Booleans, integers, or strings as values. 
 
 MySQLOpt values that are available to use are defined by the following enumeration:
 
@@ -428,7 +428,7 @@ public func forEachRow(callback: (Element) -> ())
 
 Iterates through all rows in query results. Most useful for appending elements to an array or dictionary, just like we did in the [quick start guide](#Quick-Start).
 
-## MySQL Statements API
+### MySQL Statements API
 
 ### init
 
@@ -436,7 +436,7 @@ Iterates through all rows in query results. Most useful for appending elements t
 public init(_ mysql: MySQL)
 ```
 
-Initializes the MySQL Statement Structure. This is very commonly used by other API functions to create a statement structure after you’ve passed in a string.
+Initializes the MySQL statement structure. This is very commonly used by other API functions to create a statement structure after you’ve passed in a string.
 
 ### close
 
@@ -444,7 +444,7 @@ Initializes the MySQL Statement Structure. This is very commonly used by other A
 public func close()
 ```
 
-This frees the MySQL statement structure pointer. Use it or lose  valuable memory to the underlying MySQL C API. Most commonly in a defer block, just like we used in [quick start](#Quick-Start).  
+This frees the MySQL statement structure pointer. Use it or lose valuable memory to the underlying MySQL C API. Most commonly in a defer block, just like we used in [quick start](#Quick-Start).  
 
 ### reset
 
@@ -480,7 +480,7 @@ public func errorCode() -> UInt32
 public func errorMessage() -> String
 ```
 
-Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You  can learn more about what those mean [here](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html). This is especially useful after connecting or running queries. Example:
+Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You can learn more about what those mean [here](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html). This is especially useful after connecting or running queries. Example:
 
 ```swift
 let mysql = MySQL()
@@ -500,7 +500,7 @@ In this case, the console output would print any error messages that came up dur
 public func prepare(statement query: String) -> Bool
 ```
 
-Prepares an SQL statement for execution. More commonly called by other functions in the API, but public if you need it. 
+Prepares a SQL statement for execution. More commonly called by other functions in the API, but public if you need it. 
 
 ### execute
 

@@ -1,5 +1,4 @@
-# Perfect-Mustache
-Mustache template support for Perfect.
+# Mustache Template Support for Perfect
 
 Mustache is a logic-less templating system. It permits you to use pre-written text files with placeholders. The placeholders will be filled in at run-time with values particular to a given request.
 
@@ -11,11 +10,11 @@ To utilize this module, add this project as a dependency in your Package.swift f
 .Package(url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", versions: Version(0,0,0)..<Version(10,0,0))
 ```
 
-Mustache templates can be used in either a HTTP server handler or stand-alone with no server.
+Mustache templates can be used in either an HTTP server handler or standalone with no server.
 
 ### Mustache Server Handler
 
-To utilize a mustache template as an HTTP response you will need to create a handler object which conforms to ```MustachePageHandler```. These handler objects generate the values which the template processor will use to produce its content.
+To utilize a mustache template as an HTTP response, you will need to create a handler object which conforms to ```MustachePageHandler```. These handler objects generate the values which the template processor will use to produce its content.
 
 ```swift
 /// A mustache handler, which should be passed to `mustacheRequest`, generates values to fill a mustache template
@@ -27,7 +26,7 @@ public protocol MustachePageHandler {
 }
 ```
 
-The template page handler, which you would impliment, might look like the following:
+The template page handler, which you would implement, might look like the following:
 
 ```swift
 struct TestHandler: MustachePageHandler { // all template handlers must inherit from PageHandler
@@ -52,15 +51,15 @@ struct TestHandler: MustachePageHandler { // all template handlers must inherit 
 }
 ```
 
-To direct a web request to a mustache template, call the ```mustacheRequest``` function. This function is defined as follows:
+To direct a web request to a Mustache template, call the ```mustacheRequest``` function. This function is defined as follows:
 
 ```swift
 public func mustacheRequest(request req: HTTPRequest, response: HTTPResponse, handler: MustachePageHandler, templatePath: String)
 ```
 
-Pass to this function the current request and response objects, your ```MustachePageHandler``` and the path to the template file you wish to serve. ```mustacheRequest``` will perform the initial steps such as creating the mustache template parser, locating the template file and calling your mustache handler to generate the values which will be used when completing the template content.
+Pass to this function the current request and response objects, your ```MustachePageHandler```, and the path to the template file you wish to serve. ```mustacheRequest``` will perform the initial steps such as creating the Mustache template parser, locating the template file, and calling your Mustache handler to generate the values which will be used when completing the template content.
 
-The following snippet illustrates how to use a mustache template in your URL handler. In this example, the template named "test.html" would be located in your server's web root directory.
+The following snippet illustrates how to use a Mustache template in your URL handler. In this example, the template named "test.html" would be located in your server's web root directory:
 
 ```swift
 {
@@ -72,11 +71,11 @@ The following snippet illustrates how to use a mustache template in your URL han
 
 Look at the [UploadEnumerator](https://github.com/PerfectlySoft/PerfectExample-UploadEnumerator) example for a more concrete example.
 
-### Stand-Alone Usage
+### Standalone Usage
 
-It is possible to use this Mustache processor in a non-web, stand-alone manner. You can accomplish this by either providing the path to a template file or by supplying the template data as a String. In either case the template content will be parsed and any values that you supply will be filled in.
+It is possible to use this Mustache processor in a non-web, standalone manner. You can accomplish this by either providing the path to a template file, or by supplying the template data as a string. In either case, the template content will be parsed, and any values that you supply will be filled in.
 
-The first example uses raw template text as the source. The second example passes in a file path for the template.
+The first example uses raw template text as the source. The second example passes in a file path for the template:
 
 ```swift
 let templateText = "TOP {\n{{#name}}\n{{name}}{{/name}}\n}\nBOTTOM"
@@ -97,7 +96,7 @@ let responseString = try context.formulateResponse(withCollector: collector)
 
 ### Tag Support
 
-This mustache template processor supports:
+This Mustache template processor supports:
 
 * {{regularTags}}
 * {{& unencodedTags}}
@@ -109,11 +108,11 @@ This mustache template processor supports:
 
 **Partials**
 
-All files used for partials must be located in the same directory as the calling template. Additionally, all partial files *must* have the file extension of **mustache** but this extension must not be included in the partial tag itself. For example, to include the contents of the file *foo.mustache* you would use the tag ```{{> foo }}```.
+All files used for partials must be located in the same directory as the calling template. Additionally, all partial files *must* have the file extension of **Mustache**, but this extension must not be included in the partial tag itself. For example, to include the contents of the file *foo.mustache*, you would use the tag ```{{> foo }}```.
 
 **Encoding**
 
-By default, all encoded tags (i.e. regular tags) are HTML encoded and &lt; &amp; &gt; entities will be escaped. In your handler you can manually set the ```MustacheEvaluationOutputCollector.defaultEncodingFunc``` function to perform whatever encoding you need. For example when outputting JSON data you would want to set this function to something like the following:
+By default, all encoded tags (i.e. regular tags) are HTML-encoded, and &lt; &amp; &gt; entities will be escaped. In your handler you can manually set the ```MustacheEvaluationOutputCollector.defaultEncodingFunc``` function to perform whatever encoding you need. For example, when outputting JSON data you would want to set this function to something like the following:
 
 ```swift
 collector.defaultEncodingFunc = { 
@@ -130,4 +129,4 @@ Functions can be added to the values dictionary. These will be executed and the 
 (tag: String, context: MustacheEvaluationContext) -> String
 ```
 
-The ```tag``` parameter will be the tag name. For example the tag {{name}} would give you the value "name" for the tag parameter.
+The ```tag``` parameter will be the tag name. For example, the tag {{name}} would give you the value "name" for the tag parameter.

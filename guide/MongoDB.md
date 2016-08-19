@@ -1,20 +1,19 @@
 # MongoDB
-The MongoDB Connector provides a Swift wrapper around the mongo-c client library,
-enabling access to MongoDB servers.
+The MongoDB Connector provides a Swift wrapper around the mongo-c client library, enabling access to MongoDB servers.
 
-This package builds with Swift Package Manager and is part of the
+This package builds with the Swift Package Manager and is part of the
 [Perfect](https://github.com/PerfectlySoft/Perfect) project. It was written to
-be stand-alone and so does not require PerfectLib or any other components.
+be standalone, and does not require PerfectLib or any other components.
 
-Ensure you have installed and activated the latest Swift 3.0 tool chain.
+Ensure you have installed and activated the latest Swift 3.0 toolchain.
 
-## Platform specific preparation
+### Platform-Specific Preparation
 
 ### OS X
 
-This package requires the [Home Brew](http://brew.sh) build of mongo-c.
+This package requires the [Homebrew](http://brew.sh) build of mongo-c.
 
-To install Home Brew:
+To install Homebrew:
 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -34,7 +33,7 @@ Ensure that you have installed libmongoc.
 sudo apt-get install libmongoc
 ```
 
-## Including the MongoDB Driver in your project
+### Including the MongoDB Driver in Your Project
 
 Add this project as a dependency in your Package.swift file.
 
@@ -42,10 +41,9 @@ Add this project as a dependency in your Package.swift file.
 .Package(url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git", versions: Version(0,0,0)..<Version(10,0,0))
 ```
 
-For more information about using Perfect libraries with your project please see the chapter on "Building with Swift Package Manager".
+For more information about using Perfect libraries with your project, please see the chapter on "[Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)".
 
-Quick Start
------------
+###Quick Start
 
 The following will clone an empty starter project:
 
@@ -77,11 +75,9 @@ Open the generated `PerfectTemplate.xcodeproj` file in Xcode.
 
 The project will now build in Xcode and start a server on localhost port 8181.
 
->   **Important:** When a dependancy has been added to the project, the Swift
->   Package Manager must be invoked to generate a new Xcode project file. Be
->   aware that any customizations that have been made to this file will be lost.
+>   **Important:** When a dependancy has been added to the project, the Swift Package Manager must be invoked to generate a new Xcode project file. Be aware that any customizations that have been made to this file will be lost.
 
-### Importing MongoDB for use in your project
+### Importing MongoDB for Use in Your Project
 
 At the head of your Swift file, import the MongoDB package:
 
@@ -89,7 +85,7 @@ At the head of your Swift file, import the MongoDB package:
 import MongoDB
 ```
 
-### Creating a MongoDB connection
+### Creating a MongoDB Connection
 
 When you are opening a new connection to a MongoDB server, firstly obtain the connection URL. This will be the fully qualified domain name or IP address of the MongoDB server, with an optional port. 
 
@@ -101,7 +97,7 @@ let client = try! MongoClient(uri: "mongodb://localhost")
 
 Where "localhost" is replaced by the actual server address.
 
-### Defining a database
+### Defining a Database
 
 Once the connection has been opened, a database can be assigned:
 
@@ -109,15 +105,15 @@ Once the connection has been opened, a database can be assigned:
 let db = client.getDatabase(name: "test")
 ```
 
-### Defining a collection to work with
+### Defining a MongoDB Collection
 
-In order to work with a MongoDB Collection, it first be defined:
+In order to work with a MongoDB Collection, it must be defined:
 
 ``` swift
 let collection = db.getCollection(name: "testcollection")
 ```
 
-### Closing open connections
+### Closing Open Connections
 
 Once a connection and associated connections are defined, it is wise to set them up to be closed using a ```defer``` statement.
 
@@ -145,4 +141,4 @@ Using the ```find``` method to find all documents in the collection:
 
 ```
 
-For more detailed documentation on the MongoCollection class, please see the MongoCollection documentation.
+For more detailed documentation on the MongoDB Collections class, please see the chapter on [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md).

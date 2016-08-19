@@ -1,14 +1,14 @@
-# Request &amp; Response Filters
+# Request and Response Filters
 
-In addition to the regular request/response handler system, Perfect Server also provides a request and response filtering system. Any filters which are added to the server are called for each client request. These filters run, each in turn, and are given a chance to modify either the request object before it is delivered to the handler or the response object after the request has been marked as complete. Filters also have the option to terminate the current request.
+In addition to the regular request/response handler system, the Perfect server also provides a request and response filtering system. Any filters which are added to the server are called for each client request. These filters run, each in turn, and are given a chance to modify either the request object before it is delivered to the handler, or the response object after the request has been marked as complete. Filters also have the option to terminate the current request.
 
-Filters are added to the server along with a priority indicator. Priority levels can be either high, medium or low. High priority filters are executed before medium and low. Medium priorities are executed before any low level filters.
+Filters are added to the server along with a priority indicator. Priority levels can be either high, medium, or low. High-priority filters are executed before medium and low. Medium priorities are executed before any low-level filters.
 
 Because filters are executed for every request, it is vital that they perform their tasks as quickly as possible so as to not hold up or delay request processing.
 
-## Request Filters
+### Request Filters
 
-Request filters are called after the request has been fully read but before the appropriate request handler has been located. This gives request filters an opportunity to modify the request before it is handled.
+Request filters are called after the request has been fully read, but before the appropriate request handler has been located. This gives request filters an opportunity to modify the request before it is handled.
 
 ### Creating
 
@@ -22,7 +22,7 @@ public protocol HTTPRequestFilter {
 }
 ```
 
-When it comes time for the filter to run, its ```filter``` function will be called. The filter should perform any activities it needs and then call the provided callback to indicate that it has completed its processing. The callback takes a value which indicates what the next step should be. This can indicate that the system should either continue with processing filters, stop processing request filters at the current priority level and proceed with delivering the request to a handler, or terminate the request entirely.
+When it comes time for the filter to run, its ```filter``` function will be called. The filter should perform any activities it needs, and then call the provided callback to indicate that it has completed its processing. The callback takes a value which indicates what the next step should be. This can indicate that the system should either continue with processing filters, stop processing request filters at the current priority level and proceed with delivering the request to a handler, or terminate the request entirely.
 
 ```swift
 /// Result from one filter.
@@ -49,11 +49,11 @@ public class HTTPServer {
 }
 ```
 
-Calling this function sets the server's request filters. Each filter is provided along with its priority. The filters in the array parameter can be given in any order. The server will sort them appropriately, putting high priority filters above those with lower priorities. Filters of equal priority will maintain the given order.
+Calling this function sets the server's request filters. Each filter is provided along with its priority. The filters in the array parameter can be given in any order. The server will sort them appropriately, putting high-priority filters above those with lower priorities. Filters of equal priority will maintain the given order.
 
 ### Example
 
-The following example is taken from a filter related test case and illustrates how to create and add filters and shows how the filter priority levels interact.
+The following example is taken from a filter-related test case. It illustrates how to create and add filters, and shows how the filter priority levels interact.
 
 ```swift
 var oneSet = false
@@ -112,9 +112,9 @@ try server.start()
 
 ```
 
-## Response Filters
+### Response Filters
 
-Response filters are executed each once before response header data is sent to the client and each once for any subsequent chunk of body data. These filters can modify the outgoing response in any way they see fit, including adding or removing headers or rewriting body data.
+Each response filter is executed once before response header data is sent to the client, and again for any subsequent chunk of body data. These filters can modify the outgoing response in any way they see fit, including adding or removing headers or rewriting body data.
 
 ### Creating
 
@@ -130,7 +130,7 @@ public protocol HTTPResponseFilter {
 }
 ```
 
-When it comes time to send response headers the ```filterHeaders``` function is called. This function should perform whatever tasks it needs on the provided ```HTTPResponse``` object and then call the callback function. It should deliver unto the callback one of the ```HTTPResponseFilterResult``` values, which are defined as follows:
+When it comes time to send response headers, the ```filterHeaders``` function is called. This function should perform whatever tasks it needs on the provided ```HTTPResponse``` object, and then call the callback function. It should deliver unto the callback one of the ```HTTPResponseFilterResult``` values, which are defined as follows:
 
 ```swift
 /// Response from one filter.
@@ -146,7 +146,7 @@ public enum HTTPResponseFilterResult {
 
 These values indicate if the system should continue processing filters, stop executing filters until the next data push, or halt and terminate the request entirely.
 
-When it comes time to send out one descrete chunk of data to the client, the filters' ```filterBody``` function is called. This function can inspect the outgoing data in the ```HTTPResponse.bodyBytes``` property and potentially modify or replace the data. Note that since the headers have already been pushed out at this stage any modifications to header data will be ignored. Once a filter's body filtering has concluded it should call the provided callback and deliver a ```HTTPResponseFilterResult```. The meaning of these values is the same as for the ```filterHeaders``` function.
+When it comes time to send out one descrete chunk of data to the client, the filters' ```filterBody``` function is called. This function can inspect the outgoing data in the ```HTTPResponse.bodyBytes``` property, and potentially modify or replace the data. Since the headers have already been pushed out at this stage, any modifications to the header data will be ignored. Once a filter's body filtering has concluded, it should call the provided callback and deliver a ```HTTPResponseFilterResult```. The meaning of these values is the same as for the ```filterHeaders``` function.
 
 ### Adding
 
@@ -158,11 +158,11 @@ public class HTTPServer {
 }
 ```
 
-Calling this function sets the server's response filters. Each filter is provided along with its priority. The filters in the array parameter can be given in any order. The server will sort them appropriately, putting high priority filters above those with lower priorities. Filters of equal priority will maintain the given order.
+Calling this function sets the server's response filters. Each filter is provided along with its priority. The filters in the array parameter can be given in any order. The server will sort them appropriately, putting high-priority filters above those with lower priorities. Filters of equal priority will maintain the given order.
 
 ### Examples
 
-The following example is taken from a filters test case and illustrates how response filter priorities operate and how response filters can modify outgoing headers and body data.
+The following example is taken from a filters test case. It illustrates how response filter priorities operate, and how response filters can modify outgoing headers and body data.
 
 ```swift
 struct Filter1: HTTPResponseFilter {
@@ -233,11 +233,11 @@ server.addRoutes(routes)
 try server.start()
 ```
 
-The example filters will add a X-Custom header and lowercase any A or B character in the body data. Note that the handler in this example sets the response to streaming mode, meaning that chunked encoding is utilized and the body data is sent out in two descrete chunks.
+The example filters will add a X-Custom header and lowercase any A or B character in the body data. Note that the handler in this example sets the response to streaming mode, meaning that chunked encoding is utilized, and the body data is sent out in two descrete chunks.
 
 #### 404 Response Filter
 
-A more useful example follow. This code will create and install a filter which monitors 404 not found responzses and provides a custom message when it finds one.
+A more useful example is posted below. This code will create and install a filter which monitors "404 not found" responses, and provides a custom message when it finds one.
 
 ```swift
 struct Filter404: HTTPResponseFilter {

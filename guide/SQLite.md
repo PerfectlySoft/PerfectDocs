@@ -1,8 +1,8 @@
 # SQLite
 
-The SQLite connector provides a wrapper around SQLite3, allowing interaction between your Perfect Applications &amp; SQLite databases. 
+The SQLite connector provides a wrapper around SQLite3, allowing interaction between your Perfect applications and SQLite databases. 
 
-## System Requirements
+### System Requirements
 
 ### macOS
 
@@ -24,11 +24,11 @@ Fist and foremost, in any of the source files you intend to use with SQLite, imp
 
 `import SQLite`
 
-## Quick Start
+### Quick Start
 
 ### Access the Database
 
-The database is accessed via it’s local file path, so the fist step is to store the file path to your sqlite data. 
+The database is accessed via it’s local file path, so the fist step is to store the file path to your SQLite data:
 
 `let dbPath = "./db/database"`
 
@@ -67,12 +67,11 @@ do {
 }
 ```
 
-
 ### Run Queries
 
 * A quick note about string interpolation: Variables in queries do not work as interpolated strings. In order to use variables, you need to use the binding system, described in the [next section](#binding-variables-to-queries).
 
-Once you have a database &amp; tables, the next step is to query and return data. In this example, we will store our statement in a string, and pass it into the the [forEachRow](#foreachrow-with-handlerow) method, which will iterate though each returned row, where you can (most often) append to a dictionary. 
+Once you have a database and tables, the next step is to query and return data. In this example, we will store our statement in a string, and pass it into the the [forEachRow](#foreachrow-with-handlerow) method, which will iterate though each returned row, where you can (most often) append to a dictionary. 
 
 ``` swift
 let dbPath = "./db/database"
@@ -102,7 +101,7 @@ do {
 
 ### Binding Variables to Queries
 
-One thing you’ll definitely want to do is add variables to your queries. As noted above, you cannot do this with string interpolation, instead you can use the binding system like so: 
+One thing you’ll definitely want to do is add variables to your queries. As noted above, you cannot do this with string interpolation, instead you can use the binding system. For example: 
 
 ``` swift
 let dbPath = "./db/database"
@@ -137,11 +136,11 @@ do {
 }
 ```
 
-If that looks a little tricky, that’s okay. Our "doBindings:" argument takes a closure to handle adding variables to the positions you’ve defined, and our last argument (technically "handleRow:") is omitted and passed the closure it takes afterwards, as it’s the standard Swifty way. After a few practice runs, it gets much easier to read. 
+If that looks a little tricky, that’s okay. Our "doBindings:" argument takes a closure to handle adding variables to the positions you’ve defined, and our last argument (technically "handleRow:") is omitted and passed the closure it takes afterward, as it’s the standard way to use Swift. After a few practice runs, it gets much easier to read. 
 
 ## Full API Reference
 
-The full API Consists of: 
+The full API consists of: 
 
 ```
 init(_:readOnly:)
@@ -178,29 +177,29 @@ This does exactly what you think it does: it closes the database connection. It�
 
 `public func prepare(stat: String) throws -> SQLiteStmt`
 
-This function returns a compiled SQLite Statement object that represents the compiled statement. This function is a dependency of other class functions (like execute and forEachRow) which take strings as arguments, pass them to this function, and utilized the returned object to communicate with the database. There is a very low chance you will ever need to use this function directly, but it is available if you come up with a use case. 
+This function returns a compiled SQLite statement object that represents the compiled statement. This function is a dependency of other class functions (like execute and forEachRow) which take strings as arguments, pass them to this function, and utilized the returned object to communicate with the database. There is a very low chance you will ever need to use this function directly, but it is available if you come up with a use case. 
 
 ### lastInsertRowID
 
 `public func lastInsertRowID() -> Int`
 
-This function returns the value of the last row that was inserted into the database. It must be used within your do-try-catch BEFORE the connection to the database is severed, otherwise it will always return 0. A return value of 0 either means that there is no open connection OR that there are no rows. If it is called while another insert is being performed on the same table by a different thread, the result can be slightly unpredictable, so be careful with this. You can visit the [SQLite3 Documentation](https://www.sqlite.org/c3ref/last_insert_rowid.html) for further information about how this function works. 
+This function returns the value of the last row that was inserted into the database. It must be used within your do-try-catch *before* the connection to the database is severed, otherwise it will always return "0". A return value of "0" either means that there is no open connection, or there are no rows. If it is called while another insert is being performed on the same table by a different thread, the result can be slightly unpredictable, so be careful with it. You can visit the [SQLite3 Documentation](https://www.sqlite.org/c3ref/last_insert_rowid.html) for further information about how this function works. 
 
 ### totalChanges
 
 `public func totalChanges() -> Int`
 
-Returns the value of sqlite3_total_changes. From SQLite3’s Documentation found [here](https://www.sqlite.org/c3ref/total_changes.html):
+Returns the value of sqlite3_total_changes. From [SQLite3’s documentation](https://www.sqlite.org/c3ref/total_changes.html):
 
 *"This function returns the total number of rows inserted, modified or deleted by all INSERT, UPDATE or DELETE statements completed since the database connection was opened, including those executed as part of trigger programs. Executing any other type of SQL statement does not affect the value returned by sqlite3_total_changes()."*
 
-Again, once the connection closes, you are not going to get much value from this, so make sure you include that in the do-try-catch where the related statements are executing. 
+Once the connection closes, you are not going to get much value from this, so make sure you include that in the do-try-catch where the related statements are executing. 
 
 ### changes
 
 `public func changes() -> Int`
 
-Not to sound like a repeater, but this does return the value of sqlite3_changes. The major difference between this and totalChanges is that the resulting number of changes will not include anything that the statement triggers, only those rows affected directly by the statement itself. 
+This function will return the value of sqlite3_changes. The major difference between this and totalChanges is that the resulting number of changes will not include anything that the statement triggers, only those rows affected directly by the statement itself. 
 
 ### errCode
 
@@ -218,7 +217,7 @@ It returns the value of sqlite3_errmsg. Learn more about error codes and message
 
 `public func execute(statement: String) throws`
 
-Execute runs a statement that expects no return (Such as an *INSERT* or *CREATE TABLE*). Since this function throws, make sure to use it within your do-try-catch. 
+Execute runs a statement that expects no return (such as an *INSERT* or *CREATE TABLE*). Since this function throws, make sure to use it within your do-try-catch. 
 
 ### execute with doBindings:
 

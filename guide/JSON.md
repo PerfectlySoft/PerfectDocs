@@ -2,7 +2,7 @@
 
 Perfect includes basic JSON encoding and decoding functionality. JSON encoding is provided through a series of extensions on many of the built-in Swift data types. Decoding is provided through an extension on the Swift String type.
 
-It seems important to note that although Perfect provides this particular JSON encoding/decoding system, it is not required that your application use it. Feel free to import your own favourite JSON related functionality.
+It seems important to note that although Perfect provides this particular JSON encoding/decoding system, it is not required that your application uses it. Feel free to import your own favourite JSON-related functionality.
 
 To utilize this system, first ensure that PerfectLib is imported:
 
@@ -50,19 +50,17 @@ let encoded = "{\"2nd Place\":230.45,\"1st Place\":300,\"3rd Place\":150}"
 let decoded = try encoded.jsonDecode() as? [String:Any]
 ```
 
-Decoding the String will produce the following Dictionary:
+Decoding the String will produce the following dictionary:
 
 ``` swift
 ["2nd Place": 230.44999999999999, "1st Place": 300, "3rd Place": 150]
 ```
 
-Though decoding a JSON string can produce any of the permitted values, it is most common to deal with JSON objects (Dictionaries) or Arrays. You will need to cast the resulting value to the expected type.
+Though decoding a JSON string can produce any of the permitted values, it is most common to deal with JSON objects (dictionaries) or arrays. You will need to cast the resulting value to the expected type.
 
 #### Using the Decoded Data
 
-Because decoded Dictionaries or Arrays are always of type [String:Any] or [Any], respectively, you will need to cast the contained values to usable types.
-
-For example:
+Because decoded dictionaries or arrays are always of type [String:Any] or [Any], respectively, you will need to cast the contained values to usable types. For example:
 
 ``` swift
 var firstPlace = 0
@@ -99,11 +97,9 @@ Second Place: 230.45 Points
 Third Place: 150 Points
 ```
 
-#### Decoding Empty Values From JSON Data
+#### Decoding Empty Values from JSON Data
 
-As JSON null values are untyped, the system will substitute a ```JSONConvertibleNull``` in place of all JSON nulls.
-
-Example:
+As JSON null values are untyped, the system will substitute a ```JSONConvertibleNull``` in place of all JSON nulls. Example:
 
 ``` swift 
 let jsonString = "{\"1st Place\":300,\"4th place\":null,\"2nd Place\":230.45,\"3rd Place\":150}"
@@ -143,7 +139,7 @@ public class JSONConvertibleObject: JSONConvertible {
 }
 ```
 
-Any object wishing to be JSON encode/decoded must first register itself with the system. This registration should take place once when your application starts up. Call the ```JSONDecoding.registerJSONDecodable``` function to register your object. This function is defined as follows:
+Any object wishing to be JSON encoded/decoded must first register itself with the system. This registration should take place once when your application starts up. Call the ```JSONDecoding.registerJSONDecodable``` function to register your object. This function is defined as follows:
 
 ```swift
 public class JSONDecoding {
@@ -153,13 +149,13 @@ public class JSONDecoding {
 }
 ```
 
-Registering an object requires a unique name which can be any String provided it is unique. It also requires a "creator" function which returns a new instance of the object in question.
+Registering an object requires a unique name which can be any string provided it is unique. It also requires a "creator" function which returns a new instance of the object in question.
 
 When the system encodes a ```JSONConvertibleObject``` it calls the object's ```getJSONValues``` function. This function should return a [String:Any] dictionary containing the names and values for any properties which should be encoded into the resulting JSON string. This dictionary **must** also contain a value identifying the object type. The value must match the name by which the object was originally registered. The dictionary key for the value is identified by the ```JSONDecoding.objectIdentifierKey``` property.
 
-When the system decodes such an object it will find the ```JSONDecoding.objectIdentifierKey``` value and look up the object creator which had been previously registered. It will create a new instance of the type by calling that function and will then call the new object's ```setJSONValues(_ values:[String:Any])``` function. It will pass in a dictionary containing all of the deconverted values. These values will match those previously returned by the ```getJSONValues``` function when the object was first converted. Within the ```setJSONValues``` function the object should retreive all properties which it wants to reinstate.
+When the system decodes such an object, it will find the ```JSONDecoding.objectIdentifierKey``` value and look up the object creator which had been previously registered. It will create a new instance of the type by calling that function, and will then call the new object's ```setJSONValues(_ values:[String:Any])``` function. It will pass in a dictionary containing all of the deconverted values. These values will match those previously returned by the ```getJSONValues``` function when the object was first converted. Within the ```setJSONValues``` function, the object should retreive all properties which it wants to reinstate.
 
-The following example defines a custom ```JSONConvertibleObject ``` and converts it to a JSON string. It then decodes the object and compares it to the original. Note that this example object calls the convenience function ```getJSONValue``` which will pull a named value from the dictionary and permits providing a default value which will be returned if the dictionary does not contain the indicated key.
+The following example defines a custom ```JSONConvertibleObject ``` and converts it to a JSON string. It then decodes the object and compares it to the original. Note that this example object calls the convenience function ```getJSONValue```, which will pull a named value from the dictionary and permits providing a default value which will be returned if the dictionary does not contain the indicated key.
 
 This example is split up into several sections.
 

@@ -1,6 +1,6 @@
 # Docker Deployment
 
-This guide contains steps which will allow you to derive your own Docker image for your Swift + Perfect application.  This particular guide is for deriving from the *perfect2-swift20160620-ubuntu1510* image, which contains:
+This guide contains steps which will allow you to derive your Docker image for your Swift + Perfect application. This particular guide is for deriving from the *perfect2-swift20160620-ubuntu1510* image, which contains:
 
 * Ubuntu 15.10
 * Swift development snapshot 2016-06-20 (prior to Swift 3 being released)
@@ -26,7 +26,7 @@ Once you have Docker available, you can fetch the perfect2-swift20160620-ubuntu1
 docker pull perfectlysoft/perfect2-swift20160620-ubuntu1510
 ```
 
-Now we'll derive from that Docker image and fetch your application into the derived image.  For the sake of demonstration, we'll pretend that your application is available via GitHub, at:
+Now we'll derive from that Docker image and fetch your application into the derived image. For the sake of demonstration, we'll pretend that your application is available via GitHub, at:
 
 ```
 https://github.com/PerfectlySoft/PerfectTemplate
@@ -56,7 +56,7 @@ Venture inside your application's repository:
 cd PerfectTemplate/
 ```
 
-Your Docker container will require Internet access.  Build your application:
+Your Docker container will require internet access.  Build your application:
 
 ```
 swift build
@@ -80,13 +80,13 @@ For example, the hostname might be 2babae7df6fe.  Now exit the container:
 exit
 ```
 
-Now capture your Swift + Perfect application into its own image, using the hostname you'd made a note of:
+Capture your Swift + Perfect application with its image, using the hostname you'd made a note of:
 
 ```
 docker commit -m "My application" -a "My Name" 2babae7df6fe myapp
 ```
 
-(You can use your own application-name instead of "My application", your own name or company-name instead of "My Name", your own Docker image-name instead of "myapp".)
+(You can use your own application-name instead of "My application", your own name or company-name instead of "My Name", or a Docker image-name instead of "myapp".)
 
 Now you can confirm that your image has been created:
 
@@ -94,13 +94,13 @@ Now you can confirm that your image has been created:
 docker images
 ```
 
-And now you can deploy your application like this:
+Deploy your application like this:
 
 ```
 docker run -d -p 0.0.0.0:8080:8181 myapp /root/PerfectTemplate
 ```
 
-What the above command does is to have TCP port `8080` on your host system (`0.0.0.0`) redirect to TCP port 8181 in the Docker container (based on your myapp image) that's running your application (`/root/PerfectTemplate`).  In this example, the PerfectTemplate program listens on TCP port `8181`.  You can test your application with the curl command:
+What the above command does is to have TCP port `8080` on your host system (`0.0.0.0`) redirect to TCP port 8181 in the Docker container (based on your myapp image) that's running your application (`/root/PerfectTemplate`). In this example, the PerfectTemplate program listens on TCP port `8181`.  You can test your application with the cURL command:
 
 ```
 curl http://127.0.0.1:8080

@@ -4,14 +4,14 @@ Perfect has a built-in error logging system that allows messages to be logged at
 
 The built-in log levels, in order of increasing severity:
 
-* **debug:** Log lines are preceeded by `[DBG]`
-* **info:** Log lines are preceeded by `[INFO]`
-* **warning:** Log lines are preceeded by `[WARN]`
-* **error:** Log lines are preceeded by `[ERR]`
-* **critical:** Log lines are preceeded by `[CRIT]`
-* **terminal:** Log lines are preceeded by `[TERM]`
+* **debug:** Log lines are preceded by `[DBG]`
+* **info:** Log lines are preceded by `[INFO]`
+* **warning:** Log lines are preceded by `[WARN]`
+* **error:** Log lines are preceded by `[ERR]`
+* **critical:** Log lines are preceded by `[CRIT]`
+* **terminal:** Log lines are preceded by `[TERM]`
 
-### To log information to the console:
+### To Log Information to the Console:
 
 ``` swift
 Log.debug(message: "Line 123: value \(myVar)")
@@ -22,9 +22,9 @@ Log.critical(message: "Exception Caught: \(exceptionVar)")
 Log.terminal(message: "Uncaught exception, terminating. \(infoVar)")
 ```
 
-### To log information to the System Log:
+### To Log Information to the System Log:
 
-If you wish to pipe all log entries to the system log, early in the application startup set the `Log.logger` property to `SysLogger()`. Once this has been executed all output will be logged to the System Log file, and echoed to the console.
+If you wish to pipe all log entries to the system log, set the `Log.logger` property to `SysLogger()` early in the application setup. Once this has been executed, all output will be logged to the System Log file, and echoed to the console.
 
 ``` swift
 Log.logger = SysLogger()

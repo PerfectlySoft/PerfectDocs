@@ -2,18 +2,18 @@
 
 Perfect provides a core threading library in the PerfectThread package. This package is designed to provide support for the rest of the systems in Perfect. PerfectThread is abstracted over the core operating system level threading package.
 
-PerfectThread is imported by PerfectNet and so it is not generally required that one directly import it. However if you need to do so you can ```import PerfectThread```.
+PerfectThread is imported by PerfectNet and so it is not generally required that one directly import it. However, if you need to do so you can ```import PerfectThread```.
 
 PerfectThread provides the following constructs:
 
-* Threading.Lock - Mutually exclusive thread lock, aka a mutex or critical section.
-* Threading.RWLock - A many reader/single writer based thread lock.
-* Threading.Event - Wait/signal/broadcast type synchronization.
-* Threading.sleep - Block/pause a single thread for a given period of time.
-* Threading.ThreadQueue - Create either a serial or concurrent thread queue with a given name.
-* Threading.dispatch - Dispatch a closure on a named queue.
+* Threading.Lock - Mutually exclusive thread lock, aka a mutex or critical section
+* Threading.RWLock - A many reader/single writer based thread lock
+* Threading.Event - Wait/signal/broadcast type synchronization
+* Threading.sleep - Block/pause; a single thread for a given period of time
+* Threading.ThreadQueue - Create either a serial or concurrent thread queue with a given name
+* Threading.dispatch - Dispatch a closure on a named queue
 
-These systems provide internal concurrency for Perfect and are heavily used in the PerfectNet package in particular.
+These systems provide internal concurrency for Perfect, and are heavily used in the PerfectNet package in particular.
 
 ### Locks
 
@@ -49,20 +49,20 @@ public extension Threading {
 
 The general usage pattern as as follows:
 
-* Created a shared instance of ```Threading.Lock```.
-* When a shared resource needs to be accessed, call the ```lock()``` function.
-	* If another thread already has the lock then the calling thread will block until it is unlocked.
-* Once the call to ```lock()``` returns the resource is safe to access.
-* When finished, call ```unlock()```.
-	* Other threads are now free to acquire the lock.
+* Created a shared instance of ```Threading.Lock```
+* When a shared resource needs to be accessed, call the ```lock()``` function
+	* If another thread already has the lock then the calling thread will block until it is unlocked
+* Once the call to ```lock()``` returns the resource is safe to access
+* When finished, call ```unlock()```
+	* Other threads are now free to acquire the lock
 
-Alternatively you can pass a closure to the ```doWithLock``` function. This will lock, call the closure and then unlock.
+Alternatively, you can pass a closure to the ```doWithLock``` function. This will lock, call the closure, and then unlock.
 
-The ```tryLock``` function will lock and return true if no other thread currently holds the lock. If another thread holds the lock then it will return false.
+The ```tryLock``` function will lock and return true if no other thread currently holds the lock. If another thread holds the lock, it will return false.
 
 **Read/Write Lock**
 
-Read/Write locks (rwlock) are provided through the ```Threading.RWLock``` object. RWLocks support many threads accessing a shared resource in a read-only capacity. For example it could permit many threads at once to be accessing values in a shared Dictionary. When a thread needs to perform a modification (a write) to a shared object it acquires a write lock. Only one thread can hold a write lock at a time and all other threads attempting to read or write will block until the write lock is released. An attempt to lock for writing will block until any other read or write locks have been released. When attempting to acquire a write lock, no other read locks will be permitted and threads attempting to read or write will be blocked until the write lock is held and then released.
+Read/Write Locks (RWLock) are provided through the ```Threading.RWLock``` object. RWLocks support many threads accessing a shared resource in a read-only capacity. For example, it could permit many threads at once to be accessing values in a shared Dictionary. When a thread needs to perform a modification (a write) to a shared object it acquires a write lock. Only one thread can hold a write lock at a time, and all other threads attempting to read or write will block until the write lock is released. An attempt to lock for writing will block until any other read or write locks have been released. When attempting to acquire a write lock, no other read locks will be permitted, and threads attempting to read or write will be blocked until the write lock is held and then released.
 
 RWLock is defined as follows:
 
@@ -91,11 +91,11 @@ public extension Threading {
 }
 ```
 
-RWLock supports ```tryReadLock``` and ```tryWriteLock``` both of which will return false if the lock can not be immediately acquired. It also supports ```doWithReadLock``` and ```doWithWriteLock``` which will call the provided closure with the lock held and then release it when it has completed.
+RWLock supports ```tryReadLock``` and ```tryWriteLock```, both of which will return false if the lock can not be immediately acquired. It also supports ```doWithReadLock``` and ```doWithWriteLock``` which will call the provided closure with the lock held and then release it when it has completed.
 
 ### Events
 
-The ```Threading.Event``` object provides a way to safely signal or communicate amongst threads about particular events. For instance, to signal worker threads that a task has entered a queue. It's important to note that ```Threading.Event``` inherits from ```Threading.Lock``` as using the ```lock``` and ```unlock``` methods provided therein are vital to understanding thread event behaviour.
+The ```Threading.Event``` object provides a way to safely signal or communicate among threads about particular events. For instance, to signal worker threads that a task has entered a queue. It's important to note that ```Threading.Event``` inherits from ```Threading.Lock``` as using the ```lock``` and ```unlock``` methods provided therein are vital to understanding thread event behaviour.
 
 ```Threading.Event``` provides the following functions:
 
@@ -121,42 +121,42 @@ public extension Threading {
 }
 ```
 
-The general usage pattern is illustrated by using a producer/consumer metaphore:
+The general usage pattern is illustrated by using a producer/consumer metaphor:
 
 *Producer Thread*
 
-* Producer thread wants to produce a resource and alert other threads about the occurrence.
-* Call the ```lock``` function.
-* Produce the resource.
-* Call the ```signal``` or ```broadcast``` function.
-* Call the ```unlock``` function.
+* Producer thread wants to produce a resource and alert other threads about the occurrence
+* Call the ```lock``` function
+* Produce the resource
+* Call the ```signal``` or ```broadcast``` function
+* Call the ```unlock``` function
 
 *Consumer Thread*
 
-* Call the ```lock``` function.
+* Call the ```lock``` function
 * If a resource is available for consumption:
-	* Consume the resource and call the ```unlock``` function.
+	* Consume the resource and call the ```unlock``` function
 * If a resource is not available for consumption:
-	* Call the ```wait``` function.
+	* Call the ```wait``` function
 	* When ```wait``` returns true:
-		* If a resource is available then consume the resource.
-	* Call the ```unlock``` function.
+		* If a resource is available then consume the resource
+	* Call the ```unlock``` function
 
 These producer/consumer threads generally operate in a loop performing these steps repeatedly during the life of the program.
 
-The ```wait``` function accepts an optional timeout parameter. If the timeout expires then ```wait``` will return false. By default ```wait``` does not timeout.
+The ```wait``` function accepts an optional timeout parameter. If the timeout expires then ```wait``` will return false. By default, ```wait``` does not timeout.
 
 The functions ```signal``` and ```broadcast``` differ in that ```signal``` will alert at most one waiting thread while ```broadcast``` will alert all currently waiting threads.
 
 ### Queues
 
-The PerfectThread package provides an abstracted thread queue system. It is based loosely on GCD but is designed to mask the actual threading primitives, and as such, operate with a variety of underlying systems.
+The PerfectThread package provides an abstracted thread queue system. It is based loosely on Grand Central Dispatch (GCD), but is designed to mask the actual threading primitives, and as such, operate with a variety of underlying systems.
 
 This queue system provides the following features:
 
-* Named serial queues - one thread operating, removing and executing tasks.
-* Named concurrent queues - multiple threads operating, the count varying depending on the number of available CPUs, removing and executing tasks simultaneously.
-* A default concurrent queue.
+* Named serial queues - one thread operating, removing and executing tasks
+* Named concurrent queues - multiple threads operating, the count varying depending on the number of available CPUs, removing and executing tasks simultaneously
+* A default concurrent queue
 
 This system provides the following functions:
 
@@ -189,7 +189,7 @@ public extension Threading {
 }
 ```
 
-Calling ```Threading.getQueue``` will create the queue if it does not already exist. Once the queue object has been returned call its ```dispatch``` function and pass it the closure which will be executed on that queue.
+Calling ```Threading.getQueue``` will create the queue if it does not already exist. Once the queue object has been returned call, its ```dispatch``` function and pass it the closure which will be executed on that queue.
 
 The system will automatically create a queue called "default". Calling the static ```Threading.dispatch``` function will always dispatch the closure on this queue.
 

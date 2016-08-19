@@ -1,7 +1,7 @@
 # UUID
-A V4 UUID (Universal Unique Identifier) is a 128-bit number used to uniquely identify some object or entity. The UUID relies upon a combination of components to ensure uniqueness.
+Also known as a Globally Unique Identifier (GUID), a Universal Unique Identifier (UUID) is a 128-bit number used to uniquely identify some object or entity. The UUID relies upon a combination of components to ensure uniqueness.
 
-### Create a new UUID object
+### Create a New UUID object
 
 A new UUID object can either be randomly generated, or assigned.
 
@@ -19,7 +19,7 @@ let u = UUID(<String>)
 
 If the string is invalid, the object is assigned the following UUID instead: `00000000-0000-0000-0000-000000000000`
 
-### To return the srting value of a UUID
+To return the string value of a UUID:
 
 ``` swift
 let u1 = UUID()

@@ -1,6 +1,6 @@
 # MongoDB Database
 
-Use the MongoDatabase class to create a reference to a named database using provided MongoClient instance. 
+Use the MongoDB Database class to create a reference to a named database using provided MongoClient instance. 
 
 Create new Mongo Database connection:
 
@@ -11,7 +11,7 @@ let database = try! MongoDatabase(
 	)
 ```
 
-### Closing the connection
+### Closing the Connection
 
 Once the connection is established and the database and collections have been defined, set the connection to close once completed using `defer`. This is done in reverse order - close collections, then databases, then finally the client connection.
 
@@ -23,7 +23,7 @@ defer {
 }
 ```
 
-### Drop the current database
+### Drop the Current Database
 
 Drops the current database, deleting the associated data files.
 
@@ -31,8 +31,7 @@ Drops the current database, deleting the associated data files.
 database.drop()
 ```
 
-
-### Current database name
+### Current Database Name
 
 `name()` returns the name of the current database.
 
@@ -40,7 +39,7 @@ database.drop()
 let name = database.name()
 ```
 
-### Create new Collection
+### Create a New Collection
 
 `serverStatus` returns: a Result object representing the server status.
 
@@ -53,8 +52,7 @@ databse.createCollection(name: <String>, options: <BSON>)
 * **name:** String, name of collection to be created
 * **options:**  BSON document listing options for new collection
 
-
-### Create reference to MongoCollection referenced by name
+### Create Reference to MongoDB Collection Referenced by Name
 
 Use `getCollection` to create a reference to a MongoCollection:
 
@@ -63,8 +61,7 @@ Use `getCollection` to create a reference to a MongoCollection:
 let collection = database.getCollection(name: <String>)
 ```
 
-
-### Create String Array of current database collections' names
+### Create String Array of Current Database Collections' Names
 
 Use `collectionNames` to create an array of the databases' collection names:
 

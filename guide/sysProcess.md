@@ -21,9 +21,9 @@ import PerfectLib
 #endif
 ```
 
-## Executing a SysProcess command
+### Executing a SysProcess Command
 
-The following function `runProc` accepts a command, an array of arguments and optionally outputs the response from the command.
+The following function `runProc` accepts a command, an array of arguments, and optionally outputs the response from the command.
 
 ``` swift
 func runProc(cmd: String, args: [String], read: Bool = false) throws -> String? {
@@ -60,7 +60,7 @@ print(output)
 
 Note that the `SysProcess` command is executed in this example with a hardcoded environment variable.
 
-### SysProcess members
+### SysProcess Members
 
 #### stdin
 `stdin` is the standard "in" file stream.
@@ -74,7 +74,7 @@ Note that the `SysProcess` command is executed in this example with a hardcoded 
 #### pid
 `pid` is the process identifier.
 
-### SysProcess methods
+### SysProcess Methods
 
 #### isOpen
 
@@ -96,7 +96,7 @@ myProcess.close()
 
 #### detatch
 
-Detach from the process such that it will not be manually terminated when this object is deinitialized.
+Detach from the process such that it will not be manually terminated when this object is uninitialized.
 
 ``` swift
 myProcess.detatch()

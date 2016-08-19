@@ -1,6 +1,6 @@
 # Directory Operations
 
-Perfect brings file system operations into your sever side Swift environment in an accessible, common sense fashion.
+Perfect brings file system operations into your sever-side Swift environments to control how data is stored and retrieved in an accessible way.
 
 First, ensure the `PerfectLib` is imported in your Swift file:
 
@@ -9,7 +9,7 @@ import Perfectib
 ```
 You are now able to use the `Dir` object to query and manipulate the file system.
 
-### Setting up a Directory object reference
+### Setting Up a Directory Object Reference
 
 Specify the absolute or relative path to the directory:
 
@@ -17,16 +17,16 @@ Specify the absolute or relative path to the directory:
 let thisDir = Dir("/path/to/directory/")
 ```
 
-### Checking if a directory exists
+### Checking If a Directory Exists
 
-Use the `exists` method to return a boolean value.
+Use the `exists` method to return a Boolean value.
 
 ``` swift
 let thisDir = Dir("/path/to/directory/")
 thisDir.exists
 ```
 
-### Returning the current directory object's name
+### Returning the Current Directory Object's Name
 
 `name` returns the name of the object's directory. Note that this is different from the "path".
 
@@ -34,7 +34,7 @@ thisDir.exists
 thisDir.name
 ```
 
-### Returning the parent directory
+### Returning the Parent Directory
 
 `parentDir` returns a `Dir` object representing the current directory object's parent. Returns nil if there is no parent.
 
@@ -43,7 +43,7 @@ let thisDir = Dir("/path/to/directory/")
 let parent = thisDir.parentDir
 ```
 
-### Revealing the directory path
+### Revealing the Directory Path
 
 `path` returns the path to the current directory.
 
@@ -52,7 +52,7 @@ let thisDir = Dir("/path/to/directory/")
 let path = thisDir.path
 ```
 
-### Returning the directory's UNIX permissions
+### Returning the Directory's UNIX Permissions
 
 `perms` returns the UNIX style permissions for the directory as a `PermissionMode` object.
 
@@ -67,7 +67,7 @@ print(thisDir.perms)
 >> PermissionMode(rawValue: 29092)
 ```
 
-### Creating a directory
+### Creating a Directory
 
 Creates the directory using the provided permissions. All directories along the path will be created if needed.
 
@@ -88,7 +88,7 @@ try newDir.create(perms: [.rwxUser, .rxGroup, .rxOther])
 The method throws `PerfectError.FileError` if an error creating the directory was encountered.
 
 
-### Deleting a directory
+### Deleting a Directory
 
 Deleting a directory from the file system:
 
@@ -99,12 +99,9 @@ try newDir.delete()
 
 The method throws `PerfectError.FileError` if an error deleting the directory was encountered.
 
+### Working Directories
 
-
-
-## Working Directories
-
-### Set the working directory to the location of the current object
+### Set the Working Directory to the Location of the Current Object
 
 Use `setAsWorkingDir` to set the current working directory to the location of the object's path.
 
@@ -113,8 +110,7 @@ let thisDir = Dir("/path/to/directory/")
 try thisDir.setAsWorkingDir()
 ```
 
-
-### Return the current working directory
+### Return the Current Working Directory
 
 Returns a new object containing the current working directory.
 
@@ -122,8 +118,7 @@ Returns a new object containing the current working directory.
 let workingDir = Dir.workingDir
 ```
 
-
-## Reading the directory structure
+### Reading the Directory Structure
 
 `forEachEntry` enumerates the contents of the directory passing the name of each contained element to the provided callback.
 
