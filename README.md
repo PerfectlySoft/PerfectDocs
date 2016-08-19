@@ -16,7 +16,7 @@ Before you do, please view [a comprehensive list of all open issues](http://jira
 
 We welcome all contributions to and recommendations for improving the Perfect documentation. We welcome contributions to Perfect’s documentation. If you spot a typo, bug, or other errata, or have additions or suggestions to recommend, please [create a pull request or log an issue in JIRA](http://jira.perfect.org:8080/servicedesk/customer/portal/1/user/login?destination=portal%2F1).
 
-We have a system (yet to be released) that picks up markdown files dynamically from this repository and incorporates them in an HTML docs site. This system will go live shortly.
+We have [a system, written with Perfect](https://github.com/PerfectlySoft/PerfectDocGenerator), that picks up markdown files dynamically from this repository and incorporates them in an HTML docs site. This system will go live shortly.
 
 ## Table of Contents
 
