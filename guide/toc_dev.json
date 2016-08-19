@@ -108,10 +108,6 @@
 				{
 					"name": "CURL",
 					"doc":  "cURL"
-				},
-				{
-					"name": "Zip",
-					"doc":  "zip"
 				}
 
 			]
@@ -158,10 +154,6 @@
 				{
 					"name": "Redis",
 					"doc":  "Redis"
-				},
-				{
-					"name": "Filemaker",
-					"doc":  "filemaker"
 				}
 
 			]
@@ -171,6 +163,37 @@
 			"doc":  "webSockets"		},
 		{
 			"name": "iOS Notifications",
-			"doc":  "iOSNotifications"		}
+			"doc":  "iOSNotifications"		},
+		{
+			"name": "Deployment",
+			"doc":  "deployment",
+			"contents": [
+				{
+					"name": "Docker",
+					"doc":  "deployment-Docker"
+				},
+				{
+					"name": "Heroku",
+					"doc":  "deployment-Heroku"
+				},
+				{
+					"name": "Azure",
+					"doc":  "deployment-Azure"
+				},
+				{
+					"name": "AWS",
+					"doc":  "deployment-AWS"
+				},
+				{
+					"name": "Linode",
+					"doc":  "deployment-Linode"
+				},
+				{
+					"name": "Digital Ocean",
+					"doc":  "deployment-DigitalOcean"
+				}
+
+			]
+		}
 	]
 }

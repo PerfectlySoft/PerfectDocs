@@ -15,4 +15,5 @@ Consult the followings sections for detailed information on the utilities availa
 * [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md)
 * [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md)
 * [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
+* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md)
 * [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
