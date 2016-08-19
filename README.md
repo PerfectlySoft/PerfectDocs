@@ -1,22 +1,22 @@
-# PerfectDocs
+# Perfect Documentation Library
 
 [![Gitter](https://badges.gitter.im/PerfectlySoft/PerfectDocs.svg)](https://gitter.im/PerfectlySoft/PerfectDocs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Reference and documentation for the Perfect library.
+This library contains all the reference documentation and API reference-related material you need to run and use Perfect.
 
-## Issues
+### Issues, Pull Requests, and Support
 
-We are transitioning to using JIRA for all bugs and support related issues, therefore the GitHub issues has been disabled.
+We have transitioned to using JIRA for dealing with all pull requests, bugs, and any other support-related issues. Therefore, the GitHub "issues" tab has been disabled.
 
-If you find a mistake, bug, or any other helpful suggestion you'd like to make on the docs please head over to [http://jira.perfect.org:8080/servicedesk/customer/portal/1](http://jira.perfect.org:8080/servicedesk/customer/portal/1) and raise it.
+If you find a bug, or have a helpful suggestion to improve this documentation, [please raise it](http://jira.perfect.org:8080/servicedesk/customer/portal/1).
 
-A comprehensive list of open issues can be found at [http://jira.perfect.org:8080/projects/ISS/issues](http://jira.perfect.org:8080/projects/ISS/issues)
+Before you do, please view [a comprehensive list of all open issues](http://jira.perfect.org:8080/projects/ISS/issues).
 
-## Contributing
+### Contributing
 
-We welcome contributions to the documentation, small or large! If you have additions, errata or general corrections or suggestions please create a pull request.
+We welcome all contributions to and recommendations for improving the Perfect documentation. We welcome contributions to Perfect’s documentation. If you spot a typo, bug, or other errata, or have additions or suggestions to recommend, please [create a pull request or log an issue in JIRA](http://jira.perfect.org:8080/servicedesk/customer/portal/1/user/login?destination=portal%2F1).
 
-We have a system (yet to be released) that picks up the markdown files dynamically from this repository and incorporates them in an HTML docs site. This will go live shortly.
+We have a system (yet to be released) that picks up markdown files dynamically from this repository and incorporates them in an HTML docs site. This system will go live shortly.
 
 ## Table of Contents
 
