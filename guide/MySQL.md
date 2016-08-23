@@ -46,7 +46,7 @@ Add the "Perfect-MySQL" project as a dependency in your Package.swift file:
 
 ### Import
 
-Fist and foremost, in any of the source files you intend to use with MySQL, import the required modules with: 
+First and foremost, in any of the source files you intend to use with MySQL, import the required modules with: 
 
 ```swift
 import PerfectLib
