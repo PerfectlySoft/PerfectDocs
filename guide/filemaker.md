@@ -259,7 +259,7 @@ public struct FMPQuery: CustomStringConvertible {
 
 A FMPQuery is first instantiated with a database name, layout name and action. The possible actions are:
 
-``swift
+```swift
 /// A database action.
 public enum FMPAction: CustomStringConvertible {
 	/// Perform a search given the current query.
