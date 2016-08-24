@@ -1,7 +1,10 @@
 # Network Requests with cURL
 
-Perfect provides a complete interface to the open source cURL library through the use of the cURL free and open command-line tool to transfer files on several supported protocols.cURL transfers data with URL syntax, and it supports the following protocols:
-- DICT 
+Perfect provides a complete interface to the open source cURL library through the use of the cURL free and open command-line tool to transfer files on several supported protocols.
+
+cURL transfers data with URL syntax, and it supports the following protocols:
+
+- DICT 
 - FILE
 - FTP
 - FTPS
@@ -179,7 +182,7 @@ if let b = perf.3 {
 }
 let perf1 = perf.1
 
-let response = curl.responseCode
+let response = curlObject.responseCode
 print(response == 200, "\(response)")
 
 print("Header size: \(header.count)")
