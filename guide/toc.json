@@ -90,10 +90,6 @@
 					"doc":  "thread"
 				},
 				{
-					"name": "Networking",
-					"doc":  "net"
-				},
-				{
 					"name": "UUID",
 					"doc":  "UUID"
 				},
@@ -156,21 +152,11 @@
 					]
 				},
 				{
-					"name": "Redis",
-					"doc":  "Redis"
-				},
-				{
 					"name": "Filemaker",
 					"doc":  "filemaker"
 				}
 
 			]
-		},
-		{
-			"name": "WebSockets",
-			"doc":  "webSockets"		},
-		{
-			"name": "iOS Notifications",
-			"doc":  "iOSNotifications"		}
+		}
 	]
 }
