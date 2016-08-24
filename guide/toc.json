@@ -9,6 +9,10 @@
 			"doc":  "gettingStarted"
 		},
 		{
+			"name": "Getting Started From Scratch",
+			"doc": "gettingStartedFromScratch"
+		},
+		{
 			"name": "An HTTP and Web Services Primer",
 			"doc":  "WebServicesPrimer"
 		},
