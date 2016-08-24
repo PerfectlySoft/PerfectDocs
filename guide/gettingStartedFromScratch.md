@@ -53,7 +53,7 @@ It's also recommended to add a `.gitignore` similar to the contents of [this Swi
 
 Now create a `Package.swift` file in the root of the repo with the following content. This is needed for the Swift Package Manager (SPM) to build the project.
 
-```
+``` swift
 import PackageDescription
 
 let package = Package(
@@ -92,7 +92,7 @@ Well hi there!
 
 Now that the swift package is up and running, then next step is to implement the Perfect-HTTPServer! Open up the `Sources/main.swift` and change its content the following:
 
-```
+``` swift
 import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
