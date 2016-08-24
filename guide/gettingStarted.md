@@ -1,6 +1,13 @@
 ## Getting Started
 
-Are you eager to get programming with Swift and Perfect? This guide will provide you with everything you need to know to run Perfect, and to create your first application. After reading this guide, you will know:- How to create and run an HTTP/HTTPS server and get Perfect up and running- The prerequisite components you must install to run Perfect on either OS X or Ubuntu Linux- How to build, test, and manage dependencies for Swift projects- How to deploy Perfect in additional environments including Heroku, Amazon Web Services, Docker, Microsoft Azure, Google Cloud, IBM Bluemix CloudFoundry, and IBM Bluemix Docker
+Are you eager to get programming with Swift and Perfect? This guide will provide you with everything you need to know to run Perfect, and to create your first application. 
+
+After reading this guide, you will know:
+
+- How to create and run an HTTP/HTTPS server and get Perfect up and running
+- The prerequisite components you must install to run Perfect on either OS X or Ubuntu Linux
+- How to build, test, and manage dependencies for Swift projects
+- How to deploy Perfect in additional environments including Heroku, Amazon Web Services, Docker, Microsoft Azure, Google Cloud, IBM Bluemix CloudFoundry, and IBM Bluemix Docker
 
 ### Swift 3.0
 
@@ -16,20 +23,6 @@ Apple Swift version 3.0 (swiftlang-800.0.33.1 clang-800.0.31)
 Target: x86_64-apple-macosx10.9
 ```
 Make sure you are running the latest version of Swift 3.0. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.
-
-### OS X
-You will need to install [Homebrew](http://brew.sh) and its dependencies before running Perfect on OS X. This is currently limited to OpenSSL. To install Homebrew, in the terminal, type:
-
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-To install OpenSSL, type:
-
-```
-brew install openssl
-brew link openssl --force
-```
 
 ### Ubuntu Linux
 Perfect runs in Ubuntu Linux 14.04 and 15.10 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
