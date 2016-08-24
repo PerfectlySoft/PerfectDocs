@@ -22,18 +22,7 @@ Make sure you are running the latest version of Swift 3.0, whether it being the 
 You can find out which version of Swift you will need by looking in [the README of the main Perfect repo](https://github.com/PerfectlySoft/Perfect#compatibility-with-swift)
 
 ### OS X
-You will need to install [Homebrew](http://brew.sh) and its dependencies before running Perfect on OS X. This is currently limited to OpenSSL. To install Homebrew, in the terminal, type:
-
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-To install OpenSSL, type:
-
-```
-brew install openssl
-brew link openssl --force
-```
+Everything you need is already installed!
 
 ### Ubuntu Linux
 Perfect runs in Ubuntu Linux 14.04 and 15.10 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
