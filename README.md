@@ -35,6 +35,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 
 * [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md)
 * [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md)
+* [Getting Started From Scratch](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStartedFromScratch.md)
 * [An HTTP and Web Services Primer](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/WebServicesPrimer.md)
 * [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md)
 * [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)
