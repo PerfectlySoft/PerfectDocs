@@ -38,7 +38,10 @@ sudo apt-get install libmongoc
 Add this project as a dependency in your Package.swift file.
 
 ```
-.Package(url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git", versions: Version(0,0,0)..<Version(10,0,0))
+.Package(
+	url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git", 
+	majorVersion: 2, minor: 0
+	)
 ```
 
 For more information about using Perfect libraries with your project, please see the chapter on "[Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)".

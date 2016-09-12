@@ -33,7 +33,10 @@ sudo apt-get install libpq-dev
 Add the "Perfect-PostgreSQL" project as a dependency in your Package.swift file:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-PostgreSQL.git", versions: Version(0,0,0)..<Version(10,0,0))
+.Package(
+	url: "https://github.com/PerfectlySoft/Perfect-PostgreSQL.git",
+	majorVersion: 2, minor: 0
+	)
 ```
 
 > Remember to rebuild your Xcode project file after making any changes to your Package.swift file

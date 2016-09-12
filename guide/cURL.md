@@ -33,7 +33,10 @@ cURL has built-in support for SSL certificates, HTTP POST, HTTP PUT, FTP uploadi
 In addition to the PerfectLib, you will need the Perfect-cURL dependency in the Package.swift file:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Curl.git", versions: Version(0,0,0)..<Version(10,0,0)),
+.Package(
+	url: "https://github.com/PerfectlySoft/Perfect-Curl.git", 
+	majorVersion: 2, minor: 0
+	)
 ```
 
 In each Swift source file that references the cURL classes, include the import directive:

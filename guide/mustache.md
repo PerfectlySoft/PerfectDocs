@@ -7,7 +7,10 @@ For more general information on Mustache, consult the [mustache specification](h
 To utilize this module, add this project as a dependency in your Package.swift file.
 
 ```swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", versions: Version(0,0,0)..<Version(10,0,0))
+.Package(
+	url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", 
+	majorVersion: 2, minor: 0
+	)
 ```
 
 Mustache templates can be used in either an HTTP server handler or standalone with no server.

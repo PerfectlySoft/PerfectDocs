@@ -27,7 +27,7 @@ let package = Package(
 	targets: [],
 	dependencies: [
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", 
-			versions: Version(0,0,0)..<Version(10,0,0))
+			majorVersion: 2, minor: 0)
     ]
 )
 ```
@@ -48,9 +48,9 @@ let package = Package(
 	targets: [],
 	dependencies: [
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", 
-			majorVersion: 2),
+			majorVersion: 2, minor: 0),
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", 
-			majorVersion: 2)
+			majorVersion: 2, minor: 0)
     ]
 )
 ```
@@ -60,7 +60,7 @@ As you can see, the [Perfect-Mustache](https://github.com/PerfectlySoft/Perfect-
 ```swift
 import PackageDescription
 
-let versions = Version(0,0,0)..<Version(10,0,0)
+let versions = majorVersion: 2, minor: 0
 let urls = [
 	"https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
 	"https://github.com/PerfectlySoft/Perfect-FastCGI.git",
@@ -78,7 +78,7 @@ let urls = [
 let package = Package(
 	name: "PerfectTemplate",
 	targets: [],
-	dependencies: urls.map { .Package(url: $0, versions: versions) }
+	dependencies: urls.map { .Package(url: $0, versions) }
 )
 ```
 
@@ -86,13 +86,19 @@ let package = Package(
 
 The SPM provides the following commands for building your project, and for cleaning up any build artifacts:
 
-```swift build``` 
+```
+swift build
+``` 
 
 This command will download any dependencies if they haven't been already acquired and attempt to build the project. If the build is successful, then the resulting executable will be placed in the (hidden) ```.build/debug/``` directory. When building the PerfectTemplate project, you will see as the last line of SPM output: ```Linking .build/debug/PerfectTemplate```. Entering ```.build/debug/PerfectTemplate``` will run the server. By default, a debug verison of the executable will be generated. To build a production ready release version, you would issue the command ```swift build -c release```. This will place the resulting executable in the ```.build/release/``` directory.
 
-```swift build --clean```
+```
+swift build --clean
+```
 
-```swift build --clean=dist```
+```
+swift build --clean=dist
+```
 
 It can be useful to wipe out all intermediate data and do a fresh build. Providing the ```--clean``` argument will delete the ```.build``` directory, and permit a fresh build. Providing the ```--clean=dist``` argument will delete both the ```.build``` directory and the ```Packages``` directory. Doing so will re-download all project dependencies to ensure you have the latest version of a dependent project.
 
@@ -100,9 +106,11 @@ It can be useful to wipe out all intermediate data and do a fresh build. Providi
 
 The SPM can generate an Xcode project based on your *Package.swift* file. This project will permit you to build and debug your application within Xcode. To generate the Xcode project, issue the following command:
 
-```swift package generate-xcodeproj```
+```
+swift package generate-xcodeproj
+```
 
-The command will generate the Xcode project file into the same directory. For example, issuing the command within the PerfectTemplate project directory will produce the message ```generated: ./PerfectTemplate.xcodeproj```.
+The command will generate the Xcode project file into the same directory. For example, issuing the command within the PerfectTemplate project directory will produce the message `generated: ./PerfectTemplate.xcodeproj`.
 
 **Note: It is not advised to edit or add files directly to this Xcode project.** If you add any further dependencies, or require later versions of any dependencies, you will need to regenerate this Xcode project. As a result, any modifications you have made will be overwritten.
 
