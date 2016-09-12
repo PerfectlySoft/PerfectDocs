@@ -41,10 +41,8 @@ let name = database.name()
 
 ### Create a New Collection
 
-`serverStatus` returns: a Result object representing the server status.
-
 ``` swift
-databse.createCollection(name: <String>, options: <BSON>)
+database.createCollection(name: <String>, options: <BSON>)
 ```
 
 ####Parameters

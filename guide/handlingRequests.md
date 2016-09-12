@@ -14,4 +14,3 @@ In addition, the following sections show how to use some of the pre-made, specia
 
 * [Static File Handler](staticFileContent.md) - Describes how to serve static file content
 * [Mustache](mustache.md) - Shows how to populate and serve Mustache template based content
-* [WebSockets](webSockets.md) - Illustrates how to initiate and handle WebSocket sessions

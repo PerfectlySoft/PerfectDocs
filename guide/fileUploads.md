@@ -80,7 +80,7 @@ do {
 Next, inside the `for upload in uploads` code block, we will create the action for the file to be moved:
 
 ``` swift
-// move file to webroot
+// move file
 let thisFile = File(upload.tmpFileName)
 do {
 	let _ = try thisFile.moveTo(path: fileDir.path + upload.fileName, overWrite: true)

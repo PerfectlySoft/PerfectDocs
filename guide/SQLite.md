@@ -25,7 +25,7 @@ Add the "Perfect-SQLite" project as a dependency in your Package.swift file:
 
 ### Import
 
-Fist and foremost, in any of the source files you intend to use with SQLite, import the module with: 
+First and foremost, in any of the source files you intend to use with SQLite, import the module with: 
 
 ``` swift
 import SQLite
@@ -35,7 +35,7 @@ import SQLite
 
 ### Access the Database
 
-The database is accessed via it’s local file path, so the fist step is to store the file path to your SQLite data:
+The database is accessed via it’s local file path, so the first step is to store the file path to your SQLite data:
 
 ``` swift
 let dbPath = "./db/database"

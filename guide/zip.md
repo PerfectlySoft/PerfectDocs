@@ -4,7 +4,7 @@ Perfect provides a wrapper around the minizip C library and implements a set of 
 
 ## Getting Started
 
-For MacOS insytall minizip using homebrew:
+For MacOS install minizip using homebrew:
 
 ```
 brew install minizip
@@ -76,7 +76,7 @@ This method returns the success/fail status of the operation as a `ZipStatus` en
 #### Parameters:
 
 * **source:** The file path of zipped file
-* **destination:** The path tot eh directory into which the contents of the zip file are to be placed
+* **destination:** The path to the directory into which the contents of the zip file are to be placed
 * **overwrite:** A boolean declaring the behaviour to attempt when the destination directory or file exists
 * **password:** The password string to use for decrypting a password-protected zip file. Optional.
 

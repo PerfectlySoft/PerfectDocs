@@ -39,7 +39,7 @@ public extension Threading {
 		/// Will only return true if the lock was not being held by any other thread.
 		/// Returns false if the lock is currently being held by another thread.
 		public func tryLock() -> Bool
-		/// Unlock. Returns true if the lock was held by the current thread and was successfully unlocked. ior the lock count was decremented.
+		/// Unlock. Returns true if the lock was held by the current thread and was successfully unlocked, or the lock count was decremented.
 		public func unlock() -> Bool
 		/// Acquire the lock, execute the closure, release the lock.
 		public func doWithLock(closure: () throws -> ()) rethrows

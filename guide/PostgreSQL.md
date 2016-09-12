@@ -70,7 +70,7 @@ do {
 	// handle errors
 }
 ```
-The status returned fropm the `p.connectdb()` method is either `.ok` or `.bad`. This allows you to quickly catch and abort your connection processing if the database server is unavailable.
+The status returned from the `p.connectdb()` method is either `.ok` or `.bad`. This allows you to quickly catch and abort your connection processing if the database server is unavailable.
 
 ### Running Queries
 
@@ -80,7 +80,6 @@ Once you have your connection established, you normally want to run queries on t
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
-// name, oid, integer, boolean
 let result = p.exec(
 	statement: "
 		select datname,datdba,encoding,datistemplate 
@@ -99,7 +98,6 @@ The result of the query (`result`) is returned as type `PGResult` - for more on 
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
-// name, oid, integer, boolean
 let result = p.exec(
 	statement: "
 		insert into test_db (col1, col2, col3)
@@ -115,7 +113,6 @@ Saving data can be done without Parameter Binding, however, this shifts the burd
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
-// name, oid, integer, boolean
 let res = p.exec(statement: "
 	select datname,datdba,encoding,datistemplate 
 	from pg_database 
@@ -370,7 +367,7 @@ The `.getField*` methods are:
 * `.getFieldInt16(tupleIndex: Int, fieldIndex: Int)` returns an Int16 type
 * `.getFieldInt32(tupleIndex: Int, fieldIndex: Int)` returns an Int32 type
 * `.getFieldInt64(tupleIndex: Int, fieldIndex: Int)` returns an Int64 type
-* `.getFieldDouble(tupleIndex: Int, fieldIndex: Int)` returns a Dpuble type
+* `.getFieldDouble(tupleIndex: Int, fieldIndex: Int)` returns a Double type
 * `.getFieldFloat(tupleIndex: Int, fieldIndex: Int)` returns a Float type
 * `.getFieldBlob(tupleIndex: Int, fieldIndex: Int)` returns an [Int8] array
 

@@ -135,7 +135,7 @@ Valid options for @options are:
  *   's' for dotall mode ('.' matches everything)
  *   'u' to make \w and \W match unicode
 
-For more information on what comprimises a BSON regex, see [bsonspec.org](bsonspec.org).
+For more information on what comprimises a BSON regex, see [www.bsonspec.org](http://www.bsonspec.org).
 
  * **key:** The key of the field
  * **regex:** The regex to append to the BSON

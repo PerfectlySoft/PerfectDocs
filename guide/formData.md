@@ -38,7 +38,7 @@ let params = request.postParams()
 To return all params with a specific name such as multiple checkboxes, type:
 
 ``` swift
-let params = request.postParams()
+let params = request.postParams(name: <String>)
 ```
 This returns an array of strings: `[String]`
 

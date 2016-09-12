@@ -146,7 +146,7 @@ let contents = try thisFile.readSomeBytes(count: <Int>)
 
 #### Parameters
 
-To learn what the maximum number of bytes are in a file, enter the number of bytes you wish to count and read. For example, to read the first 10 bytes of a file:
+To read a specific byte range of a file's contents, enter the number of bytes you wish to read. For example, to read the first 10 bytes of a file:
 
 
 ``` swift
@@ -217,6 +217,8 @@ let newFile = thisFile.moveTo(path: <String>, overWrite: <Bool>)
 * **overWrite:** *Optional.* Indicates that any existing file at the destination path should first be deleted. Default is `false`
 
 #### Error Handling
+
+The method throws `PerfectError.FileError` on error.
 
 ``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
