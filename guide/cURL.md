@@ -4,27 +4,7 @@ Perfect provides a complete interface to the open source cURL library through th
 
 cURL transfers data with URL syntax, and it supports the following protocols:
 
-- DICT 
-- FILE
-- FTP
-- FTPS
-- Gopher
-- HTTP
-- HTTPS
-- IMAP
-- IMAPS
-- LDAP
-- LDAPS
-- POP3
-- POP3S
-- RTMP
-- RTSP
-- SCP
-- SFTP
-- SMTP
-- SMTPS
-- Telnet
-- TFTP
+DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMTP, SMTPS, Telnet, TFTP
 
 cURL has built-in support for SSL certificates, HTTP POST, HTTP PUT, FTP uploading, proxies, cookies, user+password authentication, proxy tunnelling, and more.
 
