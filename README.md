@@ -17,7 +17,7 @@
     </a>  
     <a href="http://perfect.ly" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_4_slack.jpg" alt="Join the Perfect Slack" />
-    </a> 
+    </a>
 </p>
 
 <p align="center">
@@ -107,7 +107,6 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* Azure
 	* AWS
 	* Linode
-	* Digital Ocean
+	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md) @robertBojor
 * Platform specific Notes
 	* Starting a Swift binary at boot on Ubuntu
-
