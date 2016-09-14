@@ -1,27 +1,27 @@
-# UUID
-Also known as a Globally Unique Identifier (GUID), a Universal Unique Identifier (UUID) is a 128-bit number used to uniquely identify some object or entity. The UUID relies upon a combination of components to ensure uniqueness.
+# UUID唯一识别符
+UUID识别码（也被成为全球唯一识别码GUID）是一个128位整数，用于唯一识别一个对象或实体。UUID通过不同部件代码组合来确保其唯一性。
 
-### Create a New UUID object
+### 创建一个新的UUID对象
 
-A new UUID object can either be randomly generated, or assigned.
+一个新UUID对象可以通过随机数自动创建，或者根据一个现有UUID代码进行指定。
 
-To randomly generate a v4 UUID:
+如果需要随机创建一个v4版本的UUID：
 
-``` swift
+```swift
 let u = UUID()
 ```
 
-To assign a v4 UUID from a string:
+如果需要从一个字符串中读取并对一个v4版本UUID对象进行赋值：
 
-``` swift
+```swift
 let u = UUID(<String>)
 ```
 
-If the string is invalid, the object is assigned the following UUID instead: `00000000-0000-0000-0000-000000000000`
+如果字符串无效，则新创建的UUID对象内容会变为：`00000000-0000-0000-0000-000000000000`
 
-To return the string value of a UUID:
+如果希望以字符串形式输出UUID的值：
 
-``` swift
+```swift
 let u1 = UUID()
 print(u1.string)
 ```

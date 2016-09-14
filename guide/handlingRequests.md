@@ -1,16 +1,18 @@
-# Handling Requests
-As an internet server, Perfect's main function is to receive and respond to requests from clients.  Perfect provides objects to represent the request and the response components, and it permits you to install handlers to control the resulting content generation.Everything begins with the creation of the server object. The server object is configured and subsequently binds and listens for connections on a particular port. When a connection occurs, the server begins reading the request data. Once the request has been completely read, the server will pass the [request object](HTTPRequest.md) through any request filters. 
+# 处理HTTP请求
+作为互联网服务器，Perfect的主要功能是从客户端浏览器接收请求并响应。Perfect提供一系列代表请求和响应的对象组件，并允许在服务器上增加管理句柄用于产生页面内容。
 
-These filters permit the incoming request to be modified. The server will then use the request's path URI and search the [routing](routing.md) system for an appropriate handler. If a handler is found, it is given a chance to populate a [response object](HTTPResponse.md). Once the handler indicates that it is done responding, the response object is passed through any response filters. These filters permit the outgoing data to be modified. The resulting data is then pushed to the client, and the connection is either closed, or it can be reused as an HTTP persistent connection, aka HTTP keep-alive, for additional requests and responses.
+所有对象都是在服务器对象创建后开始工作。服务器对象会被执行配置，随后会根据配置绑定并监听特定端口。一旦出现连接，服务器会读取请求数据，请求数据读取完成后，服务器会将[request object请求对象](HTTPRequest.md)传递给请求过滤器。
 
-Consult the following sections for more details on each specific phase and what can be accomplished during each:
+过滤器可能会根据需要修改查询请求。服务器会使用请求的URI路径检索[routing请求／响应路由](routing.md)以获取处理该请求的具体句柄。如果找到了合适的处理句柄，服务器会传递给句柄对应的[response object响应对象](HTTPResponse.md)。当句柄反馈响应完成时，响应对象会被传递给响应过滤器。这些过滤器会根据需要修改最终输出的数据内容。最后响应结果数据会被推送给客户端浏览器，而客户端到服务器的连接或者被关闭、或者被拒绝维持HTTP持久连接、或者为后续请求和响应维持HTTP活动连接。
 
-* [Routing](routing.md) - Describes the routing system and shows how to install URL handlers
-* [HTTPRequest](HTTPRequest.md) - Provides details on the request object protocol
-* [HTTPResponse](HTTPResponse.md) - Provides details on the response object protocol
-* [Request &amp; Response Filters](filter.md) - Shows how to add filters and illustrates how they are useful
+上述过程的详细解释请参考以下文献：
 
-In addition, the following sections show how to use some of the pre-made, specialized handlers to accomplish specific tasks:
+* [Routing请求／响应路由](routing.md)——描述了HTTP请求／响应之间的路由系统，以及如何安装URL处理句柄
+* [HTTPRequest请求](HTTPRequest.md)——提供HTTP请求对象的完整协议
+* [HTTPResponse响应](HTTPResponse.md)——提供HTTP响应对象的完整协议
+* [HTTP请求与响应过滤器](filter.md)——说明如何增加、如何使用过滤器
 
-* [Static File Handler](staticFileContent.md) - Describes how to serve static file content
-* [Mustache](mustache.md) - Shows how to populate and serve Mustache template based content
+此外，以下内容描述了如何预制页面内容、为特定任务而定制处理句柄：
+
+* [Static File Handler静态页面文件](staticFileContent.md)——描述了如何管理静态文件内容
+* [Mustache模板](mustache.md)——描述了如何管理和应用Mustache模板页面

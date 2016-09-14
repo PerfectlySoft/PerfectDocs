@@ -1,37 +1,37 @@
-# Log
+# 日志
 
-Perfect has a built-in error logging system that allows messages to be logged at several different levels. Each log level can be routed to either console or the system log.
+Perfect包含了一个内建的错误日志系统。用户可以调用log进行日志分级记录。每个级别的日志都可以输出到命令行或者系统日志。
 
-The built-in log levels, in order of increasing severity:
+内建的日志警告级别包括（依严重级别依次递增排序）：
 
-* **debug:** Log lines are preceded by `[DBG]`
-* **info:** Log lines are preceded by `[INFO]`
-* **warning:** Log lines are preceded by `[WARN]`
-* **error:** Log lines are preceded by `[ERR]`
-* **critical:** Log lines are preceded by `[CRIT]`
-* **terminal:** Log lines are preceded by `[TERM]`
+* **debug:** 调试 `[DBG]`
+* **info:** 信息 `[INFO]`
+* **warning:** 警告 `[WARN]`
+* **error:** 错误 `[ERR]`
+* **critical:** 严重错误 `[CRIT]`
+* **terminal:** 服务终止 `[TERM]`
 
-### To Log Information to the Console:
+### 如果需要将日志信息直接输出到命令行
 
-``` swift
-Log.debug(message: "Line 123: value \(myVar)")
-Log.info(message: "At Line 123")
-Log.warning(message: "Entered error handler")
-Log.error(message: "Error condition: \(errorMessage)")
-Log.critical(message: "Exception Caught: \(exceptionVar)")
-Log.terminal(message: "Uncaught exception, terminating. \(infoVar)")
+```swift
+Log.debug(message: "程序第123行: value \(myVar)")
+Log.info(message: "程序第123行:")
+Log.warning(message: "调用错误句柄")
+Log.error(message: "满足错误条件\(errorMessage)")
+Log.critical(message: "发现异常：\(exceptionVar)")
+Log.terminal(message: "异常失控，服务终止。\(infoVar)")
 ```
 
-### To Log Information to the System Log:
+### 如果需要将日志信息输出到系统日志
 
-If you wish to pipe all log entries to the system log, set the `Log.logger` property to `SysLogger()` early in the application setup. Once this has been executed, all output will be logged to the System Log file, and echoed to the console.
+如果需要将所有日志结果输出到系统日志中去，请在程序启动的配置过程中调用`SysLogger()`并设置`Log.logger`属性。一旦设置完成，所有日志将输出到系统日志文件，同时在命令行中同步显示。
 
-``` swift
+```swift
 Log.logger = SysLogger()
 ```
 
-If you wish to change the logger process back to the console only at any point, set the property back to `ConsoleLogger()`
+如果您希望将日志渠道停止输出到系统并返回到命令行，请随时调用上述方法将属性设置回`ConsoleLogger()`
 
-``` swift
+```swift
 Log.logger = ConsoleLogger()
 ```

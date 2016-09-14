@@ -1,10 +1,10 @@
-# SysProcess
+# SysProcess系统进程
 
-Perfect provides the ability to execute local processes or shell commands through the `SysProcess` type. This type allows local processes to be launched with an array of parameters and shell variables. Some processes will execute and return a result immediately. Other processes can be left open for interactive read/write operations.
+在Perfect环境下，用户可以通过`SysProcess`调用系统命令，并允许在调用进程是自定义配套的参数数组和环境变量。部分进程可以立刻被执行并返回结果；其它一些进程则可以处于开通状态，随时可以进行互动性数据读写。
 
-### Setup
+### 设置
 
-Add the "Perfect" project as a dependency in your Package.swift file:
+请在您的"Perfect"项目中打开Package.swift设置依存关系：
 
 ``` swift
 .Package(
@@ -12,7 +12,7 @@ Add the "Perfect" project as a dependency in your Package.swift file:
 	majorVersion: 2, minor: 0
 	)
 ```
-In your file where you wish to use SysProcess, import the PerfectLib and add either SwiftGlibc or Darwin:
+在具体需要调用系统进程的源代码文件开头，声明PerfectLib库文件并增加linux下SwiftGlibc或macOS的Darwin编译条件：
 
 ``` swift
 import PerfectLib
@@ -24,9 +24,9 @@ import PerfectLib
 #endif
 ```
 
-### Executing a SysProcess Command
+### 执行系统进程调用命令
 
-The following function `runProc` accepts a command, an array of arguments, and optionally outputs the response from the command.
+函数方法`runProc`可以用于带参数数组进行调用系统命令，并可选择是否从命令返回中输出响应结果。
 
 ``` swift
 func runProc(cmd: String, args: [String], read: Bool = false) throws -> String? {
@@ -61,63 +61,64 @@ let output = try runProc(cmd: "ls", args: ["-la"], read: true)
 print(output)
 ```
 
-Note that the `SysProcess` command is executed in this example with a hardcoded environment variable.
+注意例子中的`SysProcess`命令所带环境变量并非在所有系统内通用（请用户根据宿主系统自行输入正确的环境变量以验证本例）。
 
-### SysProcess Members
+### SysProcess系统进程类成员字段
 
 #### stdin
-`stdin` is the standard "in" file stream.
+`stdin`即当前文件系统的标准输入流。
 
 #### stdout
-`stdout` is the standard out file stream.
+`stdout` 即当前文件系统的标准输出流。
 
 #### stderr
-`stderr` is the standard err file stream.
+`stderr` 即当前文件系统的标准错误流。
 
 #### pid
-`pid` is the process identifier.
+`pid` 即进程唯一标示符
 
-### SysProcess Methods
+### SysProcess系统进程类成员函数
 
 #### isOpen
 
-Returns true if the process was opened and was running at some point.
+如果当前进程仍处于“开放”状态（即输入输出可读写），则返回真值
 
-Note that the process may not be currently running. Use `wait(false)` to check if the process is currently running.
+注意当前进程不一定处于运行状态，请用`wait(false)` 方法来检查当前进程是否处于运行状态。
 
-``` swift
+```swift
 myProcess.isOpen()
 ```
 
 #### close
 
-`close` terminates the process and cleans up.
+`close` 关闭进程并清理内容。
 
-``` swift
+```swift
 myProcess.close()
 ```
 
 #### detatch
 
-Detach from the process such that it will not be manually terminated when this object is uninitialized.
+从进程中脱离，以确保即便是该进程进入僵尸态后资源也能够自动释放（即无需再等待进程返回）
 
-``` swift
+```swift
 myProcess.detatch()
 ```
 
 #### wait
 
-Determine if the process has completed running and retrieve its result code.
+判断该进程是否已经结束运行并读取其返回值。
 
-``` swift
+```swift
 myProcess.wait(hang: <Bool>)
 ```
 
 #### kill
 
-Terminate the process and return its result code.
+终止进程并读取其返回值。
 
-``` swift
+```swift
 myProcess.kill(signal: <Int32 = SIGTERM>)
 ```
-Response is an `Int32` result code.
+
+返回值是一个`Int32`整型代码

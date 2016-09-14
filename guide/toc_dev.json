@@ -1,119 +1,115 @@
 {
 	"contents": [
 		{
-			"name": "Introduction",
+			"name": "简介",
 			"doc":  "introduction"
 		},
 		{
-			"name": "Getting Started",
+			"name": "快速上手",
 			"doc":  "gettingStarted"
 		},
 		{
-			"name": "An HTTP and Web Services Primer",
+			"name": "HTTP和Web服务基础",
 			"doc":  "WebServicesPrimer"
 		},
 		{
-			"name": "Repository Layout",
+			"name": "代码资源库结构",
 			"doc":  "repositoryLayout"
 		},
 		{
-			"name": "Building with Swift Package Manager",
+			"name": "用SPM软件包管理器编译项目",
 			"doc":  "buildingWithSPM"
 		},
 		{
-			"name": "Handling Requests",
+			"name": "处理HTTP请求",
 			"doc":  "handlingRequests",
 			"contents": [
 				{
-					"name": "Routing",
+					"name": "HTTP路由",
 					"doc":  "routing"
 				},
 				{
-					"name": "HTTPRequest",
+					"name": "HTTPRequest请求对象",
 					"doc":  "HTTPRequest",
 					"contents" : [
 						{
-							"name": "Using Form Data",
+							"name": "使用表单",
 							"doc":  "formData"
 						},
 						{
-							"name": "File Uploads",
+							"name": "文件上传",
 							"doc":  "fileUploads"
 						}
 
 					]
 				},
 				{
-					"name": "HTTPResponse",
+					"name": "HTTPResponse响应对象",
 					"doc":  "HTTPResponse"
 				},
 				{
-					"name": "Request & Response Filters",
+					"name": "HTTP请求与响应过滤器",
 					"doc":  "filters"
 				},
 				{
-					"name": "Filters",
-					"doc":  "filters"
-				},
-				{
-					"name": "JSON",
+					"name": "JSON数据转换",
 					"doc":  "JSON"
 				},
 				{
-					"name": "Static File Content",
+					"name": "静态文件",
 					"doc":  "staticFileContent"
 				},
 				{
-					"name": "Mustache",
+					"name": "Mustache页面模板",
 					"doc":  "mustache"
 				}
 			]
 		},
 		{
-			"name": "Utilities",
+			"name": "基本工具",
 			"doc":  "utilities",
 			"contents": [
 				{
-					"name": "Bytes",
+					"name": "字节流转换",
 					"doc":  "bytes"
 				},
 				{
-					"name": "File",
+					"name": "文件操作",
 					"doc":  "file"
 				},
 				{
-					"name": "Dir",
+					"name": "目录与路径",
 					"doc":  "dir"
 				},
 				{
-					"name": "Threading",
+					"name": "线程",
 					"doc":  "thread"
 				},
 				{
-					"name": "Networking",
+					"name": "网络",
 					"doc":  "net"
 				},
 				{
-					"name": "UUID",
+					"name": "UUID唯一标识符",
 					"doc":  "UUID"
 				},
 				{
-					"name": "SysProcess",
+					"name": "SysProcess系统进程",
 					"doc":  "sysProcess"
 				},
 				{
-					"name": "Log",
+					"name": "日志",
 					"doc":  "log"
 				},
 				{
-					"name": "CURL",
+					"name": "CURL联网传输",
 					"doc":  "cURL"
 				}
 
 			]
 		},
 		{
-			"name": "Database Connectors",
+			"name": "数据库连接器",
 			"doc":  "databaseConnectors",
 			"contents": [
 				{
@@ -133,22 +129,22 @@
 					"doc":  "MongoDB",
 					"contents": [
 						{
-							"name": "MongoDB Databases",
+							"name": "MongoDB 数据库",
 							"doc":  "MongoDB-Database"
 						},
 						{
-							"name": "MongoDB Collections",
+							"name": "MongoDB 集合",
 							"doc":  "MongoDB-Collections"
 						},
 						{
-							"name": "MongoDB Client",
+							"name": "MongoDB 客户端",
 							"doc":  "MongoDB-Client"
 						},
 						{
-							"name": "Working with BSON",
+							"name": "BSON 数据转换",
 							"doc":  "MongoDB-BSON"
 						}
-		
+
 					]
 				},
 				{
@@ -162,10 +158,10 @@
 			"name": "WebSockets",
 			"doc":  "webSockets"		},
 		{
-			"name": "iOS Notifications",
+			"name": "iOS 消息与通知",
 			"doc":  "iOSNotifications"		},
 		{
-			"name": "Deployment",
+			"name": "发行与部署",
 			"doc":  "deployment",
 			"contents": [
 				{

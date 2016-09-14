@@ -1,62 +1,62 @@
 # MySQL
 
-The MySQL connector provides a wrapper around MySQL, allowing interaction between your Perfect Applications and MySQL databases. 
+MySQL连接库提供了对MySQL的使用封装，允许您的Perfect应用程序于MySQL数据库进行交互操作。
 
-### System Requirements
+### 系统要求
 
 ### macOS
 
-Requires the use of Homebrew’s MySQL. 
+需要使用Homebrew安装MySQL。
 
 ```shell
 brew install mysql
 ```
 
-If you need Homebrew, you can install it with: 
+如果需要安装Homebrew，请用下面的命令行进行安装：
 
 ```shell
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Unfortunately, at this point in time you will need to edit the mysqlclient.pc file located here:
+同时还需要手工编辑以下路径的mysqlclient.pc文件
 
 ```shell
 /usr/local/lib/pkgconfig/mysqlclient.pc
 ```
 
-Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by default so you will need to change that first.
+请删除`-fno-omit-frame-pointer`内容。而且这个文件默认是只读的，因此需要首先改变只读状态为可读写才能进行编辑
 
-### Linux 
+### Linux
 
-Ensure that you have installed libmysqlclient-dev for MySQL version 5.6 or greater:
+请确认您的Linux系统已经安装了MySQL 5.6版本以上的libmysqlclient-dev库文件：
 
 ```shell
 sudo apt-get install libmysqlclient-dev
 ```
 
-Please note that Ubuntu 14 defaults to including a version of MySQL client which will not compile with this package. Install MySQL client version 5.6 or greater manually. 
+请注意Ubuntu 14默认安装的版本无法编译这个套件，需要手工安装MySQL客户端5.6或以上版本。
 
-### Setup
+### 设置
 
-Add the "Perfect-MySQL" project as a dependency in your Package.swift file:
+请在您的Package.swift文件中增加“Perfect-MySQL”用于说明调用库函数的依存关系：
 
 ```swift
 .Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2, minor: 0)
 ```
 
-### Import
+### 声明和导入
 
-First and foremost, in any of the source files you intend to use with MySQL, import the required module with: 
+为了使用MySQL函数库，首先需要在您开发的源程序开始部分增加声明和导入操作：
 
 ```swift
 import MySQL
 ```
 
-### Quick Start
+### 快速上手
 
-### Access the Database
+### 访问数据库
 
-In order to access the database, setup your credentials:
+为了访问数据库，请将您的数据库配置为以下的用户名和密码：
 
 ```swift
 let testHost = "127.0.0.1"
@@ -64,142 +64,142 @@ let testUser = "test"
 let testPassword = "password"
 let testDB = "schema"
 
-//Obviously change these details to a database and user you already have setup
+// 显然用户名和密码需要根据您自己安装的数据库来决定
 ```
 
-There are two common ways to connect to MySQL. First, you can omit the schema, so that you can use a separate selector. This is handy if you have multiple schemas that your program can choose: 
+有两种通用的方法可以用于连接MySQL。第一种是，首先跳过选择具体的数据库Schema（指的是MySQL内用户可以创建多个Schema，具体的数据表格是保存在Schema中——译者注），这么做的好处是可以在之后的程序内选择具体的数据库Schema，特别适用于您的程序如果需要操作多个Schema：
 
 ```swift
 
     func fetchData() {
-		   
-			  let dataMysql = MySQL() // Create an instance of MySQL to work with
-		   
-		    let connected = mysql.connect(host: testHost, user: testUser, password: testPassword)
-		    
-		    guard connected else {
-		        // verify we connected successfully
-		        print(mysql.errorMessage())
-		        return
-		    }
-		    
-		    defer {
-		        mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
-		    }
-		    
-		    //Choose the database to work with
-		    guard dataMysql.selectDatabase(named: testDB) else {
-				    Log.info(message: "Failure: \(dataMysql.errorCode()) \(dataMysql.errorMessage())")
-				    return
-		    }
-		}
+
+            let dataMysql = MySQL() // 创建一个MySQL连接实例
+
+            let connected = mysql.connect(host: testHost, user: testUser, password: testPassword)
+
+            guard connected else {
+                // 验证一下连接是否成功
+                print(mysql.errorMessage())
+                return
+            }
+
+            defer {
+                mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
+            }
+
+            // 选择具体的数据Schema
+            guard dataMysql.selectDatabase(named: testDB) else {
+                    Log.info(message: "数据库选择失败。错误代码：\(dataMysql.errorCode()) 错误解释：\(dataMysql.errorMessage())")
+                    return
+            }
+        }
 ```
 
-Alternatively, you can pass the database you would like to access into the connection and skip selection:
+另外一种方式是在连接数据库时将具体的数据库Schema选择作为参数直接传入创建连接的调用过程，不必单独在数据连接后才选择Schema：
 
 ```swift
 
     func fetchData() {
-    
-		    let dataMysql = MySQL() // Create an instance of MySQL to work with
-		    
-		    let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
-		    
-		    guard connected else {
-		        // verify we connected successfully
-		        print(mysql.errorMessage())
-		        return
-		    }
-		    
-		    defer {
-		        mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
-		    }
-		}
+
+            let dataMysql = MySQL() // 创建一个MySQL连接实例
+
+            let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
+
+            guard connected else {
+                // 验证一下连接是否成功
+                print(mysql.errorMessage())
+                return
+            }
+
+            defer {
+                mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
+            }
+        }
 ```
 
-### Create Tables
+### 创建数据表格
 
-Choosing the database is great, but it is much more helpful to run queries, such as adding tables programmatically. Expanding on our connection example above, it is relatively simple to add a query: 
+Perfect允许在程序内创建表格。进一步继续前面的例子，很容易实现创建表格的操作
 
 ```swift
-		
+
     func setupMySQLDB() {
-		    
-		    let dataMysql = MySQL() // Create an instance of MySQL to work with
-		    
-		    let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
-		    
-		    guard connected else {
-		        // verify we connected successfully
-		        print(mysql.errorMessage())
-		        return
-		    }
-		    
-		    defer {
-		        mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
-		    }
-		    
-		   //Run Query to Add Tables
-		   
-		   
-		}
+
+            let dataMysql = MySQL() // 创建一个MySQL连接实例
+
+            let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
+
+            guard connected else {
+                // 验证一下连接是否成功
+                print(mysql.errorMessage())
+                return
+            }
+
+            defer {
+                mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
+            }
+
+           // 执行查询或者创建表格
+
+
+        }
 ```
 
-### Run Queries
+### 运行数据库查询
 
-Getting data from your schema is essential. It’s relatively easy to do. After running a query, save your data and then act on it. In the example below, we’re assuming we have a table called options with a row id, an option name (text) and an option value (text):
+从数据库中查询是最基本的操作，也相对简单。查询完成之后就可以保存结果记录集并根据结果执行进一步的程序。以下例子中我们假定当前数据库Schema存在一个名为options（即选项的意思）的数据表，该表有一个id字段，一个name（text类型）字段和value字段（text类型）：
 
 ```swift
 
     func fetchData() {
-    
-		    let dataMysql = MySQL() // Create an instance of MySQL to work with
-		    
-		    let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
-		    
-		    guard connected else {
-		        // verify we connected successfully
-		        print(mysql.errorMessage())
-		        return
-		    }
-		    
-		    defer {
-		        mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
-		    }
-		    
-				 // Run the Query (for example all rows in an options table)
-        let querySuccess = mysql.query(statement: "SELECT option_name, option_value FROM options")
-            // make sure the query worked
+
+            let dataMysql = MySQL() // 创建一个MySQL连接实例
+
+            let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
+
+            guard connected else {
+                // 验证一下连接是否成功
+                print(mysql.errorMessage())
+                return
+            }
+
+            defer {
+                mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
+            }
+
+            // 运行查询（比如返回在options数据表中的所有数据行）
+            let querySuccess = mysql.query(statement: "SELECT option_name, option_value FROM options")
+            // 确保查询完成
             guard querySuccess else {
             return
             }
-            
-        // Save the results to use during this session
-        let results = mysql.storeResults()! //We can implicitly unwrap because of the guard on the querySuccess. You’re welcome to use an if-let here if you like. 
 
-        var ary = [[String:Any]]() //Create an array of dictionaries to store our results in for use
+        // 在当前会话过程中保存查询结果
+        let results = mysql.storeResults()! //因为上一步已经验证查询是成功的，因此这里我们认为结果记录集可以强制转换为期望的数据结果。当然您如果需要也可以用if-let来调整这一段代码。
+
+        var ary = [[String:Any]]() //创建一个字典数组用于存储结果
 
         results.forEachRow { row in
-            let optionName = getRowString(forRow: row[0]) //Store our Option Name, which would be the first item in the row, and therefore row[0].
-            let optionName = getRowString(forRow: row[1]) //Store our Option Value
+            let optionName = getRowString(forRow: row[0]) //保存选项表的Name名称字段，应该是所在行的第一列，所以是row[0].
+            let optionName = getRowString(forRow: row[1]) //保存选项表Value字段
 
 
-            ary.append("\(optionName)":optionValue]) //store our options
+            ary.append("\(optionName)":optionValue]) //保存到字典内
         }
-		}
+    }
 ```
 
-## MySQL Server API
+## MySQL 服务器 API 函数
 
-The MySQL server API provides you with a set of tools to connect to and work with MySQL server instances. This includes basic connections, disconnections, querying the instance for databases/tables, and running queries (which is actually a light wrapper for the full [Statements API](#mysql-statements-api). Results returned, however, are handled and manipulated with the [Results API](#mysql-results-api). Statements also have a [Satements API](#mysql-statements-api) that lets you work with statements in much more detail that simply running queries though the main MySQL class.
+MySQL服务器API函数提供了连接到服务器实例并展开相关工作的一组工具，包括基本连接、关闭连接、查询数据库和数据表，运行查询（实际上是对整个[SQL查询语句API](#mysql-statements-api)的封装。但不同是的返回的结果记录集是通过对[结果记录集API](#mysql-results-api)的封装完成。查询语句当然也可以通过[SQL查询语句API](#mysql-statements-api)完成，为您使用MySQL类提供更详细更简便的查询方法。
 
-### init
+### init 类构造函数
 
 ```swift
 public init()
 ```
 
-Creates an instance of the MySQL class that allows you to interact with MySQL databases. 
+创建一个MySQL类实例并允许程序访问MySQL数据库。
 
 ### close
 
@@ -207,17 +207,17 @@ Creates an instance of the MySQL class that allows you to interact with MySQL da
 public func close()
 ```
 
-Closes a connection to MySQL. Most commonly used as a defer after guarding a connection, making sure that your session will close no matter what the outcome.
+关闭当前MySQL连接。通常可以使用验证连接后进行延缓关闭（defer），这样做能够保证无论在任何情况下都能关闭当前数据库会话。
 
-### clientInfo
+### clientInfo 客户端信息查询
 
 ```swift
 public static func clientInfo() -> String
 ```
 
-This will give you a string of the MySQL client library version. i.e. "5.7.x" or similar depending on your MySQL installation. 
+调用上面的函数可以获取一个用于代表目前MySQL客户端版本的字符串，比如”5.7.x“，或者根据您当前系统所安装的版本返回具体信息。
 
-### errorCode & errorMessage
+### errorCode & errorMessage 错误代码和错误信息
 
 ```swift
 public func errorCode() -> UInt32
@@ -227,35 +227,35 @@ public func errorCode() -> UInt32
 public func errorMessage() -> String
 ```
 
-Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You  can learn more about what those mean [here](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html). This is especially useful after connecting or running queries. Example:
+错误代码和错误信息对于调试程序来说非常有用。详见[服务器错误信息对照表（英文版）](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html)。错误代码和错误信息的获取与解释对于连接数据库运行查询来说非常重要，举例如下：
 
 ```swift
 let mysql = MySQL()
 let connected = mysql.connect(host: dbHost, user: dbUser, password: dbPassword, db: dbName)
             guard connected else {
-                // verify we connected successfully
+                // 验证是否成功，如果不成功则打印错误信息
                 print(mysql.errorMessage())
                 return
             }
 ```
 
-In this case, the console output would print any error messages that came up during a connection failure. 
+在上面的例子里面，如果数据库连接失败则在控制台上会输出错误信息。
 
-### serverVersion
+### serverVersion 服务器版本
 
 ```swift
 public func serverVersion() -> Int
 ```
 
-Returns an integer representation of the MySQL server’s version. 
+调用后会返回一个代表当前MySQL服务器版本号的整数。
 
-### connect
+### connect 连接数据库
 
 ```swift
 public func connect(host hst: String? = nil, user: String? = nil, password: String? = nil, db: String? = nil, port: UInt32 = 0, socket: String? = nil, flag: UInt = 0) -> Bool
 ```
 
-Opens a connection to the MySQL database when supplied with the bare minimum credentials for your server (usually a host, user, and password). As an option, you can specify the port, database, or socket. Specifying the schema is not required, as you can use the [selectDatabase()](#selectDatabase) method after the connection has been made. 
+连接到MySQL数据库。调用时至少要提供的基本验证信息（通常是主机名、用户和密码）。作为选项，您还可以指定连接端口、具体的数据库Schema或连接套接字。在连接中以参数确定数据库Schema并不是强制要求的，您可以在完成连接后使用[selectDatabase()](#selectDatabase)方法选择具体的数据库Schema。
 
 ### selectDatabase
 
@@ -263,55 +263,55 @@ Opens a connection to the MySQL database when supplied with the bare minimum cre
 public func selectDatabase(named namd: String) -> Bool
 ```
 
-Selects a database from the active MySQL connection. 
+即从当前活动的MySQL连接中选择目标数据库Schema。
 
-### listTables
+### listTables列出所有数据表
 
 ```swift
 public func listTables(wildcard wild: String? = nil) -> [String]
 ```
 
-Returns an array of strings representing the different tables available on the selected database. 
+调用后，将返回一个字符串数组，数组中的每一个元素代表了目标数据库Schema中的不同数据表名称。
 
-### listDatabases
+### listDatabases列出所有数据库Schema
 
 ```swift
 public func listDatabases(wildcard wild: String? = nil) -> [String]
 ```
 
-Returns an array of strings representing the databases available on the MySQL server currently connected. 
+调用后，将返回一个字符串数组，数组中的每一个元素代表了一个当前MySQL服务器上可以访问的数据库Schema。
 
-### commit
+### commit提交事务
 
 ```swift
 public func commit() -> Bool
 ```
 
-Commits the transaction. 
+在事务关联的一组查询准备好之后，提交事务（完成交易）
 
-### rollback
+### rollback事务回滚
 
 ```swift
 public func rollback() -> Bool
 ```
 
-Rolls back the transaction. 
+取消交易，回滚数据。
 
-### moreResults
+### moreResults查看更多结果记录集
 
 ```swift
 public func moreResults() -> Bool
 ```
 
-Checks `mysql_more_results` to see if any more results exist. 
+调用`mysql_more_results`检查一个查询操作是否包含了更多的结果记录集。
 
-### nextResult
+### nextResult 查看下一个结果记录集
 
 ```swift
 public func nextResult() -> Int
 ```
 
-Returns the next result in a multi-result execution. Most commonly used in a while loop to produce an effect similar to running forEachRow(). For example:
+在多结果查询中返回下一个结果记录集。通常在一个循环中使用，效果和调用行遍历forEachRow()差不多。比如：
 
 ```swift
     var results = [[String?]]()
@@ -322,23 +322,23 @@ Returns the next result in a multi-result execution. Most commonly used in a whi
     }
 ```
 
-### query
+### query 查询
 
 ```swift
 public func query(statement stmt: String) -> Bool
 ```
 
-Runs an SQL Query given as a string. 
+将给定字符串作为SQL语句进行查询。
 
-### storeResults
+### storeResults 保存查询结果
 
 ```swift
 public func storeResults() -> MySQL.Results?
 ```
 
-This retrieves a complete results set from the server and stores it on the client. This should be run after your query and before a function like forEachRow() or next() so that you can ensure that you iterate through all results. 
+该操作从服务器上获取一个完整的结果记录集并保存到客户机上。调用该函数应该在查询完毕后，在使用如forEachRow() 或 next()这样的遍历函数之前使用，这样就能够确保能够遍历到一个完整的查询结果记录集。
 
-### setOption
+### setOption 设置选项
 
 ```swift
 public func setOption(_ option: MySQLOpt) -> Bool
@@ -347,36 +347,36 @@ public func setOption(_ option: MySQLOpt, _ i: Int) -> Bool
 public func setOption(_ option: MySQLOpt, _ s: String) -> Bool
 ```
 
-Sets the options for connecting and returns a Boolean for success or failure. Requires a MySQLOpt and has several versions to support setting options that require Booleans, integers, or strings as values. 
+为当前连接设置选项。如果设置成功，则返回布尔类型的真值，否则为假。不同版本的MySQLOpt选项会有一些差别，选项值可能是布尔类型、整型或者字符串。
 
-MySQLOpt values that are available to use are defined by the following enumeration:
+MySQLOpt的选项值可以参考以下枚举定义：
 
 ```swift
 public enum MySQLOpt {
-	case MYSQL_OPT_CONNECT_TIMEOUT, MYSQL_OPT_COMPRESS, MYSQL_OPT_NAMED_PIPE,
-		MYSQL_INIT_COMMAND, MYSQL_READ_DEFAULT_FILE, MYSQL_READ_DEFAULT_GROUP,
-		MYSQL_SET_CHARSET_DIR, MYSQL_SET_CHARSET_NAME, MYSQL_OPT_LOCAL_INFILE,
-		MYSQL_OPT_PROTOCOL, MYSQL_SHARED_MEMORY_BASE_NAME, MYSQL_OPT_READ_TIMEOUT,
-		MYSQL_OPT_WRITE_TIMEOUT, MYSQL_OPT_USE_RESULT,
-		MYSQL_OPT_USE_REMOTE_CONNECTION, MYSQL_OPT_USE_EMBEDDED_CONNECTION,
-		MYSQL_OPT_GUESS_CONNECTION, MYSQL_SET_CLIENT_IP, MYSQL_SECURE_AUTH,
-		MYSQL_REPORT_DATA_TRUNCATION, MYSQL_OPT_RECONNECT,
-		MYSQL_OPT_SSL_VERIFY_SERVER_CERT, MYSQL_PLUGIN_DIR, MYSQL_DEFAULT_AUTH,
-		MYSQL_OPT_BIND,
-		MYSQL_OPT_SSL_KEY, MYSQL_OPT_SSL_CERT,
-		MYSQL_OPT_SSL_CA, MYSQL_OPT_SSL_CAPATH, MYSQL_OPT_SSL_CIPHER,
-		MYSQL_OPT_SSL_CRL, MYSQL_OPT_SSL_CRLPATH,
-		MYSQL_OPT_CONNECT_ATTR_RESET, MYSQL_OPT_CONNECT_ATTR_ADD,
-		MYSQL_OPT_CONNECT_ATTR_DELETE,
-		MYSQL_SERVER_PUBLIC_KEY,
-		MYSQL_ENABLE_CLEARTEXT_PLUGIN,
-		MYSQL_OPT_CAN_HANDLE_EXPIRED_PASSWORDS
+    case MYSQL_OPT_CONNECT_TIMEOUT, MYSQL_OPT_COMPRESS, MYSQL_OPT_NAMED_PIPE,
+        MYSQL_INIT_COMMAND, MYSQL_READ_DEFAULT_FILE, MYSQL_READ_DEFAULT_GROUP,
+        MYSQL_SET_CHARSET_DIR, MYSQL_SET_CHARSET_NAME, MYSQL_OPT_LOCAL_INFILE,
+        MYSQL_OPT_PROTOCOL, MYSQL_SHARED_MEMORY_BASE_NAME, MYSQL_OPT_READ_TIMEOUT,
+        MYSQL_OPT_WRITE_TIMEOUT, MYSQL_OPT_USE_RESULT,
+        MYSQL_OPT_USE_REMOTE_CONNECTION, MYSQL_OPT_USE_EMBEDDED_CONNECTION,
+        MYSQL_OPT_GUESS_CONNECTION, MYSQL_SET_CLIENT_IP, MYSQL_SECURE_AUTH,
+        MYSQL_REPORT_DATA_TRUNCATION, MYSQL_OPT_RECONNECT,
+        MYSQL_OPT_SSL_VERIFY_SERVER_CERT, MYSQL_PLUGIN_DIR, MYSQL_DEFAULT_AUTH,
+        MYSQL_OPT_BIND,
+        MYSQL_OPT_SSL_KEY, MYSQL_OPT_SSL_CERT,
+        MYSQL_OPT_SSL_CA, MYSQL_OPT_SSL_CAPATH, MYSQL_OPT_SSL_CIPHER,
+        MYSQL_OPT_SSL_CRL, MYSQL_OPT_SSL_CRLPATH,
+        MYSQL_OPT_CONNECT_ATTR_RESET, MYSQL_OPT_CONNECT_ATTR_ADD,
+        MYSQL_OPT_CONNECT_ATTR_DELETE,
+        MYSQL_SERVER_PUBLIC_KEY,
+        MYSQL_ENABLE_CLEARTEXT_PLUGIN,
+        MYSQL_OPT_CAN_HANDLE_EXPIRED_PASSWORDS
 }
 ```
 
 ## MySQL Results API
 
-The results API set provides a set of tools for working with result sets that are obtained from running queries. 
+结果记录集程序API提供了对查询结果进行操作的方法。
 
 ### close
 
@@ -384,91 +384,91 @@ The results API set provides a set of tools for working with result sets that ar
 public func close()
 ```
 
-Closes the results set by releasing the results. make sure you have a close function that is always executed after each session with a connection, otherwise you are going to have some memory problems. This is most commonly found in the defer block, just like in the examples at the top of this page. 
+关闭结果记录集并释放存储资源。请在完成每个数据库会话之后确保关闭操作，否则可能引发内存问题。数据库关闭通常可以用defer块的方式进行滞后操作，如前例所示。
 
-### dataSeek
+### dataSeek 根据行位置检索数据
 
 ```swift
 public func dataSeek(_ offset: UInt)
 ```
 
-Moves to an arbitrary row number in the results given an unsigned integer as an offset. 
+根据指定的偏移量作为参数，将数据行指针指向结果记录集的目标行。
 
-### numRows
+### numRows数据行统计
 
 ```swift
 public func numRows() -> Int
 ```
 
-Lets you know how many rows are in a results set. 
+该方法能够获取结果记录集内所包含的数据行总数。
 
-### numFields
+### numFields数据列统计
 
 ```swift
 public func numFields() -> Int
 ```
 
-Similar to numRows, but returns the number of columns in a results set instead. Very useful for `Select *` type queries where you may need to know how many columns are in the results. 
+与numRows方法类似，但是返回的是当前结果记录集包含多少列数据。对于形如`Select *`的SQL查询来说非常有用，因为在查询之前可能不知道结果记录集究竟包含多少个字段。
 
-### next
+### next返回下一行
 
 ```swift
 public func next() -> Element?
 ```
 
-Returns the next row in the results set as long as one exists. 
+如果结果记录集内当前行指针指向位置存在下一行时，返回到下一行。
 
-### forEachRow
+### forEachRow结果记录集的行遍历
 
 ```swift
 public func forEachRow(callback: (Element) -> ())
 ```
 
-Iterates through all rows in query results. Most useful for appending elements to an array or dictionary, just like we did in the [quick start guide](#Quick-Start).
+在查询结果记录集内遍历所有行。对于用数组或者字典追加数据元素时特别有用，详见[快速上手](#快速上手)。
 
 ### MySQL Statements API
 
-### init
+### init 构造函数
 
 ```swift
 public init(_ mysql: MySQL)
 ```
 
-Initializes the MySQL statement structure. This is very commonly used by other API functions to create a statement structure after you’ve passed in a string.
+初始化MySQL语句结构。通常用法是在用字符串作为参数传入查询语句后创建这样一个查询结构，便于后续其它API接口函数使用。
 
-### close
+### close 关闭结构
 
 ```swift
 public func close()
 ```
 
-This frees the MySQL statement structure pointer. Use it or lose valuable memory to the underlying MySQL C API. Most commonly in a defer block, just like we used in [quick start](#Quick-Start).  
+该函数释放MySQL语句结构指针所占用的资源。请务必在应用结束后调用该语句，否则会消耗MySQL C API函数库的宝贵内存。通常在defer块内滞后执行，如前例[快速上手](#快速上手)所示。
 
-### reset
+### reset 复位重置
 
 ```swift
 public func reset()
 ```
 
-Resets the statement buffers that are in the server. This doesn’t affect bindings or stored results sets. Learn more about this feature [here](https://dev.mysql.com/doc/refman/5.7/en/mysql-stmt-reset.html). 
+重置服务器端的查询语句缓冲区。这个操作不会影响变量绑定和已存储的查询结果记录集。详见[MySQL语句重置命令参考（英文）](https://dev.mysql.com/doc/refman/5.7/en/mysql-stmt-reset.html)。
 
-### clearBinds
+### clearBinds清除变量绑定
 
 ```swift
 func clearBinds()
 ```
 
-Clears the current bindings. 
+清除当前的变量绑定。
 
-### freeResult
+### freeResult释放结果记录集
 
 ```swift
 public func freeResult(
 ```
 
-Releases memory tied up in with the result set produced by execution of a prepared statement. Also closes a cursor if one is open for the statement. 
+释放由SQL查询或者编译SQL语句产生的结果记录集。调用该方法时，如果编译语句中有活动的记录游标，则连同游标一并关闭。
 
-### errorCode & errorMessage
+### errorCode & errorMessage 错误代码和错误消息
 
 ```swift
 public func errorCode() -> UInt32
@@ -478,109 +478,109 @@ public func errorCode() -> UInt32
 public func errorMessage() -> String
 ```
 
-Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You can learn more about what those mean [here](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html). This is especially useful after connecting or running queries. Example:
+错误代码和错误消息在调试程序过程中作用巨大。详细内容请参考[MySQL服务器错误代码和错误消息](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html)。连接数据库后即可使用，举例如下：
 
 ```swift
 let mysql = MySQL()
 let connected = mysql.connect(host: dbHost, user: dbUser, password: dbPassword, db: dbName)
             guard connected else {
-                // verify we connected successfully
+                // 验证是否连接成功
                 print(mysql.errorMessage())
                 return
             }
 ```
 
-In this case, the console output would print any error messages that came up during a connection failure. 
+在上面的例子里，如果连接失败则控制台会输出错误消息。
 
-### prepare
+### prepare 准备SQL语句
 
 ```swift
 public func prepare(statement query: String) -> Bool
 ```
 
-Prepares a SQL statement for execution. More commonly called by other functions in the API, but public if you need it. 
+为执行查询准备SQL语句。通常该方法是在本工具集的其它程序接口API调用，但如果需要您也可以直接调用。
 
-### execute
+### execute 执行SQL查询
 
 ```swift
 public func execute() -> Bool
 ```
 
-Executes a prepared statement. 
+执行一个已经准备好的SQL查询语句
 
-### results
+### results 结果记录集
 
 ```swift
 public func results() -> MySQLStmt.Results
 ```
 
-Returns current results from the server. 
+从服务器返回当前查询的结果记录集。
 
-### fetch
+### fetch 取出数据记录
 
 ```swift
 public func fetch() -> FetchResult
 ```
 
-Fetches the next row of data from the results set. 
+从结果记录集内取出下一行数据。
 
-### numRows
+### numRows结果记录集行数统计
 
 ```swift
 public func numRows() -> UInt
 ```
 
-Returns the row count in a buffered statement results set. 
+返回结果缓冲记录集内有多少行记录。
 
-### affectedRows
+### affectedRows受影响的数据行统计
 
 ```swift
 public func affectedRows() -> UInt
 ```
 
-Returns the number of rows that were changed, deleted, or inserted by prepared a UPDATE, DELETE, or INSERT statement that was executed. 
+当采取UPDATE、DELETE或者INSERT语句时，数据表格发生内容更新、删除或增加，此时调用该函数则会得到数据表内有多少条记录因此改变。
 
-### insertId
+### insertId 插入行ID号
 
 ```swift
 public func insertId() -> UInt
 ```
 
-Returns the row id number for the last row inserted by a prepared statement, as long as id was an auto-increment enabled column. 
+如果数据表存在自动递增的字段（称为ID），则返回最后一条插入行的ID号。
 
-### fieldCount
+### fieldCount字段统计
 
 ```swift
 public func fieldCount() -> UInt
 ```
 
-Returns the number of columns in the results for the most recently executed statement. 
+返回最后一次查询的结果记录集内的数据列总数，即包括多少个字段
 
-### nextResult
+### nextResult下一个结果记录集
 
 ```swift
 public func nextResult() -> Int
 ```
 
-Returns the next result in a multi-result execution. 
+如果查询后存在多个结果记录集的情况下，返回下一个结果记录集。
 
-### dataSeek
+### dataSeek选择特定记录行
 
 ```swift
 public func dataSeek(offset: Int)
 ```
 
-Given an offset, it will seek to an arbitrary row in a statement results set. 
+调用该方法将按指定的行偏移量，在结果记录集内选择指定的记录行。
 
-### paramCount
+### paramCount参数统计
 
 ```swift
 public func paramCount() -> Int
 ```
 
-Returns the number of parameters in a prepared statement. 
+返回一个已准备好的SQL语句内的参数总数。
 
-### bindParam
+### bindParam绑定参数
 
 ```swift
 public func bindParam()
@@ -593,4 +593,4 @@ public func bindParam(_ b: UnsafePointer<Int8>, length: Int)
 public func bindParam(_ b: [UInt8])
 ```
 
-Variations above on the bindParam() allow binding to statement parameters with different types. If no arguments are passed, it creates a null binding. 
+以上不同变量形式的绑定参数语句bindParam()统一了将不同变量绑定到查询参数的调用方法。如果调用时不含任何参数，则创建一个空绑定。

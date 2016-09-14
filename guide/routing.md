@@ -1,151 +1,151 @@
-# Routing
+# HTTP路由
 
-Routing determines which handler receives a specific request. A handler is a routine, function, or method dedicated to receiving and acting on certain types of requests or signals. Requests are routed based on two pieces of information: the HTTP request method, and the request path. A route refers to an HTTP method, path, and handler combination. Routes are created and added to the server before it starts listening for requests or signals. For example:
+HTTP请求/响应路由是用于决定在当前请求下，哪一个句柄去接收和响应。句柄可以是一个函数、过程或者方法，只要能够接收特定类型的请求并做出反应即可。路由主要依据请求的方法“HTTP request method”和请求内容包括的路径信息来决定的。一个路由就是“HTTP method”方法、路径和句柄的组合。路由需要在服务器启动并开始监听请求或调度信号之前注册到服务器上，比如：
 
 ```swift
 var routes = Routes()
 routes..add(method: .get, uri: "/path/one", handler: { request, response in
-	response.setBody(string: "Handler was called")
-	response.completed()
+    response.setBody(string: "路由句柄已经收到")
+    response.completed()
 })
 server.addRoutes(routes)
 ```
 
-Once the Perfect server receives a request, it will pass the request object through any registered request filters. These filters have a chance to modify the request object in ways which may affect the routing process, such as changing the request path. The server will then search for a route which matches the current request method and path. If a route is successfully found for the request, the server will deliver both the request and response objects to the found handler. If a route is not found for a request, the server will send a “404” or “Not Found” error response to the client.
+一旦Perfect服务器接收到一个HTTP请求，服务器会将请求对象传递给任何已注册的过滤器。这些过滤器根据需要可能会修改请求对象，因此有可能会影响路由的目标路径。服务器在请求过滤完成之后会搜索匹配当前请求方法和路径的路由。如果路由被请求成功匹配，则服务器会同时将请求和响应对象都发给路由句柄。如果特定请求没有找到合适的路由，则服务器会给客户端浏览器发一个“404 Not Found”错误。
 
-### Creating Routes
+### 创建路由
 
-The routing API is part of the [PerfectHTTP](https://github.com/PerfectlySoft/Perfect-HTTP) project. Interacting with the routing system requires that you first ```import PerfectHTTP```.
+路由API函数是[PerfectHTTP](https://github.com/PerfectlySoft/Perfect-HTTP)项目的一个组成部分。要使用该路由系统，首先要在源代码开始部分导入库函数```import PerfectHTTP```。
 
-Before adding any route, you will need an appropriate handler function. Handler functions accept the request and response objects, and are expected to generate content for the response. They will indicate when they have completed a task. The typealias for a request handler is as follows:
+在增加路由之前，首先要准备好适当的句柄函数。句柄函数必须能够同时接纳HTTPRequest请求对象和HTTPResponse响应对象，并且能够为响应对象创建适当的内容：
 
 ```swift
-/// Function which receives request and response objects and generates content.
+/// 用于接受请求并根据请求创建响应内容的句柄函数格式。
 public typealias RequestHandler = (HTTPRequest, HTTPResponse) -> ()
 ```
-Requests are considered active until the handler indicates that it has concluded. This is done by calling the ```HTTPResponse.completed()``` function. Request handling in Perfect is fully asynchronous, so a handler function can return, spin off into new threads, or perform any other sort of asynchronous activity. The request will still be considered active up until ```HTTPResponse.completed()``` is called. Once the response is marked as completed, the outgoing headers and body data, if any, will be sent to the client.
+在路由期间请求都是一直处于活动状态，直到句柄返回说请求已经完成为止。确定请求完成是通过调用 ```HTTPResponse.completed()```函数而来。在Perfect中请求的处理完全是异步的，因此句柄函数可以返回、或者转入新线程、或者执行其它任何一种异步操作。该请求将一直保持活动状态，直到有```HTTPResponse.completed()```方法被调用。一旦一个响应被标记为结束，如果响应内还包含有待发出的消息头或消息体数据，则这些消息内容都会被服务器返还给客户端浏览器。
 
-Routes are added to a ```Routes``` object before they are added to the server. When a Routes object is created, and one or more routes are added using its ```add``` functions. Routes provides the following functions:
+注册路由需要在服务器启动监听前追加到```Routes```路由表对象中。一旦路由表创建后，一个或多个路由都可以使用路由表的```add```方法追加进去。路由表提供以下函数
 
 ```swift
 public struct Routes {
-	/// Initialize with no baseUri.
-	public init()	
-	// Initialize with a baseUri.
-	public init(baseUri: String)
-	/// Add all the routes in the Routes object to this one.
-	public mutating func add(routes: Routes)
-	/// Add the given method, uri and handler as a route.
-	public mutating func add(method: HTTPMethod, uri: String, handler: RequestHandler)
-	/// Add the given method, uris and handler as a route.
-	public mutating func add(method: HTTPMethod, uris: [String], handler: RequestHandler)
-	/// Add the given uri and handler as a route. 
-	/// This will add the route got both GET and POST methods.
-	public mutating func add(uri: String, handler: RequestHandler)
-	/// Add the given method, uris and handler as a route.
-	/// This will add the route got both GET and POST methods.
-	public mutating func add(uris: [String], handler: RequestHandler)
-	/// Add one Route to this object.
-	public mutating func add(_ route: Route)
+    /// 不需要任何基本URL的构造函数。
+    public init()
+    // 使用基本URL初始化的构造函数
+    public init(baseUri: String)
+    /// 将另外一个路由表的内容全部加入到当前路由表中。
+    public mutating func add(routes: Routes)
+    /// 根据指定的HTTP方法、URI和一个路由句柄来创建一个新路由。
+    public mutating func add(method: HTTPMethod, uri: String, handler: RequestHandler)
+		/// 根据指定的HTTP方法、一组URI和一个路由句柄来创建一个新路由。
+    public mutating func add(method: HTTPMethod, uris: [String], handler: RequestHandler)
+    /// 根据指定的URI和一个路由句柄来创建路由，
+    /// 不区分究竟是GET还是POST方法。
+    public mutating func add(uri: String, handler: RequestHandler)
+		/// 根据指定的一组URI和一个路由句柄来创建路由，
+    /// 不区分究竟是GET还是POST方法。
+    public mutating func add(uris: [String], handler: RequestHandler)
+    /// 将一个路由对象增加到当前路由表中。
+    public mutating func add(_ route: Route)
 }
 ```
 
-A Routes object can be initialized with a baseURI. The baseURI will be prepended to any route added to the object. For example, one could initialize a Routes object for version one of an API, and give it a baseURI of "/v1". Every route added will be prefixed with /v1. Routes objects can also be added to other Routes objects, and each route therein will be prefixed in the same manner. The following example shows the creation of two sets of routes for two versions of an API. The second version differs in behavior in only one endpoint:
+路由表可以从一个基本URI进行初始化。该基本的URI会在任何追加到路由表的新路由路径之前。比如，您可以用一个函数的第一个版本初始化一个路由表对象，用于初始化的基本URI为“/v1”。之后在这个路由表中新增的路由都会带有“/v1”前缀。同样，路由表对象也可以被加入到另一个路由表对象中去，因此每一个原路由表中的路由都会按照这种方法增加前缀。以下例子显示了同一个API函数对应两个不同版本的两个路由表的创建过程，两个版本的唯一区别在于其接口点不同：
 
 ```swift
 var routes = Routes()
-// Create routes for version 1 API
+// 为程序接口API版本v1创建路由表
 var api = Routes()
 api.add(method: .get, uri: "/call1", handler: { _, response in
-	response.setBody(string: "API CALL 1")
-	response.completed()
+    response.setBody(string: "程序接口API版本v1已经调用")
+    response.completed()
 })
 api.add(method: .get, uri: "/call2", handler: { _, response in
-	response.setBody(string: "API CALL 2")
-	response.completed()
+    response.setBody(string: "程序接口API版本v2已经调用")
+    response.completed()
 })
 
-// API version 1
+// API版本v1
 var api1Routes = Routes(baseUri: "/v1")
-// API version 2
+// API版本v2
 var api2Routes = Routes(baseUri: "/v2")
 
-// Add the main API calls to version 1
+// 为API版本v1增加主调函数
 api1Routes.add(routes: api)
-// Add the main API calls to version 2
+// 为API版本v2增加主调函数
 api2Routes.add(routes: api)
-// Update the call2 API
+// 更新API版本v2主调函数
 api2Routes.add(method: .get, uri: "/call2", handler: { _, response in
-	response.setBody(string: "API v2 CALL 2")
-	response.completed()
+    response.setBody(string: "程序接口API版本v2已经调用第二种方法")
+    response.completed()
 })
 
-// Add both versions to the main server routes
+// 将两个版本的内容都注册到服务器主路由表上
 routes.add(routes: api1Routes)
 routes.add(routes: api2Routes)
 ```
 
-### Adding Server Routes
+### 增加服务器路由
 
-Both the HTTP 1.1 and FastCGI Perfect servers support routing. To add routes to a server, call the server's ```addRoutes``` function. The ```addRoutes``` function can be called several times to add more routes if needed. Routes cannot be added or modified after a server has started listening for requests.
+在Perfect项目中，无论是HTTP 1.1服务器还是FastCGI服务器都支持路由。如果要增加路由，请调用服务器的```addRoutes```方法。```addRoutes```函数可以根据需要多次调用。一旦服务器启动监听之后，就无非再追加或修改路由表了。
 
 ```swift
-// Create server object
+// 创建服务器对象
 let server = HTTPServer()
-// Add our routes
+// 创建路由表
 let routes = Routes()
 ...
-// Add routes to server
+// 注册路由
 server.addRoutes(routes)
 ```
 
-### Variables
+### 路由变量
 
-Route URIs can also contain variable components. A variable component begins and ends with a set of curly brackets ```{ }```. Within the brackets is the variable identifier. A variable identifier can consist of any character except the closing curly bracket ```}```. Variable components work somewhat like single wildcards do in that they match any single literal path component value. The actual value of the URL component which is matched by the variable is saved and made available through the ```HTTPRequest.urlVariables``` dictionary. This dictionary is of type ```[String:String]```. URI variables are a good way to gather dynamic data from a request. For example, a URL might make a user management related request, and include the user id as a component in the URL.
+URI路由还能够包括不同的变量组件。每个变量组件是通过一个块```{ }```声明的。在程序块中是变量名称。每个变量名称都可以使用出了括号```}```之外的任何字符。变量名有点像单功能通配符一样，这样就可以匹配任何符合变量模式的路径。匹配该模式的URL能够通过```HTTPRequest.urlVariables```字典查询变量值。该字典是```[String:String]```类型。URI变量是用于处理动态请求的好方法。比如，一个包含用户id的URL可以用该方法实现相关请求的用户管理。
 
-For example, when given the URI ```/foo/{bar}/baz```, a request to the URL ```/foo/123/baz``` would match and place it in the ```HTTPRequest.urlVariables``` dictionary with the value "123" under the key "bar".
+比如，给定URI```/foo/{bar}/baz```，则如果有URL ```/foo/123/baz```将匹配这个模式并将变量值替换到```HTTPRequest.urlVariables```字典中去，只要字典内包括关键词“bar”，则访问该字典会得到字符串值“123”。
 
-### Wildcards
+### 通配符
 
-A wildcard, also referred to as a wild character, is a symbol used to replace or represent one or more characters. Beyond full literal URI paths, routes can contain wildcard segments. 
+通配符就是一个能够代表一个或多个字符的特殊符号。路由内能够使用通配符简化对URI路径的完整说明。
 
-Wildcards match any portion of a URI and can be used to route groups of URIs to a single handler. Wildcards consist of either one or two asterisks. A single asterisk can occur anywhere in a URI path as long as it represents one full component of the URI. A double asterisk, or trailing wildcard, can occur only at the end of a URI. Trailing wildcards match any remaining portion of a URI.
+通配符能够匹配URI中的任何内容，因此可以将一组URI定向到同一个句柄上。通配符由一个或多个星号组成。一个星号可以出现在URI的任何位置，用于代表URI的局部内容。双星号通配符（也称为结尾通配符）只能用于URI结尾。双星号用于匹配URI从星号开始至结尾的所有内容。
 
-A route with the the URI ```/foo/*/baz``` would match the both of the URLs:
+形如```/foo/*/baz```的URI可以匹配以所有URL：
 
 ```
 /foo/123/baz
 /foo/bar/baz
 ```
 
-A route with the URI ```/foo/**``` would match all of the following URLs:
+形如```/foo/**``` 的URI可以匹配以所有URL：
 
 ```
 /foo/bar/baz
 /foo
 ```
 
-A route with the URI ```/**``` would match any request.
+形如```/**```的URI将匹配所有的HTTP请求。
 
-A trailing wildcard route will save the URI portion which is matched by the wildcard. It will place this path segment in the ```HTTPRequest.urlVariables``` map under the key indicated by the global variable ```routeTrailingWildcardKey```. For example, given the route URI "/foo/**" and a request URI of "/foo/bar/baz", the following snippet would be true:
+结尾通配符能够匹配从通配符开始的所有以之前内容的URI，并替换路径中的对应匹配内容到```HTTPRequest.urlVariables```字典中。通过访问全局变量```routeTrailingWildcardKey```即可获悉结尾通配符究竟获得了什么样的字符串值。比如，给定路径URI“/foo/** ”和一个真正的URI请求“/foo/bar/baz”，那么以下的程序判断就是真值：
 
 ```swift
 request.urlVariables[routeTrailingWildcardKey] == "/bar/baz"
 ```
 
-### Priority/Ordering
+### 优先级/路由顺序
 
-Because route URIs could potentially conflict, literal, wildcard and variable paths are checked in a specific order. Path types are checked in the following order:
+因为URI的路由可能存在潜在矛盾，因此路由文本、通配符和路由变量是通过特定顺序来进行检查的：
 
-1. Variable paths
-2. Literal paths
-3. Wildcard paths
-4. Trailing wildcard paths are checked last
+1. 带变量路由路径
+2. 静态文本路径
+3. 通配符路径
+4. 结尾通配符
 
-### Implicit Trailing Wildcard
+### 隐式结尾通配符
 
-When the ```.documentRoot``` property of the server is set, the server will automatically add a ```/**``` trailing wildcard route which will enable the serving of static content from the indicated directory. For example, setting the document root to "./webroot" would permit the server to deliver any files located within that directory.
+当服务器文档根目录```.documentRoot```属性被设置后，服务器会自动将一个结尾通配符```/**```自动路由到指定目录的静态内容上去。比如，将文档根目录设置为“./webroot”会允许服务器从该目录中读取静态文件用于完成请求响应。
 
 ### Further Information
 
-For more information and example of URL routing, please see the [URL Routing](https://github.com/PerfectlySoft/PerfectExample-URLRouting) example application.
+关于URL路由的更多信息，请参见[URL路由](https://github.com/PerfectlySoft/PerfectExample-URLRouting)程序案例

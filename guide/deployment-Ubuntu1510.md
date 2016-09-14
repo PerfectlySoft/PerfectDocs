@@ -1,10 +1,10 @@
-# Producing an Ubuntu 15.10 Base Image for Swift 3 and Perfect 2
+# 为Swift 3 ＋ Perfect 2 创建 Ubuntu 15.10 基本镜像
 
-This guide will share steps that you can use to produce an Ubuntu 15.10 environment, which is suitable for use with the Swift 3 programming language, and with PerfectlySoft's Perfect 2 application framework.
+本文将帮助您创建Ubuntu 15.10以使用Swift 3语言在PerfectlySoft公司的Perfect 2应用程序框架下开发项目。
 
 ## Running as the Root User
 
-Begin by installing, deploying, or otherwise utilizing an Ubuntu 15.10 system. For ease of use, you may use the following command to perform the steps as the **root** user. You'll need to be using an administrative account, and you'll need its password. If you choose to skip this step, you'll need to prefix many of the steps in this guide with the **sudo** command.
+请首先安装准备好一个Ubuntu 15.10系统。为了方便学习，请按照以 **root** 用户顺序执行命令。您需要使用管理员账号和配套的密码。如果忽略这一步，那么在以下大部分内容内都需要使用 **sudo** 命令作为所有命令的开头
 
 ```
 sudo su
@@ -12,116 +12,116 @@ sudo su
 
 ## Running a Screen Session
 
-If you are connected to the Ubuntu system via **SSH**, you might wish to establish a **screen** session for these steps in case you're disconnected.  This section is not mandatory. You can skip to the next section of steps. To establish a **screen** session called "perfect," use:
+如果您是用 **SSH** 连接Ubuntu的，那么您可能需要为以下步骤创建一个 **screen** 会话过程。这种方式能够保证系统在即使您连接到服务器的会话中断的情况下依然不会挂起。这一步不是必须的，可以跳过去看下一步。如果需要建立一个名为“perfect”的 **screen** 会话，请使用：
 
 ```
 screen -S perfect
 ```
 
-If **screen** isn't installed, you'll need to install it:
+如果 **screen** 没有安装，请用下面的命令行安装：
 
 ```
 apt-get install screen
 ```
 
-To intentionally disconnect from a **screen** session, you can use **Control-A, D**. To reconnect to the intentionally disconnected **screen** session:
+如果需要断开 **screen** 会话连接，可以使用组合键 **Control-A, D** 。如果需要重新回到被断开的 **screen** 会话，请使用命令：
 
 ```
 screen -r perfect
 ```
 
-If you were unintentionally disconnected from your **screen** session, you might need to use:
+如果是不小心断开的 **screen** 会话，可以使用以下命令重新连接：
 
 ```
 screen -D -R perfect
 ```
 
-## Install Some Dependencies via APT
+## 通过APT安装项目必要的依存关系库
 
-You can install the majority of dependencies for Swift 3 and for Perfect 2 via the APT system:
+Swift 3 ＋ Perfect 2需要一些函数库以支持其运行，可以通过APT命令行进行安装：
 
 ```
 apt-get install make git clang libicu-dev libmysqlclient-dev libpq-dev sqlite3 libsqlite3-dev apache2-dev pkg-config libssl-dev libsasl2-dev libcurl4-openssl-dev uuid-dev wget
 ```
 
-## Install MongoDB from Source Code
+## 从源代码安装 MongoDB
 
-Download the MongoDB source code:
+用下面的方法可以下载 MongoDB 源代码：
 
 ```
 cd /usr/src/
 wget https://github.com/mongodb/mongo-c-driver/releases/download/1.3.5/mongo-c-driver-1.3.5.tar.gz
 ```
 
-Decompress the MongoDB source code:
+下载后请解压缩：
 
 ```
 gunzip mongo-c-driver-1.3.5.tar.gz
 ```
 
-Extract the MongoDB source code:
+然后展开 MongoDB 源代码：
 
 ```
 tar -xvf mongo-c-driver-1.3.5.tar
 ```
 
-Remove the MongoDB source code archive:
+再删除 MongoDB 源代码档案包：
 
 ```
 rm mongo-c-driver-1.3.5.tar
 ```
 
-Configure the MongoDB source code for compilation:
+在编译 MongoDB 源代码前首先执行配置命令：
 
 ```
 cd mongo-c-driver-1.3.5/
 ./configure --enable-sasl=yes
 ```
 
-Compile MongoDB:
+编译 MongoDB:
 
 ```
 make
 ```
 
-Install MongoDB:
+安装 MongoDB:
 
 ```
 make install
 ```
 
-## Finished
+## 结束
 
-Congratulations! You now have an environment suitable for Swift 3 and Perfect 2.
+恭喜！现在您的系统环境已经可以支持Swift 3 ＋ Perfect 2联合工作。
 
-## Trying It Out
+## 尝试别的方法
 
-If you wish to install a "development snapshot" of Swift before Swift 3 has been released, you can download one:
+如果您希望安装一个Swift在3.0之前的“开发快照”版本，以按照以下命令下载：
 
 ```
 cd /usr/src/
 wget https://swift.org/builds/swift-3.0-preview-3/ubuntu1510/swift-3.0-PREVIEW-3/swift-3.0-PREVIEW-3-ubuntu15.10.tar.gz`
 ```
 
-To install it:
+安装方法：
 
 ```
 gunzip < swift-3.0-PREVIEW-3-ubuntu15.10.tar.gz | tar -C / -xv --strip-components 1
 ```
 
-And to remove the compressed archive:
+完成后删除压缩档：
 
 ```
 rm swift-3.0-PREVIEW-3-ubuntu15.10.tar.gz
 ```
 
-Now you can copy the Perfect 2 template project:
+获取 Perfect 2 模板项目：
 
 ```
 git clone https://github.com/PerfectlySoft/PerfectTemplate
 ```
 
-And build it:
+并编译：
 
 ```
 cd PerfectTemplate
@@ -129,21 +129,21 @@ git checkout d13e8dd8eb4868fea36468758604fe05a48b9aa2
 swift build
 ```
 
-Once built, this application will be available inside the `.build/debug/` directory. You can copy it to somewhere more convenient, such as the `/root/` directory:
+编译完成后应用程序会出现在 `.build/debug/` 目录下。可以为方便使用拷贝到别的路径，比如 `/root/` 目录：
 
 ```
 cp .build/debug/PerfectTemplate /root/
 ```
 
-Now you can run this application from the `/root/` directory. Be careful: If you are still using the **root** user, the application will have the **root** user's privileges!
+现在您就可以从 `/root/` 路径下执行程序。请小心，如果您还使用的是 **root** 用户，那么您的程序会获得 **root** 用户权限！
 
 ```
 /root/PerfectTemplate --port 80
 ```
 
-You can test this application from a different shell with the `curl` command:
+下一步即可通过 `curl` 命令测试服务器：
 
 ```
 curl http://127.0.0.1
 ```
-If you find an issue, [please report it](http://jira.perfect.org:8080/servicedesk/customer/portal/1).
+如果您发现任何问题，请进行[问题报告](http://jira.perfect.org:8080/servicedesk/customer/portal/1).

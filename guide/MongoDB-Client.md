@@ -1,18 +1,18 @@
-# MongoDB Client
+# MongoDB 客户端
 
-The MongoClient class is where the initial connection to the MongoDB server is defined. 
+MongoClient客户端类用于初始化到MongoDB服务器的连接。
 
-Create new Mongo client connection:
+将MongoClient客户端连接到服务器：
 
-``` swift
+```swift
 let client = try! MongoClient(uri: "mongodb://localhost")
 ```
 
-### Closing the Connection
+### 关闭连接
 
-Once the connection is established and the database and collections have been defined, set the connection to close once completed using `defer`. This is done in reverse order - close collections, then databases, and then finally the client connection.
+一旦连接建立、打开数据库并打开集合，请用`defer`滞后方法关闭连接，注意关闭顺序与建立连接的顺序正好相反——先关闭集合，然后关闭数据库，最后在关闭服务器连接。
 
-``` swift
+```swift
 defer {
     collection.close()
     db.close()
@@ -20,50 +20,49 @@ defer {
 }
 ```
 
-### Create Database Reference
+### 创建数据库引用
 
-`getDatabase` returns the specified MongoDatabase using the current connection.
+调用`getDatabase`函数返回当前服务器连接内指定的MongoDatabase。
 
-``` swift
+```swift
 let db = client.getDatabase(
-	databaseName: <String>
-	)
+    databaseName: <String>
+    )
 ```
 
-#### Parameters
+#### 参数说明
 
-* **databaseName:** String name of database to be used
+* **databaseName:** 字符串类型的数据库名
 
-### Create Collection Reference
+### 创建集合参考引用
 
-`getCollection` returns the specified MongoCollection from the specified database using the current connection.
+调用`getCollection`方法能够将客户端连接到当前服务器指定数据库下的目标集合。
 
-``` swift
+```swift
 let collection = client.getCollection(
-	databaseName: <String>, 
-	collectionName: <String>
-	)
+    databaseName: <String>,
+    collectionName: <String>
+    )
 ```
 
-#### Parameters
+#### 参数说明
 
-* **databaseName:** String name of database to be used
-* **collectionName:** String name of collection to be retrieved
+* **databaseName:** 字符串类型的数据库名称
+* **collectionName:** 字符串类型的目标集合名称
 
-### Get Current Mongo Server Status
+### 获得当前Mongo服务器状态
 
-`serverStatus` returns: a Result object representing the server status.
+调用`serverStatus`方法返回代表服务器状态的一个对象，
 
-``` swift
+```swift
 let status = client.serverStatus()
 ```
 
-### Return String Array of Current Database Names
+### 数据库名称列表
 
-Use `databaseNames` to build a string array of current database names:
+调用`databaseNames`方法以字符串数组形式获取当前所有可用的数据库名称列表
 
 
-``` swift
+```swift
 let dbnames = client.databaseNames()
 ```
-

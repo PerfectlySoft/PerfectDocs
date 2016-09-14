@@ -1,4 +1,4 @@
-# Perfect Documentation Library
+# Perfect 文档库
 <p align="center">
     <a href="http://perfect.org/get-involved.html" target="_blank">
         <img src="http://perfect.org/assets/github/perfect_github_2_0_0.jpg" alt="Get Involed with Perfect!" width="854" />
@@ -8,16 +8,16 @@
 <p align="center">
     <a href="https://github.com/PerfectlySoft/Perfect" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_1_Star.jpg" alt="Star Perfect On Github" />
-    </a>  
+    </a>
     <a href="https://gitter.im/PerfectlySoft/Perfect" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_2_Git.jpg" alt="Chat on Gitter" />
-    </a>  
+    </a>
     <a href="https://twitter.com/perfectlysoft" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_3_twit.jpg" alt="Follow Perfect on Twitter" />
-    </a>  
+    </a>
     <a href="http://perfect.ly" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_4_slack.jpg" alt="Join the Perfect Slack" />
-    </a> 
+    </a>
 </p>
 
 <p align="center">
@@ -41,67 +41,67 @@
     </a>
 </p>
 
-This library contains all the reference documentation and API reference-related material you need to run and use Perfect.
+本文献包括所有您需要运行和使用Perfec的软件参考手册和接口函数有关内容。
 
-### Issues, Pull Requests, and Support
+### 问题报告、内容贡献和客户支持
 
-We have transitioned to using JIRA for dealing with all pull requests, bugs, and any other support-related issues. Therefore, the GitHub "issues" tab has been disabled.
+我们目前正在过渡到使用JIRA来处理所有源代码资源合并申请、修复漏洞以及其它有关问题。因此，GitHub 的“issues”问题报告功能已经被禁用了。
 
-If you find a bug, or have a helpful suggestion to improve this documentation, [please raise it](http://jira.perfect.org:8080/servicedesk/customer/portal/1).
+如果您发现了问题，或者希望为改进本文提供意见和建议，[请在这里指出](http://jira.perfect.org:8080/servicedesk/customer/portal/1).
 
-Before you do, please view [a comprehensive list of all open issues](http://jira.perfect.org:8080/projects/ISS/issues).
+在您开始之前，请参阅[目前待解决的问题清单](http://jira.perfect.org:8080/projects/ISS/issues).
 
 ### Contributing
 
-We welcome all contributions to and recommendations for improving the Perfect documentation. We welcome contributions to Perfect’s documentation. If you spot a typo, bug, or other errata, or have additions or suggestions to recommend, please [create a pull request or log an issue in JIRA](http://jira.perfect.org:8080/servicedesk/customer/portal/1/user/login?destination=portal%2F1).
+我们欢迎所有贡献以及对Perfect文档提高的宝贵意见。我们欢迎您为Perfect付出宝贵的支持。如果您发现了任何文字或者内容有错误，或者有任何建议，请[提交一个代码上传请求，或在JIRA上报告问题](http://jira.perfect.org:8080/servicedesk/customer/portal/1/user/login?destination=portal%2F1).
 
-We have [a system, written with Perfect](https://github.com/PerfectlySoft/PerfectDocGenerator), that picks up markdown files dynamically from this repository and incorporates them in an HTML docs site. This system will go live shortly.
+我们由一个专用[Perfect文档生成器](https://github.com/PerfectlySoft/PerfectDocGenerator)，也是由Swift语言编写，能够将本资源库目录下的MD文档转换为HTML网页。该系统将很快启动。
 
-## Table of Contents
+## 目录
 
-* [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md)
-* [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md)
-* [Getting Started From Scratch](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStartedFromScratch.md)
-* [An HTTP and Web Services Primer](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/WebServicesPrimer.md)
-* [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md)
-* [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)
-* [Handling Requests](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/handlingRequests.md)
-	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md)
-	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md)
-	 	* [Using Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md)
-		* [File Uploads](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/fileUploads.md)
-	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md)
-	* [Request &amp; Response Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filters.md)
-	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md)
-	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md)
-	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md)
-* [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
-	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md)
-	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md)
-	* [Dir](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md)
-	* [Threading](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/thread.md)
-	* [Networking](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/net.md) @kjessup
-	* [UUID](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/UUID.md)
-	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md)
-	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md)
-	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
-	* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md) @kjessup
-	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
-* [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
-	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md)
-	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md)
-	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md)
-	* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB.md)
-		* [MongoDB Databases](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Database.md)
-		* [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md)
-		* [MongoDB Client](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Client.md)
-		* [Working with BSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-BSON.md)
-	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @ kjessup
-	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
-* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md) @kjessup
-* [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
-* [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
-	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Ubuntu1510.md)
+* [简介](introduction.md)
+* [快速上手](gettingStarted.md)
+* [从模板项目开始](gettingStartedFromScratch.md)
+* [HTTP和Web服务基础](WebServicesPrimer.md)
+* [代码资源库结构](repositoryLayout.md)
+* [用SPM软件包管理器编译项目](buildingWithSPM.md)
+* [处理HTTP请求](handlingRequests.md)
+	* [HTTP路由](routing.md)
+	* [HTTPRequest请求对象](HTTPRequest.md)
+	 	* [使用表单](formData.md)
+		* [文件上传](fileUploads.md)
+	* [HTTPResponse响应对象](HTTPResponse.md)
+	* [HTTP请求与响应过滤器](filters.md)
+	* [JSON数据转换](JSON.md)
+	* [静态文件](staticFileContent.md)
+	* [Mustache页面模板](mustache.md)
+* [基本工具](utilities.md)
+	* [字节流转换](bytes.md)
+	* [文件操作](file.md)
+	* [目录与路径](dir.md)
+	* [线程](thread.md)
+	* [网络](net.md) @kjessup
+	* [UUID唯一标识符](UUID.md)
+	* [SysProcess系统进程](sysProcess.md)
+	* [日志](log.md)
+	* [CURL联网传输](cURL.md)
+	* [XML数据转换](xml.md) @kjessup
+	* [Zip压缩](zip.md)
+* [数据库连接器](databaseConnectors.md)
+	* [SQLite](SQLite.md)
+	* [MySQL](MySQL.md)
+	* [PostgreSQL](PostgreSQL.md)
+	* [MongoDB](MongoDB.md)
+		* [MongoDB 数据库](MongoDB-Database.md)
+		* [MongoDB 集合](MongoDB-Collections.md)
+		* [MongoDB 客户端](MongoDB-Client.md)
+		* [BSON 数据转换](MongoDB-BSON.md)
+	* [Redis](Redis.md) @ kjessup
+	* [Filemaker](filemaker.md)
+* [WebSockets](webSockets.md) @kjessup
+* [iOS 消息与通知](iOSNotifications.md) @kjessup
+* [发行与部署](deployment.md)
+	* [Ubuntu 15.10](deployment-Ubuntu1510.md)
 	* Docker
 	* Heroku
 	* Azure
@@ -110,4 +110,3 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* Digital Ocean
 * Platform specific Notes
 	* Starting a Swift binary at boot on Ubuntu
-

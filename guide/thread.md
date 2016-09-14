@@ -1,196 +1,194 @@
-# Threading
+# 线程
 
-Perfect provides a core threading library in the PerfectThread package. This package is designed to provide support for the rest of the systems in Perfect. PerfectThread is abstracted over the core operating system level threading package.
+Perfect包含了完整的线程函数库：PerfectThread。该函数库是整个Perfect系统的基础支持。PerfectThread是从操作系统核心级别中抽象出的类库。
 
-PerfectThread is imported by PerfectNet and so it is not generally required that one directly import it. However, if you need to do so you can ```import PerfectThread```.
+由于PerfectThread已经包含在PerfectNet函数中，因此不需要显式声明该库的调用。但是如有必要，您当然也可以通过`import PerfectThread`声明对该库的调用
 
-PerfectThread provides the following constructs:
+PerfectThread提供如下功能：
 
-* Threading.Lock - Mutually exclusive thread lock, aka a mutex or critical section
-* Threading.RWLock - A many reader/single writer based thread lock
-* Threading.Event - Wait/signal/broadcast type synchronization
-* Threading.sleep - Block/pause; a single thread for a given period of time
-* Threading.ThreadQueue - Create either a serial or concurrent thread queue with a given name
-* Threading.dispatch - Dispatch a closure on a named queue
+* Threading.Lock - 线程互斥锁，又名互斥或者临界区
+* Threading.RWLock - 基于多读单写操作的线程锁
+* Threading.Event - 用于线程同步的等待/信号/广播类型
+* Threading.sleep - 单线程阻塞/暂停一段时间
+* Threading.ThreadQueue - 为顺序启动或者并发启动的线程创建一个命名队列
+* Threading.dispatch - 调度或关闭一个命名队列
 
-These systems provide internal concurrency for Perfect, and are heavily used in the PerfectNet package in particular.
+以下系统部件为Perfect提供内部并发支持，而且PerfectNet函数库高度依赖于本函数库。
 
-### Locks
+### Locks 线程锁
 
-PerfectThread provides both mutex and rwlock synchronization objects.
+PerfectThread同时提供线程互斥锁和多读单写同步锁。
 
-**Mutex**
+**Mutex线程互斥**
 
-Mutexes are provided through the Threading.Lock object. These are intended to protect shared resources from being accessed simultaneously by multiple threads at once. It provides the following functions:
+Mutex互斥是通过Threading.Lock线程锁对象实现的。以下内容为在多线程并发环境下保护共享资源的方法：
 
 ```swift
-/// A wrapper around a variety of threading related functions and classes.
+/// 一系列线程有关的函数和类库封装。
 public extension Threading {
-	/// A mutex-type thread lock.
-	/// The lock can be held by only one thread. 
-	/// Other threads attempting to secure the lock while it is held will block.
-	/// The lock is initialized as being recursive. 
-	/// The locking thread may lock multiple times, but each lock should be accompanied by an unlock.
-	public class Lock {
-		/// Attempt to grab the lock.
-		/// Returns true if the lock was successful.
-		public func lock() -> Bool
-		/// Attempt to grab the lock.
-		/// Will only return true if the lock was not being held by any other thread.
-		/// Returns false if the lock is currently being held by another thread.
-		public func tryLock() -> Bool
-		/// Unlock. Returns true if the lock was held by the current thread and was successfully unlocked, or the lock count was decremented.
-		public func unlock() -> Bool
-		/// Acquire the lock, execute the closure, release the lock.
-		public func doWithLock(closure: () throws -> ()) rethrows
-	}
+    /// 线程互斥锁
+    /// 该锁只能被一个线程持有
+    /// 其它试图解锁的线程都会被阻塞。
+    /// 该锁被初始化为递归调用（存在调用堆栈）
+    /// 锁定线程可以多次加锁，但是每次加锁必须配对一个对应解锁。
+    public class Lock {
+        /// 试图加锁
+        /// 如果加锁成功则返回真值。
+        public func lock() -> Bool
+        /// 试图加锁
+        /// 只有当前锁未被其它线程锁定时才返回真值。
+        /// 如果已经被其它线程锁定，则返回假。
+        public func tryLock() -> Bool
+        /// 解锁。只有该所被当前线程锁定并成功解锁时才返回真值。否则锁定计数器将递减
+        public func unlock() -> Bool
+        /// 针对闭包申请加锁，并尝试执行，随后解锁
+        public func doWithLock(closure: () throws -> ()) rethrows
+    }
 }
 ```
 
-The general usage pattern as as follows:
+使用方法可参考如下：
 
-* Created a shared instance of ```Threading.Lock```
-* When a shared resource needs to be accessed, call the ```lock()``` function
-	* If another thread already has the lock then the calling thread will block until it is unlocked
-* Once the call to ```lock()``` returns the resource is safe to access
-* When finished, call ```unlock()```
-	* Other threads are now free to acquire the lock
+* 创建一个```Threading.Lock```实例
+* 当需要访问共享资源时，调用```lock()``` 函数
+* 如果其它线程已经对此加锁了，则当前进程将被阻塞直至解锁
+* 一旦成功调用```lock()```后，当前线程即可对预期资源进行安全的独占访问
+* 访问结束后，调用```unlock()```解锁
+* 解锁之后，其它线程即可重新对其加锁访问
 
-Alternatively, you can pass a closure to the ```doWithLock``` function. This will lock, call the closure, and then unlock.
+另一种方式就是直接将需要加锁的内容做成闭包，传递给```doWithLock```函数进行调用。此时该函数回自动加锁、调用闭包，而后自动解锁。
 
-The ```tryLock``` function will lock and return true if no other thread currently holds the lock. If another thread holds the lock, it will return false.
+如果没有其它线程锁定资源，则```tryLock```函数回自动加锁并返回真值。如果其它线程已经锁定，则返回假。
 
-**Read/Write Lock**
+**多读单写锁**
 
-Read/Write Locks (RWLock) are provided through the ```Threading.RWLock``` object. RWLocks support many threads accessing a shared resource in a read-only capacity. For example, it could permit many threads at once to be accessing values in a shared Dictionary. When a thread needs to perform a modification (a write) to a shared object it acquires a write lock. Only one thread can hold a write lock at a time, and all other threads attempting to read or write will block until the write lock is released. An attempt to lock for writing will block until any other read or write locks have been released. When attempting to acquire a write lock, no other read locks will be permitted, and threads attempting to read or write will be blocked until the write lock is held and then released.
+调用```Threading.RWLock```对象来实现多读单写锁。该所支持多个线程同时以只读方式读取一个共享资源。比如，可以允许多个线程同时访问一个共享的字典。当其中一个线程需要进行修改（写操作）时，则该线程可以申请一个单写锁。同一时间内只有一个线程可以进行写锁定，其它所有尝试读写该锁的线程都会被阻塞直到该锁（单线程修改操作）释放。当某线程试图获取一个修改锁时，其它线程的读取锁操作也被禁止，所有其它尝试对该所进行读写的线程都会被阻塞直至修改操作完毕为止。
 
-RWLock is defined as follows:
+多读单写锁定义如下：
 
 ```swift
-/// A wrapper around a variety of threading related functions and classes.
+/// 一系列线程有关的函数和类库封装。
 public extension Threading {
-		/// Attempt to acquire the lock for reading.
-		/// Returns false if an error occurs.
-		public func readLock() -> Bool
-		/// Attempts to acquire the lock for reading.
-		/// Returns false if the lock is held by a writer or an error occurs.
-		public func tryReadLock() -> Bool
-		/// Attempt to acquire the lock for writing.
-		/// Returns false if an error occurs.
-		public func writeLock() -> Bool
-		/// Attempt to acquire the lock for writing.
-		/// Returns false if the lock is held by readers or a writer or an error occurs.
-		public func tryWriteLock() -> Bool
-		/// Unlock a lock which is held for either reading or writing.
-		/// Returns false if an error occurs.
-		public func unlock() -> Bool
-     /// Acquire the read lock, execute the closure, release the lock.
-		public func doWithReadLock(closure: () throws -> ()) rethrows        
-     /// Acquire the write lock, execute the closure, release the lock.
-		public func doWithWriteLock(closure: () throws -> ()) rethrows
+        /// 尝试读取锁信息
+        /// 如果有错误发生则返回假。
+        public func readLock() -> Bool
+        /// 尝试读取锁信息
+        /// 如果当前锁已经被某修改线程锁定，或者有错误发生，将返回假。
+        public func tryReadLock() -> Bool
+        /// 尝试获取锁用于写操作。
+        /// 如果有错误发生则返回假。
+        public func writeLock() -> Bool
+        /// 尝试获取锁用于写操作。
+        /// 如果已经被其它读写线程锁定或有错误发生，将返回假。
+        public func tryWriteLock() -> Bool
+        /// 为读写操作解除锁定
+        /// 如果有错误发生将返回假。
+        public func unlock() -> Bool
+        /// 尝试获取读锁并执行闭包操作，执行结束后自动解锁。
+        public func doWithReadLock(closure: () throws -> ()) rethrows
+        /// 尝试获取写锁并执行闭包操作，执行结束后自动解锁。
+        public func doWithWriteLock(closure: () throws -> ()) rethrows
 }
 ```
 
-RWLock supports ```tryReadLock``` and ```tryWriteLock```, both of which will return false if the lock can not be immediately acquired. It also supports ```doWithReadLock``` and ```doWithWriteLock``` which will call the provided closure with the lock held and then release it when it has completed.
+RWLock同时支持 ```tryReadLock``` 和 ```tryWriteLock```方法，二者都是在锁无法立刻获取的情况下返回假，同时支持```doWithReadLock``` 和 ```doWithWriteLock``` 方法，用于为闭包自动加锁，以及执行结束自动解锁
 
-### Events
+### Events线程事件（信号灯）
 
-The ```Threading.Event``` object provides a way to safely signal or communicate among threads about particular events. For instance, to signal worker threads that a task has entered a queue. It's important to note that ```Threading.Event``` inherits from ```Threading.Lock``` as using the ```lock``` and ```unlock``` methods provided therein are vital to understanding thread event behaviour.
+其中，```Threading.Event```线程事件对象为线程间就特定事件通信提供了一个安全的信号灯机制。比如，向进入任务队列的一个工作线程发出一个信号通知其有事件发生。需要注意的是```Threading.Event```线程事件对象是从```Threading.Lock```线程锁对象继承而来，因此其内部使用了```lock```和```unlock```的加锁／解锁机制，这对理解线程事件对象的行为而言是非常重要的。
 
-```Threading.Event``` provides the following functions:
+线程事件```Threading.Event``` 提供以下函数：
 
 ```swift
 public extension Threading {
-	/// A thread event object. Inherits from `Threading.Lock`.
-	/// The event MUST be locked before `wait` or `signal` is called.
-	/// While inside the `wait` call, the event is automatically placed in the unlocked state.
-	/// After `wait` or `signal` return the event will be in the locked state and must be unlocked.
-	public final class Event: Lock {
-		/// Signal at most ONE thread which may be waiting on this event.
-		/// Has no effect if there is no waiting thread.
-		public func signal() -> Bool
-		/// Signal ALL threads which may be waiting on this event.
-		/// Has no effect if there is no waiting thread.
-		public func broadcast() -> Bool
-		/// Wait on this event for another thread to call signal.
-		/// Blocks the calling thread until a signal is received or the timeout occurs.
-		/// Returns true only if the signal was received.
-		/// Returns false upon timeout or error.
-		public func wait(seconds secs: Double = Threading.noTimeout) -> Bool
-	}
+    /// 一个线程事件对象。从线程锁Threading.Lock继承而来.
+    /// 在调用wait等待方法和signal信号灯方法之前，该事件必须加锁。
+    /// 在调用wait方法过程内部，该事件会自动处于解锁状态。
+    /// 在调用wait等待或者signal信号灯后，该事件会处于锁定状态，因此必须要进行解锁。
+    public final class Event: Lock {
+        /// 单信号触发：通过信号灯触发和等待这个事件的线程最多只有一个。
+        /// 如果没有等待线程，则调用时不会有任何效果。
+        public func signal() -> Bool
+        /// 广播：触发等待该事件的所有线程。
+        /// 如果没有等待线程，则调用不会有任何效果。
+        public func broadcast() -> Bool
+        /// 等待该事件直到另一个线程触发信号灯。
+        /// 阻塞调用线程直至信号灯触发或者超时。
+        /// 只有在信号灯触发后才会返回真值。
+        /// 如果超时或者有错误发生，则返回假。
+        public func wait(seconds secs: Double = Threading.noTimeout) -> Bool
+    }
 }
 ```
 
-The general usage pattern is illustrated by using a producer/consumer metaphor:
+线程事件的基本使用方法可以用下面的生产者/消费者这个例子进行描述：
 
-*Producer Thread*
+*生产者线程*
 
-* Producer thread wants to produce a resource and alert other threads about the occurrence
-* Call the ```lock``` function
-* Produce the resource
-* Call the ```signal``` or ```broadcast``` function
-* Call the ```unlock``` function
+* 生产者线程将创建一个资源并通知其它线程这个资源已经发生创建的事件
+* 调用```lock```函数
+* 产生这个可以共享的资源
+* 调用```signal```信号灯方法或者```broadcast```广播方法
+* 调用```unlock```解锁函数
 
-*Consumer Thread*
+*消费者线程*
 
-* Call the ```lock``` function
-* If a resource is available for consumption:
-	* Consume the resource and call the ```unlock``` function
-* If a resource is not available for consumption:
-	* Call the ```wait``` function
-	* When ```wait``` returns true:
-		* If a resource is available then consume the resource
-	* Call the ```unlock``` function
+* 调用```lock```函数
+* 如果资源已经准备好而且可以被消费
+  * 使用资源（进行消费操作）然后调用```unlock```函数
+* 如果该资源尚不具备使用条件（无法消费）：
+  * 调用```wait```线程等待方法
+  * 当```wait```返回为真值时：
+    * 如果资源已经处于可以使用状态，则进行消费操作
+    * 调用```unlock```线程解锁函数
 
-These producer/consumer threads generally operate in a loop performing these steps repeatedly during the life of the program.
+上述生产者/消费者线程会在程序生命周期内周而复始地重复上述操作。
 
-The ```wait``` function accepts an optional timeout parameter. If the timeout expires then ```wait``` will return false. By default, ```wait``` does not timeout.
+而```wait```等待函数允许接受一个可选的超时参数。如果已经发生超时则```wait```会返回假。默认情况下```wait```不会超时。
 
-The functions ```signal``` and ```broadcast``` differ in that ```signal``` will alert at most one waiting thread while ```broadcast``` will alert all currently waiting threads.
+函数```signal```和```broadcast```这两个线程调度函数区别在于```signal```最多唤醒一个等待线程，而```broadcast```会唤醒所有处于等待状态的线程。
 
-### Queues
+### 线程队列
 
-The PerfectThread package provides an abstracted thread queue system. It is based loosely on Grand Central Dispatch (GCD), but is designed to mask the actual threading primitives, and as such, operate with a variety of underlying systems.
+PerfectThread线程函数库提供一个从操作系统中抽象出来的队列系统。该函数库基于（苹果体系）广义中央调度系统（GCD），但是也被设计为概括真实的线程基本操作，因此可以在不同的平台上使用。
 
-This queue system provides the following features:
+该队列系统有以下特点：
 
-* Named serial queues - one thread operating, removing and executing tasks
-* Named concurrent queues - multiple threads operating, the count varying depending on the number of available CPUs, removing and executing tasks simultaneously
-* A default concurrent queue
+* 命名顺序队列：每个时刻只有一个线程处于运行状态，从队列中脱离并启动后执行具体任务。
+* 命名并发队列：每个时刻根据实际的CPU数量尽可能多的允许多个线程进行同时操作，从队列中脱离并启动后在同一时刻并发执行任务
+* 默认并发队列：由系统自动命名为“default”的并发命名队列
 
-This system provides the following functions:
+该体系提供以下函数：
 
 ```swift
-/// A thread queue which can dispatch a closure according to the queue type.
+/// 线程队列可以根据其队列类型调度闭包。
 public protocol ThreadQueue {
-	/// The queue name.
-	var name: String { get }
-	/// The queue type.
-	var type: Threading.QueueType { get }
-	/// Execute the given closure within the queue's thread.
-	func dispatch(_ closure: Threading.ThreadClosure)
+    /// 队列名称。
+    var name: String { get }
+    /// 队列类型。
+    var type: Threading.QueueType { get }
+    /// 在线程队列中执行指定闭包。
+    func dispatch(_ closure: Threading.ThreadClosure)
 }
 
 public extension Threading {
-	/// The function type which can be given to `Threading.dispatch`.
-	public typealias ThreadClosure = () -> ()
-	/// Queue type indicator.
-	public enum QueueType {
-		/// A queue which operates on only one thread.
-		case serial
-		/// A queue which operates on a number of threads, usually equal to the number of logical CPUs.
-		case concurrent
-	}
-	/// Find or create a queue indicated by name and type.
-	public static func getQueue(name nam: String, type: QueueType) -> ThreadQueue
-	/// Call the given closure on the "default" concurrent queue
-	/// Returns immediately.
-	public static func dispatch(closure: Threading.ThreadClosure)
+    /// 该函数类型相当于Threading.dispatch线程调度
+    public typealias ThreadClosure = () -> ()
+    /// 队列类型指示器。
+    public enum QueueType {
+        /// 顺序队列，每次只允许一个线程脱离队列进行操作。
+        case serial
+        /// 并发队列，允许同时执行多个线程，允许的并发线程数量通常等于逻辑CPU的实际数量。
+        case concurrent
+    }
+    /// 根据命名和类型寻找或者创建一个队列。
+    public static func getQueue(name nam: String, type: QueueType) -> ThreadQueue
+    /// 在名为“default”的默认的并发队列中调用指定闭包
+    /// 会立刻返回。
+    public static func dispatch(closure: Threading.ThreadClosure)
 }
 ```
 
-Calling ```Threading.getQueue``` will create the queue if it does not already exist. Once the queue object has been returned call, its ```dispatch``` function and pass it the closure which will be executed on that queue.
+通过```Threading.getQueue```获取命名队列时，如果队列不存在，则会自动创建一个队列。一旦队列对象调用后返回，其调度函数```dispatch```将把闭包传递给队列进行执行操作
 
-The system will automatically create a queue called "default". Calling the static ```Threading.dispatch``` function will always dispatch the closure on this queue.
-
-
+系统回自动创建一个默认的队列，名字就叫“default”。调用```Threading.dispatch```静态函数时，总是会通过这个名为“default”的默认队列执行调度闭包的操作。

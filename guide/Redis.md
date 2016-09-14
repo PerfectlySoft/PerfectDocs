@@ -1,10 +1,10 @@
 # Redis
 
-Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache, and message broker.
+Redis是BSD许可的开源、内存驻留存储的数据结构仓库，经常用于数据库、高速缓冲和消息代理。
 
-More info at [http://redis.io](http://redis.io)
+详见[http://redis.io](http://redis.io/)
 
-### Installing Redis
+### 安装Redis
 
 ### macOS
 
@@ -12,17 +12,16 @@ More info at [http://redis.io](http://redis.io)
 brew install redis
 ```
 
-To have launchd start redis now and restart at login: ```brew services start redis```
-  
-Or, if you don't want or need a background service, you can run: ```redis-server /usr/local/etc/redis.conf```
+在控制台下启动redis的方法：`brew services start redis`
+
+或者如果需要在后台以服务方式自动启动，可以这样使用：`redis-server /usr/local/etc/redis.conf`
 
 ### Linux
 
-```
+```swift
 sudo apt-get install redis-server
 ```
 
-### Getting Started
+### 快速上手
 
-In addition to the PerfectLib, you will need the Perfect-Redis dependency in the Package.swift file:
-
+除了项目内引用PerfectLib之外，您还需要在Package.swift文件内设置Perfect-Redis依存关系：
