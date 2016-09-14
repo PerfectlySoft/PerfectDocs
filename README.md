@@ -107,6 +107,6 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* Azure
 	* AWS
 	* Linode
-	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md) @robertBojor
+	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md)
 * Platform specific Notes
 	* Starting a Swift binary at boot on Ubuntu
