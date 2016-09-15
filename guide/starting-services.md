@@ -26,7 +26,7 @@ Once this file has been saved, set the permissions:
 
 ```
 chmod +x /etc/systemd/system/apiserver.service
-chmod -R 755 /etc/systemd/system/apiserver.service
+chmod 755 /etc/systemd/system/apiserver.service
 ```
 Then enable, and start the service:
 
