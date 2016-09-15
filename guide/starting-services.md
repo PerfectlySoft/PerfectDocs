@@ -25,14 +25,14 @@ WantedBy=multi-user.target
 Once this file has been saved, set the permissions:
 
 ```
-chmod +x /etc/systemd/system/statsapi.service
-chmod -R 755 /etc/systemd/system/statsapi.service
+chmod +x /etc/systemd/system/apiserver.service
+chmod -R 755 /etc/systemd/system/apiserver.service
 ```
 Then enable, and start the service:
 
 ```
-sudo systemctl enable statsapi.service
-sudo systemctl start statsapi.service
+sudo systemctl enable apiserver.service
+sudo systemctl start apiserver.service
 ```
 
 Further detail about `systemd` can be found at [Managing Services with systemd](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Services.html)
