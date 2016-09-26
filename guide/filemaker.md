@@ -1,26 +1,26 @@
 # FileMaker
 
-FileMaker服务器连接工具采用XML网页发布界面访问FileMaker服务器。该工具允许用户从程序内访问FileMaker数据库，实现对数据记录的增加、更新和删除操作。
+The FileMaker Server connector provides access to FileMaker Server databases using the XML Web publishing interface. It allows you to allows you to search for, add, update and delete records in a hosted FileMaker database.
 
-## 系统要求
+## System Requirements
 
-该模块使用libxml2和libcurl作为基本配置，并使用[Perfect-CURL](https://github.com/PerfectlySoft/Perfect-XML">Perfect-XML</a>和<a href="https://github.com/PerfectlySoft/Perfect-CURL)工具包。
+This module uses libxml2 and libcurl along with the [Perfect-XML](https://github.com/PerfectlySoft/Perfect-XML) and [Perfect-CURL](https://github.com/PerfectlySoft/Perfect-CURL) packages.
 
 ### macOS
 
-macOS目前已经包括了该工具所需的必要库函数，因此不需要手工安装。
+macOS currently includes suitable versions of the dependent libraries and no manual installation is nessesary.
 
 ### Linux
 
-需要通过apt安装libcurl4-openssl-dev和ibxml2-dev开发包
+Install the libcurl4-openssl-dev &amp; libxml2-dev packages through apt.
 
-```swift
+```
 sudo apt-get install libcurl4-openssl-dev libxml2-dev
 ```
 
-## 配置文件
+## Setup
 
-请在您的Perfect项目中的Package.swift文件增加“Perfect-FileMaker”依存关系：
+Add the "Perfect-FileMaker" project as a dependency in your Package.swift file:
 
 ```swift
 .Package(
@@ -29,518 +29,518 @@ sudo apt-get install libcurl4-openssl-dev libxml2-dev
 	)
 ```
 
-### 声明和导入
+### Import
 
-请在您的Swift源程序开头增加以下声明导入对FileMaker的支持：
+In any of the source files where you intend to use with this module, add the following import: 
 
 ```swift
 import PerfectFileMaker
 ```
 
-## 综述
+## Overview
 
-访问FileMaker数据库的主要对象简述如下。
+The main objects that you will be working with when accessing Filemaker databases are described here.
 
-### struct FileMakerServer 数据库服务器结构
+### struct FileMakerServer
 
-这是访问一个FileMaker服务器的主要程序界面。在访问人和一个具体数据库之前，请为这个结构创建一个实例，并提供服务器主机名或IP地址，端口号和所需的用户名密码。如果指定443端口则后续访问将采用HTTPS数据加密
+This is the main interface to a FileMaker Server. Before accessing any database you will need to create an instance of this struct and provide a server host name or IP address, a port, and a valid username and password for the server. If the given port is 443 then all requests will be encrypted HTTPS.
 
-一旦服务器连接成功并实现实例初始化，您就可以进行访问数据库操作了：
+Once the server connection is instantiated you can perform four different operations. These are: 
 
-* 罗列可用的数据库资源
-* 罗列其中任意数据库的视图
-* 罗列每一个视图中的所有字段
-* 执行查询
+* list available databases
+* list a database's layouts
+* list a layout's fields
+* perform a query
 
-在左右情况下都需要提供回调函数，以保证实现异步操作。如果操作完成，回调函数将根据指定闭包进行操作，操作结果要么成功返回数据库响应，要么会抛出异常。对应操作的响应对象会根据具体操作类型延迟注销（defer）。出错情况下被抛出的异常将提供错误代码和对应的错误消息字符串，类型如下：
+In all cases you provide a callback and the operation occurs asynchronously. When the operation has completed the callback is called and given a closure which, when executed, will either return the operation response object or throw an error. The type of the operation response object will differ depending on the type of operation. The exception error object provides access to the error code and accompanying message string. It will be of the following type:
 
-```swift
+```swift 
 public enum FMPError: Error {
-    /// 错误代码和对应的错误信息
-    case serverError(Int, String)
+	/// An error code and message.
+	case serverError(Int, String)
 }
 ```
 
-FileMakerServer struct结构的每个成员定义如下：
+The relevent portions of the FileMakerServer struct are defined as follows:
 
 ```swift
-/// FileMaker Server服务器的连接实例
-/// 指定主机、端口、用户名和密码以进行初始化操作。
+/// A connection to a FileMaker Server instance.
+/// Initialize using a host, port, username and password.
 public struct FileMakerServer {
-    /// 用主机名、端口、用户名和密码初始化构造函数。
-    public init(host: String, port: Int, userName: String, password: String)
-    /// 从服务器端返回数据库清单。
-    public func databaseNames(completion: @escaping (() throws -> [String]) -> ())
-    /// 根据指定数据库返回视图清单。
-    public func layoutNames(database: String, completion: @escaping (() throws -> [String]) -> ())
-    /// 获得指定数据库视图的详细信息，包括所有字段和显示在视图上的名称。
-    public func layoutInfo(database: String,
-                           layout: String,
-                           completion: @escaping (() throws -> FMPLayoutInfo) -> ())
-    /// 执行查询并返回查询结果记录集。
-    public func query(_ query: FMPQuery, completion: @escaping (() throws -> FMPResultSet) -> ())
+	/// Initialize using a host, port, username and password.
+	public init(host: String, port: Int, userName: String, password: String)
+	/// Retrieve the list of database hosted by the server.
+	public func databaseNames(completion: @escaping (() throws -> [String]) -> ())
+	/// Retrieve the list of layouts for a particular database.
+	public func layoutNames(database: String, completion: @escaping (() throws -> [String]) -> ())
+	/// Get a database's layout information. Includes all field and portal names.
+	public func layoutInfo(database: String,
+	                       layout: String,
+	                       completion: @escaping (() throws -> FMPLayoutInfo) -> ())
+	/// Perform a query and provide any resulting data. 
+	public func query(_ query: FMPQuery, completion: @escaping (() throws -> FMPResultSet) -> ())
 }
 ```
 
-当罗列数据库或视图名称时，返回响应将以字符串数组的形式体现。当获取视图信息时，响应对象会转化为FMPLayoutInfo对象；而执行查询时返回的对象为FMPResultSet查询结果记录集。
+When listing database or layout names, the response object will simply be an array of strings. When retrieving layout information, the response object will be a FMPLayoutInfo object. When performing a query the response object will be a FMPResultSet.
 
-### struct FMPLayoutInfo视图信息结构
+### struct FMPLayoutInfo
 
-FMPLayoutInfo视图信息结构定义如下：
+FMPLayoutInfo is defined as follows:
 
 ```swift
-/// 代表了特定视图的元信息数据。
+/// Represents meta-information about a particular layout.
 public struct FMPLayoutInfo {
-    /// 每个字段或者关联集合都会作为一个清单项。
-    public let fields: [FMPMetaDataItem]
-    /// 通过名称访问每一个字段或者对应关键字的关联集合。
-    public let fieldsByName: [String:FMPFieldType]
+	/// Each field or related set as a list.
+	public let fields: [FMPMetaDataItem]
+	/// Each field or related set keyed by name.
+	public let fieldsByName: [String:FMPFieldType]
 }
 ```
 
-该对象包含试图内所有字段的信息内容。包括字段名称、类型、在视图上显示的名称，以及字段到显示名称之间的对应关系。
+This object contains all of the information pertaining to the fields on a layout. This includes the field names and types and also indicates which portals/relations are on the layout and which fields are contained within them.
 
-字段信息可以通过两种不同方式获取。第一种是通过一个FMPMetaDataItems的数组来表示。下面的枚举类型说明了每个视图条目是一个常规字段还是一个在视图上显示的名称或对应关系。第二种方式是通过一个字典来维护完整的字段名称和字段类型。如果字段代表了一个对应关系，则会用标准的FileMaker PortalName::FieldName （即显示名称::字段名称）语法来表示。
+Field information is provided in two different ways. The first is represented by an array of FMPMetaDataItems. This enum value indicates if the item is a regular field or a portal/relation. The second is a dictionary containing the full field name and the field type. If the field is in a relation it will be named with the standard FileMaker PortalName::FieldName syntax.
 
-以下是FMPMetaDataItem元数据条目、FMPFieldDefinition字段定义和FMPFieldType类型的枚举：
+What follows are the definitions for FMPMetaDataItem, FMPFieldDefinition &amp; FMPFieldType.
 
 ```swift
-/// 代表了任意一个条目是一个独立的字段定义还是一个关联定义（即字段与视图显示名称的对应关系）。
+/// Represents either an individual field definition or a related (portal) definition.
 public enum FMPMetaDataItem {
-    /// 一个独立的字段
-    case fieldDefinition(FMPFieldDefinition)
-    /// 一个对应关系集合，说明了从视图显示名称到所包含的字段。
-    case relatedSetDefinition(String, [FMPFieldDefinition])
+	/// An individual field.
+	case fieldDefinition(FMPFieldDefinition)
+	/// A related set. Indicates the portal name and its contained fields.
+	case relatedSetDefinition(String, [FMPFieldDefinition])
 }
 ```
 
 ```swift
-/// 一个FileMaker字段定义，说明字段的名称和类型。
+/// A FileMaker field definition. Indicates a field name and type.
 public struct FMPFieldDefinition {
-    /// 字段名称
-    public let name: String
-    /// 字段类型
-    public let type: FMPFieldType
+	/// The field name.
+	public let name: String
+	/// The field type.
+	public let type: FMPFieldType
 }
 ```
 
 ```swift
-/// FileMaker所有可能的字段类型。
+/// One of the possible FileMaker field types.
 public enum FMPFieldType {
-    /// 文字字段
-    case text
-    /// 数字字段
-    case number
-    /// 容器字段
-    case container
-    /// 日期字段
-    case date
-    /// 时间字段
-    case time
-    /// 时间戳字段
-    case timestamp
+	/// A text field.
+	case text
+	/// A numeric field.
+	case number
+	/// A container field.
+	case container
+	/// A date field.
+	case date
+	/// A time field.
+	case time
+	/// A timestamp field.
+	case timestamp
 }
 ```
 
-### struct FMPResultSet结果记录集结构
+### struct FMPResultSet
 
-一个FMPResultSet结果记录集对象容纳了一个FileMaker查询的返回结果。该结构包括数据库视图的元信息，还包括数据行数，以及每行数据记录的详细信息。
+An FMPResultSet object contains the result of a FileMaker query. This includes database &amp; layout meta information, as well as the number of records which were found in total and a each record in the found set.
 
 ```swift
-/// 该结果记录集由数据库查询创建。
+/// The result set produced by a query.
 public struct FMPResultSet {
-    /// 数据库元信息。
-    public let databaseInfo: FMPDatabaseInfo
-    /// 数据视图信息。
-    public let layoutInfo: FMPLayoutInfo
-    /// 查询所返回的记录行数统计。
-    public let foundCount: Int
-    /// 由查询创建的数据行清单。
-    public let records: [FMPRecord]
+	/// Database meta-info.
+	public let databaseInfo: FMPDatabaseInfo
+	/// Layout meta-info.
+	public let layoutInfo: FMPLayoutInfo
+	/// The number of records found by the query.
+	public let foundCount: Int
+	/// The list of records produced by the query.
+	public let records: [FMPRecord]
 }
 ```
 
-除了之前描述的FMPLayoutInfo struct数据视图结构对象之外，返回结果记录集还会包含一些其它有关数据库的信息：
+In addition to the previously described FMPLayoutInfo struct, a result set also contains the following bits of database related information:
 
 ```swift
-/// 数据库元信息。
+/// Meta-information for a database.
 public struct FMPDatabaseInfo {
-    /// 服务器提供的日期格式。
-    public let dateFormat: String
-    /// 服务器提供的时间格式。
-    public let timeFormat: String
-    /// 服务器提供的时间戳格式。
-    public let timeStampFormat: String
-    /// 数据库中所包含的所有数据记录行总数。
-    public let recordCount: Int
+	/// The date format indicated by the server.
+	public let dateFormat: String
+	/// The time format indicated by the server.
+	public let timeFormat: String
+	/// The timestamp format indicated by the server.
+	public let timeStampFormat: String
+	/// The total number of records in the database.
+	public let recordCount: Int
 }
 ```
 
-返回的所有数据记录是通过访问结果记录集```FMPResultSet.records```属性实现。这个属性是一个FMPRecords数组，每个数组元素对应了一条数据记录（一行记录）。
+The found record data is accessed through the ```FMPResultSet.records``` property. This array of FMPRecords will contain one element for each returned record.
 
 ```swift
-/// 一个单独的记录集。
+/// An individual result set record.
 public struct FMPRecord {
-    /// 记录条目的类型枚举。
-    public enum RecordItem {
-        /// 一个独立字段。
-        case field(String, FMPFieldValue)
-        /// 一个关联的结婚，内容是关联的记录清单。
-        case relatedSet(String, [FMPRecord])
-    }
-    /// 记录编号。
-    public let recordId: Int
-    /// 对应每个关键词的数据记录。
-    public let elements: [String:RecordItem]
+	/// A type of record item.
+	public enum RecordItem {
+		/// An individual field.
+		case field(String, FMPFieldValue)
+		/// A related set containing a list of related records.
+		case relatedSet(String, [FMPRecord])
+	}
+	/// The record id.
+	public let recordId: Int
+	/// The contained record items keyed by name.
+	public let elements: [String:RecordItem]
 }
 ```
 
-每个数据记录都保存了通过字段或视图显示名称来访问其实际值```elements```属性。该字典内的值是```FMPRecord.RecordItem```枚举类型。这些对象意味着如果条目是一个常规字段，就可以通过字段名称直接访问取值，或者是一个关联的记录集，则返回内嵌的记录数组。
+A record holds each field or portal item keyed by name in its ```elements``` property. The values in this dictionary are ```FMPRecord.RecordItem``` enum objects. These objects indicate if the item is a regular field, in which case its name and value can be directly accessed, or if the item is a related record set. If the item is a related record set then the portal name and an array of nested records are provided.
 
-每一种情况都是通过FMPFieldValue struct结构来代表字段对应的实际值。
+In either case a field's value is represented through the FMPFieldValue struct.
 
 ```swift
-/// 返回FileMaker字段数据值
+/// A returned FileMaker field value.
 public enum FMPFieldValue: CustomStringConvertible {
-    /// 文字字段。
-    case text(String)
-    /// 数字字段。
-    case number(Double)
-    /// 容器字段。
-    case container(String)
-    /// 日期字段。
-    case date(String)
-    /// 时间字段。
-    case time(String)
-    /// 时间戳字段。
-    case timestamp(String)
+	/// A text field.
+	case text(String)
+	/// A numeric field.
+	case number(Double)
+	/// A container field.
+	case container(String)
+	/// A date field.
+	case date(String)
+	/// A time field.
+	case time(String)
+	/// A timestamp field.
+	case timestamp(String)
 }
 ```
 
-## 查询
+## Queries
 
-调用`FileMakerServer.query`函数能够查询检索指定记录，或操作每一个具体的记录。查询操作可以使用FMPQuery struct结构对象完成。该结构在发送到FileMaker服务器时以一个FileMaker XML标准格式化的字符串实现查询。服务器返回的响应也是XML。该XML响应被自动解析并转化为一个FMPResultSet查询结果记录集对象。
+The ```FileMakerServer.query``` function lets you search for sets of records or manipulate individual records. You specify a query using a FMPQuery struct. This struct is then formatted as a FileMaker XML query string and sent to the FileMaker Server. The server returns its response as XML. This XML is parsed and converted to a FMPResultSet object.
 
-由FMPQuery对象生成的查询字符串格式请参考PDF文件（英文版） [《FileMaker® 服务器12版XML定制发布标准》](https://www.filemaker.com/support/product/docs/12/fms/fms12_cwp_xml_en.pdf)。
+The query strings generated by the FMPQuery object correspond to what's defined in the "FileMaker® Server 12 Custom Web Publishing with XML" document. [PDF Doc](https://www.filemaker.com/support/product/docs/12/fms/fms12_cwp_xml_en.pdf).
 
-数据库查询的创建是通过初始化FMPQuery struct结构对象并对其增加选项而成。每一个选项会返回一个新修改的对象。这种方式的选项可以形成构造最终查询对象的一个选项链。构造完成之后就可以调用```FileMakerServer.query```函数并把这个查询结构对象作为参数传递，这样就可以产生最终的查询结果记录集。
+A query is created by instantiating a FMPQuery struct and then adding options to it. each option add will return a new modified object. In this manner options can be "chained" to construct the desired final query object. The query object is then given to the ```FileMakerServer.query``` function and the results are generated.
 
-FMPQuery详细定义如下：
+FMPQuery is as follows:
 
 ```swift
-/// 数据库查询操作。
+/// An individual query & database action.
 public struct FMPQuery: CustomStringConvertible {
-    /// 构造函数；按照数据库名、视图名和数据库操作初始化。
-    public init(database: String, layout: String, action: FMPAction)
-    /// 设置记录编号并返回调整后的查询。
-    public func recordId(_ recordId: Int) -> FMPQuery
-    /// 以分组方式增加待查询字段并返回调整后的查询。
-    public func queryFields(_ queryFields: [FMPQueryFieldGroup]) -> FMPQuery
-    /// 增加待查询字段并返回调整后的查询。
-    public func queryFields(_ queryFields: [FMPQueryField]) -> FMPQuery
-    /// 增加用于排序的字段并返回调整后的查询。
-    public func sortFields(_ sortFields: [FMPSortField]) -> FMPQuery
-    /// 增加预先排序脚本并返回调整后的查询。
-    public func preSortScripts(_ preSortScripts: [String]) -> FMPQuery
-    /// 增加预先检索脚本并返回调整后的查询。
-    public func preFindScripts(_ preFindScripts: [String]) -> FMPQuery
-    /// 增加查询后检索的脚本并返回调整后的查询。
-    public func postFindScripts(_ postFindScripts: [String]) -> FMPQuery
-    /// 设置响应视图并返回调整后的查询。
-    public func responseLayout(_ responseLayout: String) -> FMPQuery
-    /// 增加响应字段并返回调整后的查询。
-    public func responseFields(_ responseFields: [String]) -> FMPQuery
-    /// 设置每次读取的最大记录数并返回调整后的查询。
-    public func maxRecords(_ maxRecords: Int) -> FMPQuery
-    /// 设置在检索集合中可以忽略的记录数量并返回调整后的查询。
-    public func skipRecords(_ skipRecords: Int) -> FMPQuery
-    /// 返回格式化后的查询字符串
-    /// 对于调试来说非常方便
-    public var queryString: String
+	/// Initialize with a database name, layout name & database action.
+	public init(database: String, layout: String, action: FMPAction)
+	/// Sets the record id and returns the adjusted query.
+	public func recordId(_ recordId: Int) -> FMPQuery
+	/// Adds the query fields and returns the adjusted query.
+	public func queryFields(_ queryFields: [FMPQueryFieldGroup]) -> FMPQuery
+	/// Adds the query fields and returns the adjusted query.
+	public func queryFields(_ queryFields: [FMPQueryField]) -> FMPQuery
+	/// Adds the sort fields and returns the adjusted query.
+	public func sortFields(_ sortFields: [FMPSortField]) -> FMPQuery
+	/// Adds the indicated pre-sort scripts and returns the adjusted query.
+	public func preSortScripts(_ preSortScripts: [String]) -> FMPQuery
+	/// Adds the indicated pre-find scripts and returns the adjusted query.
+	public func preFindScripts(_ preFindScripts: [String]) -> FMPQuery
+	/// Adds the indicated post-find scripts and returns the adjusted query.
+	public func postFindScripts(_ postFindScripts: [String]) -> FMPQuery
+	/// Sets the response layout and returns the adjusted query.
+	public func responseLayout(_ responseLayout: String) -> FMPQuery
+	/// Adds response fields and returns the adjusted query.
+	public func responseFields(_ responseFields: [String]) -> FMPQuery
+	/// Sets the maximum records to fetch and returns the adjusted query.
+	public func maxRecords(_ maxRecords: Int) -> FMPQuery
+	/// Sets the number of records to skip in the found set and returns the adjusted query.
+	public func skipRecords(_ skipRecords: Int) -> FMPQuery
+	/// Returns the formulated query string.
+	/// Useful for debugging purposes.
+	public var queryString: String
 }
 ```
 
-FMPQuery对象首先通过设置数据库名称、视图名称和操作来初始化。可能的操作包括：
+A FMPQuery is first instantiated with a database name, layout name and action. The possible actions are:
 
 ```swift
-/// 数据库操作枚举
+/// A database action.
 public enum FMPAction: CustomStringConvertible {
-    /// 在当前查询内进行检索。
-    case find
-    /// 检索所有记录。
-    case findAll
-    /// 检索并返回一个随机记录。
-    case findAny
-    /// 在指定查询基础上创建一个新记录数据
-    case new
-    /// 通过记录编号和对应的字段/值编辑（更新）数据记录。
-    case edit
-    /// 根据记录编号删除记录。
-    case delete
-    /// 通过当前记录编号制作记录副本。
-    case duplicate
+	/// Perform a search given the current query.
+	case find
+	/// Find all records in the database.
+	case findAll
+	/// Find and retrieve a random record.
+	case findAny
+	/// Create a new record given the current query data.
+	case new
+	/// Edit (update) the record indicated by the record id with the current query fields/values.
+	case edit
+	/// Delete the record indicated by the current record id.
+	case delete
+	/// Duplicate the record indicated by the current record id.
+	case duplicate
 }
 ```
 
-许多基于FMPQuery的函数都接受字符串或整型值用于自我解释。凡是接受数组为参数的函数被称为“多次函数”，其新增数据值会被追加到现有数据值的集合中去。
+Many of the FMPQuery functions accepts Strings or Ints and are self explanitory. Any function which accepts an array can be called multiple times and the new values will be appended to the existing values. 
 
-当执行```.edit```（编辑）、```.delete```（删除）或```.duplicate```（复制）操作时，必须通过```FMPQuery.recordId(_ recordId: Int)```设置记录编号。当需要```.find```操作时，指定记录编号会返回对应的记录。
+When performing an ```.edit```, ```.delete``` or ```.duplicate``` action a record id must be set by calling ```FMPQuery.recordId(_ recordId: Int)```. Setting a record id when performing a ```.find``` will retrieve only the indicated record.
 
-在一个数据视图上实现从其它视图检索字段是可行的。调用```FMPQuery.responseLayout(_ responseLayout: String)```来设置响应操作的视图。默认情况下被检索视图就是响应返回的视图。
+It is possible to search on one layout but return fields from another. Call ```FMPQuery.responseLayout(_ responseLayout: String)``` to set the response layout. By default the layout which is searched on will be the response layout.
 
-如果可能，我们建议您从性能方面的考虑触发，在一个查询结果记录集内返回尽量少的字段内容。期望返回的字段名称可以通过```FMPQuery.responseFields(_ responseFields: [String])```函数进行设置。
+It is possible and advisable, for performance reasons, to return only the minimum of required fields in a result. The names of the fields you want returned in the result can be set through the ```FMPQuery.responseFields(_ responseFields: [String])``` function.
 
-字段查询和排序的用法罗列如下：
+Sorting and the usage of query fields are detailed below.
 
-### 排序
+### Sorting
 
-在结果记录集内的记录可以通过一个或多个字段进行排序。排序是通过将期望的字段和排序方法以FMPSortField作为参数调用```FMPQuery.sortFields```函数实现。FMPSortField使用FMPSortOrder枚举类型来确定排序顺序，二者共同定义如下：
+Records in a result set can be returned sorted by indicating one or more sort fields and sort orders. This is accomplished by calling the ```FMPQuery.sortFields``` function and passing the desired fields and orders as an array of FMPSortField objects. FMPSortField uses the FMPSortOrder enum to indicate the sort order. Both are defined as follows:
 
 ```swift
-/// 数据排序顺序。
+/// A record sort order.
 public enum FMPSortOrder: CustomStringConvertible {
-    /// 按照升序方式排序（从小到大，从低到高）。
-    case ascending
-		/// 按照降序方式排序（从大到小，从高到低）。
-    case descending
-    /// 通过指定字段自定义方式排序。
-    case custom
+	/// Sort the records by the indicated field in ascending order.
+	case ascending
+	/// Sort the records by the indicated field in descending order.
+	case descending
+	/// Sort the records by the indicated field in a custom order.
+	case custom
 }
 
-/// 排序字段指示器。
+/// A sort field indicator.
 public struct FMPSortField {
-    /// 用于排序的字段。
-    public let name: String
-    /// 预期的排序顺序方式。
-    public let order: FMPSortOrder
-    /// 通过字段名称和排序方式实现初始化的构造函数。
-    public init(name: String, order: FMPSortOrder)
-    /// 通过字段名称并默认为升序方式FMPSortOrder.ascending初始化的构造函数。
-    public init(name: String)
+	/// The name of the field on which to sort.
+	public let name: String
+	/// A field sort order.
+	public let order: FMPSortOrder
+	/// Initialize with a field name and sort order.
+	public init(name: String, order: FMPSortOrder)
+	/// Initialize with a field name using the default FMPSortOrder.ascending sort order.
+	public init(name: String)
 }
 ```
 
-### 待查询字段
+### Query Fields
 
-待查询字段可以被加入到FMPQuery对象中用于说明哪些字段在调用 ```.edit```操作时应该被修改；或者在执行```.find```操作时，哪些字段是用于检索。待查询字段保存了字段名以及对应的目标取值。在```.find```操作时，待查询字段还保存了一个字段级别运算符。这些运算符代表了字段到对应数据之间的关系。比如运算符可以是表达在检索中“大于等于”。默认的字段级别运算符是”以该值开始“的通配符（即FileMaker数据库的标准搜索方式）。
+Query fields are added to a FMPQuery to indicate either fields which should be modified, in the case of an ```.edit``` action or fields which should be searched on, in the case of a ```.find``` action. Query fields hold a field name along with a corresponding value. In the case of the ```.find``` action, query fields also hold a field level operator. These operators represent a relation of a field to the indicated value. For example a field operator could indicate that a field's contents should be greater-than-or-equal to the value when performing a search. The default field level operator is begins-with (as is standard for FileMaker database searches). 
 
-每个待查询字段都是用FMPQueryField对象表示。字段级别运算符是通过FMPFieldOp实现，定义如下：
+Individual query fields are represented by FMPQueryField objects. Field level operators are represented by FMPFieldOp. These are defined as follows:
 
 ```swift
-/// 字段级别运算符。
+/// An individual field search operator.
 public enum FMPFieldOp {
-    case equal /// 等于
-    case contains /// 包含
-    case beginsWith /// 以之开始
-    case endsWith /// 以之结尾
-    case greaterThan /// 大于
-		case greaterThanEqual /// 大于等于
-		case lessThan /// 小于
-		case lessThanEqual /// 小于等于
+	case equal
+	case contains
+	case beginsWith
+	case endsWith
+	case greaterThan
+	case greaterThanEqual
+	case lessThan
+	case lessThanEqual
 }
 
-/// 待查询字段
+/// An individual query field.
 public struct FMPQueryField {
-    /// 字段名称
-    public let name: String
-    /// 字段取值
-    public let value: Any
-    /// 检索运算符
-    public let op: FMPFieldOp
-    /// 通过字段名称，目标取值和运算符进行初始化的构造函数。
-    public init(name: String, value: Any, op: FMPFieldOp = .beginsWith)
+	/// The name of the field.
+	public let name: String
+	/// The value for the field.
+	public let value: Any
+	/// The search operator.
+	public let op: FMPFieldOp
+	/// Initialize with a name, value and operator.
+	public init(name: String, value: Any, op: FMPFieldOp = .beginsWith)
 }
 ```
 
-当进行一个```.edit```编辑操作时，可以将待查询字段作为数组参数追加到FMPQuery中去，具体调用方法是```FMPQuery.queryFields(_ queryFields: [FMPQueryField])```函数。在```.edit```编辑操作过程中，如果待查询字段包含字段级别运算符，则这些运算符会被忽略。
+When performing an ```.edit``` action, FMPQueryFields can be added to a FMPQuery as an array through the ```FMPQuery.queryFields(_ queryFields: [FMPQueryField])``` function. Any field level operators are ignored in an ```.edit```.
 
-当执行一个```.find```检索操作时，待查询字段是由逻辑运算符进行分组的。逻辑运算符确定了哪些字段用于整合在一起用于查询。可能的逻辑运算符即或与非：and、or和not。其含义在于，在结果记录集内查询和选择数据记录时：
+When performing a ```.find``` query fields are grouped by logical operator. Logical operators indicate how the fields should be treated together in a query. The possible logical operators are: and, or, not. Their meanings, when performing a search and selecting records for the result set, are:
 
-* and（逻辑与）：完全符合上述待查询字段的所有记录将整合成一组。
-* or（逻辑或）：任何匹配待查询字段的记录将整合成一组。
-* not（逻辑非）：如果有记录匹配这一组的查询字段，则记录将会从结果集内被忽略。
+* and: All query fields in the group must match for the record to be selected.
+* or: Any field in the group can match and the record will be selected.
+* not: If all query fields in the group match then the record will be omitted from the result set.
 
-待查询字段可以分成不同的组增加到一个FMPQuery查询对象。当FileMaker执行检索时，这些组将会被顺序调用。
+Multiple query field groups can be added to a FMPQuery. Each group will be considered in-order when Filemaker performs the search.
 
-逻辑运算符和待查询字段组是通过FMPLogicalOp和FMPQueryFieldGroup分别表示：
+Logical operators and query field groups are represented by FMPLogicalOp &amp; FMPQueryFieldGroup, respectively.
 
 ```swift
-/// 用于待查询字段组合的逻辑运算符枚举
+/// A logical operator used with query field groups.
 public enum FMPLogicalOp {
-    case and, or, not
+	case and, or, not
 }
 
-/// 一个待查询字段的组合结构
+/// A group of query fields.
 public struct FMPQueryFieldGroup {
-    /// 该组合的逻辑运算符。
-    public let op: FMPLogicalOp
-    /// 该组合内的待查询字段清单。
-    public let fields: [FMPQueryField]
-    /// 通过逻辑运算符和待查询字段清单进行初始化构造函数。
-    /// 默认的逻辑运算符是逻辑与FMPLogicalOp.and。
-    public init(fields: [FMPQueryField], op: FMPLogicalOp = .and)
+	/// The logical operator for the field group.
+	public let op: FMPLogicalOp
+	/// The list of fiedls in the group.
+	public let fields: [FMPQueryField]
+	/// Initialize with an operator and field list.
+	/// The default logical operator is FMPLogicalOp.and.
+	public init(fields: [FMPQueryField], op: FMPLogicalOp = .and)
 }
 ```
 
-待查询字段组合可以通过```FMPQuery.queryFields(_ queryFields: [FMPQueryFieldGroup])```函数追加到查询中去。
+Query field groups are added through the ```FMPQuery.queryFields(_ queryFields: [FMPQueryFieldGroup])``` function.
 
-## 举例
+## Examples
 
-以下程序展示了FileMaker数据库的基本操作。
+The following code snippets illustrate the basic activities that one would perform against FileMaker databases.
 
-### 罗列所有可用的数据库
+### List Available Databases
 
-以下源代码连接到服务器并返回服务器上所有数据库的清单。
+This snippet connects to the server and has it list all of the hosted databases.
 
 ```swift
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.databaseNames {
-    result in
-    do {
-        // 获取所有数据库名称
-        let names = try result()
-        for name in names {
-            print("得到数据库名称： \(name)")
-        }
-    } catch FMPError.serverError(let code, let msg) {
-        print("服务器出现错误： \(code) \(msg)")
-    } catch let e {
-        print("调用过程中出现异常：\(e)")
-    }
+	result in
+	do {
+		// Get the list of names
+		let names = try result()
+		for name in names {
+			print("Got a database name \(name)")
+		}
+	} catch FMPError.serverError(let code, let msg) {
+		print("Got a server error \(code) \(msg)")
+	} catch let e {
+		print("Got an unexpected error \(e)")
+	}
 }
 ```
 
-### 罗列所有可以使用的数据库视图
+### List Available Layouts
 
-在特定数据库中罗列所有可以使用的数据库视图。
+List all of the layouts in a particular database.
 
 ```swift
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.layoutNames(database: "FMServer_Sample") {
-    result in
-    guard let names = try? result() else {
-        return // 出错
-    }
-    for name in names {
-        print("获得数据视图名称： \(name)")
-    }
+	result in
+	guard let names = try? result() else {
+		return // got an error
+	}
+	for name in names {
+		print("Got a layout name \(name)")
+	}
 }
 ```
 
-### 罗列数据视图所有字段
+### List Field On Layout
 
-在特定的数据视图上罗列出所有字段名称。
+List all of the field names on a particular layout.
 
 ```swift
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.layoutInfo(database: "FMServer_Sample", layout: "Task Details") {
-    result in
-    guard let layoutInfo = try? result() else {
-        return // 发生错误
-    }
-    let fieldsByName = layoutInfo.fieldsByName
-    for (name, value) in fieldsByName {
-        print("字段\(name) = \(value)")
-    }
+	result in
+	guard let layoutInfo = try? result() else {
+		return // error
+	}
+	let fieldsByName = layoutInfo.fieldsByName
+	for (name, value) in fieldsByName {
+		print("Field \(name) = \(value)")
+	}
 }
 ```
 
-### 检索所有记录
+### Find All Records
 
-执行检索所有记录并打印所有字段及其对应数据取值。
+Perform a findall and print all field names and values.
 
 ```swift
 let query = FMPQuery(database: "FMServer_Sample", layout: "Task Details", action: .findAll)
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.query(query) {
-    result in
-    guard let resultSet = try? result() else {
-        return // 出错
-    }
-    let fields = resultSet.layoutInfo.fields
-    let records = resultSet.records
-    let recordCount = records.count
-    for i in 0..<recordCount {
-        let rec = records[i]
-        for field in fields {
-            switch field {
-            case .fieldDefinition(let def):
-                let fieldName = def.name
-                if let fnd = rec.elements[fieldName], case .field(_, let fieldValue) = fnd {
-                    print("常规字段： \(fieldName) = \(fieldValue)")
-                }
-            case .relatedSetDefinition(let name, _):
-                guard let fnd = rec.elements[name], case .relatedSet(_, let relatedRecs) = fnd else {
-                    continue
-                }
-                print("Relation: \(name)")
-                for relatedRec in relatedRecs {
-                    for relatedRow in relatedRec.elements.values {
-                        if case .field(let fieldName, let fieldValue) = relatedRow {
-                            print("\t关联字段： \(fieldName) = \(fieldValue)")
-                        }
-                    }
-                }
-            }
-        }
-    }
+	result in
+	guard let resultSet = try? result() else {
+		return // error
+	}
+	let fields = resultSet.layoutInfo.fields
+	let records = resultSet.records
+	let recordCount = records.count
+	for i in 0..<recordCount {
+		let rec = records[i]
+		for field in fields {
+			switch field {
+			case .fieldDefinition(let def):
+				let fieldName = def.name
+				if let fnd = rec.elements[fieldName], case .field(_, let fieldValue) = fnd {
+					print("Normal field: \(fieldName) = \(fieldValue)")
+				}
+			case .relatedSetDefinition(let name, _):
+				guard let fnd = rec.elements[name], case .relatedSet(_, let relatedRecs) = fnd else {
+					continue
+				}
+				print("Relation: \(name)")
+				for relatedRec in relatedRecs {
+					for relatedRow in relatedRec.elements.values {
+						if case .field(let fieldName, let fieldValue) = relatedRow {
+							print("\tRelated field: \(fieldName) = \(fieldValue)")
+						}
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
-### 检索所有记录，包含选择忽略和最大限制
+### Find All Records With Skip &amp; Max
 
-如果需要向查询增加忽略和最大限制这两个参数，请参考以下示例：
+To add skip and max, the query above would be amended as follows:
 
 ```swift
-// 忽略两行记录并返回最多两条记录。
+// Skip two records and return a max of two records.
 let query = FMPQuery(database: "FMServer_Sample", layout: "Task Details", action: .findAll)
-    .skipRecords(2).maxRecords(2)
+	.skipRecords(2).maxRecords(2)
 ...
 ```
 
-### 检索符合待查询字段匹配的数据记录
+### Find Records Where "Status" Is "In Progress"
 
-检索符合字段“Status”（状态）为“In Progress”（进行中）的数据记录
+Find all records where the field "Status" has the value of "In Progress".
 
 ```swift
 let qfields = [FMPQueryFieldGroup(fields: [FMPQueryField(name: "Status", value: "In Progress")])]
 let query = FMPQuery(database: "FMServer_Sample", layout: "Task Details", action: .find)
-    .queryFields(qfields)
+	.queryFields(qfields)
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.query(query) {
-    result in
-    guard let resultSet = try? result() else {
-        return // 出错
-    }
-    let fields = resultSet.layoutInfo.fields
-    let records = resultSet.records
-    let recordCount = records.count
-    for i in 0..<recordCount {
-        let rec = records[i]
-        for field in fields {
-            switch field {
-            case .fieldDefinition(let def):
-                let fieldName = def.name
-                if let fnd = rec.elements[fieldName], case .field(_, let fieldValue) = fnd {
-                    print("常规字段： \(fieldName) = \(fieldValue)")
-                    if name == "Status", case .text(let tstStr) = fieldValue {
-                        print("状态 == \(tstStr)")
-                    }
-                }
-            case .relatedSetDefinition(let name, _):
-                guard let fnd = rec.elements[name], case .relatedSet(_, let relatedRecs) = fnd else {
-                    continue
-                }
-                print("Relation: \(name)")
-                for relatedRec in relatedRecs {
-                    for relatedRow in relatedRec.elements.values {
-                        if case .field(let fieldName, let fieldValue) = relatedRow {
-                            print("\t关联字段： \(fieldName) = \(fieldValue)")
-                        }
-                    }
-                }
-            }
-        }
-    }
+	result in
+	guard let resultSet = try? result() else {
+		return // error
+	}
+	let fields = resultSet.layoutInfo.fields
+	let records = resultSet.records
+	let recordCount = records.count
+	for i in 0..<recordCount {
+		let rec = records[i]
+		for field in fields {
+			switch field {
+			case .fieldDefinition(let def):
+				let fieldName = def.name
+				if let fnd = rec.elements[fieldName], case .field(_, let fieldValue) = fnd {
+					print("Normal field: \(fieldName) = \(fieldValue)")
+					if name == "Status", case .text(let tstStr) = fieldValue {
+						print("Status == \(tstStr)")
+					}
+				}
+			case .relatedSetDefinition(let name, _):
+				guard let fnd = rec.elements[name], case .relatedSet(_, let relatedRecs) = fnd else {
+					continue
+				}
+				print("Relation: \(name)")
+				for relatedRec in relatedRecs {
+					for relatedRow in relatedRec.elements.values {
+						if case .field(let fieldName, let fieldValue) = relatedRow {
+							print("\tRelated field: \(fieldName) = \(fieldValue)")
+						}
+					}
+				}
+			}
+		}
+	}
 }
 ```

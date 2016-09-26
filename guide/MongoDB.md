@@ -1,25 +1,25 @@
 # MongoDB
-MongoDB库函数是在mongo-c语言库的基础上封装而成，能够为Swift轻松访问MongoDB服务器提供便利。
+The MongoDB Connector provides a Swift wrapper around the mongo-c client library, enabling access to MongoDB servers.
 
-该工具库软件包是由Swift软件包管理器编译而来，是
-[Perfect](https://github.com/PerfectlySoft/Perfect)项目的组成部分，
-被设计为可以独立使用，不依赖PerfectLib或其它任何组件。
+This package builds with the Swift Package Manager and is part of the
+[Perfect](https://github.com/PerfectlySoft/Perfect) project. It was written to
+be standalone, and does not require PerfectLib or any other components.
 
-请确保安装并激活了最新版本的Swift 3.0 toolchain。
+Ensure you have installed and activated the latest Swift 3.0 toolchain.
 
-### 不同操作系统平台的准备工作
+### Platform-Specific Preparation
 
 ### OS X
 
-该工具包需要通过[Homebrew](http://brew.sh/)安装mongo-c。
+This package requires the [Homebrew](http://brew.sh) build of mongo-c.
 
-安装Homebrew：
+To install Homebrew:
 
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-安装mongo-c:
+To install mongo-c:
 
 ```
 brew install mongo-c
@@ -27,37 +27,37 @@ brew install mongo-c
 
 ### Linux
 
-确保已经安装了libmongoc。
+Ensure that you have installed libmongoc.
 
 ```
 sudo apt-get install libmongoc
 ```
 
-### 在您的项目里引用MongoDB Driver驱动
+### Including the MongoDB Driver in Your Project
 
-请在Package.swift增加对该驱动的依存关系。
+Add this project as a dependency in your Package.swift file.
 
 ```
 .Package(
-	url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git",
+	url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git", 
 	majorVersion: 2, minor: 0
 	)
 ```
 
-关于如何在您的项目中使用Perfect函数库，详见参考手册《[使用Swift软件包管理器编译项目](buildingWithSPM.md)》
+For more information about using Perfect libraries with your project, please see the chapter on "[Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)".
 
-### 快速上手
+###Quick Start
 
-通过以下命令快速克隆一个空白的Perfect项目模板：
+The following will clone an empty starter project:
 
 ```
 git clone https://github.com/PerfectlySoft/PerfectTemplate.git
 cd PerfectTemplate
 ```
 
-在Package.swift文件中增加依存关系：
+Add to the Package.swift file the dependency:
 
-```swift
+``` swift
 let package = Package(
  name: "PerfectTemplate",
  targets: [],
@@ -68,80 +68,80 @@ let package = Package(
 )
 ```
 
-创建Xcode项目：
+Create the Xcode project:
 
 ```
 swift package generate-xcodeproj
 ```
 
-从Xcode中打开自动生成的`PerfectTemplate.xcodeproj`项目文件。
+Open the generated `PerfectTemplate.xcodeproj` file in Xcode.
 
-该项目会编译然后在本地端口8181启动一个服务器。
+The project will now build in Xcode and start a server on localhost port 8181.
 
-> **⚠️注意⚠️** 每次向项目追加依存关系时，必须要打开Swift软件包管理器重新创建一个新的Xcode项目文件。注意任何对该文件的手工修改都会被丢弃。
+>   **Important:** When a dependancy has been added to the project, the Swift Package Manager must be invoked to generate a new Xcode project file. Be aware that any customizations that have been made to this file will be lost.
 
-### 在您的项目中声明MongoDB
+### Importing MongoDB for Use in Your Project
 
-请在您的Perfect项目源程序开头声明并导入MongoDB函数库：
+At the head of your Swift file, import the MongoDB package:
 
-```swift
+``` swift
 import MongoDB
 ```
 
-### 创建一个MongoDB数据库连接
+### Creating a MongoDB Connection
 
-创建到MongoDB服务器连接时，需要相应的URL，内容是IP或域名，并可选择端口号。
+When you are opening a new connection to a MongoDB server, firstly obtain the connection URL. This will be the fully qualified domain name or IP address of the MongoDB server, with an optional port. 
 
-确定具体的连接URL之后，参考以下例子打开连接：
+Once you know the connection URL, open a connection as follows:
 
-```swift
+``` swift
 let client = try! MongoClient(uri: "mongodb://localhost")
 ```
 
-其中“localhost”请自行替换为实际的服务器地址。
+Where "localhost" is replaced by the actual server address.
 
-### 定义一个数据库
+### Defining a Database
 
-一旦服务器连接成功，即可选择具体数据库：
+Once the connection has been opened, a database can be assigned:
 
-```swift
+``` swift
 let db = client.getDatabase(name: "test")
 ```
 
-### 定义一个MongoDB集合D
+### Defining a MongoDB Collection
 
-请采用以下方式定义和操作MongoDB集合：
+In order to work with a MongoDB Collection, it must be defined:
 
-```swift
+``` swift
 let collection = db.getCollection(name: "testcollection")
 ```
 
-### 关闭活动的服务器连接
+### Closing Open Connections
 
-一旦服务器连接成功，建议采用`defer`块方式进行滞后关闭
+Once a connection and associated connections are defined, it is wise to set them up to be closed using a ```defer``` statement.
 
-```swift
+``` swift
 defer {
     collection.close()
     db.close()
     client.close()
 }
 ```
-### 执行检索
+### Performing a Find
 
-请使用`find`方法在集合中检索全部有关文档：
+Using the ```find``` method to find all documents in the collection:
 
-```swift
+``` swift
     let fnd = collection.find(query: BSON())
 
-    // 初始化一个空数组用于接收格式化结果
+    // Initialize empty array to receive formatted results
     var arr = [String]()
 
-    // “fnd”被定义为MongoCursor的检索记录游标，是可以遍历的
+    // The "fnd" cursor is typed as MongoCursor, which is iterable
     for x in fnd! {
         arr.append(x.asString)
     }
 
 ```
 
-有关MongoDB Collections集合类，请参考[MongoDB Collections](MongoDB-Collections.md)。
+For more detailed documentation on the MongoDB Collections class, please see the chapter on [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md).

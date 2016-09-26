@@ -1,21 +1,21 @@
-# MongoDB 数据库
+# MongoDB Database
 
-MongoDB Database 类用于根据MongoClient客户端实例来访问服务器上的命名数据库。
+Use the MongoDB Database class to create a reference to a named database using provided MongoClient instance. 
 
-创建一个新的Mongo Database连接：
+Create new Mongo Database connection:
 
-```swift
+``` swift
 let database = try! MongoDatabase(
-    client: <MongoClient>,
-    databaseName: <String>
-    )
+	client: <MongoClient>, 
+	databaseName: <String>
+	)
 ```
 
-### 关闭连接
+### Closing the Connection
 
-一旦连接建立、打开数据库并打开集合，请用`defer`滞后方法关闭连接，注意关闭顺序与建立连接的顺序正好相反——先关闭集合，然后关闭数据库，最后在关闭服务器连接。
+Once the connection is established and the database and collections have been defined, set the connection to close once completed using `defer`. This is done in reverse order - close collections, then databases, then finally the client connection.
 
-```swift
+``` swift
 defer {
     collection.close()
     db.close()
@@ -23,47 +23,48 @@ defer {
 }
 ```
 
-### 删除数据库
+### Drop the Current Database
 
-下面的函数可以删除当前数据库并删除所有相关的数据文件。
+Drops the current database, deleting the associated data files.
 
-```swift
+``` swift
 database.drop()
 ```
 
-### 获得当前数据名
+### Current Database Name
 
-调用`name()`函数返回当前数据库名称。
+`name()` returns the name of the current database.
 
-```swift
+``` swift
 let name = database.name()
 ```
 
-### 创建一个新的集合
+### Create a New Collection
 
-```swift
+``` swift
 database.createCollection(name: <String>, options: <BSON>)
 ```
 
-#### 参数说明
+####Parameters
 
-* **name:** 用于代表新建集合的字符串名称
-* **options:** 新建集合的选项，用BSON文档类型表示
+* **name:** String, name of collection to be created
+* **options:**  BSON document listing options for new collection
 
-### 通过名称创建MongoDB的集合引用
+### Create Reference to MongoDB Collection Referenced by Name
 
-调用`getCollection`以创建对一个MongoCollection集合对象的引用：
+Use `getCollection` to create a reference to a MongoCollection:
 
 
-```swift
+``` swift
 let collection = database.getCollection(name: <String>)
 ```
 
-### 当前数据库集合清单
+### Create String Array of Current Database Collections' Names
 
-调用`collectionNames`可以字符串数组的形式获得当前数据库内的集合列表：
+Use `collectionNames` to create an array of the databases' collection names:
 
 
-```swift
+``` swift
 let collection = database.collectionNames()
 ```
+

@@ -1,4 +1,4 @@
-# Perfect：用于服务器端编程的Swift语言
+# Perfect: Server-Side Swift
 
 [![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![Platforms OS X | Linux](https://img.shields.io/badge/Platforms-OS%20X%20%7C%20Linux%20-lightgray.svg?style=flat)](https://developer.apple.com/swift/)
@@ -8,8 +8,8 @@
 [![Twitter](https://img.shields.io/badge/Twitter-@PerfectlySoft-blue.svg?style=flat)](http://twitter.com/PerfectlySoft)
 [![Join the chat at https://gitter.im/PerfectlySoft/Perfect](https://img.shields.io/badge/Gitter-Join%20Chat-brightgreen.svg)](https://gitter.im/PerfectlySoft/Perfect?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Perfect是一组完整、强大的工具箱、软件框架体系和Web应用服务器，可以在Linux、iOS和macOS (OS X)上使用。该软件体系为Swift工程师量身定制了一整套用于开发轻量、易维护、规模可扩展的Web应用及其它REST服务的解决方案，这样Swift工程师就可以实现同时在服务器和客户端上采用同一种语言开发软件项目。
+Perfect is a complete and powerful toolbox, framework, and application server for Linux, iOS, and macOS (OS X). It provides everything a Swift engineer needs for developing lightweight, maintainable, and scalable apps and other REST services entirely in the Swift programming language for both client-facing and server-side applications.
 
-由于建立在一个高性能异步网络引擎基础上，Perfect还能够在FastCGI上运行，支持安全套接字加密（SSL）。该软件体系还包含很多其它互联网服务器所需要的特点，包括WebSockets和iOS消息推送，而且很快会有更多强大的功能支持。
+Built on a high-performance asynchronous networking engine, Perfect can also run on FastCGI, and it supports Secure Sockets Layer encryption. There are many other features including a suite of tools commonly required by internet servers such as WebSockets and iOS push notifications, but you are not limited to those options.
 
-无论您是资深程序员还是入门级的软件工程师，本文都能够帮助您快速启动Perfect实现服务器项目开发运行。
+This guide is designed for developers at all levels of experience to get Perfect up and running quickly.

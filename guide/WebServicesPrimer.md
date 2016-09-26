@@ -1,34 +1,34 @@
-# HTTP和Web服务基础
+# An HTTP and Web Services Primer
 
-大多数已知的Web开发都是在服务器端基于几种主流技术实现的。
+Most of the web as we know it, and as applies to the common usage of server side development, is built upon only a few main technologies.
 
-本文将介绍这些内容，因为这些内容与我们的Perfect（服务器端Swift语言）项目息息相关。此外，本文还将介绍一些应用编程接口（API）开发的基本概念。
+This document will attempt to provide an overview of some of these as they relate to Perfect, server-side Swift, and general application programming interface (API) development.
 
-### 什么是API?
+### What Is an API?
 
-API是连接两个软件系统之间的桥梁。通常API会接受标准类型作为输入，并在内部转换然后与其它系统工作实现具体的软件操作，或者返回具体的信息。
+An API is a bridge between two systems. It generally accepts a standardized type and style of input, transforms it internally, and works with another system to perform an action or return information.
 
-一个API的例子是GitHub网站的API。大多数人可能很熟悉GitHub网站的页面，但是其实GitHub还有一个API。该API允许像[Jira](https://www.atlassian.com/software/jira")这样的应用程序执行任务并发布管理系统，或者像[Bamboo](https://www.atlassian.com/software/bamboo)这样的持续集成系统（CI），能够直接连接到您的代码资源库内以 **为任何单独的系统自身提供更为强大的功能。**
+An example of an API is GitHub's API: Most will be familiar with using GitHub's web interface, but they also have an API. This allows applications such as task and issue management systems like [Jira](https://www.atlassian.com/software/jira), and continuous integration (CI) systems such as [Bamboo](https://www.atlassian.com/software/bamboo) to link directly to your repositories to **provide greater functionality than any one system could by itself.**
 
-这样的API通常都建立在HTTP或HTTPS基础上
+An API like these are generally built upon HTTP or HTTPS.
 
 ### HTTP and HTTPS
 
-“HTTP”是“超文本传输协议”的缩写。这是一组用于在互联网上传输、交换信息和发布多媒体网页的标准。
+"HTTP" is the common acronym for "HyperText Transfer Protocol". It is is a set of standards that allows users to publish multimedia documents on the internet and exchange information they find on webpages.
 
-“HTTPS”是HTTP的安全加密通信协议。通信的双方通过一个双方都信任的“钥匙”来为通信内容加密解密。安全机制越复杂，其内容被第三方截获、破译和篡改的可能性越低。
+"HTTPS" is a protocol for secure, encrypted HTTP communications. Each end of the communication agrees on a trusted "key" that encrypts the information being transmitted, with the ability to decrypt it on receipt. The more complex the security, the harder it is for a third party to intercept and read it, and potentially change it.
 
-通常用浏览器访问网站的时候，大部分时间都是通过HTTP完成的；如果您看到浏览器有一个锁的标志，那么应该用的是HTTPS协议。
+When you access a website in your browser, it will likely be over HTTP, or if the "lock" shows it will be using HTTPS.
 
-当一个iOS或Android应用程序去访问后台服务器信息时——比如获取天气预报——可能用的是HTTP，但更常见的情况是使用HTTPS。
+When an iOS or Android application accesses a backend server to get information such as the most recent weather report - it is using HTTP or more likely, HTTPS.
 
-## API的通用形式
+## The General Form of an API
 
-### 路由
+### Routes
 
-一个API可以包含多个“路由”，每个“路由”看起来就像文件系统中的一个目录或文件一样。每个路由节点都可以执行不同的操作。比如一个“查看用户清单”的路由与一个“创建新用户”的路由肯定是不一样的。
+An API consists of "routes", which are similar to directory/folder name paths through a file system to a document. Each route points to a different action you wish to perform. A "show me a list of users" route is different to a "create a new user" route.
 
-在一个API中，这些路由往往不是在真实的目录和文件下存在的，而是指向了一些函数。这些“目录结构”暗示了这些函数的逻辑分组。比如：
+In an API, these routes will often not exist as actual directories and documents, but as pointers to functions. The "directory structure" implied is usually a way of logically grouping functionality. For example:
 
 ```
 /api/v1/users/list
@@ -44,9 +44,9 @@ API是连接两个软件系统之间的桥梁。通常API会接受标准类型�
 /api/v1/companies/delete
 ```
 
-这个例子描述了一个典型的“CRUD”系统——即Create创建、Read读取、Update更新和Delete删除。两组内容函数的区别貌似仅仅是在`users`用户和`companies`公司着两个实体上，但是其实它们指向的是完全不同的函数。
+This example illustrates a typical "CRUD" system. "CRUD" means "Create, Read, Update, Delete". The difference between the two groups seems to only be the `users` versus `companies` part, but they will point to different functions.
 
-此外，这些“detail”、“modify”和“delete”路由往往会带有一个记录的唯一标示符。比如：
+Additionally, the "detail", "modify", and "delete" routes will include a unique identifier for the record. For example:
 
 ```
 /api/v1/users/list
@@ -56,38 +56,38 @@ API是连接两个软件系统之间的桥梁。通常API会接受标准类型�
 /api/v1/users/delete?id=5d096846-a000-43db-b6c5-a5883135d71d
 ```
 
-上述例子说明了传递给服务器的这些路由；id参数关联了一个特定的记录。创建函数create和列表函数list不需要id因为id对于这些路由来说是无关的。
+The example above shows these routes passing to the server; an id parameter that relates to a very specific record. The list and create don't have an id because an id for those routes are irrelevant.
 
-除了这些路由之外，发向这些路由的每一个请求都会包括一个HTTP的“动作”。
+In addition to routes, a request to every one of these individual routes will include an HTTP "verb".
 
-### HTTP动作
+### HTTP Verbs
 
-HTTP动作是一个网页浏览器或移动应用端向路由发出请求的额外信息。这些动作能够向API服务器提供数据接收时需要的“上下文”信息。
+HTTP verbs are additional pieces of information that a web browser or mobile application client supplies with every request to a route. These verbs can give additional "context" to the API server as to the nature of the data being received.
 
-常见HTTP动作包括
+Common HTTP verbs include:
 
-#### GET
-GET方法向特定路由发出请求，其中从客户端发向服务器的所有参数包含在URL字符串中。使用GET方法发出的请求只能接收数据，不能由其它作用。使用GET请求来删除数据库的一条记录是可行的，但是不推荐这么做。
+#### GET 
+The GET method requests a specified route, and the only parameters passed from client to server are in the URL. Requests using GET should only retrieve data and have no other effect. Using a GET request to delete a database record is possible but it is not recommended.
 
-#### POST
-POST方法通常用于向数据库内发送创建一条新记录的表单，比如在一个网站上填写好一个表单后提交给服务器。每个表单中都有成对出现的字段名和字段值，便于API服务器读取这些变量信息。
+#### POST 
+Normally used for sending info to create a new record in a database, a POST request is what normally gets submited when you fill in a form on a website. The name-value pairs of the data are submitted in a POST request's "POST Body" and are read by the API server as discrete pairs.
 
 #### PATCH
-PATCH方法整体上来说和POST差不多，但是用于更新记录，而不是新建记录。
+PATCH requests are generally considered to be the same as a POST but they are used for updates.
 
-#### PUT
-PUT方法主要用于上传文件，一个典型的PUT请求通常会在其消息体内部包含一个即将发给服务器的文件。
+#### PUT 
+Used predominantly for file uploads, a PUT request will include a file in the body of the request sent to the server.
 
-#### DELETE
-DELETE请求用于通知API服务器删除特定资源。通常在其URL中会包含一个唯一的标识信息。
+#### DELETE 
+A DELETE request is the most descriptive of all the HTTP verbs. When sending a DELETE request you are instructing the API server to remove a specific resource. Usually some form of uniquely identifying information is included in the URL.
 
 
+### Using HTTP Verbs and Routes to Simplify an API
 
-### 使用HTTP动作和路由来简化一个API
+When used together, these two components of a request can reduce the perceived complexity of an API.
 
-当综合使用时，每一个HTTP请求的这两个组成部分能够有效降低API的复杂性。
+Looking at the following structure with the HTTP verb followed by a URL, you will see that the process is much simpler and more specific:
 
-查看以下包含了HTTP动作的URL结构，您会发现其内容和形式都要简单多了、也更明确了：
 
 ```
 GET     /api/v1/users
@@ -97,6 +97,6 @@ PATCH   /api/v1/users/5d096846-a000-43db-b6c5-a5883135d71d
 DELETE  /api/v1/users/5d096846-a000-43db-b6c5-a5883135d71d
 ```
 
-上述例子给人第一感觉就是都指向了同一个路由：`/api/v1/users`。但是每一个路由都执行一个不同的操作。类似的，头两个GET路由的区别是第二个GET的后缀带了一个用户id编码作为参数，与之前的例子有所差别。这种命令通常会被一个在路由设置中的“通配符”获取。
+At first glance, all seem to be pointing to the same route: `/api/v1/users`. However, each route performs a different action. Similarly, the difference between the first two GET routes is the id appended as a URL component, not a parameter as shown in the earlier example. This command is usually achieved with a "wildcard" that is specified in the route setup.
 
-简单了解上述概念之后，请查看Perfect文档中的《Handling Requests处理请求》有关章节。这些内容有助于理解如何应用路由指向具体的函数和方法，如何将访问从客户端（无论是浏览器还是移动应用）传递给服务器的变量信息。
+The next step is to review the "Handling Requests" chapters in the Perfect documentation. These sections will outline how to implement routes pointing to functions and methods, how to access information passed to the API server from a frontend, and whether it be a web browser or a mobile application.

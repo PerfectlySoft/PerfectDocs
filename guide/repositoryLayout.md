@@ -1,15 +1,15 @@
-# 代码资源库结构
-Perfect的整个软件框架包含了数个组成部分，分别存储在不同的代码资源库上，便于您为您的项目查找，下载和安装所需的组件：
+# Repository Layout
+The Perfect framework has been divided into several repositories to make it easy for you to find, download, and install the components you need for your project:
 
-* [Perfect](https://github.com/PerfectlySoft/Perfect)——该代码资源库包含了PerfectLib库核心，也是整个软件框架的核心内容
-* [PerfectTemplate](https://github.com/PerfectlySoft/PerfectTemplate)——项目模板，一个使用Swift Package Manager软件包管理器编译的、可以单独执行的HTTP服务器。该项目模板非常适合开发基于Perfect的服务器项目
-* [PerfectDocs](https://github.com/PerfectlySoft/PerfectDocs)——包含了所有API参考资料
-* [PerfectExamples](https://github.com/PerfectlySoft/PerfectExamples)——所有Perfect项目典型示例和文档
-* [Perfect-Redis](https://github.com/PerfectlySoft/Perfect-Redis)——Redis数据库连接工具
-* [Perfect-SQLite](https://github.com/PerfectlySoft/Perfect-SQLite)——SQLite3数据库连接工具
-* [Perfect-PostgreSQL](https://github.com/PerfectlySoft/Perfect-PostgreSQL)——PostgreSQL数据库连接工具
-* [Perfect-MySQL](https://github.com/PerfectlySoft/Perfect-MySQL)——MySQL数据库连接工具
-* [Perfect-MongoDB](https://github.com/PerfectlySoft/Perfect-MongoDB)——MongoDB数据库连接工具
-* [Perfect-FastCGI-Apache2.4](https://github.com/PerfectlySoft/Perfect-FastCGI-Apache2.4)——Apache 2.4 FastCGI模块；对于Perfect FastCGI服务器应用是必须安装的内容
+* [Perfect](https://github.com/PerfectlySoft/Perfect) - This repository contains the core PerfectLib and will continue to be the main landing point for the project
+* [PerfectTemplate](https://github.com/PerfectlySoft/PerfectTemplate) - A simple starter project which compiles with the Swift Package Manager into a standalone executable HTTP server. This repository is ideal for starting on your own Perfect-based project
+* [PerfectDocs](https://github.com/PerfectlySoft/PerfectDocs) - Contains all API reference-related material
+* [PerfectExamples](https://github.com/PerfectlySoft/PerfectExamples) - All the Perfect example projects and documentation
+* [Perfect-Redis](https://github.com/PerfectlySoft/Perfect-Redis) - Redis database connector
+* [Perfect-SQLite](https://github.com/PerfectlySoft/Perfect-SQLite) - SQLite3 database connector
+* [Perfect-PostgreSQL](https://github.com/PerfectlySoft/Perfect-PostgreSQL) - PostgreSQL database connector
+* [Perfect-MySQL](https://github.com/PerfectlySoft/Perfect-MySQL) - MySQL database connector
+* [Perfect-MongoDB](https://github.com/PerfectlySoft/Perfect-MongoDB) - MongoDB database connector
+* [Perfect-FastCGI-Apache2.4](https://github.com/PerfectlySoft/Perfect-FastCGI-Apache2.4) - Apache 2.4 FastCGI module; required for the Perfect FastCGI server variant
 
-所有数据库连接工具都是独立的，可以在Perfect框架之外独立使用。
+All of the database connectors are standalone, and they can be used for other projects outside of the Perfect framework.

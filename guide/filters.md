@@ -1,65 +1,65 @@
-# HTTP请求与响应过滤器
+# Request and Response Filters
 
-除了常规的请求/响应句柄系统之外，Perfect服务器还提供一个请求与响应过滤的系统。增加到服务器上的过滤器在每次客户请求的时候都会被调用。这些过滤器会依次执行，并且有机会要么在提交到处理句柄之前修改，要么在请求后的响应对象中标记为请求完成。过滤器还有权终止当前请求。
+In addition to the regular request/response handler system, the Perfect server also provides a request and response filtering system. Any filters which are added to the server are called for each client request. These filters run, each in turn, and are given a chance to modify either the request object before it is delivered to the handler, or the response object after the request has been marked as complete. Filters also have the option to terminate the current request.
 
-过滤器在注册到服务器上时带有一个优先级参数，优先级可以是低、中、高。高优先级的过滤器优先处理，中级次之，低级最次。
+Filters are added to the server along with a priority indicator. Priority levels can be either high, medium, or low. High-priority filters are executed before medium and low. Medium priorities are executed before any low-level filters.
 
-因为每次网页发送请求时过滤器都会被激活，因此一定要注意过滤器必须要在最短时间内完成任务，否则会导致响应延迟。
+Because filters are executed for every request, it is vital that they perform their tasks as quickly as possible so as to not hold up or delay request processing.
 
-### 请求过滤器
+### Request Filters
 
-请求过滤器在服务器完全收到请求后会被激活，但是处理完请求过滤器后才会转到指定的网页请求管理句柄。因此过滤器是有机会在由请求句柄处理之前修改请求内容的。
+Request filters are called after the request has been fully read, but before the appropriate request handler has been located. This gives request filters an opportunity to modify the request before it is handled.
 
-### 创建
+### Creating
 
-请求过滤器必须符合```HTTPRequestFilter```协议
+Request filters must conform to the ```HTTPRequestFilter``` protocol:
 
 ```swift
-/// 允许修改HTTPRequest内容的过滤器
+/// A filter which can be called to modify a HTTPRequest.
 public protocol HTTPRequestFilter {
-    /// 在请求完全被服务器接收到后，在转向任何处理器前执行过滤程序。
-    func filter(request: HTTPRequest, response: HTTPResponse, callback: (HTTPRequestFilterResult) -> ())
+	/// Called once after the request has been read but before any handler is executed.
+	func filter(request: HTTPRequest, response: HTTPResponse, callback: (HTTPRequestFilterResult) -> ())
 }
 ```
 
-当过滤器运行时，其`filter`过滤功能会被调用。过滤器可以执行任何需要的活动然后再调用回调函数通知其过滤工作已结束。回调函数通过读取过滤器状态结果来判断下一步需要做的工作，比如是继续转到其它过滤器、在当前请求过滤优先级内停止过滤、转到消息体控制句柄，还是彻底终止请求。
+When it comes time for the filter to run, its ```filter``` function will be called. The filter should perform any activities it needs, and then call the provided callback to indicate that it has completed its processing. The callback takes a value which indicates what the next step should be. This can indicate that the system should either continue with processing filters, stop processing request filters at the current priority level and proceed with delivering the request to a handler, or terminate the request entirely.
 
 ```swift
-/// 过滤器返回值。
+/// Result from one filter.
 public enum HTTPRequestFilterResult {
-    /// 继续过滤。
-    case `continue`(HTTPRequest, HTTPResponse)
-    /// 终止请求，不调用消息体句柄。
-    case halt(HTTPRequest, HTTPResponse)
-    /// 停止过滤直接执行请求。
-    /// 此时同等优先级的过滤器会被忽略。
-    case execute(HTTPRequest, HTTPResponse)
+	/// Continue with filtering.
+	case `continue`(HTTPRequest, HTTPResponse)
+	/// Halt and finalize the request. Handler is not run.
+	case halt(HTTPRequest, HTTPResponse)
+	/// Stop filtering and execute the request.
+	/// No other filters at the current priority level will be executed.
+	case execute(HTTPRequest, HTTPResponse)
 }
 ```
 
-因为过滤器能够同时管理请求和响应对象，因此在其过滤结果`HTTPRequestFilterResult`中，如果有需要的话，过滤器完全可以彻底替换这些对象。
+Because the filter receives both the request and response objects and then delivers request and response objects in its ```HTTPRequestFilterResult```, it's possible for a filter to entirely replace these objects if desired.
 
-### 追加过滤器
+### Adding
 
-请求过滤器可以参考以下定义直接追加到服务器上，参数为一个由过滤器与其优先级组成的成对组合：
+Request filters are set directly on the server and given as an array of filter and priority tuples.
 
 ```swift
 public class HTTPServer {
-    public func setRequestFilters(_ request: [(HTTPRequestFilter, HTTPFilterPriority)]) -> HTTPServer
+	public func setRequestFilters(_ request: [(HTTPRequestFilter, HTTPFilterPriority)]) -> HTTPServer
 }
 ```
 
-调用以上方法将设置服务器的所有过滤器。每个过滤器都跟随着该过滤器的优先级。过滤器在数组内没有顺序之分，而服务器会根据优先级自动对这些过滤器进行排序，先高后低。同等优先级的两个过滤器保持原有顺序不变。
+Calling this function sets the server's request filters. Each filter is provided along with its priority. The filters in the array parameter can be given in any order. The server will sort them appropriately, putting high-priority filters above those with lower priorities. Filters of equal priority will maintain the given order.
 
-### 举例
+### Example
 
-以下例子是从过滤器有关的测试用例中提取的。该例子显示了如何创建和增加过滤器，以及过滤器优先级是如何交互的。
+The following example is taken from a filter-related test case. It illustrates how to create and add filters, and shows how the filter priority levels interact.
 
 ```swift
 var oneSet = false
 var twoSet = false
 var threeSet = false
-
+	
 struct Filter1: HTTPRequestFilter {
 	func filter(request: HTTPRequest, response: HTTPResponse, callback: (HTTPRequestFilterResult) -> ()) {
 		oneSet = true
@@ -98,9 +98,9 @@ routes.add(method: .get, uri: "/", handler: {
 )
 
 let requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [
-	(Filter1(), HTTPFilterPriority.high),
-	(Filter2(), HTTPFilterPriority.medium),
-	(Filter3(), HTTPFilterPriority.medium),
+	(Filter1(), HTTPFilterPriority.high), 
+	(Filter2(), HTTPFilterPriority.medium), 
+	(Filter3(), HTTPFilterPriority.medium), 
 	(Filter4(), HTTPFilterPriority.low)
 ]
 
@@ -112,57 +112,57 @@ try server.start()
 
 ```
 
-### 响应过滤器
+### Response Filters
 
-每个响应过滤器都是在响应的消息头数据发送给客户端之前执行的。然后才是消息体内的各个数据块传输。这些过滤器可以根据需要修改任何消息体的输出内容，包括增加或删除响应消息头数据，或者覆盖重写消息体内数据。
+Each response filter is executed once before response header data is sent to the client, and again for any subsequent chunk of body data. These filters can modify the outgoing response in any way they see fit, including adding or removing headers or rewriting body data.
 
-### 创建
+### Creating
 
-响应过滤器必须符合```HTTPResponseFilter```协议。
+Response filters must conform to the ```HTTPResponseFilter``` protocol.
 
 ```swift
-/// 响应过滤器可以被服务器调用并修改HTTPResponse响应输出
+/// A filter which can be called to modify a HTTPResponse.
 public protocol HTTPResponseFilter {
-    /// 在响应消息头发给客户端浏览器之前调用一次。
-    func filterHeaders(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ())
-    /// 可以不调用，也可以被调用多次，来修改发回给客户端浏览器的消息体内容。
-    func filterBody(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ())
+	/// Called once before headers are sent to the client.
+	func filterHeaders(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ())
+	/// Called zero or more times for each bit of body data which is sent to the client.
+	func filterBody(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ())
 }
 ```
 
-当响应阶段达到发送响应消息头数据时，服务器会调用```filterHeaders```函数。该函数会根据需要调整```HTTPResponse```对象；然后在调用回调函数。调用回调函数时会把过滤器的执行结果```HTTPResponseFilterResult```作为参数传递过去，取值如下：
+When it comes time to send response headers, the ```filterHeaders``` function is called. This function should perform whatever tasks it needs on the provided ```HTTPResponse``` object, and then call the callback function. It should deliver unto the callback one of the ```HTTPResponseFilterResult``` values, which are defined as follows:
 
 ```swift
-/// 响应过滤器的执行结果。
+/// Response from one filter.
 public enum HTTPResponseFilterResult {
-    /// 继续过滤
-    case `continue`
-    /// 停止执行过滤器直至下一个请求
-    case done
-    /// 关闭请求
-    case halt
+	/// Continue with filtering.
+	case `continue`
+	/// Stop executing filters until the next push.
+	case done
+	/// Halt and close the request.
+	case halt
 }
 ```
 
-这些取值决定了系统是否应继续处理过滤器、停止执行过滤器直至下一个请求，还是彻底终止并关闭请求。
+These values indicate if the system should continue processing filters, stop executing filters until the next data push, or halt and terminate the request entirely.
 
-当准备向客户端浏览器发送数据包时，过滤器的```filterBody```函数会被调用。该函数能够通过```HTTPResponse.bodyBytes```属性检查即将发送的数据，并有机会更改或替换数据内容。因为消息头数据部分已经在这个阶段之前发送走了，任何在过滤器内试图修改消息头数据的操作将会被忽略。一旦过滤器的消息体数据内容完成提交，过滤器会调用回调函数并传递一个```HTTPResponseFilterResult```过滤器结果，该结果类型内容与```filterHeaders```函数中的结果一致。
+When it comes time to send out one descrete chunk of data to the client, the filters' ```filterBody``` function is called. This function can inspect the outgoing data in the ```HTTPResponse.bodyBytes``` property, and potentially modify or replace the data. Since the headers have already been pushed out at this stage, any modifications to the header data will be ignored. Once a filter's body filtering has concluded, it should call the provided callback and deliver a ```HTTPResponseFilterResult```. The meaning of these values is the same as for the ```filterHeaders``` function.
 
-### 增加过滤器
+### Adding
 
-响应过滤器是直接在服务器上进行设置的，方式是一个由过滤器及其优先级组成的数组。
+Response filters are set directly on the server and given as an array of filter and priority tuples.
 
 ```swift
 public class HTTPServer {
-    public func setResponseFilters(_ response: [(HTTPResponseFilter, HTTPFilterPriority)]) -> HTTPServer
+	public func setResponseFilters(_ response: [(HTTPResponseFilter, HTTPFilterPriority)]) -> HTTPServer
 }
 ```
 
-调用上述函数即完成服务器的响应过滤器的设置。每个过滤器都包含了各自的优先级。数组内的过滤器是没有顺序的。服务器会自动排序，按照优先级从高到低顺序执行。优先级相同的过滤器保持现有顺序不变。
+Calling this function sets the server's response filters. Each filter is provided along with its priority. The filters in the array parameter can be given in any order. The server will sort them appropriately, putting high-priority filters above those with lower priorities. Filters of equal priority will maintain the given order.
 
-### 举例
+### Examples
 
-以下例子是从过滤器有关的测试用例中提取的。该例子显示了响应过滤器的优先级操作，以及响应过滤器是如何改变目标响应消息头数据和消息体数据内容的。
+The following example is taken from a filters test case. It illustrates how response filter priorities operate, and how response filters can modify outgoing headers and body data.
 
 ```swift
 struct Filter1: HTTPResponseFilter {
@@ -184,7 +184,7 @@ struct Filter2: HTTPResponseFilter {
 		response.bodyBytes = b
 		callback(.continue)
 	}
-}
+}	
 struct Filter3: HTTPResponseFilter {
 	func filterHeaders(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ()) {
 		callback(.continue)
@@ -195,7 +195,7 @@ struct Filter3: HTTPResponseFilter {
 		response.bodyBytes = b
 		callback(.done)
 	}
-}
+}	
 struct Filter4: HTTPResponseFilter {
 	func filterHeaders(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ()) {
 		callback(.continue)
@@ -205,7 +205,7 @@ struct Filter4: HTTPResponseFilter {
 		callback(.done)
 	}
 }
-
+	
 var routes = Routes()
 routes.add(method: .get, uri: "/", handler: {
 	request, response in
@@ -218,14 +218,14 @@ routes.add(method: .get, uri: "/", handler: {
 		response.completed()
 	}
 })
-
+	
 let responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = [
 	(Filter1(), HTTPFilterPriority.high),
 	(Filter2(), HTTPFilterPriority.medium),
 	(Filter3(), HTTPFilterPriority.low),
 	(Filter4(), HTTPFilterPriority.low)
 ]
-
+	
 let server = HTTPServer()
 server.setResponseFilters(responseFilters)
 server.serverPort = port
@@ -233,11 +233,11 @@ server.addRoutes(routes)
 try server.start()
 ```
 
-在案例中，过滤器增加了一个X-Custom消息头，并将所有消息体数据内的A或B字母全部改成了小写。注意案例中的消息体处理句柄将响应设置为了流模式，意味着大量HTML内容编码工作可以快速执行，而且消息体数据被拆分为两个离散的数据块。
+The example filters will add a X-Custom header and lowercase any A or B character in the body data. Note that the handler in this example sets the response to streaming mode, meaning that chunked encoding is utilized, and the body data is sent out in two descrete chunks.
 
-#### 404 响应过滤器
+#### 404 Response Filter
 
-以下的例子很有用。以下代码将创建和安装一个特殊的过滤器用于监控“404 文件未找到”的响应。一旦发生这种情况就用一个自定义的消息代替。
+A more useful example is posted below. This code will create and install a filter which monitors "404 not found" responses, and provides a custom message when it finds one.
 
 ```swift
 struct Filter404: HTTPResponseFilter {
@@ -247,7 +247,7 @@ struct Filter404: HTTPResponseFilter {
 
     func filterHeaders(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ()) {
         if case .notFound = response.status {
-            response.setBody(string: "文件 \(response.request.path) 不存在。")
+            response.setBody(string: "The file \(response.request.path) was not found.")
             response.setHeader(.contentLength, value: "\(response.bodyBytes.count)")
             callback(.done)
         } else {
@@ -261,3 +261,4 @@ server.setResponseFilters([(Filter404(), .high)])
 server.serverPort = 8181
 try server.start()
 ```
+

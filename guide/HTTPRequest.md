@@ -1,49 +1,41 @@
-# HTTPRequest请求对象
+# HTTPRequest
 
-当处理一个HTTP请求时，所有客户端的互动操作都是通过HTTPRequest请求对象和HTTPResponse响应对象实现的。
+When handling a request, all client interaction is performed through HTTPRequest and HTTPResponse objects. The HTTPRequest object makes available all client headers, query parameters, POST body data, and other relevant information such as the client IP address and URL variables.HTTPRequest objects will handle parsing and decoding all "application/x-www-form-urlencoded", as well as "multipart/form-data" content type requests. It will make the data for any other content types available in a raw, unparsed form. When handling multipart form data, HTTPRequest will automatically decode the data and create temporary files for any file uploads contained therein. These files will exist until the request ends after which they will be automatically deleted.In all of the sections below, the properties and functions are part of the HTTPRequest protocol.
 
-HTTPRequest对象包含了客户端浏览器发过来的全部数据，包括请求消息头、查询参数、POST表单数据以及其它所有相关信息，比如客户IP地址和URL变量。
+### Meta Data
 
-HTTPRequest对象将采用`application/x-www-form-urlencoded`编码格式对客户请求进行解析解码。而如果请求中采用`multipart/form-data`“多段”编码方式，则HTTP请求可以把各种未处理的原始格式表单传输过来。当处理“多段”表单数据时，HTTPRequest对象会为请求上传的文件自动创建临时目录并执行解码。这些文件会在请求过程中一直保持直到请求处理完毕，随后自动被删除。
-
-以上涉及到的各种属性和函数都是HTTPRequest请求协议的部分内容。
-
-### Meta Data元数据
-
-HTTPRequest对象还提供一些并非被客户端浏览器显式说明的数据，比如客户端和服务器地址，TCP端口，以及对应分类的文档根目录。
-
-客户端服务器的地址是IP地址和端口的成对信息：
+HTTPRequest provides several pieces of data which are not explicitly sent by the client. Information such as the client and server IP addresses, TCP ports, and document root fit into this category.Client and server addresses are made available as tuples (a finite ordered list of elements) containing the IP addresses and respective ports of each:
 
 ```swift
-/// 连接到客户端的IP地址和端口。
+/// The IP address and connecting port of the client.
 var remoteAddress: (host: String, port: UInt16) { get }
-/// 服务器方的IP地址和监听端口。
+/// The IP address and listening port for the server.
 var serverAddress: (host: String, port: UInt16) { get }
 ```
 
-当服务器创建时，您可以为其设置一个正式的服务器名`CNAME`。很多情况下这个名称非常有用，比如为服务器创建完整的连接。当HTTPRequest创建后，服务器会为其应用`CNAME`，可以从下列属性进行访问：
+When a server is created, you can set its canonical name, or CNAME. This can be useful in a variety of circumstances. For example, when creating full links to your server. When a HTTPRequest is created, the server will apply a CNAME to it. It is made available through the following property:
 
 ```swift
-/// 服务器正式名称
+/// The canonical name for the server.
 var serverName: String { get }
 ```
 
-服务器的文档根目录是为静态文件准备的。如果您不准备提供静态内容，则可以不需要设置文档根目录。文档根目录是在服务器启动之前预先配置好的。当HTTPRequest对象创建时会自动包括这个文档根目录。如果需要访问如Mustache模板这类的静态资源，最好就此准备好文档根目录：
+The server's document root is the directory from which static content is generally served. If you are not serving static content, then this document root may not exist. The document root is configured on the server before it begins accepting requests. Its value is transferred to the HTTPRequest when it is created. When attempting to access static content such as a Mustache template, one would generally prefix all file paths with this document root value.
 
 ```swift
-/// 服务器文档根目录，用于静态文件存储和服务提供。
+/// The server's document root from which static file content will generally be served.
 var documentRoot: String { get }
 ```
 
-### Request Line请求文本行
+### Request Line
 
-HTTPRequest请求文本行包含了请求的方法、路径、查询参数和HTTP协议标识符。典型的HTTPRequest请求文本行形如：
+An HTTPRequest line consists of a method, path, query parameters, and an HTTP protocol identifier. An example HTTPRequest line may appear as follows:
 
-```swift
+```
 GET /path?q1=v1&q2=v2 HTTP/1.1
 ```
 
-HTTPRequest将解析这个请求并转化为以下属性。查询参数`queryParams`是以一个键／值构造的（字典）数组：
+HTTPRequest makes the parsed request line available through the properties below. The query parameters are presented as an array of name/value tuples in which all names and values have been URL decoded:
 
 ```swift
 /// The HTTP request method.
@@ -56,69 +48,67 @@ var queryParams: [(String, String)] { get }
 var protocolVersion: (Int, Int) { get }
 ```
 
-在请求响应路由处理过程中，路由URI字串可有多个URL变量组成，可以被解析为一个字典：
+During the routing process, the route URI may have consisted of URL variables, and these will have been parsed and made available as a dictionary:
 
 ```swift
-/// 在请求句柄中的URL变量。
+/// Any URL variables acquired during routing the path to the request handler.
 var urlVariables: [String:String] { get set }
 ```
 
-HTTPRequest对象还提供完整的URI请求信息，与其它URL编码查询参数`query parameters`同样方式保存请求路径：
+An HTTPRequest also makes the full request URI available. It will include the request path as well as any URL encoded query parameters:
 
 ```swift
-/// 返回完整的URI唯一资源标识符。
+/// Returns the full request URI.
 var uri: String { get }
 ```
 
-### Client Headers客户请求消息头
+### Client Headers
 
-客户请求的消息头可以用命名访问，或者用遍历方式访问，。HTTPRequest会自动解析所有HTTP cookie的字段名称和字段值。所有可能的请求消息头字段由枚举类型```HTTPRequestHeader.Name```说明，其中还包含了一个可以自定义的```.custom(name: String)```消息头字段
+Client request headers are made available either keyed by name or through an iterator permitting all header names and values to be accessed. HTTPRequest will automatically parse and make available all HTTP cookie names and values. All possible request header names are represented in the enumeration type ```HTTPRequestHeader.Name```, which also includes a ```.custom(name: String)``` case for unaccounted header names.
 
-在收到请求后是可以自行设置消息头内容的。在HTTPRequest过滤器中非常有用，因为它们可以重写部分消息头内容：
+It is possible to set client headers after the request has been read. This would be useful in, for example, HTTPRequest filters as they may need to rewrite or add certain headers:
 
 ```swift
-/// 返回请求的消息头变量值。
+/// Returns the requested incoming header value.
 func header(_ named: HTTPRequestHeader.Name) -> String?
-/// 为响应增加一个消息头
-/// 不会检查目前是否存在重复的消息头。
+/// Add a header to the response.
+/// No check for duplicate or repeated headers will be made.
 func addHeader(_ named: HTTPRequestHeader.Name, value: String)
-/// 这只消息头变量的属性值。
-/// 如果之前消息头已经存在则现有属性值会被替换。
+/// Set the indicated header value.
+/// If the header already exists then the existing value will be replaced.
 func setHeader(_ named: HTTPRequestHeader.Name, value: String)
-/// 遍历所有当前消息头内的属性数据。
+/// Provide access to all current header values.
 var headers: AnyIterator<(HTTPRequestHeader.Name, String)> { get }
 ```
 
-Cookie可以通过键／值数组进行访问。
+Cookies are made available through an array of name/value tuples.
 
 ```swift
-/// 返回目前请求内的所有cookie的键／值。
-var cookies: [(String, String)]
+/// Returns all the cookie name/value pairs parsed from the request.
+var cookies: [(String, String)] 
 ```
 
-### GET和POST参数
+### GET and POST Parameters
 
-关于GET和POST参数的详细讨论，详见[使用表单数据](formData.md)。
+For a detailed discussion of accessing GET and POST paramaters, please see [Using Form Data](formData.md).
 
-### 消息体数据
+### Body Data
 
-对于“application/x-www-form-urlencoded”和“multipart/form-data”编码类型来说，HTTPRequest对象会通过```postParams```或```postFileUploads```方法自动解码请求内容。
+For the content types "application/x-www-form-urlencoded" and "multipart/form-data", HTTPRequest will automatically parse and make the values available through the ```postParams``` or ```postFileUploads``` properties, respectively. 
 
-关于文件上传的详细处理方法，请参考[文件上传](fileUploads.md)。关于```postParams```函数的详细使用，请参考[使用表单数据](formData.md)。
+For a more detailed discussion of file upload handling, please see [File Uploads](fileUploads.md). For more details on ```postParams```, please see [Using Form Data](formData.md).
 
-其它编码类型的消息体数据不会被解码，只能通过原始字节流或者原始字符串的方式进行访问。比如，对于客户发送的JSON数据，使用字符串的方法会比较有用。
-
-HTTPRequest对象可以通过以下方法访问消息体数据：
+Request body data with other content types are not parsed and are made available either as raw bytes or as String data. For example, for a client submitting JSON data, one would want to access the body data as a String which would then be decoded into a useful value.HTTPRequest makes body data available through the following properties:
 
 ```swift
-/// 以原始字节流的方式获取POST消息体数据。
-/// 如果POST内容类型是multipart/form-data多段表单的话，下面的方法返回为nil。
+/// POST body data as raw bytes.
+/// If the POST content type is multipart/form-data then this will be nil.
 var postBodyBytes: [UInt8]? { get set }
-/// 如果需要的话，POST消息体数据会以UTF-8编码方式解码为一个字符串。
-/// 如果POST内容类型是multipart/form-data多段表单的话，下面的方法返回为nil。
+/// POST body data treated as UTF-8 bytes and decoded into a String, if possible.
+/// If the POST content type is multipart/form-data then this will be nil.
 var postBodyString: String? { get }
 ```
 
-**⚠️注意⚠️** 如果请求编码为“multipart/form-data”则```postBodyBytes```属性会为空。否则，该属性总会返回请求的消息体数据，无论请求用哪一种内容类型编码。
+It's important to note that if the request has the "multipart/form-data" content type, then the ```postBodyBytes``` property will be nil. Otherwise, it will always contain the request body data regardless of the content type.
 
-注意```postBodyString``` 属性会尝试将数据从UTF-8字节流转化为一个字符串。如果没有消息体数据或者数据无法以UTF-8解码，则返回内容为空。
+The ```postBodyString``` property will attempt to convert the body data from UTF-8 into a String. It will return nil if there is no body data or if the data could not successfully be converted from UTF-8.

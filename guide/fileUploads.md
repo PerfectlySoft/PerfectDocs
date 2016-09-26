@@ -1,94 +1,94 @@
-# 文件上传
+# File Uploads
 
-这里有一个[数据上传](formData.md)的例子，用于说明如何操作文件上载。
+A special case of [using form data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md) is handling file uploads.
 
-HTTP表单数据主要采用以下两种编码格式：
+There are two main form encoding types:
 
-* application/x-www-form-urlencoded （默认编码格式）
+* application/x-www-form-urlencoded (the default)
 * multipart/form-data
 
-如果要使用文件上传空间，则必须选择`multipart/form-data`作为表单的`enctype`编码类型。
+When you wish to include file upload elements, you must choose multipart/form-data as your form's `enctype` (encoding) type.
 
-完整的例子请查看[Perfect文件上传例子](https://github.com/iamjono/perfect-file-uploads)
+All code used below can be seen in action as a complete example at [https://github.com/iamjono/perfect-file-uploads](https://github.com/iamjono/perfect-file-uploads)
 
-典型的HTML文件上传表单中编码类型声明应该像以下例子这样：
+An example HTML form containing the correct encoding and file input element might be represented like this:
 
 ``` html
-<form
-    method="POST"
-    enctype="multipart/form-data"
-    action="/upload">
-    <input type="file" name="filetoupload">
-    <br>
-    <input type="submit">
+<form 
+	method="POST" 
+	enctype="multipart/form-data" 
+	action="/upload">
+	<input type="file" name="filetoupload">
+	<br>
+	<input type="submit">
 </form>
 ```
 
-## 在服务器端接收文件
+## Receiving the File on the Server Side
 
-因为表单是POST方法，我们需要用`.post`方法管理请求响应路由
+Because the form is a POST method, we will handle the route with a `method: .post`:
 
-```swift
+``` swift
 var routes = Routes()
 routes.add(
-    method: .post,
-    uri: "/upload",
-    handler: handler)
+	method: .post, 
+	uri: "/upload", 
+	handler: handler)
 server.addRoutes(routes)
 ```
 
-一旦对方请求内容完成文件传输，则我们可以使用请求句柄`handler`：
+Once the request has been offloaded to the `handler` we can:
 
-```swift
-// 通过操作fileUploads数组来掌握文件上传的情况
-// 如果这个POST请求不是分段multi-part类型，则该数组内容为空
+``` swift
+// Grab the fileUploads array and see what's there
+// If this POST was not multi-part, then this array will be empty
 
 if let uploads = request.postFileUploads where uploads.count > 0 {
-    // 创建一个字典数组用于检查已经上载的内容
-    var ary = [[String:Any]]()
+	// Create an array of dictionaries which will show what was uploaded
+	var ary = [[String:Any]]()
 
-    for upload in uploads {
-        ary.append([
-            "fieldName": upload.fieldName,	//字段名
-            "contentType": upload.contentType,	//文件内容类型
-            "fileName": upload.fileName,	//文件名
-            "fileSize": upload.fileSize,	//文件尺寸
-            "tmpFileName": upload.tmpFileName	//上载后的临时文件名
-            ])
-    }
-    values["files"] = ary
-    values["count"] = ary.count
+	for upload in uploads {
+		ary.append([
+			"fieldName": upload.fieldName,
+			"contentType": upload.contentType,
+			"fileName": upload.fileName,
+			"fileSize": upload.fileSize,
+			"tmpFileName": upload.tmpFileName
+			])
+	}
+	values["files"] = ary
+	values["count"] = ary.count
 }
 ```
 
-如上所述，被上传的文件（一个或多个文件）可以用`request.postFileUploads`数组表示，每个数组元素都有不同的属性，如`fileName`文件名］、`fileSize`文件尺寸、`tmpFileName`临时文件名等等。
+As demonstrated above, the file(s) uploaded are represented by the `request.postFileUploads` array, and the various properties such as `fileName`, `fileSize` and `tmpFileName` can be accessed from each array component.
 
-**⚠️注意⚠️** ：文件上传后会被自动放置到一个临时目录。您需要自己将临时文件转移至期望位置。
+**Note: The files uploaded are placed in a temporary directory. It is your responsibility to move them into the desired location.**
 
-因此我们可以创建一个目录来放置这些上传来的文件。该目录因安全考虑不会和webroot的根目录放在一起：
+So let's create a directory to hold the uploaded files. This directory is outside of the webroot directory for security reasons:
 
-```swift
-// 创建路径用于存储已上传文件
+``` swift 
+// create uploads dir to store files
 let fileDir = Dir(Dir.workingDir.path + "files")
 do {
-    try fileDir.create()
+	try fileDir.create()
 } catch {
-    print(error)
+	print(error)
 }
 ```
 
-下一步，在`for upload in uploads`代码段，我们会执行文件转移的操作：
+Next, inside the `for upload in uploads` code block, we will create the action for the file to be moved:
 
-```swift
-// 将文件转移走，如果目标位置已经有同名文件则进行覆盖操作。
+``` swift
+// move file
 let thisFile = File(upload.tmpFileName)
 do {
-    let _ = try thisFile.moveTo(path: fileDir.path + upload.fileName, overWrite: true)
+	let _ = try thisFile.moveTo(path: fileDir.path + upload.fileName, overWrite: true)
 } catch {
-    print(error)
+	print(error)
 }
 ```
 
-现在上传完毕的文件就可以按照原来的文件名转移到目标目录。
+Now the uploaded files will move to the specified directory with the original filename restored.
 
-关于文件系统操作的详细内容，请参考[文件操作](dir.md) 和[目录操作](file.md)章节。
+For more information on file system manipulation, please see the [Directory Operations](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md) and [File Operations](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) chapters. 
