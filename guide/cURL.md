@@ -4,27 +4,7 @@ Perfect为开源cURL库提供了一组函数，用于调用cURL命令行工具�
 
 cURL采用URL语法传输数据，并支持下列协议：
 
-- DICT
-- FILE
-- FTP
-- FTPS
-- Gopher
-- HTTP
-- HTTPS
-- IMAP
-- IMAPS
-- LDAP
-- LDAPS
-- POP3
-- POP3S
-- RTMP
-- RTSP
-- SCP
-- SFTP
-- SMTP
-- SMTPS
-- Telnet
-- TFTP
+DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMTP, SMTPS, Telnet, TFTP
 
 cURL内建支持SSL安全认证，HTTP POST，HTTP PUT，FTP上载，网页代理proxies，cookies，用户名＋密码认证，proxy tunnelling代理隧道，等等。
 

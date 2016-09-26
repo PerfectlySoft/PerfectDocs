@@ -42,7 +42,7 @@ let name = database.name()
 ### 创建一个新的集合
 
 ```swift
-databse.createCollection(name: <String>, options: <BSON>)
+database.createCollection(name: <String>, options: <BSON>)
 ```
 
 #### 参数说明

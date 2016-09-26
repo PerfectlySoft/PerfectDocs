@@ -107,6 +107,12 @@
 	* Azure
 	* AWS
 	* Linode
+<<<<<<< HEAD
 	* [Digital Ocean](guide/deployment-DigitalOcean.md)
 * Platform specific Notes
 	* Starting a Swift binary at boot on Ubuntu
+=======
+	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md)
+* Platform specific Notes
+	* [Ubuntu 16.04: Starting Services at System Boot](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/starting-services.md)
+>>>>>>> PerfectlySoft/master

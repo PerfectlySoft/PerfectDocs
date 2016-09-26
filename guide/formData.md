@@ -39,7 +39,7 @@ let params = request.postParams()
 如果需要根据一个具体名称（比如多个checkbox选项表）返回所有的参数，请使用：
 
 ```swift
-let params = request.postParams()
+let params = request.postParams(name: <String>)
 ```
 
 这会返回一个字符串数组：`[String]`

@@ -79,7 +79,6 @@ do {
 ```swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
-// 四个字段的类型分别是name、oid、integer和boolean
 let result = p.exec(
     statement: "
         select datname,datdba,encoding,datistemplate
@@ -112,7 +111,6 @@ let result = p.exec(
 ```swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
-// 四个字段的类型分别为name、oid、integer、boolean
 let res = p.exec(statement: "
     select datname,datdba,encoding,datistemplate
     from pg_database
