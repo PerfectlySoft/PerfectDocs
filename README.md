@@ -107,6 +107,6 @@
 	* Azure
 	* AWS
 	* Linode
-	* Digital Ocean
+	* [Digital Ocean](guide/deployment-DigitalOcean.md)
 * Platform specific Notes
 	* Starting a Swift binary at boot on Ubuntu
