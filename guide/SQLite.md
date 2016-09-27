@@ -84,7 +84,7 @@ Once you have a database and tables, the next step is to query and return data. 
 
 ``` swift
 let dbPath = "./db/database"
-Var contentDict = [String: Any]()
+var contentDict = [String: Any]()
 
 do {
 	let sqlite = try SQLite(dbPath)
