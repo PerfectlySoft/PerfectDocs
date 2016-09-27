@@ -84,7 +84,7 @@ do {
 
 ```swift
 let dbPath = "./db/database"
-Var contentDict = [String: Any]()
+var contentDict = [String: Any]()
 
 do {
     let sqlite = try SQLite(dbPath)
@@ -114,7 +114,7 @@ do {
 
 ```swift
 let dbPath = "./db/database"
-Var contentDict = [String: Any]()
+var contentDict = [String: Any]()
 
 do {
     let sqlite = try SQLite(dbPath)
