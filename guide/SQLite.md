@@ -114,7 +114,7 @@ One thing you’ll definitely want to do is add variables to your queries. As no
 
 ``` swift
 let dbPath = "./db/database"
-Var contentDict = [String: Any]()
+var contentDict = [String: Any]()
 
 do {
 	let sqlite = try SQLite(dbPath)
