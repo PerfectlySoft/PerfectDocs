@@ -102,7 +102,7 @@ let responseString = try context.formulateResponse(withCollector: collector)
 Mustache模板处理器支持的标签包括：
 
 * {{普通标签}}
-* {{& 未编码标签}}
+* {{{未编码标签}}}
 * {{# 区段}} ... {{/区段}}
 * {{^ 逆区段}} ... {{/逆区段}}
 * {{! 注释}}
