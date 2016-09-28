@@ -102,7 +102,7 @@ let responseString = try context.formulateResponse(withCollector: collector)
 This Mustache template processor supports:
 
 * {{regularTags}}
-* {{& unencodedTags}}
+* {{{unencodedTags}}}
 * {{# sections}} ... {{/sections}}
 * {{^ invertedSections}} ... {{/invertedSections}}
 * {{! comments}}
