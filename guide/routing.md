@@ -4,7 +4,7 @@ Routing determines which handler receives a specific request. A handler is a rou
 
 ```swift
 var routes = Routes()
-routes..add(method: .get, uri: "/path/one", handler: { request, response in
+routes.add(method: .get, uri: "/path/one", handler: { request, response in
 	response.setBody(string: "Handler was called")
 	response.completed()
 })
