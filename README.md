@@ -109,7 +109,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 * Platform specific Notes
 	* [Ubuntu 16.04: Starting Services at System Boot](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/starting-services.md)
 
-### StORM, a Swift ORM
+## StORM, a Swift ORM
 
 StORM is not distributed as a Perfect.org project, however the Perfect libraries are integral to it's operation, and some authors are common.
 	
@@ -122,3 +122,11 @@ StORM is not distributed as a Perfect.org project, however the Perfect libraries
 	* [Updating rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Update.md)
 	* [PostgresStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-PostgreSQL.md)
 	* [SQLiteStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-SQLite.md)
+
+## Perfect Turnstile - an authentication layer for Perfect
+
+[Turnstile](https://github.com/stormpath/Turnstile) is an Open Source project from [Stormpath](https://github.com/stormpath) focussing on standardizing authentication across platforms and frameworks. Thanks to work done by [Edward Jiang](https://github.com/edjiang) on Turnstile and a foundation linking Turnstile with Perfect, an authentication layer is available for Perfect.
+
+* [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+* [Perfect Turnstile with SQLite Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+* [Perfect Turnstile with PostgreSQL Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
