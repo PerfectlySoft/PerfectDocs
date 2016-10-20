@@ -161,6 +161,45 @@
 				}
 
 			]
+		},
+				{
+			"name": "StORM, a Swift ORM",
+			"doc":  "StORM/StORM.md",
+			"contents": [
+				{
+					"name": "Introduction to StORM",
+					"doc":  "StORM/StORM.md"
+				},
+				{
+					"name": "Setting up a class",
+					"doc":  "StORM/Setting-up-a-class.md"
+				},
+				{
+					"name": "Saving, Retrieving and Deleting Rows",
+					"doc":  "StORM/Saving-Retrieving-and-Deleting-Rows.md"
+				},
+				{
+					"name": "StORMCursor",
+					"doc":  "StORM/Cursor.md"
+				},
+				{
+					"name": "Inserting rows",
+					"doc":  "StORM/Insert.md"
+				},
+				{
+					"name": "Updating rows",
+					"doc":  "StORM/Update.md"
+				},
+				{
+					"name": "PostgresStORM",
+					"doc":  "StORM/StORM-PostgreSQL.md"
+				},
+				{
+					"name": "SQLiteStORM",
+					"doc":  "StORM/StORM-SQLite.md"
+				},
+
+			]
 		}
 	]
 }

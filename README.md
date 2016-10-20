@@ -108,3 +108,12 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md)
 * Platform specific Notes
 	* [Ubuntu 16.04: Starting Services at System Boot](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/starting-services.md)
+* [StORM, a Swift ORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM.md)
+	* [Introduction to StORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM.md)
+	* [Setting up a class](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Setting-up-a-class.md)
+	* [Saving, Retrieving and Deleting Rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Saving-Retrieving-and-Deleting-Rows.md)
+	* [StORMCursor](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Cursor.md)
+	* [Inserting rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Insert.md)
+	* [Updating rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Update.md)
+	* [PostgresStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-PostgreSQL.md)
+	* [SQLiteStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-SQLite.md)
