@@ -108,6 +108,11 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md)
 * Platform specific Notes
 	* [Ubuntu 16.04: Starting Services at System Boot](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/starting-services.md)
+
+### StORM, a Swift ORM
+
+StORM is not distributed as a Perfect.org project, however the Perfect libraries are integral to it's operation, and some authors are common.
+	
 * [StORM, a Swift ORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM.md)
 	* [Introduction to StORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM.md)
 	* [Setting up a class](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Setting-up-a-class.md)
