@@ -164,42 +164,47 @@
 		},
 				{
 			"name": "StORM, a Swift ORM",
-			"doc":  "StORM/StORM.md",
+			"doc":  "StORM/StORM",
 			"contents": [
 				{
 					"name": "Introduction to StORM",
-					"doc":  "StORM/StORM.md"
+					"doc":  "StORM/StORM"
 				},
 				{
 					"name": "Setting up a class",
-					"doc":  "StORM/Setting-up-a-class.md"
+					"doc":  "StORM/Setting-up-a-class"
 				},
 				{
 					"name": "Saving, Retrieving and Deleting Rows",
-					"doc":  "StORM/Saving-Retrieving-and-Deleting-Rows.md"
+					"doc":  "StORM/Saving-Retrieving-and-Deleting-Rows"
 				},
 				{
 					"name": "StORMCursor",
-					"doc":  "StORM/Cursor.md"
+					"doc":  "StORM/Cursor"
 				},
 				{
 					"name": "Inserting rows",
-					"doc":  "StORM/Insert.md"
+					"doc":  "StORM/Insert"
 				},
 				{
 					"name": "Updating rows",
-					"doc":  "StORM/Update.md"
+					"doc":  "StORM/Update"
 				},
 				{
 					"name": "PostgresStORM",
-					"doc":  "StORM/StORM-PostgreSQL.md"
+					"doc":  "StORM/StORM-PostgreSQL"
 				},
 				{
 					"name": "SQLiteStORM",
-					"doc":  "StORM/StORM-SQLite.md"
+					"doc":  "StORM/StORM-SQLite"
 				},
 
 			]
-		}
+		},
+		{
+			"name": "Turnstile Authentication",
+			"doc":  "Turnstile"
+		},
+
 	]
 }
