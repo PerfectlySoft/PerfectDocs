@@ -87,7 +87,7 @@ routes.add(routes: api2Routes)
 
 ### 增加服务器路由
 
-在Perfect项目中，无论是HTTP 1.1服务器还是FastCGI服务器都支持路由。如果要增加路由，请调用服务器的```addRoutes```方法。```addRoutes```函数可以根据需要多次调用。一旦服务器启动监听之后，就无非再追加或修改路由表了。
+在Perfect项目中，无论是HTTP 1.1服务器还是FastCGI服务器都支持路由。如果要增加路由，请调用服务器的```addRoutes```方法。```addRoutes```函数可以根据需要多次调用。一旦服务器启动监听之后，就无法再追加或修改路由表了。
 
 ```swift
 // 创建服务器对象

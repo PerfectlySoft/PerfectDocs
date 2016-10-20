@@ -91,7 +91,7 @@ print("The top scores are: \r" + "First Place: " + "\(firstPlace)" + " Points\r"
 The output would be the following:
 
 ``` swift
-The top scores are: 
+The top scores are:
 First Place: 300 Points
 Second Place: 230.45 Points
 Third Place: 150 Points
@@ -101,7 +101,7 @@ Third Place: 150 Points
 
 As JSON null values are untyped, the system will substitute a ```JSONConvertibleNull``` in place of all JSON nulls. Example:
 
-``` swift 
+``` swift
 let jsonString = "{\"1st Place\":300,\"4th place\":null,\"2nd Place\":230.45,\"3rd Place\":150}"
 
 if let decoded = try jsonString.jsonDecode() as? [String:Any] {
