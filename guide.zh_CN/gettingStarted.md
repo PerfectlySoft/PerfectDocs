@@ -80,7 +80,7 @@ if let acceptEncoding = request.header(.acceptEncoding) {
 }
 ```
 
-### 客户端GET和POST参数
+### 获得客户端GET和POST参数
 
 ```swift
 if let foo = request.param(name: "foo") {
