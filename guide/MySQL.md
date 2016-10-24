@@ -30,7 +30,7 @@ Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by de
 
 Ensure that you have installed libmysqlclient-dev for MySQL version 5.6 or greater:
 
-```shell
+``` shell
 sudo apt-get install libmysqlclient-dev
 ```
 
@@ -40,7 +40,7 @@ Please note that Ubuntu 14 defaults to including a version of MySQL client which
 
 Add the "Perfect-MySQL" project as a dependency in your Package.swift file:
 
-```swift
+``` swift
 .Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2, minor: 0)
 ```
 
@@ -48,7 +48,7 @@ Add the "Perfect-MySQL" project as a dependency in your Package.swift file:
 
 First and foremost, in any of the source files you intend to use with MySQL, import the required module with: 
 
-```swift
+``` swift
 import MySQL
 ```
 
@@ -58,7 +58,7 @@ import MySQL
 
 In order to access the database, setup your credentials:
 
-```swift
+``` swift
 let testHost = "127.0.0.1"
 let testUser = "test"
 let testPassword = "password"
@@ -69,7 +69,7 @@ let testDB = "schema"
 
 There are two common ways to connect to MySQL. First, you can omit the schema, so that you can use a separate selector. This is handy if you have multiple schemas that your program can choose: 
 
-```swift
+``` swift
 
     func fetchData() {
 		   
@@ -97,7 +97,7 @@ There are two common ways to connect to MySQL. First, you can omit the schema, s
 
 Alternatively, you can pass the database you would like to access into the connection and skip selection:
 
-```swift
+``` swift
 
     func fetchData() {
     
@@ -121,7 +121,7 @@ Alternatively, you can pass the database you would like to access into the conne
 
 Choosing the database is great, but it is much more helpful to run queries, such as adding tables programmatically. Expanding on our connection example above, it is relatively simple to add a query: 
 
-```swift
+``` swift
 		
     func setupMySQLDB() {
 		    
@@ -149,7 +149,7 @@ Choosing the database is great, but it is much more helpful to run queries, such
 
 Getting data from your schema is essential. It’s relatively easy to do. After running a query, save your data and then act on it. In the example below, we’re assuming we have a table called options with a row id, an option name (text) and an option value (text):
 
-```swift
+``` swift
 
     func fetchData() {
     
@@ -195,7 +195,7 @@ The MySQL server API provides you with a set of tools to connect to and work wit
 
 ### init
 
-```swift
+``` swift
 public init()
 ```
 
@@ -203,7 +203,7 @@ Creates an instance of the MySQL class that allows you to interact with MySQL da
 
 ### close
 
-```swift
+``` swift
 public func close()
 ```
 
@@ -211,7 +211,7 @@ Closes a connection to MySQL. Most commonly used as a defer after guarding a con
 
 ### clientInfo
 
-```swift
+``` swift
 public static func clientInfo() -> String
 ```
 
@@ -219,17 +219,17 @@ This will give you a string of the MySQL client library version. i.e. "5.7.x" or
 
 ### errorCode & errorMessage
 
-```swift
+``` swift
 public func errorCode() -> UInt32
 ```
 
-```swift
+``` swift
 public func errorMessage() -> String
 ```
 
 Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You  can learn more about what those mean [here](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html). This is especially useful after connecting or running queries. Example:
 
-```swift
+``` swift
 let mysql = MySQL()
 let connected = mysql.connect(host: dbHost, user: dbUser, password: dbPassword, db: dbName)
             guard connected else {
@@ -243,7 +243,7 @@ In this case, the console output would print any error messages that came up dur
 
 ### serverVersion
 
-```swift
+``` swift
 public func serverVersion() -> Int
 ```
 
@@ -251,7 +251,7 @@ Returns an integer representation of the MySQL server’s version.
 
 ### connect
 
-```swift
+``` swift
 public func connect(host hst: String? = nil, user: String? = nil, password: String? = nil, db: String? = nil, port: UInt32 = 0, socket: String? = nil, flag: UInt = 0) -> Bool
 ```
 
@@ -259,7 +259,7 @@ Opens a connection to the MySQL database when supplied with the bare minimum cre
 
 ### selectDatabase
 
-```swift
+``` swift
 public func selectDatabase(named namd: String) -> Bool
 ```
 
@@ -267,7 +267,7 @@ Selects a database from the active MySQL connection.
 
 ### listTables
 
-```swift
+``` swift
 public func listTables(wildcard wild: String? = nil) -> [String]
 ```
 
@@ -275,7 +275,7 @@ Returns an array of strings representing the different tables available on the s
 
 ### listDatabases
 
-```swift
+``` swift
 public func listDatabases(wildcard wild: String? = nil) -> [String]
 ```
 
@@ -283,7 +283,7 @@ Returns an array of strings representing the databases available on the MySQL se
 
 ### commit
 
-```swift
+``` swift
 public func commit() -> Bool
 ```
 
@@ -291,7 +291,7 @@ Commits the transaction.
 
 ### rollback
 
-```swift
+``` swift
 public func rollback() -> Bool
 ```
 
@@ -299,7 +299,7 @@ Rolls back the transaction.
 
 ### moreResults
 
-```swift
+``` swift
 public func moreResults() -> Bool
 ```
 
@@ -307,13 +307,13 @@ Checks `mysql_more_results` to see if any more results exist.
 
 ### nextResult
 
-```swift
+``` swift
 public func nextResult() -> Int
 ```
 
 Returns the next result in a multi-result execution. Most commonly used in a while loop to produce an effect similar to running forEachRow(). For example:
 
-```swift
+``` swift
     var results = [[String?]]()
 
     while let row = results?.next() {
@@ -324,7 +324,7 @@ Returns the next result in a multi-result execution. Most commonly used in a whi
 
 ### query
 
-```swift
+``` swift
 public func query(statement stmt: String) -> Bool
 ```
 
@@ -332,7 +332,7 @@ Runs an SQL Query given as a string.
 
 ### storeResults
 
-```swift
+``` swift
 public func storeResults() -> MySQL.Results?
 ```
 
@@ -340,7 +340,7 @@ This retrieves a complete results set from the server and stores it on the clien
 
 ### setOption
 
-```swift
+``` swift
 public func setOption(_ option: MySQLOpt) -> Bool
 public func setOption(_ option: MySQLOpt, _ b: Bool) -> Bool
 public func setOption(_ option: MySQLOpt, _ i: Int) -> Bool
@@ -351,7 +351,7 @@ Sets the options for connecting and returns a Boolean for success or failure. Re
 
 MySQLOpt values that are available to use are defined by the following enumeration:
 
-```swift
+``` swift
 public enum MySQLOpt {
 	case MYSQL_OPT_CONNECT_TIMEOUT, MYSQL_OPT_COMPRESS, MYSQL_OPT_NAMED_PIPE,
 		MYSQL_INIT_COMMAND, MYSQL_READ_DEFAULT_FILE, MYSQL_READ_DEFAULT_GROUP,
@@ -380,7 +380,7 @@ The results API set provides a set of tools for working with result sets that ar
 
 ### close
 
-```swift
+``` swift
 public func close()
 ```
 
@@ -388,7 +388,7 @@ Closes the results set by releasing the results. make sure you have a close func
 
 ### dataSeek
 
-```swift
+``` swift
 public func dataSeek(_ offset: UInt)
 ```
 
@@ -396,7 +396,7 @@ Moves to an arbitrary row number in the results given an unsigned integer as an 
 
 ### numRows
 
-```swift
+``` swift
 public func numRows() -> Int
 ```
 
@@ -404,7 +404,7 @@ Lets you know how many rows are in a results set.
 
 ### numFields
 
-```swift
+``` swift
 public func numFields() -> Int
 ```
 
@@ -412,7 +412,7 @@ Similar to numRows, but returns the number of columns in a results set instead. 
 
 ### next
 
-```swift
+``` swift
 public func next() -> Element?
 ```
 
@@ -420,7 +420,7 @@ Returns the next row in the results set as long as one exists.
 
 ### forEachRow
 
-```swift
+``` swift
 public func forEachRow(callback: (Element) -> ())
 ```
 
@@ -430,7 +430,7 @@ Iterates through all rows in query results. Most useful for appending elements t
 
 ### init
 
-```swift
+``` swift
 public init(_ mysql: MySQL)
 ```
 
@@ -438,7 +438,7 @@ Initializes the MySQL statement structure. This is very commonly used by other A
 
 ### close
 
-```swift
+``` swift
 public func close()
 ```
 
@@ -446,7 +446,7 @@ This frees the MySQL statement structure pointer. Use it or lose valuable memory
 
 ### reset
 
-```swift
+``` swift
 public func reset()
 ```
 
@@ -454,7 +454,7 @@ Resets the statement buffers that are in the server. This doesn’t affect bindi
 
 ### clearBinds
 
-```swift
+``` swift
 func clearBinds()
 ```
 
@@ -462,7 +462,7 @@ Clears the current bindings.
 
 ### freeResult
 
-```swift
+``` swift
 public func freeResult(
 ```
 
@@ -470,17 +470,17 @@ Releases memory tied up in with the result set produced by execution of a prepar
 
 ### errorCode & errorMessage
 
-```swift
+``` swift
 public func errorCode() -> UInt32
 ```
 
-```swift
+``` swift
 public func errorMessage() -> String
 ```
 
 Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You can learn more about what those mean [here](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html). This is especially useful after connecting or running queries. Example:
 
-```swift
+``` swift
 let mysql = MySQL()
 let connected = mysql.connect(host: dbHost, user: dbUser, password: dbPassword, db: dbName)
             guard connected else {
@@ -494,7 +494,7 @@ In this case, the console output would print any error messages that came up dur
 
 ### prepare
 
-```swift
+``` swift
 public func prepare(statement query: String) -> Bool
 ```
 
@@ -502,7 +502,7 @@ Prepares a SQL statement for execution. More commonly called by other functions 
 
 ### execute
 
-```swift
+``` swift
 public func execute() -> Bool
 ```
 
@@ -510,7 +510,7 @@ Executes a prepared statement.
 
 ### results
 
-```swift
+``` swift
 public func results() -> MySQLStmt.Results
 ```
 
@@ -518,7 +518,7 @@ Returns current results from the server.
 
 ### fetch
 
-```swift
+``` swift
 public func fetch() -> FetchResult
 ```
 
@@ -526,7 +526,7 @@ Fetches the next row of data from the results set.
 
 ### numRows
 
-```swift
+``` swift
 public func numRows() -> UInt
 ```
 
@@ -534,7 +534,7 @@ Returns the row count in a buffered statement results set.
 
 ### affectedRows
 
-```swift
+``` swift
 public func affectedRows() -> UInt
 ```
 
@@ -542,7 +542,7 @@ Returns the number of rows that were changed, deleted, or inserted by prepared a
 
 ### insertId
 
-```swift
+``` swift
 public func insertId() -> UInt
 ```
 
@@ -550,7 +550,7 @@ Returns the row id number for the last row inserted by a prepared statement, as 
 
 ### fieldCount
 
-```swift
+``` swift
 public func fieldCount() -> UInt
 ```
 
@@ -558,7 +558,7 @@ Returns the number of columns in the results for the most recently executed stat
 
 ### nextResult
 
-```swift
+``` swift
 public func nextResult() -> Int
 ```
 
@@ -566,7 +566,7 @@ Returns the next result in a multi-result execution.
 
 ### dataSeek
 
-```swift
+``` swift
 public func dataSeek(offset: Int)
 ```
 
@@ -574,7 +574,7 @@ Given an offset, it will seek to an arbitrary row in a statement results set.
 
 ### paramCount
 
-```swift
+``` swift
 public func paramCount() -> Int
 ```
 
@@ -582,7 +582,7 @@ Returns the number of parameters in a prepared statement.
 
 ### bindParam
 
-```swift
+``` swift
 public func bindParam()
 func bindParam(_ s: String, type: enum_field_types)
 public func bindParam(_ d: Double)
