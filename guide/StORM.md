@@ -10,8 +10,9 @@ The general StORM documentation is here:
 
 Datasource specific documentation for StORM:
 
-* [SQLite3](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-SQLite.md)
-* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-PostgreSQL.md)
+* [SQLite3](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-SQLite.md)
+* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-PostgreSQL.md)
+* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-MySQL.md)
 
 
 ### Including in your project
@@ -22,6 +23,12 @@ For example to include PostgresStORM:
 
 ``` swift
 .Package(url: "https://github.com/SwiftORM/Postgres-Storm.git", majorVersion: 0, minor: 0)
+```
+
+For example to include MySQLStORM:
+
+``` swift
+.Package(url: "https://github.com/SwiftORM/MySQL-Storm.git", majorVersion: 0, minor: 0)
 ```
 
 To include SQLiteStORM:
@@ -38,12 +45,12 @@ swift package generate-xcodeproj
 
 ## StORM Documentation topics:
 
-[Setting up a class:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Setting-up-a-class.md) How to create a class that inherits all the StORM functionality.
+[Setting up a class:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Setting-up-a-class.md) How to create a class that inherits all the StORM functionality.
 
-[Saving, Retrieving and Deleting Rows:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Saving-Retrieving-and-Deleting-Rows.md) Basic database operations
+[Saving, Retrieving and Deleting Rows:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Saving-Retrieving-and-Deleting-Rows.md) Basic database operations
 
-[StORMCursor:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Cursor.md) Managing found sets for result set pagination.
+[StORMCursor:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Cursor.md) Managing found sets for result set pagination.
 
-[Inserting rows:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Insert.md) More detailed access to inserting rows.
+[Inserting rows:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Insert.md) More detailed access to inserting rows.
 
-[Updating rows:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Update.md) More detailed access to the update process.
+[Updating rows:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Update.md) More detailed access to the update process.
