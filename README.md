@@ -83,7 +83,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md)
 	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md)
 	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
-	* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md) @kjessup
+	* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md)
 	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md)

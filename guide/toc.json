@@ -110,6 +110,10 @@
 					"doc":  "cURL"
 				},
 				{
+					"name": "XML",
+					"doc":  "xml"
+				},
+				{
 					"name": "Zip",
 					"doc":  "zip"
 				}
