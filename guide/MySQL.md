@@ -30,7 +30,7 @@ Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by de
 
 Ensure that you have installed libmysqlclient-dev for MySQL version 5.6 or greater:
 
-``` shell
+```
 sudo apt-get install libmysqlclient-dev
 ```
 
