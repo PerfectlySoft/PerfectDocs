@@ -195,16 +195,20 @@
 					"doc":  "StORM/StORM-PostgreSQL"
 				},
 				{
+					"name": "MySQLStORM",
+					"doc":  "StORM/StORM-MySQL"
+				},
+				{
 					"name": "SQLiteStORM",
 					"doc":  "StORM/StORM-SQLite"
-				},
+				}
 
 			]
 		},
 		{
 			"name": "Turnstile Authentication",
 			"doc":  "Turnstile"
-		},
+		}
 
 	]
 }
