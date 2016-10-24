@@ -8,19 +8,19 @@ The MySQL connector provides a wrapper around MySQL, allowing interaction betwee
 
 Requires the use of Homebrew’s MySQL. 
 
-```shell
+```
 brew install mysql
 ```
 
 If you need Homebrew, you can install it with: 
 
-```shell
+```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 Unfortunately, at this point in time you will need to edit the mysqlclient.pc file located here:
 
-```shell
+```
 /usr/local/lib/pkgconfig/mysqlclient.pc
 ```
 
