@@ -1,57 +1,33 @@
 # WebSockets
 
-WebSocket是建立在一个单独的TCP连接基础之上的全双工通讯协议，目前广泛被应用与各类浏览器和Web服务器。WebSocket协议使得浏览器和服务器之间的实时通信成为可能，并且直接基于HTTP 80端口，绕过了很多传统防火墙造成的通讯问题。
+WebSocket是建立在一个单独的TCP连接基础之上的全双工通讯协议，目前广泛被应用与各类浏览器和Web服务器。WebSocket协议使得浏览器和服务器之间的实时通信成为可能。通信过程在TCP端口上完成，通常为80端口或443端口。
 
 WebSocket协议目前支持大多数主流浏览器，包括谷歌Chrome、微软Edge和IE、火狐、苹果Safari，以及Opera。WebSocket的实现需要网页程序和后台服务器的同时支持。
 
-## 系统要求
 
-由于WebSocket是基于HTTP服务器的，所以最基本的要求是在PerfectTemplate HTTP模板服务器的基础上进行开发。如果您还不清楚到底什么是PerfectTemplate 模板，请查看这里：[PerfectTemplate HTTP 服务器模板](https://github.com/PerfectlySoft/PerfectTemplate/)，或者至少要阅读一下[快速上手： PerfectTemplate](gettingStarted.md).
+## 准备开始
 
-
-## 导入 WebSocket 函数库
-
-一旦下载并按照指南安装 PerfectTemplate 模板后，请修改您的 Package.swift 文件并增加一下内容：
+请修改您的 Package.swift 文件并增加以下依存关系：
 
 ```swift
 .Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 2, minor: 0)
-
 ```
 
 保存好后就可以在您的源程序内使用WebSocket函数库了：
 
-```
+```swift
 import PerfectWebSockets
 ```
 
-## 从现成的WebSocket例子开始
+最简单的应用可以在网页中实现，比如聊天室 —— 用户一旦输入了一些内容，其他在同一个网页上的人都能够同步看到这个结果。
 
-实际上比从下载 PerfectTemplate 开始更简易的方法是从我们的 [Perfect WebSocket 样例代码](https://github.com/PerfectlySoft/PerfectExample-WebSocketsServer)开始工作。
-
-## 基本概念
-
-虽然 WebSocket 能够实现非常复杂的操作，最简单的应用仍然是在网页中实现的，比如聊天室 —— 用户一旦输入了一些内容，或者像下棋那样走了一步之类的操作，那么我们希望其他在同一个网页上的人都能够同步看到这个结果。
-
-因此要理解服务器后台如何操作WebSocket，我们需要从设置一个网页路由开始，比如下面的代码就很典型：
+以下代码展示了如何在路由`/echo`上增加WebSocket服务具柄：
 
 ```swift
 var routes = Routes()
-routes.add(method: .get, uri: "/", handler: {
-		request, response in
-		response.setHeader(.contentType, value: "text/html")
-		response.appendBody(string: "<HTML><HEAD><TITLE>中文测试</TITLE><meta http-equiv=Content-Type content='text/html;charset=utf-8'></HEAD><body>你好，世界！樱桃卷饼，饼卷樱桃🍒</body></html>")
-    // ... 可以按需追加更多网页内容
-		response.completed()
-	}
-)
-```
 
-参考上面的例子，现在我们可以设置一个真正的 WebSocket 服务处理具柄，代替上面的静态网页：
-
-```swift
 routes.add(method: .get, uri: "/echo", handler: {
 		request, response in
-    // 如果希望在服务器增加一个WebSocket服务，则要把具柄设置给 WebSocketHandler.
     // 具柄创建后，您需要为具柄提供一个闭包便于回调：
     WebSocketHandler(handlerProducer: {
         (request: WebRequest, protocols: [String]) -> WebSocketSessionHandler? in
@@ -72,15 +48,13 @@ routes.add(method: .get, uri: "/echo", handler: {
 
 WebSocket服务具柄必须要实现`WebSocketSessionHandler`会话控制协议。该协议需要一个函数用于处理请求和socket会话：
 
-```swift
-handleSession(request: WebRequest, socket: WebSocket)
-
-```
-
 该函数会在WebSocket连接时调用，随后您就可以开始读写信息了。最开始的 `WebRequest` 对象用于控制会话，而消息通过WebSocket对象进行传输。
 
-调用 `WebSocket.sendStringMessage` 或 `WebSocket.sendBinaryMessage` 给客户端发数据。
+首先`WebRequest`对象用于启动会话。
 
+消息则通过 WebSocket 对象返回。
+
+调用 `WebSocket.sendStringMessage` 或 `WebSocket.sendBinaryMessage` 给客户端发数据。
 调用 `WebSocket.readStringMessage` 或 `WebSocket.readBinaryMessage` 则用于接收从客户端发来的数据。
 
 默认情况下，读操作会造成程序阻塞直到有消息到达或者网络错误发生。
@@ -108,10 +82,12 @@ class EchoHandler: WebSocketSessionHandler {
 			// 回调函数的参数包括：
 			//	string: 接收到的数据
 			//	op：该消息的操作代码
-			//	fin：数据已经读取完毕，还是只完成了部分读取 -- 如果是真就是读完了。
+			//	fin：数据已经读取完毕，如果是真就是读完了。
+			//  （反之意味着数据只是被部分读取）
 			string, op, fin in
 
-			// 如果接收到的数据为空，那么有可能是超时，也有可能是因为网络异常，比如客户端掉线等等
+			// 如果接收到的数据为空，那么有可能是超时，
+			// 也有可能是因为网络异常，比如客户端掉线等等
 			// 默认情况下是不会超时的。
 			guard let string = string else {
 				// 如果客户端窗口关闭这类的事件发生了，那么就应该在服务器端进行相应的关闭操作。
@@ -123,9 +99,12 @@ class EchoHandler: WebSocketSessionHandler {
 			print("已经获取了信息：\(string) \t操作码：\(op) \t是否全部读取：\(fin)")
 
 			// 将收到的数据原封不动地返回给客户
-			// 这里简单起见直接将final设置为真，意味着一次性把数据发完。通常这里是要根据数据实际发送的状态来决定。
-			// 比如，如果传输一个大文件，比如视频文件，那么需要把数据分段发出，分段过程中final值为假。
-			// 如果final设置为假，则表明后续数据内容将与已经发出的数据构成一个逻辑上的完整消息。
+			// 这里简单起见直接将final设置为真，意味着一次性把数据发完。
+			// 但是WebSockets还可以选择一次只发送一个数据片段
+			// 比如，如果传输一个大文件，比如视频文件，
+			// 那么需要把数据分段发出，分段过程中final值为假。
+			// 表明后续数据需要继续发出
+			// 而后续内容将与已经发出的数据构成一个逻辑上的完整消息。
 			// 如果是发送视频，那么必须是在最后一段数据发完时用上将这个标志变量设置为真。
 			socket.sendStringMessage(string, final: true) {
 
@@ -155,16 +134,13 @@ WebSocket有两种消息格式：文本消息或二进制消息。文本消息�
 #### 读取文本消息
 
 ```swift
-
 public func readStringMessage(continuation: @escaping (String?, _ opcode: OpcodeType, _ final: Bool) -> ())
-
 ```
 
 #### 读取二进制消息
 
 ```swift
 public func readBytesMessage(continuation: @escaping ([UInt8]?, _ opcode: OpcodeType, _ final: Bool) -> ())
-
 ```
 
 上述两个方法的参数包括：
@@ -185,14 +161,12 @@ public func readBytesMessage(continuation: @escaping ([UInt8]?, _ opcode: Opcode
 
 ```swift
 public func sendStringMessage(string: String, final: Bool, completion: @escaping () -> ())
-
 ```
 
 #### 发送二进制消息
 
 ```swift
 public func sendBinaryMessage(bytes: [UInt8], final: Bool, completion: @escaping () -> ())
-
 ```
 
 最后一个final参数用于表明该消息是全部还是部分，如果final为假则表示逻辑上还有后续消息会发给客户端，与之前已经发出的消息构成了一个逻辑整体，内容不可分割。
@@ -207,10 +181,16 @@ Perfect WebSocket 函数库还提供了测试连接的简便函数，即乒乓�
 /// 向客户发送乓消息：
 public func sendPong(completion: @escaping () -> ())
 
-/// 向客户发送乒消息并等待乓返回
+/// 向客户发送乒消息
+	/// 并等待乓返回
 public func sendPing(completion: @escaping () -> ())
-
 ```
 
 ### func close() 关闭连接
 所有读写操作完毕并不希望继续保持数据连接的情况下，请关闭WebSocket连接。
+
+``` swift
+socket.close()
+```
+
+详细的WebSockets例子，请参见 [https://github.com/PerfectExamples/Perfect-WebSocketsServer](https://github.com/PerfectExamples/Perfect-WebSocketsServer)

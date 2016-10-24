@@ -1,17 +1,28 @@
-# XML support for Perfect
-Perfect XML Example Project
+# XML
 
-This repository demonstrates how to manipulate XML api. It currently contains most of the DOM Core level 2 *read-only* APIs and includes XPath support.
+Perfect provides XML & HTML parsing support via the Perfect-XML module.
 
-## Setup
 
-Before start this demo, please make sure Swift 3.0 or later version has already installed properly on your system. Please check [Swift 3.0 Installation Guide] (http://swift.org) for detail.
+## Getting Started
+
+In addition to the PerfectLib, you will need the Perfect-XML dependency in the Package.swift file:
+
+``` swift
+.Package(url: "https://github.com/PerfectlySoft/Perfect-XML.git", majorVersion: 2, minor: 0)
+```
+
+In each Swift source file that references the XML classes, include the import directive:
+
+``` swift
+import PerfectXML
+```
+
 
 ### macOS Build Notes
 
 If you receive a compile error that says the following, you need to install and link libxml2
 
-```
+``` bash
 note: you may be able to install libxml-2.0 using your system-packager:
 
     brew install libxml2
@@ -23,7 +34,7 @@ Compile Swift Module 'PerfectXML' (2 sources)
 
 To install and link libxml2 with homebrew, use the following two commands
 
-```
+``` bash
 brew install libxml2
 brew link --force libxml2
 ```
@@ -32,129 +43,35 @@ brew link --force libxml2
 
 Ensure that you have installed libxml2-dev and pkg-config.
 
-```
+``` bash
 sudo apt-get install libxml2-dev pkg-config
 ```
 
-## Quick Start
 
-The general idea of this example is to show data extracted from an XML string. In another word, if you treat XML as a database, then PerfectXML will be the database connector and XPath will be the query language. You can download this example for a quick start:
-
-```bash
-git clone https://github.com/PerfectlySoft/PerfectExample-XML.git
-```
-
-or if you can start it step by step:
-
-```bash
-mkdir PerfectExample-XML
-cd PerfectExample-XML
-swift package init
-```
-
-In this case, please modify the Package.swift and manually adding Perfect-libxml2 / Perfect-XML libraries like this:
-
-```Swift
-import PackageDescription
-
-let package = Package(
-	name: "PerfectExample-XML",
-	targets: [],
-	dependencies: [
-		.Package(url: "https://github.com/PerfectlySoft/Perfect-libxml2.git", majorVersion: 2, minor: 0),
-		.Package(url: "https://github.com/PerfectlySoft/Perfect-XML.git", majorVersion: 2, minor: 0)
-    ]
-)
-```
-
-Please also include PerfectXML library in your swift code:
-
-```Swift
-import PerfectXML
-```
-
-Then you can use Swift Package Manager to build it up & run:
-
-```bash
-swift build
-./.build/debug/PerfectExample-XML
-```
-
-## A Sample XML content
-
-Before doing any actual accessing operation, please copy the following XML sample string to your code, or you can make a similar file stored on the local directory and read it out into the same string:
-
-```Swift
-let rssXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" +
-"<rss version=\"2.0\">" +
-"<channel>" +
-"<title attribute1='first attribute' attribute2='second attribute'>W3Schools Home Page</title>" +
-"<link>http://www.w3schools.com</link>" +
-"<description>Free web building tutorials</description>" +
-"<item id='rssID'>" +
-"<title>RSS Tutorial</title>" +
-"<link>http://www.w3schools.com/xml/xml_rss.asp</link>" +
-"<description>New RSS tutorial on W3Schools</description>" +
-"</item>" +
-"<item id='xmlID'>" +
-"<title>XML Tutorial</title>" +
-"<link>http://www.w3schools.com/xml</link>" +
-"<description>New XML tutorial on W3Schools</description>" +
-"<deeper xmlns:foo='foo:bar'>" +
-"<deepest foo:atr1='the value' foo:atr2='the other value'></deepest>" +
-"<foo:fool><foo:silly>boo</foo:silly><foo:dummy>woo</foo:dummy></foo:fool>" +
-"</deeper>" +
-"</item>" +
-"</channel>" +
-"</rss>"
-```
-
-
-## Parse an XML string
+## Parsing an XML string
 
 Instantiate an XDocument object with your XML string
 
-```swift
-import PerfectXML
-let xDoc = XDocument(fromSource: rssXML)
+``` swift
+let xDoc = XDocument(fromSource: <XMLSource>)
 ```
 
 Now you can get the root node of the XML structure by using the documentElement property
 
 
-## Make it pretty
+## Convert the node tree to String
 
-Yes, I know your first impression about this above XML - ugly, right? But the good news is that now we can turn it into a pretty format:
+Converting the XML node tree to a string, with optional pretty-print formatting:
 
-```Swift
+``` swift
 let xDoc = XDocument(fromSource: rssXML)
 let prettyString = xDoc?.string(pretty: true)
 let plainString = xDoc?.string(pretty: false)
 ```
 
-The first line ``` xDoc = XDocument ``` created an XML object, and the method ```string(pretty: Bool)``` can get the text content back with an option of pretty format or not.
-
-You must want to know how pretty it is, right? OK, paste the following snippet and check it out:
-
-```Swift
-print("Parse an XML document\n")
-
-func showParse() {
-		print("XML Parse Function\n")
-		print("Orginal XML:\n\(rssXML)\n\n")
-		print("Pretty:\n\(prettyString!)\n\n")
-		print("Plain\n\(plainString!)\n\n")
-}
-
-showParse()
-
-```
-
-If success, you can run the app and then should see three different paragraphs of the same XML but in different formats. The first one is the original XML, the third one is a parsed string and the middle one is the formatted string after parsing.  
-
 ## Working with Nodes
 
-XML is a structured documentation standard with a basic format of ```<A>B</A>``` - an XML node. Each node has a tag name, a value, or sub nodes we call "children".  Each node has several important properties
+XML is a structured documentation standard with a basic format of `<A>B</A>` - an XML node. Each node has a tag name, a value, or sub nodes we call "children".  Each node has several important properties
 
 - nodeValue
 - nodeName
@@ -163,11 +80,9 @@ XML is a structured documentation standard with a basic format of ```<A>B</A>```
 
 Each node also has a getElementsByTagName: method that recursively searches through it and its children to return an array of all nodes that have that name. This method makes it easy to find a single value in the XML file.
 
-To better understand these definitions, trying the following code to "walk through" the whole XML is highly recommended.
+To demonstrate, a recursive function to iterate through all elements in the node:
 
-Firstly, we will need a recursive function to iterate all elements inside:
-
-```Swift
+``` swift
 func printChildrenName(_ xNode: XNode) {
 
 	// try treating the current node as a text node
@@ -188,20 +103,15 @@ func printChildrenName(_ xNode: XNode) {
 	// it is a text node and print it out
 	print("Name:\t\(xNode.nodeName)\tType:\(xNode.nodeType)\tValue:\t\(text.nodeValue!)\n")
 }
-```
 
-
-Now we can show the whole structure of this XML file:
-
-```Swift
 printChildrenName( xDoc!)
 ```
 
-## Access Node by Tag Name
+### Access Node by Tag Name
 
-A very basic way of querying a specific node is by the tag name. The snippet below shows the method of ```getElementsByTagName ``` in a general manner:
+The snippet below shows the method of `getElementsByTagName` in a general manner:
 
-```Swift
+``` swift
 func testTag(tagName: String) {
 
 	// use .getElementsByTagName to get this node.
@@ -225,17 +135,11 @@ testTag(tagName: "link")
 testTag(tagName: "description")
 ```
 
-## Access Node by ID
+### Access Node by ID
 
-Alternatively, you may also notice that any node can have an attribute called "id", which means you can access this node without knowing its tag:
+Alternatively querying a node by it's id using `.getElementById()`:
 
-```XML
-<item id='xmlID'>
-```
-
-To get this node by ID, PerfectXML provides a method called .getElementById(), so we can build another route to do the similar API as the previous example but this time we will try the id method:
-
-```Swift
+``` swift
 func testID(id: String) {
 
 		// Access node by its id, if available
@@ -256,17 +160,13 @@ testID(id: "rssID")
 testID(id: "xmlID")
 ```
 
-Anyway can you see the difference of .getElementById() and .getElementsByTagName() ? You can have a try to see if there are duplicated IDs in the same XML.
+#### XElement
 
-## More about getElementsByTagName()
-
-Method .getElementsByTagName returns an array of nodes, i.e., [XElement], just like a record set in a database query.
+The method `.getElementsByTagName()` returns an array of nodes of type XElement.
 
 The following code demonstrates how to iterate all element in this array:
 
-```Swift
-print("Show Items\n")
-
+``` swift
 func showItems() {
 		// get all items with tag name of "item"
 		let feedItems = xDoc?.documentElement?.getElementsByTagName("item")
@@ -288,17 +188,15 @@ func showItems() {
 showItems()
 ```
 
-## Relationships of a Node Family
+### Relationships of a Node Family
 
 PerfectXML provides a convenient way to access all relationships of a specific XML node: Parent, Siblings & Children.
 
-### Parent of a Node
+#### Parent of a Node
 
-Parent node can be accessed by a node property called "parentNode", see the following example to see the usage:
+Parent node can be accessed using ```parentNode```:
 
-```Swift
-print("Parent of a Node\n")
-
+``` swift
 func showParent(tag: String) {
 
 		guard let node = xDoc?.documentElement?.getElementsByTagName(tag).first else {
@@ -306,7 +204,7 @@ func showParent(tag: String) {
 			return
 		}
 
-		// HERE is the way of accessing a parent node
+		// Accessing the parent node
 		guard let parent = node.parentNode else {
 			print("Tag '\(tag)' is the root node.\n")
 			return
@@ -318,13 +216,11 @@ func showParent(tag: String) {
 showParent(tag: "link")
 ```
 
-### Node Siblings
+#### Node Siblings
 
-Each XML node can have two siblings: previousSibling and nextSibling. Try the following snippet to test the availability of siblings.
+Each XML node can have two siblings: `previousSibling` and `nextSibling`.
 
-```Swift
-print("Siblings of a Node\n")
-
+``` swift
 func showSiblings (tag: String) {
 
 		let node = xDoc?.documentElement?.getElementsByTagName(tag).first
@@ -342,18 +238,15 @@ func showSiblings (tag: String) {
 		print("Next Sibling of \(tag) is \(name!)\t\(value!)\n")
 }
 
-
 showSiblings(tag: "link")
 showSiblings(tag: "description")
 ```
 
-### First & Last Child
+#### First & Last Child
 
-If an XML node has a child, then you can try properties of .firstChild / .lastChild instead of accessing them from the .childNodes array:
+If an XML node has a child `.firstChild` and `.lastChild` can be used:
 
-```Swift
-print("First & Last Child\n")
-
+``` swift
 func firstLast() {
 		let node = xDoc?.documentElement?.getElementsByTagName("channel").first
 
@@ -373,23 +266,19 @@ func firstLast() {
 firstLast()
 ```
 
-These methods are convenient in certain scenarios, such as jump to the first page or the last page in a book.
 
 ## Node Attributes
 
-Any XML node / element can have attributes in such a style:
+Any XML node or element can have attributes:
 
- ```XML
- <node attribute1='value of attribute1' attribute2='value of attribute2'>
-   ...
- </node>
+``` xml
+<node attribute1="value of attribute1" attribute2="value of attribute2">
+</node>
 ```
 
-Node method .getAttribute(name: String) provides the functionality of accessing attributes. See the code below:
+Node method `.getAttribute(name: String)` provides the functionality of accessing attributes:
 
-```Swift
-print("Attributes of an element\n")
-
+``` swift
 func showAttributes() {
 		let node = xDoc?.documentElement?.getElementsByTagName("title").first
 
@@ -408,13 +297,11 @@ showAttributes()
 
 XML namespaces are used for providing uniquely named elements and attributes in an XML document. An XML instance may contain element or attribute names from more than one XML vocabulary. If each vocabulary is given a namespace, the ambiguity between identically named elements or attributes can be resolved.
 
-Both .getElementsByTagName() and .getAttributeNode() have namespace versions, i.e., .getElementsByTagNameNS() / .getAttributeNodeNS, etc. In these cases, namespaceURI and localName shall present to complete the request, as the last name and first name for a person.
+Both `.getElementsByTagName()` and `.getAttributeNode()` have namespace versions: `.getElementsByTagNameNS()` and `.getAttributeNodeNS()`. In these cases `namespaceURI` and `localName` are required.
 
-The following code demonstrates the usage of .getElementsByTagNameNS() and .getNamedItemNS():
+The following code demonstrates the usage of `.getElementsByTagNameNS()` and `.getNamedItemNS()`:
 
-```Swift
-print("Namespaces\n")
-
+``` swift
 func showNamespaces(){
 	let deeper = xDoc?.documentElement?.getElementsByTagName("deeper").first
 	let atts = deeper?.firstChild?.attributes;
@@ -453,19 +340,15 @@ func showNamespaces(){
 }
 
 showNamespaces()
-
 ```
 
 ## XPath
 
 XPath (XML Path Language) is a query language for selecting nodes from an XML document. In addition, XPath may be used to compute values (e.g., strings, numbers, or Boolean values) from the content of an XML document.
 
-This demo can extract the path you input:
+The following code demonstrates extracting a specific path:
 
-```Swift
-
-print("XML Path Demo\n")
-
+``` swift
 func showXPath(xpath: String) {
     /// Use .extract() method to deal with the XPath request.
 		let pathResource = xDoc?.extract(path: xpath)
@@ -477,5 +360,3 @@ showXPath(xpath: "/rss/channel/title/@attribute1")
 showXPath(xpath: "/rss/channel/link/text()")
 showXPath(xpath: "/rss/channel/item[2]/deeper/foo:bar")
 ```
-
-Then build & run and try any possible XPath as need. Now you can see how powerful XML & XPath are - theoretically, it can even wrap up a total file system, can't it?

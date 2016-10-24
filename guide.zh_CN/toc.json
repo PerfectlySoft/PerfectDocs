@@ -56,6 +56,10 @@
 					"doc":  "filters"
 				},
 				{
+					"name": "过滤器",
+					"doc":  "filters"
+				},
+					{
 					"name": "JSON数据转换",
 					"doc":  "JSON"
 				},
@@ -157,6 +161,54 @@
 				}
 
 			]
+		},
+				{
+			"name": "StORM：Swift对象关系管理（ORM）",
+			"doc":  "StORM",
+			"contents": [
+				{
+					"name": "StORM 介绍",
+					"doc":  "StORM"
+				},
+				{
+					"name": "设置数据类",
+					"doc":  "StORM-Setting-up-a-class"
+				},
+				{
+					"name": "数据记录行操作：存、取和删除",
+					"doc":  "StORM-Saving-Retrieving-and-Deleting-Rows"
+				},
+				{
+					"name": "StORMCursor：控制行记录的游标",
+					"doc":  "StORM-Cursor"
+				},
+				{
+					"name": "插入数据行",
+					"doc":  "StORM-Insert"
+				},
+				{
+					"name": "更新数据记录",
+					"doc":  "StORM-Update"
+				},
+				{
+					"name": "PostgresStORM",
+					"doc":  "StORM-PostgreSQL"
+				},
+				{
+					"name": "MySQLStORM",
+					"doc":  "StORM-MySQL"
+				},
+				{
+					"name": "SQLiteStORM",
+					"doc":  "StORM-SQLite"
+				}
+
+			]
+		},
+		{
+			"name": "Turnstile 认证",
+			"doc":  "Turnstile"
 		}
+
 	]
 }

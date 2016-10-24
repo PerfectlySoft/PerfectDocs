@@ -1,4 +1,5 @@
 # Perfect Documentation Library [简体中文](README.zh_CN.md)
+
 <p align="center">
     <a href="http://perfect.org/get-involved.html" target="_blank">
         <img src="http://perfect.org/assets/github/perfect_github_2_0_0.jpg" alt="Get Involed with Perfect!" width="854" />
@@ -9,8 +10,8 @@
     <a href="https://github.com/PerfectlySoft/Perfect" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_1_Star.jpg" alt="Star Perfect On Github" />
     </a>  
-    <a href="https://gitter.im/PerfectlySoft/Perfect" target="_blank">
-        <img src="http://www.perfect.org/github/Perfect_GH_button_2_Git.jpg" alt="Chat on Gitter" />
+    <a href="http://stackoverflow.com/questions/tagged/perfect" target="_blank">
+        <img src="http://www.perfect.org/github/perfect_gh_button_2_SO.jpg" alt="Stack Overflow" />
     </a>  
     <a href="https://twitter.com/perfectlysoft" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_3_twit.jpg" alt="Follow Perfect on Twitter" />
@@ -32,9 +33,6 @@
     </a>
     <a href="http://twitter.com/PerfectlySoft" target="_blank">
         <img src="https://img.shields.io/badge/Twitter-@PerfectlySoft-blue.svg?style=flat" alt="PerfectlySoft Twitter">
-    </a>
-    <a href="https://gitter.im/PerfectlySoft/Perfect?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge" target="_blank">
-        <img src="https://img.shields.io/badge/Gitter-Join%20Chat-brightgreen.svg" alt="Join the chat at https://gitter.im/PerfectlySoft/Perfect">
     </a>
     <a href="http://perfect.ly" target="_blank">
         <img src="http://perfect.ly/badge.svg" alt="Slack Status">
@@ -59,54 +57,77 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 
 ## Table of Contents
 
-* [Introduction](guide/introduction.md)
-* [Getting Started](guide/gettingStarted.md)
-* [Getting Started From Scratch](guide/gettingStartedFromScratch.md)
-* [An HTTP and Web Services Primer](guide/WebServicesPrimer.md)
-* [Repository Layout](guide/repositoryLayout.md)
-* [Building with Swift Package Manager](guide/buildingWithSPM.md)
-* [Handling Requests](guide/handlingRequests.md)
-	* [Routing](guide/routing.md)
-	* [HTTPRequest](guide/HTTPRequest.md)
-	 	* [Using Form Data](guide/formData.md)
-		* [File Uploads](guide/fileUploads.md)
-	* [HTTPResponse](guide/HTTPResponse.md)
-	* [Request &amp; Response Filters](guide/filters.md)
-	* [JSON](guide/JSON.md)
-	* [Static File Content](guide/staticFileContent.md)
-	* [Mustache](guide/mustache.md)
-* [Utilities](guide/utilities.md)
-	* [Bytes](guide/bytes.md)
-	* [File](guide/file.md)
-	* [Dir](guide/dir.md)
-	* [Threading](guide/thread.md)
-	* [Networking](guide/net.md) @kjessup
-	* [UUID](guide/UUID.md)
-	* [SysProcess](guide/sysProcess.md)
-	* [Log](guide/log.md)
-	* [CURL](guide/cURL.md)
-	* [XML](guide/xml.md)
-	* [Zip](guide/zip.md)
-* [Database Connectors](guide/databaseConnectors.md)
-	* [SQLite](guide/SQLite.md)
-	* [MySQL](guide/MySQL.md)
-	* [PostgreSQL](guide/PostgreSQL.md)
-	* [MongoDB](guide/MongoDB.md)
-		* [MongoDB Databases](guide/MongoDB-Database.md)
-		* [MongoDB Collections](guide/MongoDB-Collections.md)
-		* [MongoDB Client](guide/MongoDB-Client.md)
-		* [Working with BSON](guide/MongoDB-BSON.md)
-	* [Redis](guide/Redis.md) @ kjessup
-	* [Filemaker](guide/filemaker.md)
-* [WebSockets](guide/webSockets.md) @kjessup
-* [iOS Notifications](guide/iOSNotifications.md) @kjessup
-* [Deployment](guide/deployment.md)
-	* [Ubuntu 15.10](guide/deployment-Ubuntu1510.md)
+* [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md)
+* [Getting Started](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStarted.md)
+* [Getting Started From Scratch](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/gettingStartedFromScratch.md)
+* [An HTTP and Web Services Primer](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/WebServicesPrimer.md)
+* [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md)
+* [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)
+* [Handling Requests](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/handlingRequests.md)
+	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md)
+	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md)
+	 	* [Using Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md)
+		* [File Uploads](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/fileUploads.md)
+	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md)
+	* [Request &amp; Response Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filters.md)
+	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md)
+	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md)
+	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md)
+* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md)
+* [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
+	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md)
+	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md)
+	* [Dir](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md)
+	* [Threading](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/thread.md)
+	* [Networking](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/net.md) @kjessup
+	* [UUID](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/UUID.md)
+	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md)
+	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md)
+	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
+	* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md)
+	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
+* [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
+	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md)
+	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md)
+	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md)
+	* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB.md)
+		* [MongoDB Databases](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Database.md)
+		* [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md)
+		* [MongoDB Client](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Client.md)
+		* [Working with BSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-BSON.md)
+	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @ kjessup
+	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
+* [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
+* [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
+	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Ubuntu1510.md)
 	* Docker
 	* Heroku
 	* Azure
 	* AWS
 	* Linode
-	* [Digital Ocean](guide/deployment-DigitalOcean.md)
+	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md)
 * Platform specific Notes
-	* [Ubuntu 16.04: Starting Services at System Boot](guide/starting-services.md)
+	* [Ubuntu 16.04: Starting Services at System Boot](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/starting-services.md)
+
+## StORM, a Swift ORM
+
+StORM is not distributed as a Perfect.org project, however the Perfect libraries are integral to it's operation, and some authors are common.
+
+* [StORM, a Swift ORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM.md)
+	* [Introduction to StORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM.md)
+	* [Setting up a class](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Setting-up-a-class.md)
+	* [Saving, Retrieving and Deleting Rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Saving-Retrieving-and-Deleting-Rows.md)
+	* [StORMCursor](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Cursor.md)
+	* [Inserting rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Insert.md)
+	* [Updating rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Update.md)
+	* [PostgresStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-PostgreSQL.md)
+	* [SQLiteStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-SQLite.md)
+	* [MySQLStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-MySQL.md)
+
+## Perfect Turnstile - an authentication layer for Perfect
+
+[Turnstile](https://github.com/stormpath/Turnstile) is an Open Source project from [Stormpath](https://github.com/stormpath) focussing on standardizing authentication across platforms and frameworks. Thanks to work done by [Edward Jiang](https://github.com/edjiang) on Turnstile and a foundation linking Turnstile with Perfect, an authentication layer is available for Perfect.
+
+* [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+* [Perfect Turnstile with SQLite Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+* [Perfect Turnstile with PostgreSQL Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)

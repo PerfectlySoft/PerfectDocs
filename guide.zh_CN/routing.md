@@ -4,7 +4,7 @@ HTTP请求/响应路由是用于决定在当前请求下，哪一个句柄去接
 
 ```swift
 var routes = Routes()
-routes..add(method: .get, uri: "/path/one", handler: { request, response in
+routes.add(method: .get, uri: "/path/one", handler: { request, response in
     response.setBody(string: "路由句柄已经收到")
     response.completed()
 })
