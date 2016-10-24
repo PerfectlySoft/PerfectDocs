@@ -122,6 +122,7 @@ StORM is not distributed as a Perfect.org project, however the Perfect libraries
 	* [Updating rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Update.md)
 	* [PostgresStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-PostgreSQL.md)
 	* [SQLiteStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-SQLite.md)
+	* [MySQLStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-MySQL.md)
 
 ## Perfect Turnstile - an authentication layer for Perfect
 
