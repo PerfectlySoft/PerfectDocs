@@ -113,16 +113,16 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 
 StORM is not distributed as a Perfect.org project, however the Perfect libraries are integral to it's operation, and some authors are common.
 	
-* [StORM, a Swift ORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM.md)
-	* [Introduction to StORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM.md)
-	* [Setting up a class](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Setting-up-a-class.md)
-	* [Saving, Retrieving and Deleting Rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Saving-Retrieving-and-Deleting-Rows.md)
-	* [StORMCursor](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Cursor.md)
-	* [Inserting rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Insert.md)
-	* [Updating rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Update.md)
-	* [PostgresStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-PostgreSQL.md)
-	* [SQLiteStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-SQLite.md)
-	* [MySQLStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/StORM-MySQL.md)
+* [StORM, a Swift ORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM.md)
+	* [Introduction to StORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM.md)
+	* [Setting up a class](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Setting-up-a-class.md)
+	* [Saving, Retrieving and Deleting Rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Saving-Retrieving-and-Deleting-Rows.md)
+	* [StORMCursor](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Cursor.md)
+	* [Inserting rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Insert.md)
+	* [Updating rows](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Update.md)
+	* [PostgresStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-PostgreSQL.md)
+	* [SQLiteStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-SQLite.md)
+	* [MySQLStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-MySQL.md)
 
 ## Perfect Turnstile - an authentication layer for Perfect
 
