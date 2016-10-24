@@ -74,6 +74,10 @@
 			]
 		},
 		{
+			"name": "WebSockets",
+			"doc":  "webSockets"
+		},
+		{
 			"name": "Utilities",
 			"doc":  "utilities",
 			"contents": [

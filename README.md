@@ -73,6 +73,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md)
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md)
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md)
+* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md)
 * [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
 	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md)
 	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md)
@@ -96,7 +97,6 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 		* [Working with BSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-BSON.md)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @ kjessup
 	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
-* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md)
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
 	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Ubuntu1510.md)
