@@ -89,6 +89,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md)
+	* [MariaDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MariaDB.md)
 	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/PostgreSQL.md)
 	* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB.md)
 		* [MongoDB Databases](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Database.md)
