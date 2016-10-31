@@ -7,13 +7,13 @@ UUID识别码（也被成为全球唯一识别码GUID）是一个128位整数，
 
 如果需要随机创建一个v4版本的UUID：
 
-```swift
+``` swift
 let u = UUID()
 ```
 
 如果需要从一个字符串中读取并对一个v4版本UUID对象进行赋值：
 
-```swift
+``` swift
 let u = UUID(<String>)
 ```
 
@@ -21,7 +21,7 @@ let u = UUID(<String>)
 
 如果希望以字符串形式输出UUID的值：
 
-```swift
+``` swift
 let u1 = UUID()
 print(u1.string)
 ```

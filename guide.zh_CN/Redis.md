@@ -18,7 +18,7 @@ brew install redis
 
 ### Linux
 
-```swift
+```
 sudo apt-get install redis-server
 ```
 
