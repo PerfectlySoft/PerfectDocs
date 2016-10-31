@@ -337,7 +337,7 @@ func showNamespaces(){
 
 	print("该节点还包含 \(count!) 个子节点。\n")
 	print("第一个子节点名称为“\(na!)”，内容值为“\(va!)”。\n")
-  print("最后一个子节点名称为“\(nb!)”，内容值为“\(vb!)”。\n")
+	print("最后一个子节点名称为“\(nb!)”，内容值为“\(vb!)”。\n")
 }
 
 showNamespaces()
