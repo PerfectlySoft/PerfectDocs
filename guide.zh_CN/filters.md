@@ -14,7 +14,7 @@
 
 请求过滤器必须符合```HTTPRequestFilter```协议
 
-```swift
+``` swift
 /// 允许修改HTTPRequest内容的过滤器
 public protocol HTTPRequestFilter {
     /// 在请求完全被服务器接收到后，在转向任何处理器前执行过滤程序。
@@ -24,7 +24,7 @@ public protocol HTTPRequestFilter {
 
 当过滤器运行时，其`filter`过滤功能会被调用。过滤器可以执行任何需要的活动然后再调用回调函数通知其过滤工作已结束。回调函数通过读取过滤器状态结果来判断下一步需要做的工作，比如是继续转到其它过滤器、在当前请求过滤优先级内停止过滤、转到消息体控制句柄，还是彻底终止请求。
 
-```swift
+``` swift
 /// 过滤器返回值。
 public enum HTTPRequestFilterResult {
     /// 继续过滤。
@@ -43,7 +43,7 @@ public enum HTTPRequestFilterResult {
 
 请求过滤器可以参考以下定义直接追加到服务器上，参数为一个由过滤器与其优先级组成的成对组合：
 
-```swift
+``` swift
 public class HTTPServer {
     public func setRequestFilters(_ request: [(HTTPRequestFilter, HTTPFilterPriority)]) -> HTTPServer
 }
@@ -55,7 +55,7 @@ public class HTTPServer {
 
 以下例子是从过滤器有关的测试用例中提取的。该例子显示了如何创建和增加过滤器，以及过滤器优先级是如何交互的。
 
-```swift
+``` swift
 var oneSet = false
 var twoSet = false
 var threeSet = false
@@ -120,7 +120,7 @@ try server.start()
 
 响应过滤器必须符合```HTTPResponseFilter```协议。
 
-```swift
+``` swift
 /// 响应过滤器可以被服务器调用并修改HTTPResponse响应输出
 public protocol HTTPResponseFilter {
     /// 在响应消息头发给客户端浏览器之前调用一次。
@@ -132,7 +132,7 @@ public protocol HTTPResponseFilter {
 
 当响应阶段达到发送响应消息头数据时，服务器会调用```filterHeaders```函数。该函数会根据需要调整```HTTPResponse```对象；然后在调用回调函数。调用回调函数时会把过滤器的执行结果```HTTPResponseFilterResult```作为参数传递过去，取值如下：
 
-```swift
+``` swift
 /// 响应过滤器的执行结果。
 public enum HTTPResponseFilterResult {
     /// 继续过滤
@@ -152,7 +152,7 @@ public enum HTTPResponseFilterResult {
 
 响应过滤器是直接在服务器上进行设置的，方式是一个由过滤器及其优先级组成的数组。
 
-```swift
+``` swift
 public class HTTPServer {
     public func setResponseFilters(_ response: [(HTTPResponseFilter, HTTPFilterPriority)]) -> HTTPServer
 }
@@ -164,7 +164,7 @@ public class HTTPServer {
 
 以下例子是从过滤器有关的测试用例中提取的。该例子显示了响应过滤器的优先级操作，以及响应过滤器是如何改变目标响应消息头数据和消息体数据内容的。
 
-```swift
+``` swift
 struct Filter1: HTTPResponseFilter {
 	func filterHeaders(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ()) {
 		response.setHeader(.custom(name: "X-Custom"), value: "Value")
@@ -239,7 +239,7 @@ try server.start()
 
 以下的例子很有用。以下代码将创建和安装一个特殊的过滤器用于监控“404 文件未找到”的响应。一旦发生这种情况就用一个自定义的消息代替。
 
-```swift
+``` swift
 struct Filter404: HTTPResponseFilter {
     func filterBody(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ()) {
         callback(.continue)

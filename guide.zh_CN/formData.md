@@ -12,7 +12,7 @@ http://www.example.com/page.html?message=Hello,%20World!
 
 以上的“GET参数”可以通过`.queryParams`方法来获取
 
-```swift
+``` swift
 let params = request.queryParams
 ```
 
@@ -26,19 +26,19 @@ Perfect的HTTP函数库可以为用户以数组形式访问POST参数提供便�
 
 为了从查询和POST请求中获取所有`[(String,String)]`参数数组，请使用下面的方法：
 
-```swift
+``` swift
 let params = request.params()
 ```
 
 如果只需要返回POST的`[(String,String)]`参数数组：
 
-```swift
+``` swift
 let params = request.postParams()
 ```
 
 如果需要根据一个具体名称（比如多个checkbox选项表）返回所有的参数，请使用：
 
-```swift
+``` swift
 let params = request.postParams(name: <String>)
 ```
 
@@ -46,12 +46,12 @@ let params = request.postParams(name: <String>)
 
 如果需要返回一个特定参数，可以输入选择一个可选的`String?`字符串值
 
-```swift
+``` swift
 let param = request.param(name: <String>)
 ```
 
 在`request` 对象中整理POST参数时，如果需要填写一个具体参数但是客户端表单并没有按要求填写，此时为该参数设定一个可选的`String?`字符串默认值会非常有用：
 
-```swift
+``` swift
 let param = request.param(name: <String>, defaultValue: <string>)
 ```

@@ -4,7 +4,7 @@ Perfect为服务器端的Swift语言环境提供了一个管理文件存储的�
 
 首先，请在源程序代码开始部分声明`PerfectLib`函数库：
 
-```swift
+``` swift
 import Perfectib
 ```
 声明后您就随时可以使用`Dir`目录对象查询和操作文件系统。
@@ -13,7 +13,7 @@ import Perfectib
 
 使用目录对象时，需要指定目录的绝对或相对路径：
 
-```swift
+``` swift
 let thisDir = Dir("/path/to/directory/")
 ```
 
@@ -21,7 +21,7 @@ let thisDir = Dir("/path/to/directory/")
 
 使用`exists`方法检查目录是否存在。返回结果是一个布尔值，真值表示目录存在，假值表示不存在。
 
-```swift
+``` swift
 let thisDir = Dir("/path/to/directory/")
 thisDir.exists
 ```
@@ -30,7 +30,7 @@ thisDir.exists
 
 调用`name`方法可以返回当前目录对象的名称。注意名称不是路径，二者并不相同！
 
-```swift
+``` swift
 thisDir.name
 ```
 
@@ -38,7 +38,7 @@ thisDir.name
 
 调用`parentDir`方法可以得到当前`Dir`目录对象所指向上一级目录。如果不存在上一级目录，则返回nil。
 
-```swift
+``` swift
 let thisDir = Dir("/path/to/directory/")
 let parent = thisDir.parentDir
 ```
@@ -47,7 +47,7 @@ let parent = thisDir.parentDir
 
 调用`path`方法可以得到当前目录对象所在的路径。
 
-```swift
+``` swift
 let thisDir = Dir("/path/to/directory/")
 let path = thisDir.path
 ```
@@ -56,13 +56,13 @@ let path = thisDir.path
 
 调用`perms`方法返回UNIX风格的目录权限信息，返回值为一个`PermissionMode`目录权限对象
 
-```swift
+``` swift
 thisDir.perms
 ```
 
 比如：
 
-```swift
+``` swift
 print(thisDir.perms)
 >> PermissionMode(rawValue: 29092)
 ```
@@ -73,14 +73,14 @@ print(thisDir.perms)
 
 以下操作将采用默认权限（Owner目录所有者用户具有读、写、执行权限，用户组和其它用户具有读和执行权限）创建一个新的目录。
 
-```swift
+``` swift
 let newDir = Dir("/path/to/directory/newDirectory")
 try newDir.create()
 ```
 
 如果在创建目录时需要指定权限信息，请在调用前填写`perms`参数：
 
-```swift
+``` swift
 let newDir = Dir("/path/to/directory/newDirectory")
 try newDir.create(perms: [.rwxUser, .rxGroup, .rxOther])
 ```
@@ -92,7 +92,7 @@ try newDir.create(perms: [.rwxUser, .rxGroup, .rxOther])
 
 从文件系统中删除目录的方法：
 
-```swift
+``` swift
 let newDir = Dir("/path/to/directory/newDirectory")
 try newDir.delete()
 ```
@@ -105,7 +105,7 @@ try newDir.delete()
 
 请使用`setAsWorkingDir`来设置当前目录对象所指向的工作路径。
 
-```swift
+``` swift
 let thisDir = Dir("/path/to/directory/")
 try thisDir.setAsWorkingDir()
 ```
@@ -114,7 +114,7 @@ try thisDir.setAsWorkingDir()
 
 返回一个新的目录对象，内容包含当前工作路径。
 
-```swift
+``` swift
 let workingDir = Dir.workingDir
 ```
 
@@ -122,7 +122,7 @@ let workingDir = Dir.workingDir
 
 请以闭包为回调参数调用`forEachEntry`来遍历目录下的每一个节点子目录。
 
-```swift
+``` swift
 try thisDir.forEachEntry(closure: {
     n in
     print(n)

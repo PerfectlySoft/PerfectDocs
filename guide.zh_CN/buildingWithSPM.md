@@ -22,7 +22,7 @@ git clone https://github.com/PerfectlySoft/PerfectTemplate.git
 
 PerfectTemplate项目模板*Package.swift*清单文件包含了以下内容：
 
-```swift
+``` swift
 import PackageDescription
 
 let package = Package(
@@ -45,13 +45,13 @@ let package = Package(
 
 上面的例子用一个宽范围的版本来保证模板项目依赖于HTTPServer服务器项目最新的版本。您可能希望限制当前项目于一个较为稳定的版本上。比如，如果只希望用v2版本的Perfect HTTPServer项目，则您的“*.Package*”条目可能看起来像下面这样：
 
-```swift
+``` swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 2)
 ```
 
 相信您的项目会不断发展，因此您也需要不断增加更多的库函数依存关系，所以需要将所有这些软件包的内容添加到**dependencies**清单中去。SPM会自动下载适合的版本配合您的项目一同编译。所有依存关系库文件都会下载到一个SPM自动创建的*Packages*目录下。比如，如果您希望在您的服务器上使用Mustache模板，则您的*Package.swift*文件可能会看起来像这样：
 
-```swift
+``` swift
 import PackageDescription
 
 let package = Package(
@@ -70,7 +70,7 @@ let package = Package(
 
 伴随着您的工程依存关系逐渐增多，您可能希望以另外一种方式进行管理。以下项目包含了所有Perfect代码资源库，每个URL链接都是分开维护的，并且被映射到 **dependencies** 依存关系参数所需的格式。
 
-```swift
+``` swift
 import PackageDescription
 
 let versions = Version(0,0,0)..<Version(10,0,0)

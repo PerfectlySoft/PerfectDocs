@@ -14,7 +14,7 @@ macOS目前已经包括了该工具所需的必要库函数，因此不需要手
 
 需要通过apt安装libcurl4-openssl-dev和ibxml2-dev开发包
 
-```swift
+```
 sudo apt-get install libcurl4-openssl-dev libxml2-dev
 ```
 
@@ -22,7 +22,7 @@ sudo apt-get install libcurl4-openssl-dev libxml2-dev
 
 请在您的Perfect项目中的Package.swift文件增加“Perfect-FileMaker”依存关系：
 
-```swift
+``` swift
 .Package(
 	url:"https://github.com/PerfectlySoft/Perfect-FileMaker.git",
 	majorVersion: 2, minor: 0
@@ -33,7 +33,7 @@ sudo apt-get install libcurl4-openssl-dev libxml2-dev
 
 请在您的Swift源程序开头增加以下声明导入对FileMaker的支持：
 
-```swift
+``` swift
 import PerfectFileMaker
 ```
 
@@ -54,7 +54,7 @@ import PerfectFileMaker
 
 在左右情况下都需要提供回调函数，以保证实现异步操作。如果操作完成，回调函数将根据指定闭包进行操作，操作结果要么成功返回数据库响应，要么会抛出异常。对应操作的响应对象会根据具体操作类型延迟注销（defer）。出错情况下被抛出的异常将提供错误代码和对应的错误消息字符串，类型如下：
 
-```swift
+``` swift
 public enum FMPError: Error {
     /// 错误代码和对应的错误信息
     case serverError(Int, String)
@@ -63,7 +63,7 @@ public enum FMPError: Error {
 
 FileMakerServer struct结构的每个成员定义如下：
 
-```swift
+``` swift
 /// FileMaker Server服务器的连接实例
 /// 指定主机、端口、用户名和密码以进行初始化操作。
 public struct FileMakerServer {
@@ -88,7 +88,7 @@ public struct FileMakerServer {
 
 FMPLayoutInfo视图信息结构定义如下：
 
-```swift
+``` swift
 /// 代表了特定视图的元信息数据。
 public struct FMPLayoutInfo {
     /// 每个字段或者关联集合都会作为一个清单项。
@@ -104,7 +104,7 @@ public struct FMPLayoutInfo {
 
 以下是FMPMetaDataItem元数据条目、FMPFieldDefinition字段定义和FMPFieldType类型的枚举：
 
-```swift
+``` swift
 /// 代表了任意一个条目是一个独立的字段定义还是一个关联定义（即字段与视图显示名称的对应关系）。
 public enum FMPMetaDataItem {
     /// 一个独立的字段
@@ -114,7 +114,7 @@ public enum FMPMetaDataItem {
 }
 ```
 
-```swift
+``` swift
 /// 一个FileMaker字段定义，说明字段的名称和类型。
 public struct FMPFieldDefinition {
     /// 字段名称
@@ -124,7 +124,7 @@ public struct FMPFieldDefinition {
 }
 ```
 
-```swift
+``` swift
 /// FileMaker所有可能的字段类型。
 public enum FMPFieldType {
     /// 文字字段
@@ -146,7 +146,7 @@ public enum FMPFieldType {
 
 一个FMPResultSet结果记录集对象容纳了一个FileMaker查询的返回结果。该结构包括数据库视图的元信息，还包括数据行数，以及每行数据记录的详细信息。
 
-```swift
+``` swift
 /// 该结果记录集由数据库查询创建。
 public struct FMPResultSet {
     /// 数据库元信息。
@@ -162,7 +162,7 @@ public struct FMPResultSet {
 
 除了之前描述的FMPLayoutInfo struct数据视图结构对象之外，返回结果记录集还会包含一些其它有关数据库的信息：
 
-```swift
+``` swift
 /// 数据库元信息。
 public struct FMPDatabaseInfo {
     /// 服务器提供的日期格式。
@@ -178,7 +178,7 @@ public struct FMPDatabaseInfo {
 
 返回的所有数据记录是通过访问结果记录集```FMPResultSet.records```属性实现。这个属性是一个FMPRecords数组，每个数组元素对应了一条数据记录（一行记录）。
 
-```swift
+``` swift
 /// 一个单独的记录集。
 public struct FMPRecord {
     /// 记录条目的类型枚举。
@@ -199,7 +199,7 @@ public struct FMPRecord {
 
 每一种情况都是通过FMPFieldValue struct结构来代表字段对应的实际值。
 
-```swift
+``` swift
 /// 返回FileMaker字段数据值
 public enum FMPFieldValue: CustomStringConvertible {
     /// 文字字段。
@@ -227,7 +227,7 @@ public enum FMPFieldValue: CustomStringConvertible {
 
 FMPQuery详细定义如下：
 
-```swift
+``` swift
 /// 数据库查询操作。
 public struct FMPQuery: CustomStringConvertible {
     /// 构造函数；按照数据库名、视图名和数据库操作初始化。
@@ -262,7 +262,7 @@ public struct FMPQuery: CustomStringConvertible {
 
 FMPQuery对象首先通过设置数据库名称、视图名称和操作来初始化。可能的操作包括：
 
-```swift
+``` swift
 /// 数据库操作枚举
 public enum FMPAction: CustomStringConvertible {
     /// 在当前查询内进行检索。
@@ -296,7 +296,7 @@ public enum FMPAction: CustomStringConvertible {
 
 在结果记录集内的记录可以通过一个或多个字段进行排序。排序是通过将期望的字段和排序方法以FMPSortField作为参数调用```FMPQuery.sortFields```函数实现。FMPSortField使用FMPSortOrder枚举类型来确定排序顺序，二者共同定义如下：
 
-```swift
+``` swift
 /// 数据排序顺序。
 public enum FMPSortOrder: CustomStringConvertible {
     /// 按照升序方式排序（从小到大，从低到高）。
@@ -326,29 +326,29 @@ public struct FMPSortField {
 
 每个待查询字段都是用FMPQueryField对象表示。字段级别运算符是通过FMPFieldOp实现，定义如下：
 
-```swift
+``` swift
 /// 字段级别运算符。
 public enum FMPFieldOp {
-    case equal /// 等于
-    case contains /// 包含
-    case beginsWith /// 以之开始
-    case endsWith /// 以之结尾
-    case greaterThan /// 大于
-		case greaterThanEqual /// 大于等于
-		case lessThan /// 小于
-		case lessThanEqual /// 小于等于
+   case equal /// 等于
+   case contains /// 包含
+   case beginsWith /// 以之开始
+   case endsWith /// 以之结尾
+   case greaterThan /// 大于
+	case greaterThanEqual /// 大于等于
+	case lessThan /// 小于
+	case lessThanEqual /// 小于等于
 }
 
 /// 待查询字段
 public struct FMPQueryField {
-    /// 字段名称
-    public let name: String
-    /// 字段取值
-    public let value: Any
-    /// 检索运算符
-    public let op: FMPFieldOp
-    /// 通过字段名称，目标取值和运算符进行初始化的构造函数。
-    public init(name: String, value: Any, op: FMPFieldOp = .beginsWith)
+   /// 字段名称
+   public let name: String
+   /// 字段取值
+   public let value: Any
+   /// 检索运算符
+   public let op: FMPFieldOp
+   /// 通过字段名称，目标取值和运算符进行初始化的构造函数。
+   public init(name: String, value: Any, op: FMPFieldOp = .beginsWith)
 }
 ```
 
@@ -364,7 +364,7 @@ public struct FMPQueryField {
 
 逻辑运算符和待查询字段组是通过FMPLogicalOp和FMPQueryFieldGroup分别表示：
 
-```swift
+``` swift
 /// 用于待查询字段组合的逻辑运算符枚举
 public enum FMPLogicalOp {
     case and, or, not
@@ -392,7 +392,7 @@ public struct FMPQueryFieldGroup {
 
 以下源代码连接到服务器并返回服务器上所有数据库的清单。
 
-```swift
+``` swift
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.databaseNames {
     result in
@@ -414,7 +414,7 @@ fms.databaseNames {
 
 在特定数据库中罗列所有可以使用的数据库视图。
 
-```swift
+``` swift
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.layoutNames(database: "FMServer_Sample") {
     result in
@@ -431,7 +431,7 @@ fms.layoutNames(database: "FMServer_Sample") {
 
 在特定的数据视图上罗列出所有字段名称。
 
-```swift
+``` swift
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.layoutInfo(database: "FMServer_Sample", layout: "Task Details") {
     result in
@@ -449,7 +449,7 @@ fms.layoutInfo(database: "FMServer_Sample", layout: "Task Details") {
 
 执行检索所有记录并打印所有字段及其对应数据取值。
 
-```swift
+``` swift
 let query = FMPQuery(database: "FMServer_Sample", layout: "Task Details", action: .findAll)
 let fms = FileMakerServer(host: testHost, port: testPort, userName: testUserName, password: testPassword)
 fms.query(query) {
@@ -491,7 +491,7 @@ fms.query(query) {
 
 如果需要向查询增加忽略和最大限制这两个参数，请参考以下示例：
 
-```swift
+``` swift
 // 忽略两行记录并返回最多两条记录。
 let query = FMPQuery(database: "FMServer_Sample", layout: "Task Details", action: .findAll)
     .skipRecords(2).maxRecords(2)
@@ -502,7 +502,7 @@ let query = FMPQuery(database: "FMServer_Sample", layout: "Task Details", action
 
 检索符合字段“Status”（状态）为“In Progress”（进行中）的数据记录
 
-```swift
+``` swift
 let qfields = [FMPQueryFieldGroup(fields: [FMPQueryField(name: "Status", value: "In Progress")])]
 let query = FMPQuery(database: "FMServer_Sample", layout: "Task Details", action: .find)
     .queryFields(qfields)
