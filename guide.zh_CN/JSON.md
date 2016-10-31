@@ -6,7 +6,7 @@ Perfect通过一系列Swift自建数据类型的扩展实现了基本的JSON编�
 
 如果需要使用本系统，请首先在您的源代码开始部分确保PerfectLib库函数已经声明导入：
 
-```swift
+``` swift
 import PerfectLib
 ```
 
@@ -30,7 +30,7 @@ import PerfectLib
 
 举例
 
-```swift
+``` swift
 let scoreArray: [String:Any] = ["第一名": 300, "第二名": 230.45, "第三名": 150]
 let encoded = try scoreArray.jsonEncodedString()
 ```
@@ -45,7 +45,7 @@ let encoded = try scoreArray.jsonEncodedString()
 
 包含JSON格式数据的字符串可以用```jsonDecode()```函数解码。如果格式有问题，该函数会抛出```JSONConversionError.syntaxError```语法错误异常。
 
-```swift
+``` swift
 let encoded = "{\"第二名\":230.45,\"第一名\":300,\"第三名\":150}"
 let decoded = try encoded.jsonDecode() as? [String:Any]
 ```
@@ -62,7 +62,7 @@ let decoded = try encoded.jsonDecode() as? [String:Any]
 
 因为解码后的结果总是`[String:Any]`字典或者`[Any]`数组，因此您需要其包含的数据转换为预期类型，比如：
 
-```swift
+``` swift
 var firstPlace = 0
 var secondPlace = 0.0
 var thirdPlace = 0
@@ -101,7 +101,7 @@ print("前三名：\r" + "第一名" + "\(firstPlace)" + " 分\r" + "第二名�
 
 由于JSON的空值是没有类型的，系统会将空值替换为一个```JSONConvertibleNull```对象。比如：
 
-```swift
+``` swift
 let jsonString = "{\"第一名\":300,\"第四名\":null,\"第二名\":230.45,\"第三名\":150}"
 
 if let decoded = try jsonString.jsonDecode() as? [String:Any] {
@@ -123,7 +123,7 @@ if let decoded = try jsonString.jsonDecode() as? [String:Any] {
 
 Perfect的JSON转换工具库提供为定制类的编码解码功能。只要从JSONConvertibleObject基类继承即可，如下示例：
 
-```swift
+``` swift
 /// 从基类继承为一个可以转化为JSON格式的定制对象。
 public class JSONConvertibleObject: JSONConvertible {
     /// 默认构造函数
@@ -141,7 +141,7 @@ public class JSONConvertibleObject: JSONConvertible {
 
 任何需要使用JSON编解码的对象都首先要将该对象注册到系统中去。注册工作需要在您的应用程序启动时完成。调用```JSONDecoding.registerJSONDecodable```函数完成对象注册。该函数定义如下：
 
-```swift
+``` swift
 public class JSONDecoding {
     /// 该函数为基于JSON成员数据定制对象返回一个新的实例。
     public typealias JSONConvertibleObjectCreator = () -> JSONConvertibleObject
@@ -161,7 +161,7 @@ public class JSONDecoding {
 
 类定义
 
-```swift
+``` swift
 class User: JSONConvertibleObject {
     static let registerName = "user"
     var firstName = ""
@@ -184,13 +184,13 @@ class User: JSONConvertibleObject {
 ```
 注册定义好的类信息
 
-```swift
+``` swift
 // 运行一次即可
 JSONDecoding.registerJSONDecodable(name: User.registerName, creator: { return User() })
 ```
 对象编码：
 
-```swift
+``` swift
 let user = User()
 user.firstName = "Donnie"
 user.lastName = "Darko"
@@ -205,7 +205,7 @@ let encoded = try user.jsonEncodedString()
 ```
 对象解码：
 
-```swift
+``` swift
 guard let user2 = try encoded.jsonDecode() as? User else {
     return // 出错
 }
@@ -220,7 +220,7 @@ XCTAssert(user.age == user2.age)
 
 在JSON编码解码过程中，系统可能会抛出一个```JSONConversionError```转换异常，定义如下：
 
-```swift
+``` swift
 /// 在JSON编解码过程中可能发生的错误异常。
 public enum JSONConversionError: ErrorProtocol {
     /// 对象不支持JSON转换。

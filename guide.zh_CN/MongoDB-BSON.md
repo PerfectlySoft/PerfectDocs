@@ -8,25 +8,25 @@ BSON是“二进制JSON”的缩写，是一种形如JSON表达式的、以二�
 
 直接创建一个内容为空的BSON对象
 
-```swift
+``` swift
 let bsonEmpty = BSON()
 ```
 
 或者用一个字节数组作为参数来构造一个BSON文档结构。如果这个字节数组的内容是有效的一个BSON文档对象，就可以直接从字节数组的数据转化为文档内容。
 
 
-```swift
+``` swift
 let bsonBytes = BSON(bytes: [UInt8])
 ```
 
 或者以一个JSON字符串作为参数来创建一个新的BSON文档，同样将JSON数据转化为BSON内容。
 
-```swift
+``` swift
 let bsonJSON = BSON(json: String)
 ```
 最后一种方式是由另外一个BSON实例来创建一个新的BSON对象，相当于整个文档内容被完整复制。
 
-```swift
+``` swift
 let bsonBSON = BSON(document: BSON)
 ```
 
@@ -34,7 +34,7 @@ let bsonBSON = BSON(document: BSON)
 
 关闭、析构并释放当前BSON文档的方法是：
 
-```swift
+``` swift
 let bson = BSON()
 defer {
     bson.close()
@@ -47,7 +47,7 @@ defer {
 
 详见[《MongoDB开发手册——扩展JSON》](http://docs.mongodb.org/manual/reference/mongodb-extended-json/)。
 
-```swift
+``` swift
 let bson.close = BSON(document: <BSON>)
 defer {
     bson.close()
@@ -57,7 +57,7 @@ print(bson.asString())
 
 请调用`asArrayString`方法以字符串数组的形式获取当前BSON对象包裹在最外层数据。
 
-```swift
+``` swift
 print(bson.asArrayString())
 ```
 
@@ -65,7 +65,7 @@ print(bson.asArrayString())
 
 调用`asBytes`方法可以将BSON文档转化为一个8位无符号的字节数组`[UInt8]`。
 
-```swift
+``` swift
 let bytesArray = bson.asBytes()
 ```
 
@@ -73,7 +73,7 @@ let bytesArray = bson.asBytes()
 
 调用`append`方法可以将数据追加到BSON文档。
 
-在调用`append`追加函数过程中，该函数会使用`@discardableResult`属性。该操作的结果可以被返回或者直接忽略。/p>
+在调用`append`追加函数过程中，该函数会使用`@discardableResult`属性。该操作的结果可以被返回或者直接忽略。
 
 如果`append`追加操作返回值为：
 
@@ -84,43 +84,43 @@ let bytesArray = bson.asBytes()
 
 为当前BSON文档追加一个新的字段，类型为`BSON_TYPE_OID`对象标示符。
 
-```swift
+``` swift
 bson.append(key: <String>, oid: <bson_oid_t>)
 ```
 
 为当前BSON文档追加一个新的字段，类型为`BSON_TYPE_DATE_TIME` 日期时间，字段值来自dateTime参数的内容。
 
-```swift
+``` swift
 bson.append(key: <String>, dateTime: <Int64>)
 ```
 
 为当前BSON文档追加一个新的字段，类型为`BSON_TYPE_DATE_TIME` 日期时间，字段值来自time参数的内容。time_t是UNIX使用UTC计算时间的方法，单位是秒。
 
-```swift
+``` swift
 bson.append(key: <String>, time: <time_t>)
 ```
 
 为当前BSON文档追加一个新的字段，类型为`BSON_TYPE_DOUBLE`双精度浮点数，字段值即浮点数值。
 
-```swift
+``` swift
 bson.append(key: <String>, double: <Double>)
 ```
 
 为当前BSON文档追加一个新的字段，类型为`BSON_TYPE_BOOL`布尔类型。
 
-```swift
+``` swift
 bson.append(key: <String>, bool: <Bool>)
 ```
 
 为当前BSON文档追加一个新的字段，类型为UTF-8标准编码的字符串。
 
-```swift
+``` swift
 bson.append(key: <String>, string: <String>)
 ```
 
 为当前BSON文档追加一个新的字段，类型为一个字节数组缓冲区。
 
-```swift
+``` swift
 bson.append(key: <String>, bytes: <[UInt8]>)
 ```
 
@@ -142,7 +142,7 @@ bson.append(key: <String>, bytes: <[UInt8]>)
 * **options:** 正则表达式选项
 
 
-```swift
+``` swift
 bson.append(key: <String>, regex: <String>, options: <String>)
 ```
 
@@ -150,7 +150,7 @@ bson.append(key: <String>, regex: <String>, options: <String>)
 
 `appendArray`方法可以向BSON文档追加一个完整的数组。BSON数组形如文档，只不过索引值为关键词。比如，数组的第一个元素关键词是"0"，第二个元素的是"1"。
 
-```swift
+``` swift
 bson.appendArray(key: <String>, array: <BSON>)
 ```
 
@@ -160,13 +160,13 @@ bson.appendArray(key: <String>, array: <BSON>)
 
 子数组参数 @child 的类型是`BSON_TYPE_ARRAY`，因此在这个数组内的所有关键词都应该是"0"、"1"之类。
 
-```swift
+``` swift
 bson.appendArrayBegin(key: <String>, child: <BSON>)
 ```
 
 而`appendArrayEnd`方法结束向BSON追加数组的过程。Child变量应该在调用之后释放注销，不要再使用。
 
-```swift
+``` swift
 bson.appendArrayEnd(key: <String>, child: <BSON>)
 ```
 
@@ -174,7 +174,7 @@ bson.appendArrayEnd(key: <String>, child: <BSON>)
 
 调用`concat`方法来合并`src`参数中的BSON文档。
 
-```swift
+``` swift
 bson.concat(src: <BSON>)
 ```
 
@@ -182,7 +182,7 @@ bson.concat(src: <BSON>)
 
 用下面的函数统计BSON文档中的字段（元素）数量。
 
-```swift
+``` swift
 bson.countKeys()
 ```
 
@@ -191,13 +191,13 @@ bson.countKeys()
 
 该函数是大小写敏感的。如果找到了关键词就返回真值`true` ，否则返回假`false`。
 
-```swift
+``` swift
 let hasKey = bson.hasField(key: <String>)
 ```
 
 ### 比较两个BSON文档是否完全相等
 
-```swift
+``` swift
 guard let bson == bson2 else {
     return false
 }
@@ -207,7 +207,7 @@ guard let bson == bson2 else {
 
 如果lhs排序在rhs之上，将返回真值`true`，否则返回假`false`。
 
-```swift
+``` swift
 guard let bson < bson2 else {
     return false
 }

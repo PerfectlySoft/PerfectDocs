@@ -12,7 +12,7 @@ HTTP状态用于说明请求是否成功。以返回错误或者采取其它操�
 
 返回状态见如下属性：
 
-```swift
+``` swift
 /// HTTP响应状态
 var status: HTTPResponseStatus { get set }
 ```
@@ -21,7 +21,7 @@ var status: HTTPResponseStatus { get set }
 
 响应消息头可以从对象内获取、设置或者遍历。常用的官方消息头命名参见```HTTPResponseHeader.Name```枚举。该枚举还包含了可以自定义消息头名称的```.custom(name: String)```类型。
 
-```swift
+``` swift
 /// 返回响应消息头内容值。
 func header(_ named: HTTPResponseHeader.Name) -> String?
 /// 在响应内容中增加一条消息头数据。
@@ -36,7 +36,7 @@ var headers: AnyIterator<(HTTPResponseHeader.Name, String)> { get }
 
 HTTPResponse对象还提供用于设置HTTP cookies（即浏览器内保存临时用户信息的一种方法）的更高级支持，即创建一个cookie对象，然后增加到响应对象中去。
 
-```swift
+``` swift
 /// 以下结构用于设置响应内容中的cookie数据
 public struct HTTPCookie {
     /// Cookie 构造函数
@@ -52,7 +52,7 @@ public struct HTTPCookie {
 
 用以下函数可以将Cookie增加到HTTPResponse响应
 
-```swift
+``` swift
 /// 在输出响应时增加一个cookie。
 func addCookie(_ cookie: HTTPCookie)
 ```
@@ -63,7 +63,7 @@ func addCookie(_ cookie: HTTPCookie)
 
 响应的当前消息体数据可以通过以下属性管理：
 
-```swift
+``` swift
 /// 待发出给客户端浏览器的消息体数据.
 /// 每个数据块送出后都会被清空。
 var bodyBytes: [UInt8] { get set }
@@ -71,7 +71,7 @@ var bodyBytes: [UInt8] { get set }
 
 数据可以直接追加到数组中去，或者通过下列函数进行内容追加。下列函数可以完全改变消息体数据内容，或者仅仅是追加二进制无符号整数字节或者字符串。字符串会被转换为UTF-8编码。最后一个函数允许将一个`[String:Any]`字典转化为一个JSON字符串。
 
-```swift
+``` swift
 /// 追加二进制字节流到消息体。
 func appendBody(bytes: [UInt8])
 /// 向响应输出追加字符串，
@@ -90,7 +90,7 @@ func setBody(json: [String:Any]) throws
 
 以下函数用于推送所有响应消息头和消息体数据：
 
-```swift
+``` swift
 /// 将现有全部消息头和消息体数据推送给客户端浏览器。
 /// 可能会一次或多次调用。
 func push(callback: (Bool) -> ())
@@ -104,7 +104,7 @@ func push(callback: (Bool) -> ())
 
 某些情况下，响应内容的长度无法轻易确定。比如，如果是在线的视频流或者音乐流，则这种情况下是无法设置消息头中的内容长度的。此时，请将TTPResponse设置为流媒体模式，这样响应会以HTTP数据块编码的方式进行发送。流媒体不要求设置响应内容长度单位，相反，只需要对响应增加消息体并调用```push```函数。如果push成功，则消息体会被清空然后可以继续追加更多数据。请持续调用```push```直到请求完成，或者push函数会给回调函数发一个```false```表示响应失败。
 
-```swift
+``` swift
 /// 确定响应切换为流媒体输出模式。
 /// 最大的区别就是响应内容长度是未知的。
 var isStreaming: Bool { get set }
@@ -116,7 +116,7 @@ var isStreaming: Bool { get set }
 
 **⚠️注意⚠️**：当请求完成时，**必须调用** HTTPResponse的```completed```函数。必须确认所有的数据已经完全送达给客户，随后TCP连接会被关闭，无论是不是处于HTTP keep-alive活动状态，直到有新的请求开始处理。
 
-```swift
+``` swift
 /// 意味着请求已经全部完成。
 /// 所有未发送的消息头数据和消息体数据此时都会推送给客户。
 /// 一旦调用完成则后续操作均失去意义。

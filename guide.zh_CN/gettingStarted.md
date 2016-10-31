@@ -74,7 +74,7 @@ swift package generate-xcodeproj
 
 ### 获得客户端请求消息头
 
-```swift
+``` swift
 if let acceptEncoding = request.header(.acceptEncoding) {
 	...
 }
@@ -82,7 +82,7 @@ if let acceptEncoding = request.header(.acceptEncoding) {
 
 ### 获得客户端GET和POST参数
 
-```swift
+``` swift
 if let foo = request.param(name: "foo") {
 	...
 }   
@@ -94,13 +94,13 @@ let foos: [String] = request.params(named: "foo")
 
 ### 获得当前的请求路径
 
-```swift
+``` swift
 let path = request.path
 ```
 
 ### 访问服务器文档目录并返回给客户端一个图像文件
 
-```swift
+``` swift
 let docRoot = request.documentRoot
 do {
     let mrPebbles = File("\(docRoot)/mr_pebbles.jpg")
@@ -118,7 +118,7 @@ response.completed()
 
 ### 获得客户端浏览器内的Cookie
 
-```swift
+``` swift
 for (cookieName, cookieValue) in request.cookies {
 	...
 }
@@ -126,7 +126,7 @@ for (cookieName, cookieValue) in request.cookies {
 
 ### 设置客户端浏览器内的Cookie
 
-```swift
+``` swift
 let cookie = HTTPCookie(name: "cookie-name", value: "the value", domain: nil,
                     expires: .session, path: "/",
                     secure: false, httpOnly: false)
@@ -135,7 +135,7 @@ response.addCookie(cookie)
 
 ### 将JSON数据返回给客户端
 
-```swift
+``` swift
 response.setHeader(.contentType, value: "application/json")
 let d: [String:Any] = ["a":1, "b":0.1, "c": true, "d":[2, 4, 5, 7, 8]]
 
@@ -150,7 +150,7 @@ response.completed()
 
 ### 客户端请求重定向
 
-```swift
+``` swift
 response.status = .movedPermanently
 response.setHeader(.location, value: "http://www.perfect.org/")
 response.completed()
@@ -158,7 +158,7 @@ response.completed()
 
 ### 以定制风格过滤和处理404错误
 
-```swift
+``` swift
 struct Filter404: HTTPResponseFilter {
 	func filterBody(response: HTTPResponse, callback: (HTTPResponseFilterResult) -> ()) {
 		callback(.continue)

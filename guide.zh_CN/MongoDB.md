@@ -37,7 +37,7 @@ sudo apt-get install libmongoc
 
 请在Package.swift增加对该驱动的依存关系。
 
-```
+``` swift
 .Package(
 	url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git",
 	majorVersion: 2, minor: 0
@@ -84,7 +84,7 @@ swift package generate-xcodeproj
 
 请在您的Perfect项目源程序开头声明并导入MongoDB函数库：
 
-```swift
+``` swift
 import MongoDB
 ```
 
@@ -94,7 +94,7 @@ import MongoDB
 
 确定具体的连接URL之后，参考以下例子打开连接：
 
-```swift
+``` swift
 let client = try! MongoClient(uri: "mongodb://localhost")
 ```
 
@@ -104,7 +104,7 @@ let client = try! MongoClient(uri: "mongodb://localhost")
 
 一旦服务器连接成功，即可选择具体数据库：
 
-```swift
+``` swift
 let db = client.getDatabase(name: "test")
 ```
 
@@ -112,7 +112,7 @@ let db = client.getDatabase(name: "test")
 
 请采用以下方式定义和操作MongoDB集合：
 
-```swift
+``` swift
 let collection = db.getCollection(name: "testcollection")
 ```
 
@@ -120,7 +120,7 @@ let collection = db.getCollection(name: "testcollection")
 
 一旦服务器连接成功，建议采用`defer`块方式进行滞后关闭
 
-```swift
+``` swift
 defer {
     collection.close()
     db.close()
@@ -131,7 +131,7 @@ defer {
 
 请使用`find`方法在集合中检索全部有关文档：
 
-```swift
+``` swift
     let fnd = collection.find(query: BSON())
 
     // 初始化一个空数组用于接收格式化结果
