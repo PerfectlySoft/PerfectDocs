@@ -3,7 +3,7 @@ Perfect为服务器端的Swift语言环境提供了文件访问操作的便捷�
 
 首先，请确保`PerfectLib`已经在您的Swift源程序开始部分完成声明：
 
-```swift
+``` swift
 import Perfectib
 ```
 声明完成之后，即可开始使用`File`文件对象来实现在文件系统中的查询和文件操作。
@@ -12,7 +12,7 @@ import Perfectib
 
 使用File文件对象时，请指定文件的绝对或相对路径：
 
-```swift
+``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
 ```
 
@@ -23,13 +23,13 @@ let thisFile = File("/path/to/file/helloWorld.txt")
 
 打开一个文件：
 
-```swift
+``` swift
 try thisFile.open(<OpenMode>,permissions:<PermissionMode>)
 ```
 
 写入文件的例子：
 
-```swift
+``` swift
 let thisFile = File("helloWorld.txt")
 try thisFile.open(.readWrite)
 try thisFile.write(string: "你好！")
@@ -42,7 +42,7 @@ thisFile.close()
 
 请使用`exists`方法检查文件是否存在。该方法返回一个布尔值，真表示存在，假表示不存在。
 
-```swift
+``` swift
 thisFile.exists
 ```
 
@@ -51,7 +51,7 @@ thisFile.exists
 
 调用下面的函数将返回一个整数，其含义为自格林威治时间1970/01/01 00:00:00到最后一次修改文件的时间之间的秒数：
 
-```swift
+``` swift
 thisFile.modificationTime
 ```
 
@@ -61,13 +61,13 @@ thisFile.modificationTime
 
 返回系统内部参考路径"internal reference"：
 
-```swift
+``` swift
 thisFile.path
 ```
 
 返回文件的绝对路径（物理路径）方法（如果当前文件为符号链接，则同样其链接也会被解析为绝对路径）：
 
-```swift
+``` swift
 thisFile.realPath
 ```
 
@@ -75,7 +75,7 @@ thisFile.realPath
 
 一旦文件被打开并执行读写操作，随时可以在程序内选择用close方法关闭，或使用`defer`方法挂起：
 
-```swift
+``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
 // 在此处进行文件读写操作处理
 thisFile.close()
@@ -86,7 +86,7 @@ thisFile.close()
 
 如果需要从文件系统中删除一个文件，请使用`delete()`方法。
 
-```swift
+``` swift
 thisFile.delete()
 ```
 
@@ -98,7 +98,7 @@ thisFile.delete()
 
 调用`size`方法可以返回文件大小的字节数，返回值为整数。
 
-```swift
+``` swift
 thisFile.size
 ```
 
@@ -106,7 +106,7 @@ thisFile.size
 
 用下面的方法来判断当前文件对象是否为一个符号链接，如果是符号链接则返回值为布尔类型的`true`,真值，反之为`false`假。
 
-```swift
+``` swift
 thisFile.isLink
 ```
 
@@ -114,7 +114,7 @@ thisFile.isLink
 
 用`isDir` 方法来判断当前文件对象是否为一个目录节点，如果是则返回值为布尔类型的`true`,真值，反之为`false`假。
 
-```swift
+``` swift
 thisFile.isDir
 ```
 
@@ -122,13 +122,13 @@ thisFile.isDir
 
 调用`perms` 函数可返回文件的权限信息，返回值为一个`PermissionMode`对象。
 
-```swift
+``` swift
 thisFile.perms
 ```
 
 比如：
 
-```swift
+``` swift
 print(thisFile.perms)
 >> PermissionMode(rawValue: 29092)
 ```
@@ -139,7 +139,7 @@ print(thisFile.perms)
 
 根据指定的字节数量读取文件内容：
 
-```swift
+``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
 let contents = try thisFile.readSomeBytes(count: <Int>)
 ```
@@ -149,7 +149,7 @@ let contents = try thisFile.readSomeBytes(count: <Int>)
 该方法的参数为计划读取的字节数量。比如，下面的例子说明了如何从文件中读取10字节数据：
 
 
-```swift
+``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
 let contents = try thisFile.readSomeBytes(count: 10)
 print(contents)
@@ -162,7 +162,7 @@ print(contents)
 
 `readString`方法能够将整个文件的数据读取到一个字符串：
 
-```swift
+``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
 let contents = try thisFile.readString()
 ```
@@ -178,7 +178,7 @@ let contents = try thisFile.readString()
 
 注意该方法会使用`@discardableResult`属性，所以如果需要的话，即便没有对该属性赋值，也会在调用过程中被使用。
 
-```swift
+``` swift
 let bytesWritten = try thisFile.write(string: <String>)
 ```
 
@@ -188,7 +188,7 @@ let bytesWritten = try thisFile.write(string: <String>)
 
 注意该方法会使用`@discardableResult`属性，所以如果需要的话，即便没有对该属性赋值，也会在调用过程中被使用。
 
-```swift
+``` swift
 let bytesWritten = try thisFile.write(
     bytes: <[UInt8]>,
     dataPosition: <Int>,
@@ -207,7 +207,7 @@ let bytesWritten = try thisFile.write(
 
 文件对象一旦定义成功，就可以随时调用`moveto`方法，将文件移动到一个新的路径位置上。该方法也可以用于给文件改名。操作完成后，该方法返回一个代表新位置的新的文件对象。
 
-```swift
+``` swift
 let newFile = thisFile.moveTo(path: <String>, overWrite: <Bool>)
 ```
 
@@ -220,7 +220,7 @@ let newFile = thisFile.moveTo(path: <String>, overWrite: <Bool>)
 
 该方法会在出错的情况下抛出`PerfectError.FileError`异常
 
-```swift
+``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
 let newFile = try thisFile.moveTo(path: "/path/to/file/goodbyeWorld.txt")
 ```
@@ -231,7 +231,7 @@ let newFile = try thisFile.moveTo(path: "/path/to/file/goodbyeWorld.txt")
 
 注意该方法会使用`@discardableResult`属性，所以如果需要的话，即便没有对该属性赋值，也会在调用过程中被使用。
 
-```swift
+``` swift
 let newFile = thisFile.copyTo(path: <String>, overWrite: <Bool>)
 ```
 #### 参数说明
@@ -243,7 +243,7 @@ let newFile = thisFile.copyTo(path: <String>, overWrite: <Bool>)
 
 该方法会在出错的情况下抛出`PerfectError.FileError`异常
 
-```swift
+``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
 let newFile = try thisFile.copyTo(path: "/path/to/file/goodbyeWorld.txt")
 ```
@@ -260,7 +260,7 @@ let newFile = try thisFile.copyTo(path: "/path/to/file/goodbyeWorld.txt")
 
 尝试对文件对象的当前位置开始的数个字节内容进行锁定。该函数将阻塞当前线程直至加锁操作完成。
 
-```swift
+``` swift
 let result = try thisFile.lock(byteCount: <Int>)
 ```
 
@@ -268,7 +268,7 @@ let result = try thisFile.lock(byteCount: <Int>)
 
 尝试对文件对象当前位置开始的数个字节内容进行解锁。
 
-```swift
+``` swift
 let result = try thisFile.unlock(byteCount: <Int>)
 ```
 
@@ -276,7 +276,7 @@ let result = try thisFile.unlock(byteCount: <Int>)
 
 尝试对文件对象的当前位置开始的数个字节内容进行锁定。该函数如果在文件已经加锁的情况下会抛出一个异常，单不会阻塞当前线程。
 
-```swift
+``` swift
 let result = try thisFile.tryLock(byteCount: <Int>)
 ```
 
@@ -284,7 +284,7 @@ let result = try thisFile.tryLock(byteCount: <Int>)
 
 测试目标的字节区段是否已经被锁定，返回值为布尔类型。如果已经锁定则返回真，否则返回假。
 
-```swift
+``` swift
 let isLocked = try thisFile.testLock(byteCount: <Int>)
 ```
 
@@ -300,7 +300,7 @@ let isLocked = try thisFile.testLock(byteCount: <Int>)
 
 下面的例子为文件写操作：
 
-```swift
+``` swift
 let thisFile = File("helloWorld.txt")
 try thisFile.open(.readWrite)
 try thisFile.write(string: "你好！")
@@ -313,7 +313,7 @@ thisFile.close()
 
 比如，以下列指定权限创建一个目录：
 
-```swift
+``` swift
 let thisDir = Dir("/path/to/dir/")
 do {
     try thisDir.create(perms: [.rwxUser, .rxGroup, .rxOther])

@@ -28,7 +28,7 @@ HTTP表单数据主要采用以下两种编码格式：
 
 因为表单是POST方法，我们需要用`.post`方法管理请求响应路由
 
-```swift
+``` swift
 var routes = Routes()
 routes.add(
     method: .post,
@@ -39,7 +39,7 @@ server.addRoutes(routes)
 
 一旦对方请求内容完成文件传输，则我们可以使用请求句柄`handler`：
 
-```swift
+``` swift
 // 通过操作fileUploads数组来掌握文件上传的情况
 // 如果这个POST请求不是分段multi-part类型，则该数组内容为空
 
@@ -50,7 +50,7 @@ if let uploads = request.postFileUploads where uploads.count > 0 {
     for upload in uploads {
         ary.append([
             "fieldName": upload.fieldName,	//字段名
-            "contentType": upload.contentType,	//文件内容类型
+            "contentType": upload.contentType, //文件内容类型
             "fileName": upload.fileName,	//文件名
             "fileSize": upload.fileSize,	//文件尺寸
             "tmpFileName": upload.tmpFileName	//上载后的临时文件名
@@ -67,7 +67,7 @@ if let uploads = request.postFileUploads where uploads.count > 0 {
 
 因此我们可以创建一个目录来放置这些上传来的文件。该目录因安全考虑不会和webroot的根目录放在一起：
 
-```swift
+``` swift
 // 创建路径用于存储已上传文件
 let fileDir = Dir(Dir.workingDir.path + "files")
 do {
@@ -79,7 +79,7 @@ do {
 
 下一步，在`for upload in uploads`代码段，我们会执行文件转移的操作：
 
-```swift
+``` swift
 // 将文件转移走，如果目标位置已经有同名文件则进行覆盖操作。
 let thisFile = File(upload.tmpFileName)
 do {

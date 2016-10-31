@@ -110,7 +110,7 @@ var perf = curlObject.perform { <Int>, <[UInt8]>, <[UInt8]> }
 
 下面举例调用perform，采用闭包方式读取数据
 
-```swift
+``` swift
 curlObject.perform {
     code, header, body in
 
@@ -124,7 +124,7 @@ curlObject.perform {
 
 如有必要执行一个阻塞当前进程直至所有查询结果返回的完整cURL请求，可以使用`.performFully` 方法：
 
-```swift
+``` swift
 var perf = curlObject.performFully()
 ```
 
