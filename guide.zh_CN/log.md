@@ -13,7 +13,7 @@ Perfect包含了一个内建的错误日志系统。用户可以调用log进行�
 
 ### 如果需要将日志信息直接输出到命令行
 
-```swift
+``` swift
 Log.debug(message: "程序第123行: value \(myVar)")
 Log.info(message: "程序第123行:")
 Log.warning(message: "调用错误句柄")
@@ -26,12 +26,12 @@ Log.terminal(message: "异常失控，服务终止。\(infoVar)")
 
 如果需要将所有日志结果输出到系统日志中去，请在程序启动的配置过程中调用`SysLogger()`并设置`Log.logger`属性。一旦设置完成，所有日志将输出到系统日志文件，同时在命令行中同步显示。
 
-```swift
+``` swift
 Log.logger = SysLogger()
 ```
 
 如果您希望将日志渠道停止输出到系统并返回到命令行，请随时调用上述方法将属性设置回`ConsoleLogger()`
 
-```swift
+``` swift
 Log.logger = ConsoleLogger()
 ```

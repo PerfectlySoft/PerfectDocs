@@ -14,7 +14,7 @@ HTTPRequest对象还提供一些并非被客户端浏览器显式说明的数据
 
 客户端服务器的地址是IP地址和端口的成对信息：
 
-```swift
+``` swift
 /// 连接到客户端的IP地址和端口。
 var remoteAddress: (host: String, port: UInt16) { get }
 /// 服务器方的IP地址和监听端口。
@@ -23,14 +23,14 @@ var serverAddress: (host: String, port: UInt16) { get }
 
 当服务器创建时，您可以为其设置一个正式的服务器名`CNAME`。很多情况下这个名称非常有用，比如为服务器创建完整的连接。当HTTPRequest创建后，服务器会为其应用`CNAME`，可以从下列属性进行访问：
 
-```swift
+``` swift
 /// 服务器正式名称
 var serverName: String { get }
 ```
 
 服务器的文档根目录是为静态文件准备的。如果您不准备提供静态内容，则可以不需要设置文档根目录。文档根目录是在服务器启动之前预先配置好的。当HTTPRequest对象创建时会自动包括这个文档根目录。如果需要访问如Mustache模板这类的静态资源，最好就此准备好文档根目录：
 
-```swift
+``` swift
 /// 服务器文档根目录，用于静态文件存储和服务提供。
 var documentRoot: String { get }
 ```
@@ -39,13 +39,13 @@ var documentRoot: String { get }
 
 HTTPRequest请求文本行包含了请求的方法、路径、查询参数和HTTP协议标识符。典型的HTTPRequest请求文本行形如：
 
-```swift
+``` swift
 GET /path?q1=v1&q2=v2 HTTP/1.1
 ```
 
 HTTPRequest将解析这个请求并转化为以下属性。查询参数`queryParams`是以一个键／值构造的（字典）数组：
 
-```swift
+``` swift
 /// The HTTP request method.
 var method: HTTPMethod { get set }
 /// The request path.
@@ -58,14 +58,14 @@ var protocolVersion: (Int, Int) { get }
 
 在请求响应路由处理过程中，路由URI字串可有多个URL变量组成，可以被解析为一个字典：
 
-```swift
+``` swift
 /// 在请求句柄中的URL变量。
 var urlVariables: [String:String] { get set }
 ```
 
 HTTPRequest对象还提供完整的URI请求信息，与其它URL编码查询参数`query parameters`同样方式保存请求路径：
 
-```swift
+``` swift
 /// 返回完整的URI唯一资源标识符。
 var uri: String { get }
 ```
@@ -76,7 +76,7 @@ var uri: String { get }
 
 在收到请求后是可以自行设置消息头内容的。在HTTPRequest过滤器中非常有用，因为它们可以重写部分消息头内容：
 
-```swift
+``` swift
 /// 返回请求的消息头变量值。
 func header(_ named: HTTPRequestHeader.Name) -> String?
 /// 为响应增加一个消息头
@@ -91,7 +91,7 @@ var headers: AnyIterator<(HTTPRequestHeader.Name, String)> { get }
 
 Cookie可以通过键／值数组进行访问。
 
-```swift
+``` swift
 /// 返回目前请求内的所有cookie的键／值。
 var cookies: [(String, String)]
 ```
@@ -110,7 +110,7 @@ var cookies: [(String, String)]
 
 HTTPRequest对象可以通过以下方法访问消息体数据：
 
-```swift
+``` swift
 /// 以原始字节流的方式获取POST消息体数据。
 /// 如果POST内容类型是multipart/form-data多段表单的话，下面的方法返回为nil。
 var postBodyBytes: [UInt8]? { get set }

@@ -3,14 +3,14 @@
 
 集合可以通过在连接客户端和数据库内“cascading堆叠”定义：
 
-```swift
+``` swift
 let client = try! MongoClient(uri: "mongodb://localhost")
 let db = client.getDatabase(name: "test")
 let collection = db.getCollection(name: "testcollection")
 ```
 或者在打开打开连接后直接赋值产生：
 
-```swift
+``` swift
 let client = try! MongoClient(uri: "mongodb://localhost")
 let collection = MongoCollection(
     client: client,
@@ -21,7 +21,7 @@ let collection = MongoCollection(
 ### 关闭集合
 请务必参考下列代码以保证数据连接得到正常关闭：
 
-```swift
+``` swift
 defer {
     collection.close()
     db.close()          // 如果是通过“cascade堆叠方式”创建
@@ -33,7 +33,7 @@ defer {
 
 参考以下函数以字符串类型获得集合名称：
 
-```swift
+``` swift
 collection.name()
 ```
 
@@ -41,7 +41,7 @@ collection.name()
 
 参考以下代码，用newDbName新数据库名、以及newCollectionName新建集合名称这两个方法为集合与数据库改名。上述方法包括一个选项，允许是否在改名后立刻删除现有集合：
 
-```swift
+``` swift
 collection.rename(
     newDbName: <String>,
     newCollectionName: <String>,
@@ -60,7 +60,7 @@ collection.rename(
 
 请使用`.drop`方法从数据库内删除指定集合。执行该命令删除集合时，与集合有关的索引也会被一同删除。
 
-```swift
+``` swift
 collection.drop()
 ```
 
@@ -70,7 +70,7 @@ collection.drop()
 
 在当前集合中插入一个文档并返回结果状态：
 
-```swift
+``` swift
 collection.insert(_
     document: <BSON>,
     flag: <MongoInsertFlag>
@@ -93,7 +93,7 @@ MongoInsertFlag插入标志枚举具有以下可选内容：
 ### 更新文档
 如果需要更新集合内的文档，请用新的BSON对象和选择器去替换原有文档。
 
-```swift
+``` swift
 collection.update(
     update: <BSON>,
     selector: <BSON>,
@@ -120,7 +120,7 @@ MongoUpdateFlag更新标志枚举具备以下选项：
 
 根据文档参数决定更新一个现有文档或者是插入一个新文档。
 
-```swift
+``` swift
 collection.save(document: <BSON>)
 ```
 
@@ -132,7 +132,7 @@ collection.save(document: <BSON>)
 * 如果文档不包括一个`_id`字段，则会创建一个新的文档
 * 如果确定了一个具体的`_id`字段，`save`操作会执行一个“upsert”操作；如果找到了匹配该`_id`字段的文档，则进行更新，否则直接插入新文档
 
-```swift
+``` swift
 let bson = BSON()
 defer {
     bson.close()
@@ -149,7 +149,7 @@ let result2 = collection.save(document: bson)
 
 在集合内筛选文档并返回一个指向选中文档的参考游标。
 
-```swift
+``` swift
 collection.find(
     query: <BSON>,
     fields: <BSON>,
@@ -174,7 +174,7 @@ collection.find(
 
 修改并返回一个单独的文档。默认情况下，所返回的文档不包含更新时的修改内容。如果希望返回在此基础之上的修改稿，则采用**new**选项。
 
-```swift
+``` swift
 collection.findAndModify(
     query: <BSON>,
     sort: <BSON>,
@@ -198,7 +198,7 @@ collection.findAndModify(
 
 返回`find()` 。该`count()`计数方法不会执行`find()`操作，而是返回匹配查询条件的结果数量。
 
-```swift
+``` swift
 collection.count(
     query: <BSON>,
     fields: <BSON>,
@@ -223,7 +223,7 @@ collection.count(
 ### 删除
 删除由选择过滤器筛选出的文档：
 
-```swift
+``` swift
 collection.remove(
     selector: <BSON>,
     flag: <MongoRemoveFlag>
@@ -237,7 +237,7 @@ collection.remove(
 ### 创建索引
 在集合上创建索引。
 
-```swift
+``` swift
 collection.createIndex(
     keys: <BSON>,
     options: <MongoIndexOptions>
@@ -251,14 +251,14 @@ collection.createIndex(
 ### 删除索引
 从集合中删除一个指定的索引Drops or removes the specified index from a collection.
 
-```swift
+``` swift
 collection.dropIndex(name: <String>)
 ```
 
 ### 返回统计
 返回根据选项文档格式化的统计信息。
 
-```swift
+``` swift
 collection.stats(options: <BSON>)
 ```
 
@@ -276,7 +276,7 @@ collection.stats(options: <BSON>)
 
 验证一个集合。该方法扫描并校验一个集合的数据结构，然后返回一个单独的文档用于描述逻辑集合和数据实际展示之间的逻辑关系。
 
-```swift
+``` swift
 collection.validate(full: <bool>)
 ```
 
@@ -286,6 +286,6 @@ collection.validate(full: <bool>)
 
 `getLastError()`方法返回一个BSON文档用于描述最后一次交易结果
 
-```swift
+``` swift
 collection.getLastError()
 ```

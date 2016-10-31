@@ -94,7 +94,7 @@ swift build
 
 现在已经确认Swift工具包已经准备好了。下一步就可以实现一个Perfect的HTTPServer服务器啦！打开`Sources/main.swift`文件，把内容替换为以下程序：
 
-```swift
+``` swift
 import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer

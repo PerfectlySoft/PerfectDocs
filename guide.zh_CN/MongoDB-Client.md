@@ -4,7 +4,7 @@ MongoClient客户端类用于初始化到MongoDB服务器的连接。
 
 将MongoClient客户端连接到服务器：
 
-```swift
+``` swift
 let client = try! MongoClient(uri: "mongodb://localhost")
 ```
 
@@ -12,7 +12,7 @@ let client = try! MongoClient(uri: "mongodb://localhost")
 
 一旦连接建立、打开数据库并打开集合，请用`defer`滞后方法关闭连接，注意关闭顺序与建立连接的顺序正好相反——先关闭集合，然后关闭数据库，最后在关闭服务器连接。
 
-```swift
+``` swift
 defer {
     collection.close()
     db.close()
@@ -24,10 +24,8 @@ defer {
 
 调用`getDatabase`函数返回当前服务器连接内指定的MongoDatabase。
 
-```swift
-let db = client.getDatabase(
-    databaseName: <String>
-    )
+``` swift
+let db = client.getDatabase( databaseName: <String> )
 ```
 
 #### 参数说明
@@ -38,11 +36,8 @@ let db = client.getDatabase(
 
 调用`getCollection`方法能够将客户端连接到当前服务器指定数据库下的目标集合。
 
-```swift
-let collection = client.getCollection(
-    databaseName: <String>,
-    collectionName: <String>
-    )
+``` swift
+let collection = client.getCollection( databaseName: <String>, collectionName: <String> )
 ```
 
 #### 参数说明
@@ -54,7 +49,7 @@ let collection = client.getCollection(
 
 调用`serverStatus`方法返回代表服务器状态的一个对象，
 
-```swift
+``` swift
 let status = client.serverStatus()
 ```
 
@@ -63,6 +58,6 @@ let status = client.serverStatus()
 调用`databaseNames`方法以字符串数组形式获取当前所有可用的数据库名称列表
 
 
-```swift
+``` swift
 let dbnames = client.databaseNames()
 ```

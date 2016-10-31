@@ -4,7 +4,7 @@ MongoDB Database 类用于根据MongoClient客户端实例来访问服务器上�
 
 创建一个新的Mongo Database连接：
 
-```swift
+``` swift
 let database = try! MongoDatabase(
     client: <MongoClient>,
     databaseName: <String>
@@ -15,7 +15,7 @@ let database = try! MongoDatabase(
 
 一旦连接建立、打开数据库并打开集合，请用`defer`滞后方法关闭连接，注意关闭顺序与建立连接的顺序正好相反——先关闭集合，然后关闭数据库，最后在关闭服务器连接。
 
-```swift
+``` swift
 defer {
     collection.close()
     db.close()
@@ -27,7 +27,7 @@ defer {
 
 下面的函数可以删除当前数据库并删除所有相关的数据文件。
 
-```swift
+``` swift
 database.drop()
 ```
 
@@ -35,13 +35,13 @@ database.drop()
 
 调用`name()`函数返回当前数据库名称。
 
-```swift
+``` swift
 let name = database.name()
 ```
 
 ### 创建一个新的集合
 
-```swift
+``` swift
 database.createCollection(name: <String>, options: <BSON>)
 ```
 
@@ -55,7 +55,7 @@ database.createCollection(name: <String>, options: <BSON>)
 调用`getCollection`以创建对一个MongoCollection集合对象的引用：
 
 
-```swift
+``` swift
 let collection = database.getCollection(name: <String>)
 ```
 
@@ -64,6 +64,6 @@ let collection = database.getCollection(name: <String>)
 调用`collectionNames`可以字符串数组的形式获得当前数据库内的集合列表：
 
 
-```swift
+``` swift
 let collection = database.collectionNames()
 ```

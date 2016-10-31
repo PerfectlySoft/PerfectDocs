@@ -8,19 +8,19 @@ MySQL连接库提供了对MySQL的使用封装，允许您的Perfect应用程序
 
 需要使用Homebrew安装MySQL。
 
-```shell
+```
 brew install mysql
 ```
 
 如果需要安装Homebrew，请用下面的命令行进行安装：
 
-```shell
+```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 同时还需要手工编辑以下路径的mysqlclient.pc文件
 
-```shell
+```
 /usr/local/lib/pkgconfig/mysqlclient.pc
 ```
 
@@ -30,7 +30,7 @@ brew install mysql
 
 请确认您的Linux系统已经安装了MySQL 5.6版本以上的libmysqlclient-dev库文件：
 
-```shell
+```
 sudo apt-get install libmysqlclient-dev
 ```
 
@@ -40,7 +40,7 @@ sudo apt-get install libmysqlclient-dev
 
 请在您的Package.swift文件中增加“Perfect-MySQL”用于说明调用库函数的依存关系：
 
-```swift
+``` swift
 .Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2, minor: 0)
 ```
 
@@ -48,7 +48,7 @@ sudo apt-get install libmysqlclient-dev
 
 为了使用MySQL函数库，首先需要在您开发的源程序开始部分增加声明和导入操作：
 
-```swift
+``` swift
 import MySQL
 ```
 
@@ -58,7 +58,7 @@ import MySQL
 
 为了访问数据库，请将您的数据库配置为以下的用户名和密码：
 
-```swift
+``` swift
 let testHost = "127.0.0.1"
 let testUser = "test"
 let testPassword = "password"
@@ -69,124 +69,108 @@ let testDB = "schema"
 
 有两种通用的方法可以用于连接MySQL。第一种是，首先跳过选择具体的数据库Schema（指的是MySQL内用户可以创建多个Schema，具体的数据表格是保存在Schema中——译者注），这么做的好处是可以在之后的程序内选择具体的数据库Schema，特别适用于您的程序如果需要操作多个Schema：
 
-```swift
+``` swift
+func fetchData() {
+	let dataMysql = MySQL() // 创建一个MySQL连接实例
+	let connected = mysql.connect(host: testHost, user: testUser, password: testPassword)
+	guard connected else {
+		// 验证一下连接是否成功
+		print(mysql.errorMessage())
+		return
+	}
 
-    func fetchData() {
+	defer {
+		mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
+	}
 
-            let dataMysql = MySQL() // 创建一个MySQL连接实例
-
-            let connected = mysql.connect(host: testHost, user: testUser, password: testPassword)
-
-            guard connected else {
-                // 验证一下连接是否成功
-                print(mysql.errorMessage())
-                return
-            }
-
-            defer {
-                mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
-            }
-
-            // 选择具体的数据Schema
-            guard dataMysql.selectDatabase(named: testDB) else {
-                    Log.info(message: "数据库选择失败。错误代码：\(dataMysql.errorCode()) 错误解释：\(dataMysql.errorMessage())")
-                    return
-            }
-        }
+	// 选择具体的数据Schema
+   guard dataMysql.selectDatabase(named: testDB) else {
+   		Log.info(message: "数据库选择失败。错误代码：\(dataMysql.errorCode()) 错误解释：\(dataMysql.errorMessage())")
+		return
+	}
+}
 ```
 
 另外一种方式是在连接数据库时将具体的数据库Schema选择作为参数直接传入创建连接的调用过程，不必单独在数据连接后才选择Schema：
 
-```swift
+``` swift
+func fetchData() {
+	let dataMysql = MySQL() // 创建一个MySQL连接实例
+	let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
 
-    func fetchData() {
+	guard connected else {
+   		// 验证一下连接是否成功
+		print(mysql.errorMessage())
+		return
+	}
 
-            let dataMysql = MySQL() // 创建一个MySQL连接实例
-
-            let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
-
-            guard connected else {
-                // 验证一下连接是否成功
-                print(mysql.errorMessage())
-                return
-            }
-
-            defer {
-                mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
-            }
-        }
+	defer {
+		mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
+	}
+}
 ```
 
 ### 创建数据表格
 
 Perfect允许在程序内创建表格。进一步继续前面的例子，很容易实现创建表格的操作
 
-```swift
+``` swift
+func setupMySQLDB() {
+	let dataMysql = MySQL() // 创建一个MySQL连接实例
+	let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
 
-    func setupMySQLDB() {
+	guard connected else {
+		// 验证一下连接是否成功
+		print(mysql.errorMessage())
+		return
+	}
 
-            let dataMysql = MySQL() // 创建一个MySQL连接实例
+	defer {
+		mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
+	}
 
-            let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
-
-            guard connected else {
-                // 验证一下连接是否成功
-                print(mysql.errorMessage())
-                return
-            }
-
-            defer {
-                mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
-            }
-
-           // 执行查询或者创建表格
-
-
-        }
+	// 执行查询或者创建表格
+}
 ```
 
 ### 运行数据库查询
 
 从数据库中查询是最基本的操作，也相对简单。查询完成之后就可以保存结果记录集并根据结果执行进一步的程序。以下例子中我们假定当前数据库Schema存在一个名为options（即选项的意思）的数据表，该表有一个id字段，一个name（text类型）字段和value字段（text类型）：
 
-```swift
+``` swift
+func fetchData() {
+	let dataMysql = MySQL() // 创建一个MySQL连接实例
+	let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
+	
+	guard connected else {
+		// 验证一下连接是否成功
+		print(mysql.errorMessage())
+		return
+	}
 
-    func fetchData() {
+	defer {
+		mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
+	}
 
-            let dataMysql = MySQL() // 创建一个MySQL连接实例
+	// 运行查询（比如返回在options数据表中的所有数据行）
+	let querySuccess = mysql.query(statement: "SELECT option_name, option_value FROM options")
 
-            let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
+	// 确保查询完成
+	guard querySuccess else {
+		return
+	}
 
-            guard connected else {
-                // 验证一下连接是否成功
-                print(mysql.errorMessage())
-                return
-            }
+	// 在当前会话过程中保存查询结果
+	let results = mysql.storeResults()! //因为上一步已经验证查询是成功的，因此这里我们认为结果记录集可以强制转换为期望的数据结果。当然您如果需要也可以用if-let来调整这一段代码。
 
-            defer {
-                mysql.close() //这个延后操作能够保证在程序结束时无论什么结果都会自动关闭数据库连接
-            }
+	var ary = [[String:Any]]() //创建一个字典数组用于存储结果
 
-            // 运行查询（比如返回在options数据表中的所有数据行）
-            let querySuccess = mysql.query(statement: "SELECT option_name, option_value FROM options")
-            // 确保查询完成
-            guard querySuccess else {
-            return
-            }
-
-        // 在当前会话过程中保存查询结果
-        let results = mysql.storeResults()! //因为上一步已经验证查询是成功的，因此这里我们认为结果记录集可以强制转换为期望的数据结果。当然您如果需要也可以用if-let来调整这一段代码。
-
-        var ary = [[String:Any]]() //创建一个字典数组用于存储结果
-
-        results.forEachRow { row in
-            let optionName = getRowString(forRow: row[0]) //保存选项表的Name名称字段，应该是所在行的第一列，所以是row[0].
-            let optionName = getRowString(forRow: row[1]) //保存选项表Value字段
-
-
-            ary.append("\(optionName)":optionValue]) //保存到字典内
-        }
-    }
+	results.forEachRow { row in
+		let optionName = getRowString(forRow: row[0]) //保存选项表的Name名称字段，应该是所在行的第一列，所以是row[0].
+		let optionName = getRowString(forRow: row[1]) //保存选项表Value字段
+		ary.append("\(optionName)":optionValue]) //保存到字典内
+	}
+}
 ```
 
 ## MySQL 服务器 API 函数
@@ -195,7 +179,7 @@ MySQL服务器API函数提供了连接到服务器实例并展开相关工作的
 
 ### init 类构造函数
 
-```swift
+``` swift
 public init()
 ```
 
@@ -203,7 +187,7 @@ public init()
 
 ### close
 
-```swift
+``` swift
 public func close()
 ```
 
@@ -211,7 +195,7 @@ public func close()
 
 ### clientInfo 客户端信息查询
 
-```swift
+``` swift
 public static func clientInfo() -> String
 ```
 
@@ -219,31 +203,31 @@ public static func clientInfo() -> String
 
 ### errorCode & errorMessage 错误代码和错误信息
 
-```swift
+``` swift
 public func errorCode() -> UInt32
 ```
 
-```swift
+``` swift
 public func errorMessage() -> String
 ```
 
 错误代码和错误信息对于调试程序来说非常有用。详见[服务器错误信息对照表（英文版）](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html)。错误代码和错误信息的获取与解释对于连接数据库运行查询来说非常重要，举例如下：
 
-```swift
+``` swift
 let mysql = MySQL()
 let connected = mysql.connect(host: dbHost, user: dbUser, password: dbPassword, db: dbName)
-            guard connected else {
-                // 验证是否成功，如果不成功则打印错误信息
-                print(mysql.errorMessage())
-                return
-            }
+guard connected else {
+	// 验证是否成功，如果不成功则打印错误信息
+	print(mysql.errorMessage())
+	return
+}
 ```
 
 在上面的例子里面，如果数据库连接失败则在控制台上会输出错误信息。
 
 ### serverVersion 服务器版本
 
-```swift
+``` swift
 public func serverVersion() -> Int
 ```
 
@@ -251,7 +235,7 @@ public func serverVersion() -> Int
 
 ### connect 连接数据库
 
-```swift
+``` swift
 public func connect(host hst: String? = nil, user: String? = nil, password: String? = nil, db: String? = nil, port: UInt32 = 0, socket: String? = nil, flag: UInt = 0) -> Bool
 ```
 
@@ -259,7 +243,7 @@ public func connect(host hst: String? = nil, user: String? = nil, password: Stri
 
 ### selectDatabase
 
-```swift
+``` swift
 public func selectDatabase(named namd: String) -> Bool
 ```
 
@@ -267,7 +251,7 @@ public func selectDatabase(named namd: String) -> Bool
 
 ### listTables列出所有数据表
 
-```swift
+``` swift
 public func listTables(wildcard wild: String? = nil) -> [String]
 ```
 
@@ -275,7 +259,7 @@ public func listTables(wildcard wild: String? = nil) -> [String]
 
 ### listDatabases列出所有数据库Schema
 
-```swift
+``` swift
 public func listDatabases(wildcard wild: String? = nil) -> [String]
 ```
 
@@ -283,7 +267,7 @@ public func listDatabases(wildcard wild: String? = nil) -> [String]
 
 ### commit提交事务
 
-```swift
+``` swift
 public func commit() -> Bool
 ```
 
@@ -291,7 +275,7 @@ public func commit() -> Bool
 
 ### rollback事务回滚
 
-```swift
+``` swift
 public func rollback() -> Bool
 ```
 
@@ -299,7 +283,7 @@ public func rollback() -> Bool
 
 ### moreResults查看更多结果记录集
 
-```swift
+``` swift
 public func moreResults() -> Bool
 ```
 
@@ -307,24 +291,22 @@ public func moreResults() -> Bool
 
 ### nextResult 查看下一个结果记录集
 
-```swift
+``` swift
 public func nextResult() -> Int
 ```
 
 在多结果查询中返回下一个结果记录集。通常在一个循环中使用，效果和调用行遍历forEachRow()差不多。比如：
 
-```swift
-    var results = [[String?]]()
-
-    while let row = results?.next() {
-        results.append(row)
-
-    }
+``` swift
+var results = [[String?]]()
+while let row = results?.next() {
+	results.append(row)
+}
 ```
 
 ### query 查询
 
-```swift
+``` swift
 public func query(statement stmt: String) -> Bool
 ```
 
@@ -332,7 +314,7 @@ public func query(statement stmt: String) -> Bool
 
 ### storeResults 保存查询结果
 
-```swift
+``` swift
 public func storeResults() -> MySQL.Results?
 ```
 
@@ -340,7 +322,7 @@ public func storeResults() -> MySQL.Results?
 
 ### setOption 设置选项
 
-```swift
+``` swift
 public func setOption(_ option: MySQLOpt) -> Bool
 public func setOption(_ option: MySQLOpt, _ b: Bool) -> Bool
 public func setOption(_ option: MySQLOpt, _ i: Int) -> Bool
@@ -351,7 +333,7 @@ public func setOption(_ option: MySQLOpt, _ s: String) -> Bool
 
 MySQLOpt的选项值可以参考以下枚举定义：
 
-```swift
+``` swift
 public enum MySQLOpt {
     case MYSQL_OPT_CONNECT_TIMEOUT, MYSQL_OPT_COMPRESS, MYSQL_OPT_NAMED_PIPE,
         MYSQL_INIT_COMMAND, MYSQL_READ_DEFAULT_FILE, MYSQL_READ_DEFAULT_GROUP,
@@ -380,7 +362,7 @@ public enum MySQLOpt {
 
 ### close
 
-```swift
+``` swift
 public func close()
 ```
 
@@ -388,7 +370,7 @@ public func close()
 
 ### dataSeek 根据行位置检索数据
 
-```swift
+``` swift
 public func dataSeek(_ offset: UInt)
 ```
 
@@ -396,7 +378,7 @@ public func dataSeek(_ offset: UInt)
 
 ### numRows数据行统计
 
-```swift
+``` swift
 public func numRows() -> Int
 ```
 
@@ -404,7 +386,7 @@ public func numRows() -> Int
 
 ### numFields数据列统计
 
-```swift
+``` swift
 public func numFields() -> Int
 ```
 
@@ -412,7 +394,7 @@ public func numFields() -> Int
 
 ### next返回下一行
 
-```swift
+``` swift
 public func next() -> Element?
 ```
 
@@ -420,7 +402,7 @@ public func next() -> Element?
 
 ### forEachRow结果记录集的行遍历
 
-```swift
+``` swift
 public func forEachRow(callback: (Element) -> ())
 ```
 
@@ -430,7 +412,7 @@ public func forEachRow(callback: (Element) -> ())
 
 ### init 构造函数
 
-```swift
+``` swift
 public init(_ mysql: MySQL)
 ```
 
@@ -438,7 +420,7 @@ public init(_ mysql: MySQL)
 
 ### close 关闭结构
 
-```swift
+``` swift
 public func close()
 ```
 
@@ -446,7 +428,7 @@ public func close()
 
 ### reset 复位重置
 
-```swift
+``` swift
 public func reset()
 ```
 
@@ -454,7 +436,7 @@ public func reset()
 
 ### clearBinds清除变量绑定
 
-```swift
+``` swift
 func clearBinds()
 ```
 
@@ -462,7 +444,7 @@ func clearBinds()
 
 ### freeResult释放结果记录集
 
-```swift
+``` swift
 public func freeResult(
 ```
 
@@ -470,31 +452,31 @@ public func freeResult(
 
 ### errorCode & errorMessage 错误代码和错误消息
 
-```swift
+``` swift
 public func errorCode() -> UInt32
 ```
 
-```swift
+``` swift
 public func errorMessage() -> String
 ```
 
 错误代码和错误消息在调试程序过程中作用巨大。详细内容请参考[MySQL服务器错误代码和错误消息](https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html)。连接数据库后即可使用，举例如下：
 
-```swift
+``` swift
 let mysql = MySQL()
 let connected = mysql.connect(host: dbHost, user: dbUser, password: dbPassword, db: dbName)
-            guard connected else {
-                // 验证是否连接成功
-                print(mysql.errorMessage())
-                return
-            }
+guard connected else {
+	// 验证是否连接成功
+	print(mysql.errorMessage())
+	return
+}
 ```
 
 在上面的例子里，如果连接失败则控制台会输出错误消息。
 
 ### prepare 准备SQL语句
 
-```swift
+``` swift
 public func prepare(statement query: String) -> Bool
 ```
 
@@ -502,7 +484,7 @@ public func prepare(statement query: String) -> Bool
 
 ### execute 执行SQL查询
 
-```swift
+``` swift
 public func execute() -> Bool
 ```
 
@@ -510,7 +492,7 @@ public func execute() -> Bool
 
 ### results 结果记录集
 
-```swift
+``` swift
 public func results() -> MySQLStmt.Results
 ```
 
@@ -518,7 +500,7 @@ public func results() -> MySQLStmt.Results
 
 ### fetch 取出数据记录
 
-```swift
+``` swift
 public func fetch() -> FetchResult
 ```
 
@@ -526,7 +508,7 @@ public func fetch() -> FetchResult
 
 ### numRows结果记录集行数统计
 
-```swift
+``` swift
 public func numRows() -> UInt
 ```
 
@@ -534,7 +516,7 @@ public func numRows() -> UInt
 
 ### affectedRows受影响的数据行统计
 
-```swift
+``` swift
 public func affectedRows() -> UInt
 ```
 
@@ -542,7 +524,7 @@ public func affectedRows() -> UInt
 
 ### insertId 插入行ID号
 
-```swift
+``` swift
 public func insertId() -> UInt
 ```
 
@@ -550,7 +532,7 @@ public func insertId() -> UInt
 
 ### fieldCount字段统计
 
-```swift
+``` swift
 public func fieldCount() -> UInt
 ```
 
@@ -558,7 +540,7 @@ public func fieldCount() -> UInt
 
 ### nextResult下一个结果记录集
 
-```swift
+``` swift
 public func nextResult() -> Int
 ```
 
@@ -566,7 +548,7 @@ public func nextResult() -> Int
 
 ### dataSeek选择特定记录行
 
-```swift
+``` swift
 public func dataSeek(offset: Int)
 ```
 
@@ -574,7 +556,7 @@ public func dataSeek(offset: Int)
 
 ### paramCount参数统计
 
-```swift
+``` swift
 public func paramCount() -> Int
 ```
 
@@ -582,7 +564,7 @@ public func paramCount() -> Int
 
 ### bindParam绑定参数
 
-```swift
+``` swift
 public func bindParam()
 func bindParam(_ s: String, type: enum_field_types)
 public func bindParam(_ d: Double)
