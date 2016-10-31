@@ -10,19 +10,19 @@ The MariaDB connector provides a wrapper around MariaDB, allowing interaction be
 
 Requires the use of Homebrew’s MariaDB connector. 
 
-```shell
+``` 
 brew install mariadb-connector-c
 ```
 
-If you need Homebrew, you can install it with: 
+If you need Homebrew if required: 
 
-```
+``` 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Unfortunately, at this point in time you will need to edit the mariadb.pc file located here:
+You will need to edit the mariadb.pc file:
 
-```
+``` 
 /usr/local/lib/pkgconfig/mariadb.pc
 ```
 
@@ -30,7 +30,7 @@ Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by de
 
 A typical configuration of mariadb.pc may looks like:
 
-```bash
+``` bash
 prefix=/usr/local
 exec_prefix=${prefix}/bin
 libdir=${prefix}/lib/mariadb
@@ -45,9 +45,9 @@ Cflags: -I${includedir}
 Libs_r: -L${libdir} -lmariadb -ldl -lm -lpthread
 ```
 
-Then please also edit your ~/.bash_profile with the following line:
+Edit your ~/.bash_profile with the following line:
 
-```bash
+``` bash
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"
 ```
 
@@ -60,7 +60,7 @@ Ensure that you have installed libmariadb2 libmariadb-client-lgpl-dev for MariaD
 sudo apt-get install clang pkg-config libmariadb2 libmariadb-client-lgpl-dev  libcurl4-openssl-dev
 ```
 
-Please also make sure the pkg-config file /usr/lib/pkgconfig/mariadb.pc specified for MariaDB should be MANUALLY added and corrected before building, possibly looks like this:
+Ensure the pkg-config file /usr/lib/pkgconfig/mariadb.pc specified for MariaDB should be MANUALLY added and corrected before building. The file will look similar to the following:
 
 ```
 prefix=/usr
@@ -87,7 +87,7 @@ Add the "Perfect-MariaDB" project as a dependency in your Package.swift file:
 
 ### Import
 
-First and foremost, in any of the source files you intend to use with MariaDB, import the required module with: 
+To use MariaDB within a file, import the required module: 
 
 ``` swift
 import MariaDB
@@ -104,9 +104,9 @@ let testHost = "127.0.0.1"
 let testUser = "test"
 let testPassword = "password"
 let testDB = "schema"
-
-//Obviously change these details to a database and user you already have setup
 ```
+
+These are example credentials only. Replace with your own.
 
 There are two common ways to connect to MariaDB. First, you can omit the schema, so that you can use a separate selector. This is handy if you have multiple schemas that your program can choose: 
 
