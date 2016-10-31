@@ -114,7 +114,7 @@ server.addRoutes(routes)
 
 // add routes to be checked for auth
 var authenticationConfig = AuthenticationConfig()
-authenticationConfig.include("/api/v1/check")
+authenticationConfig.include("/api/v1/*")
 authenticationConfig.exclude("/api/v1/login")
 authenticationConfig.exclude("/api/v1/register")
 
@@ -202,14 +202,14 @@ Add routes to be checked for authentication:
 
 ``` swift
 var authenticationConfig = AuthenticationConfig()
-authenticationConfig.include("/api/v1/check")
+authenticationConfig.include("/api/v1/*")
 authenticationConfig.exclude("/api/v1/login")
 authenticationConfig.exclude("/api/v1/register")
 
 let authFilter = AuthFilter(authenticationConfig)
 ```
 
-These routes can be either seperate, or as an array of strings. They describe inclusions and exclusions. In a forthcoming release wildcard routes will be supported.
+These routes can be either seperate, or as an array of strings. They describe inclusions and exclusions. Wildcards are supported where the wildcard character (*) is the last character in the string.
 
 Add request & response filters. Note the order which you specify filters that are of the same priority level:
 
