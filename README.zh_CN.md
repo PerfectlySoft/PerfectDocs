@@ -89,6 +89,7 @@
 * [数据库连接器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SQLite.md)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MySQL.md)
+	* [MariaDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MariaDB.md)
 	* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/PostgreSQL.md)
 	* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB.md)
 		* [MongoDB 数据库](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-Database.md)
