@@ -85,7 +85,7 @@ print(output)
 
 注意当前进程不一定处于运行状态，请用`wait(false)` 方法来检查当前进程是否处于运行状态。
 
-```swift
+``` swift
 myProcess.isOpen()
 ```
 
@@ -93,7 +93,7 @@ myProcess.isOpen()
 
 `close` 关闭进程并清理内容。
 
-```swift
+``` swift
 myProcess.close()
 ```
 
@@ -101,7 +101,7 @@ myProcess.close()
 
 从进程中脱离，以确保即便是该进程进入僵尸态后资源也能够自动释放（即无需再等待进程返回）
 
-```swift
+``` swift
 myProcess.detatch()
 ```
 
@@ -109,7 +109,7 @@ myProcess.detatch()
 
 判断该进程是否已经结束运行并读取其返回值。
 
-```swift
+``` swift
 myProcess.wait(hang: <Bool>)
 ```
 
@@ -117,7 +117,7 @@ myProcess.wait(hang: <Bool>)
 
 终止进程并读取其返回值。
 
-```swift
+``` swift
 myProcess.kill(signal: <Int32 = SIGTERM>)
 ```
 

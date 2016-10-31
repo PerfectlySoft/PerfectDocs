@@ -49,7 +49,7 @@ swift package generate-xcodeproj
 
 如果在您的源程序内要使用PostgreSQL，请在程序开始部分声明导入库文件：
 
-```swift
+``` swift
 import PostgreSQL
 ```
 
@@ -59,7 +59,7 @@ import PostgreSQL
 
 请采用数据库连接字符串作为参数进行连接。对于字符串和URL地址请详见以下PGConnection章节
 
-```swift
+``` swift
 do {
     let p = PGConnection()
     let status = p.connectdb("host=localhost dbname=postgres")
@@ -76,7 +76,7 @@ do {
 
 一旦连接数据库后，您就可以对数据库进行数据存取的操作。
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 let result = p.exec(
@@ -92,7 +92,7 @@ let result = p.exec(
 
 除了在查询语句中直接写字符串值之外，“参数绑定”是另外一种将数据传递给数据库的方法，需要做的只是通过`params`数组把真实值导入。
 
-```swift
+``` swift
 
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
@@ -108,7 +108,7 @@ let result = p.exec(
 
 ### 访问结果记录集
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 let res = p.exec(statement: "
@@ -144,7 +144,7 @@ p.close()
 
 连接参数可以为以下任意一种格式：普通的“关键词＝值”字符串和符合 RFC 3986 标准的URI唯一资源标识符。
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
@@ -186,7 +186,7 @@ postgresql://other@localhost/otherdb?connect_timeout=10&application_name=myapp
 
 使用方法是调用`.finish()`函数
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
@@ -201,7 +201,7 @@ defer {
 
 连接数据库后可以得到其连接状态：
 
-```swift
+``` swift
 let p = PGConnection()
 let connection = p.connectdb("host=localhost dbname=postgres")
 
@@ -217,7 +217,7 @@ defer {
 
 调用`.errorMessage()`方法可以获得在数据库连接使用中最后一次出现的错误信息
 
-```swift
+``` swift
 p.errorMessage()
 ```
 
@@ -225,7 +225,7 @@ p.errorMessage()
 
 使用`.exec`方法可以将原始SQL语句直接传递给PostgreSQL服务器。SQL语句可以使用单纯字符串或者带参数语句完成。
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
@@ -242,7 +242,7 @@ SQL语句可以是人和SELECT、INSERT、UPDATE或DELETE，当然也可以是�
 除了在查询语句中直接写字符串值之外，“参数绑定”是另外一种将数据传递给数据库的方法，这种方法能够把手工检查数据有效性的工作交给数据库实现。与其把变量值直接写在SQL字符串里，您可以使用`params`数组把变量值以字符串占位符的方式绑定到语句中
 
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
@@ -261,7 +261,7 @@ PGResult是一个容器类型，所有`.exec`方法执行后都会返回PGResult
 
 在SELECT语句执行后返回的`PGResult` 响应中，结果集包含的行数、指定行列的单元格可以按照如下方式进行访问：
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
@@ -294,7 +294,7 @@ p.close()
 
 ### 返回执行语句后的状态
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 
@@ -323,7 +323,7 @@ print("插入记录后返回状态为：\(result.status())")
 
 参考之前的例子（“PGResult查询结果”），SELECT语句将`PGResult`转换为`res`结果记录集。在`res`存储的数据记录行数可以通过使用`.numTuples()`方法进行统计：
 
-```swift
+``` swift
 let num = res.numTuples()
 ```
 
@@ -335,7 +335,7 @@ let num = res.numTuples()
 
 因为字段并不是按照名字访问而是按照索引顺序来访问的，如果查询结果记录集内的字段未知，则需要去判定字段的名称和类型。以下的例子使用`.fieldName(index)`和`.fieldType(index)`进行判断
 
-```swift
+``` swift
 print("第一列字段的名称为：\(res.fieldName(0))")
 print("第一列字段的类型为：\(res.fieldType(0))")
 ```
@@ -346,7 +346,7 @@ print("第一列字段的类型为：\(res.fieldType(0))")
 
 用`.getField*`方法获得具体类型的单元格。
 
-```swift
+``` swift
 let num = res.numTuples()
 for x in 0..<num {
     let c1 = res.getFieldString(tupleIndex: x, fieldIndex: 0)
@@ -373,7 +373,7 @@ for x in 0..<num {
 
 类似于`.getField*`系列方法，`.fieldIsNull`方法也需要一个行（tuple）和一个列索引。返回值为布尔类型真或假。
 
-```swift
+``` swift
 let nullTest = res.fieldIsNull(tupleIndex: <Int>, fieldIndex: <Int>)
 ```
 
@@ -381,7 +381,7 @@ let nullTest = res.fieldIsNull(tupleIndex: <Int>, fieldIndex: <Int>)
 
 如果需要查看数据查询结果是否包含错误信息，请使用`.errorMessage()`方法：
 
-```swift
+``` swift
 let result = p.exec(statement: "SELECT * FROM x")
 
 print("错误信息：\(result.errorMessage())")
@@ -394,7 +394,7 @@ print("错误信息：\(result.errorMessage())")
 
 请调用`.clear()`清除游标
 
-```swift
+``` swift
 let p = PGConnection()
 let status = p.connectdb("host=localhost dbname=postgres")
 

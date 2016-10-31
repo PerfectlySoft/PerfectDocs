@@ -9,13 +9,13 @@ WebSocket协议目前支持大多数主流浏览器，包括谷歌Chrome、微�
 
 请修改您的 Package.swift 文件并增加以下依存关系：
 
-```swift
+``` swift
 .Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 2, minor: 0)
 ```
 
 保存好后就可以在您的源程序内使用WebSocket函数库了：
 
-```swift
+``` swift
 import PerfectWebSockets
 ```
 
@@ -23,7 +23,7 @@ import PerfectWebSockets
 
 以下代码展示了如何在路由`/echo`上增加WebSocket服务具柄：
 
-```swift
+``` swift
 var routes = Routes()
 
 routes.add(method: .get, uri: "/echo", handler: {
@@ -66,7 +66,7 @@ WebSocket服务具柄必须要实现`WebSocketSessionHandler`会话控制协议�
 
 请参考以下例子——在WebSocketSessionHandler会话控制具柄上扩展出的“回声”实例——运行这个例子，客户端socket发出的内容就会被原封不动地返回。
 
-```swift
+``` swift
 class EchoHandler: WebSocketSessionHandler {
 
 	// 超级协议名称，我们自己定义的
@@ -133,13 +133,13 @@ WebSocket有两种消息格式：文本消息或二进制消息。文本消息�
 
 #### 读取文本消息
 
-```swift
+``` swift
 public func readStringMessage(continuation: @escaping (String?, _ opcode: OpcodeType, _ final: Bool) -> ())
 ```
 
 #### 读取二进制消息
 
-```swift
+``` swift
 public func readBytesMessage(continuation: @escaping ([UInt8]?, _ opcode: OpcodeType, _ final: Bool) -> ())
 ```
 
@@ -159,13 +159,13 @@ public func readBytesMessage(continuation: @escaping ([UInt8]?, _ opcode: Opcode
 
 #### 发送文本消息
 
-```swift
+``` swift
 public func sendStringMessage(string: String, final: Bool, completion: @escaping () -> ())
 ```
 
 #### 发送二进制消息
 
-```swift
+``` swift
 public func sendBinaryMessage(bytes: [UInt8], final: Bool, completion: @escaping () -> ())
 ```
 
@@ -177,12 +177,12 @@ Perfect WebSocket 函数库还提供了测试连接的简便函数，即乒乓�
 
 下面是两个函数的定义：
 
-```swift
+``` swift
 /// 向客户发送乓消息：
 public func sendPong(completion: @escaping () -> ())
 
 /// 向客户发送乒消息
-	/// 并等待乓返回
+/// 并等待乓返回
 public func sendPing(completion: @escaping () -> ())
 ```
 

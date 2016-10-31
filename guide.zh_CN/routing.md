@@ -2,7 +2,7 @@
 
 HTTP请求/响应路由是用于决定在当前请求下，哪一个句柄去接收和响应。句柄可以是一个函数、过程或者方法，只要能够接收特定类型的请求并做出反应即可。路由主要依据请求的方法“HTTP request method”和请求内容包括的路径信息来决定的。一个路由就是“HTTP method”方法、路径和句柄的组合。路由需要在服务器启动并开始监听请求或调度信号之前注册到服务器上，比如：
 
-```swift
+``` swift
 var routes = Routes()
 routes.add(method: .get, uri: "/path/one", handler: { request, response in
     response.setBody(string: "路由句柄已经收到")
@@ -19,7 +19,7 @@ server.addRoutes(routes)
 
 在增加路由之前，首先要准备好适当的句柄函数。句柄函数必须能够同时接纳HTTPRequest请求对象和HTTPResponse响应对象，并且能够为响应对象创建适当的内容：
 
-```swift
+``` swift
 /// 用于接受请求并根据请求创建响应内容的句柄函数格式。
 public typealias RequestHandler = (HTTPRequest, HTTPResponse) -> ()
 ```
@@ -27,7 +27,7 @@ public typealias RequestHandler = (HTTPRequest, HTTPResponse) -> ()
 
 注册路由需要在服务器启动监听前追加到```Routes```路由表对象中。一旦路由表创建后，一个或多个路由都可以使用路由表的```add```方法追加进去。路由表提供以下函数
 
-```swift
+``` swift
 public struct Routes {
     /// 不需要任何基本URL的构造函数。
     public init()
@@ -52,7 +52,7 @@ public struct Routes {
 
 路由表可以从一个基本URI进行初始化。该基本的URI会在任何追加到路由表的新路由路径之前。比如，您可以用一个函数的第一个版本初始化一个路由表对象，用于初始化的基本URI为“/v1”。之后在这个路由表中新增的路由都会带有“/v1”前缀。同样，路由表对象也可以被加入到另一个路由表对象中去，因此每一个原路由表中的路由都会按照这种方法增加前缀。以下例子显示了同一个API函数对应两个不同版本的两个路由表的创建过程，两个版本的唯一区别在于其接口点不同：
 
-```swift
+``` swift
 var routes = Routes()
 // 为程序接口API版本v1创建路由表
 var api = Routes()
@@ -89,7 +89,7 @@ routes.add(routes: api2Routes)
 
 在Perfect项目中，无论是HTTP 1.1服务器还是FastCGI服务器都支持路由。如果要增加路由，请调用服务器的```addRoutes```方法。```addRoutes```函数可以根据需要多次调用。一旦服务器启动监听之后，就无非再追加或修改路由表了。
 
-```swift
+``` swift
 // 创建服务器对象
 let server = HTTPServer()
 // 创建路由表
@@ -129,7 +129,7 @@ URI路由还能够包括不同的变量组件。每个变量组件是通过一�
 
 结尾通配符能够匹配从通配符开始的所有以之前内容的URI，并替换路径中的对应匹配内容到```HTTPRequest.urlVariables```字典中。通过访问全局变量```routeTrailingWildcardKey```即可获悉结尾通配符究竟获得了什么样的字符串值。比如，给定路径URI“/foo/** ”和一个真正的URI请求“/foo/bar/baz”，那么以下的程序判断就是真值：
 
-```swift
+``` swift
 request.urlVariables[routeTrailingWildcardKey] == "/bar/baz"
 ```
 

@@ -18,7 +18,7 @@ apt-get install minizip
 
 除PerfectLib 之外，还需要在Package.swift文件中说明当前项目对Perfect-Zip 的依存关系：
 
-```swift
+``` swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-Zip.git", versions: Version(0,0,0)..<Version(10,0,0))
 ```
 
@@ -30,7 +30,7 @@ Perfect Zip函数库中只有两个核心函数：压缩文件和解压缩文件
 
 在开始压缩或者解压缩之前，首先需要创建zip类实例：
 
-```swift
+``` swift
 let myVar = Zip()
 ```
 
@@ -39,7 +39,7 @@ let myVar = Zip()
 
 如果需要压缩一个文件，请使用`.zipFiles(...)`方法：/p>
 
-```swift
+``` swift
 zipFiles(
     paths: [String],
     zipFilePath: String,
@@ -62,7 +62,7 @@ zipFiles(
 
 如果要解压缩一个文件，请使用`.unzipFile(...)`方法
 
-```swift
+``` swift
 unzipFile(
     source: String,
     destination: String,
@@ -105,7 +105,7 @@ unzipFile(
 
 下面的源代码演示了如何压缩一个文件
 
-```swift
+``` swift
 import PerfectZip
 
 let myZip = Zip()
@@ -123,7 +123,7 @@ print("压缩结果：\(ZipResult.description)")
 
 下面的源代码演示了如何解压缩一个文件
 
-```swift
+``` swift
 import PerfectZip
 
 let myZip = Zip()

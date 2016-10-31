@@ -23,7 +23,7 @@ PerfectThread同时提供线程互斥锁和多读单写同步锁。
 
 Mutex互斥是通过Threading.Lock线程锁对象实现的。以下内容为在多线程并发环境下保护共享资源的方法：
 
-```swift
+``` swift
 /// 一系列线程有关的函数和类库封装。
 public extension Threading {
     /// 线程互斥锁
@@ -66,7 +66,7 @@ public extension Threading {
 
 多读单写锁定义如下：
 
-```swift
+``` swift
 /// 一系列线程有关的函数和类库封装。
 public extension Threading {
         /// 尝试读取锁信息
@@ -99,7 +99,7 @@ RWLock同时支持 ```tryReadLock``` 和 ```tryWriteLock```方法，二者都是
 
 线程事件```Threading.Event``` 提供以下函数：
 
-```swift
+``` swift
 public extension Threading {
     /// 一个线程事件对象。从线程锁Threading.Lock继承而来.
     /// 在调用wait等待方法和signal信号灯方法之前，该事件必须加锁。
@@ -160,7 +160,7 @@ PerfectThread线程函数库提供一个从操作系统中抽象出来的队列�
 
 该体系提供以下函数：
 
-```swift
+``` swift
 /// 线程队列可以根据其队列类型调度闭包。
 public protocol ThreadQueue {
     /// 队列名称。

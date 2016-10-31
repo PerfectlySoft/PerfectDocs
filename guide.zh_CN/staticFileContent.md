@@ -10,7 +10,7 @@
 
 比如，句柄可以用于根据请求直接返回响应，如下所示：
 
-```swift
+``` swift
 {
     request, response in
     StaticFileHandler(documentRoot: request.documentRoot).handleRequest(request: request, response: response)
@@ -19,7 +19,7 @@
 
 但实际上没必要这么做，除非您需要定制静态文件句柄对象的行为。只要设置服务器的`documentRoot`属性就能够根据目标目录自动安装一个能够服务多个文件的句柄。服务器设置类似与以下代码：
 
-```swift
+``` swift
 let dir = Dir(documentRoot)
 if !dir.exists {
     try Dir(documentRoot).create()
@@ -34,7 +34,7 @@ routes.add(method: .get, uri: "/**", handler: {
 
 documentRoot属性的例子可以在PerfectTemplate项目模板中找到：
 
-```swift
+``` swift
 import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
@@ -82,7 +82,7 @@ do {
 
 下面的例子建立了一个虚拟的文档目录，向所有资源路径"/files"开头的URL从物理目录"/var/www/htdocs"提供服务并响应。
 
-```swift
+``` swift
 routes.add(method: .get, uri: "/files/**", handler: {
     request, response in
 

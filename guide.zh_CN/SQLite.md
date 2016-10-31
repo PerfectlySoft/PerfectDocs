@@ -27,7 +27,7 @@ SQLite连接库提供了对SQLite3的使用封装，允许您的Perfect应用程
 
 为了使用SQLite函数库，首先需要在您开发的源程序开始部分增加声明和导入操作：
 
-```swift
+``` swift
 import SQLite
 ```
 
@@ -37,13 +37,13 @@ import SQLite
 
 数据库的访问是通过其逻辑文件路径实现的，因此第一步是确定SQLite数据库的保存位置
 
-```swift
+``` swift
 let dbPath = "./db/database"
 ```
 
 一旦设置完成，即可打开连接并采用do-try-catch方式确保所有错误都在掌控之中：
 
-```swift
+``` swift
 let dbPath = "./db/database"
 
 do {
@@ -60,7 +60,7 @@ do {
 
 一旦完成上述的数据库连接，我们就可以通过[execute](#execute) 方法执行创建数据表的操作：
 
-```swift
+``` swift
 let dbPath = "./db/database"
 
 do {
@@ -82,27 +82,26 @@ do {
 
 一旦完成数据库设置连接和数据表创建，下一步就可以进行查询并返回数据。以下的示例，我们将查询语句保存到一个字符串，然后作为参数传递给[forEachRow](#foreachrow-with-handlerow)行遍历方法，通常您可以在此将遍历后的数据结果追加到一个字典对象上去。
 
-```swift
+``` swift
 let dbPath = "./db/database"
 var contentDict = [String: Any]()
 
 do {
-    let sqlite = try SQLite(dbPath)
-        defer {
-            sqlite.close() // 确保数据库连接已关闭
-        }
+	let sqlite = try SQLite(dbPath)
+	defer {
+		sqlite.close() // 确保数据库连接已关闭
+	}
 
-    let demoStatement = "SELECT * FROM demo"
+	let demoStatement = "SELECT * FROM demo"
 
-    try sqlite.forEachRow(statement: demoStatement) {(statement: SQLiteStmt, i:Int) -> () in
+	try sqlite.forEachRow(statement: demoStatement) {(statement: SQLiteStmt, i:Int) -> () in
 
-        self.contentDict.append([
-                "id": statement.columnText(position: 0),
-                "second_field": statement.columnText(position: 1),
-                "third_field": statement.columnText(position: 2)
-            ])
-  }
-
+		self.contentDict.append([
+			"id": statement.columnText(position: 0),
+			"second_field": statement.columnText(position: 1),
+			"third_field": statement.columnText(position: 2)
+		])
+	}
 } catch {
     //处理错误
 }
@@ -112,34 +111,32 @@ do {
 
 相信您肯定希望将查询中增加变量内容。如前所述，Swift语言自带的字符串变量值自动替换失效，此时需要手工绑定数据系统，如下所示：
 
-```swift
+``` swift
 let dbPath = "./db/database"
 var contentDict = [String: Any]()
 
 do {
-    let sqlite = try SQLite(dbPath)
-        defer {
-            sqlite.close() // 此处确定关闭数据连接
-        }
+	let sqlite = try SQLite(dbPath)
+	defer {
+		sqlite.close() // 此处确定关闭数据连接
+	}
 
-    let demoStatement = "SELECT post_title, post_content FROM posts ORDER BY id DESC LIMIT :1"
+	let demoStatement = "SELECT post_title, post_content FROM posts ORDER BY id DESC LIMIT :1"
 
-    try sqlite.forEachRow(statement: demoStatement, doBindings {
+	try sqlite.forEachRow(statement: demoStatement, doBindings {
+		(statement: SQLiteStmt) -> () in
 
-        (statement: SQLiteStmt) -> () in
-
-        let bindValue = 5
-        try statement.bind(position: 1, bindValue)
+		let bindValue = 5
+		try statement.bind(position: 1, bindValue)
 
     }) {(statement: SQLiteStmt, i:Int) -> () in
 
-        self.contentDict.append([
-                "id": statement.columnText(position: 0),
-                "second_field": statement.columnText(position: 1),
-                "third_field": statement.columnText(position: 2)
-            ])
-  }
-
+		self.contentDict.append([
+			"id": statement.columnText(position: 0),
+			"second_field": statement.columnText(position: 1),
+			"third_field": statement.columnText(position: 2)
+		])
+  	}
 } catch {
     // 错误处理
 }
@@ -172,7 +169,7 @@ forEachRow(_:doBindings:handleRow:)
 
 ### init初始化数据库
 
-```swift
+``` swift
 public init(_ path: String, readOnly: Bool = false) throws
 ```
 
@@ -180,7 +177,7 @@ public init(_ path: String, readOnly: Bool = false) throws
 
 ### close关闭数据连接
 
-```swift
+``` swift
 public func close()
 ```
 
@@ -188,7 +185,7 @@ public func close()
 
 ### prepare 准备查询
 
-```swift
+``` swift
 public func prepare(stat: String) throws -> SQLiteStmt
 ```
 
@@ -196,7 +193,7 @@ public func prepare(stat: String) throws -> SQLiteStmt
 
 ### lastInsertRowID 返回最后一次插入的数据行ID号
 
-```swift
+``` swift
 public func lastInsertRowID() -> Int
 ```
 
@@ -204,7 +201,7 @@ public func lastInsertRowID() -> Int
 
 ### totalChanges全部变化
 
-```swift
+``` swift
 public func totalChanges() -> Int
 ```
 
@@ -216,7 +213,7 @@ public func totalChanges() -> Int
 
 ### changes 变化
 
-```swift
+``` swift
 public func changes() -> Int
 ```
 
@@ -224,7 +221,7 @@ public func changes() -> Int
 
 ### errCode 错误代码
 
-```swift
+``` swift
 public func errCode() -> Int
 ```
 
@@ -232,7 +229,7 @@ public func errCode() -> Int
 
 ### errMsg 错误详细信息
 
-```swift
+``` swift
 public func errMsg() -> String
 ```
 
@@ -240,7 +237,7 @@ public func errMsg() -> String
 
 ### execute
 
-```swift
+``` swift
 public func execute(statement: String) throws
 ```
 
@@ -248,7 +245,7 @@ public func execute(statement: String) throws
 
 ### execute 及 doBindings 参数
 
-```swift
+``` swift
 public func execute(statement: String, doBindings: (SQLiteStmt) throws -> ()) throws
 ```
 
@@ -256,7 +253,7 @@ public func execute(statement: String, doBindings: (SQLiteStmt) throws -> ()) th
 
 ### execute及count: 和doBindings:参数
 
-```swift
+``` swift
 public func execute(statement: String, count: Int, doBindings: (SQLiteStmt, Int) throws -> ()) throws
 ```
 
@@ -264,7 +261,7 @@ public func execute(statement: String, count: Int, doBindings: (SQLiteStmt, Int)
 
 ### doWithTransaction 事务处理
 
-```swift
+``` swift
 public func doWithTransaction(closure: () throws -> ()) throws
 ```
 
@@ -274,7 +271,7 @@ public func doWithTransaction(closure: () throws -> ()) throws
 
 ### forEachRow with handleRow
 
-```swift
+``` swift
 public func forEachRow(statement: String, handleRow: (SQLiteStmt, Int) -> ()) throws
 ```
 
@@ -282,7 +279,7 @@ public func forEachRow(statement: String, handleRow: (SQLiteStmt, Int) -> ()) th
 
 ### forEachRow 带 doBindings: 变量绑定和 handleRow: 行句柄
 
-```swift
+``` swift
 public func forEachRow(statement: String, doBindings: (SQLiteStmt) throws -> (), handleRow: (SQLiteStmt, Int) -> ()) throws
 ```
 
@@ -292,37 +289,34 @@ public func forEachRow(statement: String, doBindings: (SQLiteStmt) throws -> (),
 
 以下的例子是一个博客系统的程序组成部分。这个函数封装了博客从SQLite数据库中加载每个博客内容并追加到一个声明为`var content = [String: Any]()`的类对象。这个例子在mustache模板中经常被使用。在示例中，每页会加载5篇博文，并将页码作为参数传递到函数中去：
 
-```swift
+``` swift
 func loadPageContent(forPage: Int) {
-      do {
-          let sqlite = try SQLite(DB_PATH)
-          defer {
-              sqlite.close()  // 在完成数据请求后自动关闭数据库连接
-          }
-          let sqlStatement = "SELECT post_content, post_title FROM posts ORDER BY id DESC LIMIT 5 OFFSET :1"
+	do {
+		let sqlite = try SQLite(DB_PATH)
+		defer {
+			sqlite.close()  // 在完成数据请求后自动关闭数据库连接
+		}
+		let sqlStatement = "SELECT post_content, post_title FROM posts ORDER BY id DESC LIMIT 5 OFFSET :1"
+	
+		try sqlite.forEachRow(statement: sqlStatement, doBindings: {
+			(statement: SQLiteStmt) -> () in
+			
+			let bindPage: Int
+			if self.page == 0 || self.page == 1 {
+				bindPage = 0
+			} else {
+				bindPage = forPage * 5 - 5
+			}
 
-          try sqlite.forEachRow(statement: sqlStatement, doBindings: {
-              (statement: SQLiteStmt) -> () in
-
-              let bindPage: Int
-
-              if self.page == 0 || self.page == 1 {
-                  bindPage = 0
-              } else {
-                  bindPage = forPage * 5 - 5
-              }
-
-              try statement.bind(position: 1, bindPage)
-          }) {
-              (statement: SQLiteStmt, i:Int) -> () in
-
-                    self.content.append([
-                            "postContent": statement.columnText(position: 0),
-                            "postTitle": statement.columnText(position: 1)
-                        ])
-              }
-
-          } catch {
-        }
-    }
+			try statement.bind(position: 1, bindPage)
+      		}) {
+				(statement: SQLiteStmt, i:Int) -> () in
+					self.content.append([
+						"postContent": statement.columnText(position: 0),
+						"postTitle": statement.columnText(position: 1)
+					])
+			}
+		} catch {
+	}
+}
 ```
