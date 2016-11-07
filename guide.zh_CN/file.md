@@ -4,7 +4,7 @@ Perfect为服务器端的Swift语言环境提供了文件访问操作的便捷�
 首先，请确保`PerfectLib`已经在您的Swift源程序开始部分完成声明：
 
 ``` swift
-import Perfectib
+import PerfectLib
 ```
 声明完成之后，即可开始使用`File`文件对象来实现在文件系统中的查询和文件操作。
 
