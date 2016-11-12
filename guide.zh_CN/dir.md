@@ -5,7 +5,7 @@ Perfect为服务器端的Swift语言环境提供了一个管理文件存储的�
 首先，请在源程序代码开始部分声明`PerfectLib`函数库：
 
 ``` swift
-import Perfectib
+import PerfectLib
 ```
 声明后您就随时可以使用`Dir`目录对象查询和操作文件系统。
 

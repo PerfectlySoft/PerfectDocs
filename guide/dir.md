@@ -5,7 +5,7 @@ Perfect brings file system operations into your sever-side Swift environments to
 First, ensure the `PerfectLib` is imported in your Swift file:
 
 ``` swift
-import Perfectib
+import PerfectLib
 ```
 You are now able to use the `Dir` object to query and manipulate the file system.
 
