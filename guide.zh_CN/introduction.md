@@ -1,4 +1,4 @@
-# Perfect：用于服务器端编程的Swift语言
+# Perfect：支持Swift语言服务器端编程的软件函数库
 
 [![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![Platforms OS X | Linux](https://img.shields.io/badge/Platforms-OS%20X%20%7C%20Linux%20-lightgray.svg?style=flat)](https://developer.apple.com/swift/)
