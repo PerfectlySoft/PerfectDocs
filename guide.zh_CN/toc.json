@@ -70,6 +70,10 @@
 				{
 					"name": "Mustache页面模板",
 					"doc":  "mustache"
+				},
+				{
+					"name": "HTTP请求日志记录”,
+					"doc":  "HTTPRequestLogging"
 				}
 			]
 		},
@@ -104,6 +108,10 @@
 				{
 					"name": "Log日志",
 					"doc":  "log"
+				},
+				{
+					"name": "Log日志文件”,
+					"doc":  "logFiles"
 				},
 				{
 					"name": "CURL联网传输",
