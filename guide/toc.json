@@ -66,11 +66,15 @@
 				{
 					"name": "Static File Content",
 					"doc":  "staticFileContent"
-				},
-				{
-					"name": "Mustache",
-					"doc":  "mustache"
-				}
+				 },
+				 {
+				 "name": "Mustache",
+				 "doc":  "mustache"
+				 },
+				 {
+				 "name": "HTTP Request Logging",
+				 "doc":  "HTTPRequestLogging"
+				 }
 			]
 		},
 		{
@@ -108,7 +112,11 @@
 				{
 					"name": "Log",
 					"doc":  "log"
-				},
+				 },
+				 {
+				 "name": "Log Files",
+				 "doc":  "logFiles"
+				 },
 				{
 					"name": "CURL",
 					"doc":  "cURL"
