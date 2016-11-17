@@ -69,6 +69,11 @@ RWLock is defined as follows:
 ```swift
 /// A wrapper around a variety of threading related functions and classes.
 public extension Threading {
+	/// A read-write thread lock.
+	/// Permits multiple readers to hold the while, while only allowing at most one writer to hold the lock.
+	/// For a writer to acquire the lock all readers must have unlocked.
+	/// For a reader to acquire the lock no writers must hold the lock.
+	public final class RWLock {
 		/// Attempt to acquire the lock for reading.
 		/// Returns false if an error occurs.
 		public func readLock() -> Bool
@@ -88,6 +93,7 @@ public extension Threading {
 		public func doWithReadLock(closure: () throws -> ()) rethrows        
      /// Acquire the write lock, execute the closure, release the lock.
 		public func doWithWriteLock(closure: () throws -> ()) rethrows
+	}
 }
 ```
 
