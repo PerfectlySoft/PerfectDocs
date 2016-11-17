@@ -73,7 +73,8 @@
 	* [JSON数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/JSON.md)
 	* [静态文件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/staticFileContent.md)
 	* [Mustache页面模板](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mustache.md)
-  * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/webSockets.md)
+	* [HTTP请求日志记录器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPRequestLogging.md)
+	* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/webSockets.md)
   * [基本工具](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/utilities.md)
 	* [字节流转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/bytes.md)
 	* [文件操作](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/file.md)
@@ -83,6 +84,7 @@
 	* [UUID唯一标识符](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/UUID.md)
 	* [SysProcess系统进程](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/sysProcess.md)
 	* [日志](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/log.md)
+	* [日志文件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/logFiles.md)
 	* [CURL联网传输](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/cURL.md)
 	* [XML数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/xml.md) @kjessup
 	* [Zip压缩](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/zip.md)
