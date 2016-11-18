@@ -22,13 +22,13 @@ When including the dependancy in your project's Package.swift dependancies, you 
 For example to include PostgresStORM:
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/Postgres-Storm.git", majorVersion: 0, minor: 0)
+.Package(url: "https://github.com/SwiftORM/Postgres-StORM.git", majorVersion: 0, minor: 0)
 ```
 
 For example to include MySQLStORM:
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MySQL-Storm.git", majorVersion: 0, minor: 0)
+.Package(url: "https://github.com/SwiftORM/MySQL-StORM.git", majorVersion: 0, minor: 0)
 ```
 
 To include SQLiteStORM:

@@ -22,13 +22,13 @@ StORM 有关的数据库（数据源）文档：
 比如，如果需要使用PostgreSQL，则请配置为 PostgresStORM 程序库：
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/Postgres-Storm.git", majorVersion: 0, minor: 0)
+.Package(url: "https://github.com/SwiftORM/Postgres-StORM.git", majorVersion: 0, minor: 0)
 ```
 
 比如，如果需要使用 MySQL，则请配置为 MySQLStORM 程序库：
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MySQL-Storm.git", majorVersion: 0, minor: 0)
+.Package(url: "https://github.com/SwiftORM/MySQL-StORM.git", majorVersion: 0, minor: 0)
 ```
 
 比如，如果需要使用 SQLite，则请配置为 SQLiteStORM 程序库：
