@@ -148,4 +148,4 @@ When the ```.documentRoot``` property of the server is set, the server will auto
 
 ### Further Information
 
-For more information and example of URL routing, please see the [URL Routing](https://github.com/PerfectlySoft/PerfectExample-URLRouting) example application.
+For more information and example of URL routing, please see the [URL Routing](https://github.com/PerfectExamples/Perfect-URLRouting) example application.
