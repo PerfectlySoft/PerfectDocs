@@ -87,7 +87,7 @@ routes.add(method: .get, uri: "/files/**", handler: {
     request, response in
 
     // 获得符合通配符的请求路径
-    request.path = request.urlVariables[routeTrailingWildcardKey]
+    request.path = request.urlVariables[routeTrailingWildcardKey]!
 
     // 用文档根目录初始化静态文件句柄
     let handler = StaticFileHandler(documentRoot: "/var/www/htdocs")
