@@ -137,8 +137,8 @@
 					"doc":  "MySQL"
 				},
 				{
-					"name": "MariaDB”,
-					"doc":  "MariaDB”
+					"name": "MariaDB",
+					"doc":  "MariaDB"
 				},
 				{
 					"name": "PostgreSQL",
