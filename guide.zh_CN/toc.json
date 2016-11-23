@@ -110,7 +110,7 @@
 					"doc":  "log"
 				},
 				{
-					"name": "Log日志文件”,
+					"name": "Log日志文件",
 					"doc":  "logFiles"
 				},
 				{
