@@ -72,7 +72,7 @@
 					"doc":  "mustache"
 				},
 				{
-					"name": "HTTP请求日志记录”,
+					"name": "HTTP请求日志记录",
 					"doc":  "HTTPRequestLogging"
 				}
 			]
