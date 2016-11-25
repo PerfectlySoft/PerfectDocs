@@ -84,7 +84,7 @@ swift build
 *⚠️注意⚠️* 如果编译过程中有问题，那么请尝试用特定的一个工具集来编译，形式如下：
 `/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2016-08-18-a.xctoolchain/usr/bin/swift build`
 
-编译完成后应该看到：
+编译完成后运行，应该看到：
 
 ```
 你好！！！
