@@ -1,14 +1,14 @@
 # HTTPServer
 
-Before receiving and handling requests, one must start up one or more HTTP servers. Servers are configured and started using functions available in the `HTTPServer` namespace. When starting servers you can choose to wait until the servers have terminated (which will generally not happen until the process is terminated) or receive `LaunchContext` objects for each server which permit them to be terminated and waited upon.
-
-A Perfect HTTP server consists of a name and a listen port, one or more handlers, and zero or more request or response filters. In addition, a secure HTTPS server will also have TLS related configuration information such as a certificate or key file path.
-
-You can start a Perfect HTTP server in one of three possible ways, depending on your need to control the finer aspects of the process.
+Before receiving and handling requests, one must start up one or more HTTP servers. Servers are configured and started using functions available in the `HTTPServer` namespace. You can start a Perfect HTTP server in one of three possible ways, depending on your need to control the finer aspects of the process.
 
 1. Using a configuration file.
 2. Using the HTTPServer.launch functions.
 3. Manually instantiating an HTTPServer object, setting its configurable properties and calling its `start()` function.
+
+A Perfect HTTP server consists of a name and a listen port, one or more handlers, and zero or more request or response filters. In addition, a secure HTTPS server will also have TLS related configuration information such as a certificate or key file path.
+
+When starting servers you can choose to wait until the servers have terminated (which will generally not happen until the process is terminated) or receive `LaunchContext` objects for each server which permit them to be terminated and waited upon.
 
 ## HTTPServer Configuration File
 
@@ -333,14 +333,13 @@ The following examples show some common usages.
 try HTTPServer.launch(name: "localhost", port: 8080, documentRoot: "/path/to/webroot")
 
 // start two servers. have one serve static files and the other handle API requests
-let apiRoutes = [Route(method: .get, uri: "/foo/bar", handler: {
-					req, resp in
-					//do stuff
-				})
-]
+let apiRoutes = Route(method: .get, uri: "/foo/bar", handler: {
+		req, resp in
+		//do stuff
+	})
 try HTTPServer.launch(
 	.server(name: "localhost", port: 8080, documentRoot:  "/path/to/webroot"),
-	.server(name: "localhost", port: 8181, routes: apiRoutes))
+	.server(name: "localhost", port: 8181, routes: [apiRoutes]))
 
 // start a single server which handles API and static files
 try HTTPServer.launch(name: "localhost", port: 8080, routes: [
@@ -352,13 +351,12 @@ try HTTPServer.launch(name: "localhost", port: 8080, routes: [
 		HTTPHandler.staticFiles(documentRoot: "/path/to/webroot"))
 	])
 	
-let apiRoutes = [Route(method: .get, uri: "/foo/bar", handler: {
-	req, resp in
-	//do stuff
-})
-]
+let apiRoutes = Route(method: .get, uri: "/foo/bar", handler: {
+		req, resp in
+		//do stuff
+	})
 // start a secure server
-try HTTPServer.launch(.secureServer(TLSConfiguration(certPath: "/path/to/cert"), name: "localhost", port: 8080, routes: apiRoutes))
+try HTTPServer.launch(.secureServer(TLSConfiguration(certPath: "/path/to/cert"), name: "localhost", port: 8080, routes: [apiRoutes]))
 ```
 
 The `TLSConfiguration` struct configures the server for HTTPS and is defined as:
