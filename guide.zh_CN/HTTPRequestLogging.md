@@ -7,7 +7,7 @@
 请在您的项目文件 `Package.swift` 中增加以下依存关系：
 
 ```swift
-.Package(url: "https://github.com/dabfleming/Perfect-RequestLogger.git", majorVersion: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-RequestLogger.git", majorVersion: 0)
 ```
 
 对于要调用该功能的源程序，请在源程序文件开头增加导入语句：
