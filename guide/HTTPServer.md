@@ -1,5 +1,7 @@
 # HTTPServer
 
+**NOTE:** The APIs described in this document are to be considered as experimental. Aspects may be changed, removed or added before they are finalized.
+
 Before receiving and handling requests, one must start up one or more HTTP servers. Servers are configured and started using functions available in the `HTTPServer` namespace. You can start a Perfect HTTP server in one of three possible ways, depending on your need to control the finer aspects of the process.
 
 1. Using a configuration file.
@@ -139,6 +141,8 @@ Perfect comes with request handlers that take care of various common tasks such 
 	]
 ]
 ```
+
+Corresponding HTTPServer property: `HTTPServer.addRoutes`.
 
 #### Adding Custom Request Handlers
 
@@ -433,11 +437,3 @@ public class HTTPServer {
 	public func stop()
 }
 ```
-
-### Built-in HTTP Handlers
-
-Text.
-
-
-
-
