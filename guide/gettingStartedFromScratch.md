@@ -14,18 +14,18 @@ swift --version
 It will produce a message similar to this one: 
 
 ```
-Apple Swift version 3.0 (swiftlang-800.0.33.1 clang-800.0.31)
+Apple Swift version 3.0.1 (swiftlang-800.0.58.6 clang-800.0.42.1)
 Target: x86_64-apple-macosx10.9
 ```
-Make sure you are running the latest version of Swift 3.0, whether it being the latest preview or snapshot. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.
+Make sure you are running the release version of Swift 3.0.1. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.1.
 
 You can find out which version of Swift you will need by looking in [the README of the main Perfect repo](https://github.com/PerfectlySoft/Perfect#compatibility-with-swift)
 
 ### OS X
-Everything you need is already installed!
+Everything you need is already installed.
 
 ### Ubuntu Linux
-Perfect runs in Ubuntu Linux 14.04 and 15.10 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
+Perfect runs in Ubuntu Linux 14.04, 15.10 and 16.04 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
 
 ```
 sudo apt-get install openssl libssl-dev uuid-dev
@@ -81,9 +81,6 @@ swift build
 .build/debug/MyAwesomeProject
 ```
 
-*NOTE* If you are having issues building the project, then try to run it with the specific toolchain, similar to the following:
-`/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2016-08-18-a.xctoolchain/usr/bin/swift build`
-
 You should see the following output:
 
 ```
@@ -92,7 +89,7 @@ Well hi there!
 
 ### Setting up the server
 
-Now that the swift package is up and running, then next step is to implement the Perfect-HTTPServer! Open up the `Sources/main.swift` and change its content the following:
+Now that the swift package is up and running, then next step is to implement the Perfect-HTTPServer. Open up the `Sources/main.swift` and change its content the following:
 
 ``` swift
 import PerfectLib
@@ -133,7 +130,7 @@ swift build
 .build/debug/MyAwesomeProject
 ```
 
-The server is now running and it’s waiting for connections! 🎉 Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit "control-c" to terminate the server.
+The server is now running and it’s waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit "control-c" to terminate the server.
 
 ### Xcode
 
@@ -149,4 +146,4 @@ Open the generated file "PerfectTemplate.xcodeproj" and add the following to the
 $(PROJECT_DIR) - Recursive
 ```
 
-Ensure that you have selected the executable target and selected it to run on "My Mac". Also ensure that the correct Swift toolchain is selected. You can now run and debug the server directly in Xcode!
+Ensure that you have selected the executable target and selected it to run on "My Mac". Also ensure that the correct Swift toolchain is selected. You can now run and debug the server directly in Xcode.
