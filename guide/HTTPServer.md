@@ -4,7 +4,7 @@
 
 Before receiving and handling requests, one must start up one or more HTTP servers. Servers are configured and started using functions available in the `HTTPServer` namespace. You can start a Perfect HTTP server in one of three possible ways, depending on your need to control the finer aspects of the process.
 
-1. Using a configuration file.
+1. Using structured configuration data (a dictionary or JSON file).
 2. Using the HTTPServer.launch functions.
 3. Manually instantiating an HTTPServer object, setting its configurable properties and calling its `start()` function.
 
@@ -12,7 +12,15 @@ A Perfect HTTP server consists of a name and a listen port, one or more handlers
 
 When starting servers you can choose to wait until the servers have terminated (which will generally not happen until the process is terminated) or receive `LaunchContext` objects for each server which permit them to be terminated and waited upon.
 
-## HTTPServer Configuration File
+## HTTPServer Configuration Data
+
+One or more Perfect HTTP servers can be configured and launched using structured configuration data. This includes setting elements such as the listen port and bind address but also permits pointing handlers to specific fuctions by name. In order to enable this functionality on Linux, you must build your SPM executable with an additional flag:
+
+```
+swift build -Xlinker --export-dynamic
+```
+
+This is only required on Linux and only if you are going to be using the configuration data system described in this section.
 
 Call one of the static `HTTPServer.launch` functions with either a path to a JSON configuration file, a File object pointing to the configuration file or a Swift Dictionary&lt;String:Any&gt;.
 
