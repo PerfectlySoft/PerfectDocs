@@ -2,13 +2,11 @@
 
 **NOTE:** The APIs described in this document are to be considered as experimental. Aspects may be changed, removed or added before they are finalized.
 
-Before receiving and handling requests, one must start up one or more HTTP servers. Servers are configured and started using functions available in the `HTTPServer` namespace. You can start a Perfect HTTP server in one of three possible ways, depending on your need to control the finer aspects of the process.
+This document describes the three methods by which you can launch new Perfect HTTP servers. These methods differ in their complexity and each caters to a different use case. 
 
-1. Using structured configuration data (a dictionary or JSON file).
-2. Using the HTTPServer.launch functions.
-3. Manually instantiating an HTTPServer object, setting its configurable properties and calling its `start()` function.
+The first method is data driven whereby you provide either a Swift Dictionary or JSON file describing the servers you wish to launch. The second method describes the desired servers using Swift language constructs complete with the type checking and compile-time constraints provided by Swift. The third method permits you to instantiant an HTTPServer object and configure each of the required properties before manually starting it.
 
-A Perfect HTTP server consists of a name and a listen port, one or more handlers, and zero or more request or response filters. In addition, a secure HTTPS server will also have TLS related configuration information such as a certificate or key file path.
+HTTP servers are configured and started using the functions available in the `HTTPServer` namespace. A Perfect HTTP server consists of at least a name and a listen port, one or more handlers, and zero or more request or response filters. In addition, a secure HTTPS server will also have TLS related configuration information such as a certificate or key file path.
 
 When starting servers you can choose to wait until the servers have terminated (which will generally not happen until the process is terminated) or receive `LaunchContext` objects for each server which permit them to be terminated and waited upon.
 
@@ -123,7 +121,7 @@ The key names are: "method" or "methods", "uri" and "handler". The value for eac
 
 Any additional keys/values are provided when the named function is called. These keys can be used to configure the handler's behaviour. For example, the `staticFiles` handler requires a "documentRoot" key to configure the directory containing local static files.
 
-Perfect comes with request handlers that take care of various common tasks such as redirecting clients or serving static, on-disk files. The following example defines a server which listens on port 8080 and has two handlers. One which serves static files while the other redirects clients to a new URL.
+Perfect comes with request handlers that take care of various common tasks such as redirecting clients or serving static, on-disk files. The following example defines a server which listens on port 8080 and has two handlers, one of which serves static files while the other redirects clients to a new URL.
 
 ```swift
 [
@@ -160,6 +158,8 @@ It's important to note that the function names which you would enter into the co
 
 It's also vital that the name you provide be fully qualified. That is, it should include your Swift module name, the name of any interstitial nesting constructs such as struct or enum, and then the function name itself. These should all be separated by "." periods. For example you can see the static file handler is given as "PerfectHTTPServer.HTTPHandler.staticFiles". It resides in the module "PerfectHTTPServer", in an extension of the struct "HTTPHandler" and is named "staticFiles".
 
+
+
 An example request handler generator which could be used in a server configuration follows.
 
 ```swift
@@ -184,7 +184,7 @@ Request handler generators are encouraged to `throw` when required configuration
 
 Request filters can screen or manipulate incoming request data. For example an authentication filter might check to see if a request has certain permissions, and if not, return an error to the client. Response filters do the same for outgoing data, having an opportunity to change response headers or body data. See [Request and Response Filters](http://perfect.org/docs/filters.html) for specifics on Perfect's request filtering system.
 
-The value for the "filters" key is an array of dictionaries containing keys which describe each filter. The required keys for these dictionaries are "type", and "name". The possible values for the "type" key are "request", and "response", to indicate either a request or a response filter. A "priority" key can also be provided with a value of either "high", "medium", or "low". If a priority is not provided then the default value will be "high".
+The value for the "filters" key is an array of dictionaries containing keys which describe each filter. The required keys for these dictionaries are "type", and "name". The possible values for the "type" key are "request" or "response", to indicate either a request or a response filter. A "priority" key can also be provided with a value of either "high", "medium", or "low". If a priority is not provided then the default value will be "high".
 
 The following example adds two filters, one for requests and one for responses.
 
