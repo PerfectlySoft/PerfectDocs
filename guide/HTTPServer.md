@@ -4,7 +4,7 @@
 
 This document describes the three methods by which you can launch new Perfect HTTP servers. These methods differ in their complexity and each caters to a different use case. 
 
-The first method is data driven whereby you provide either a Swift Dictionary or JSON file describing the servers you wish to launch. The second method describes the desired servers using Swift language constructs complete with the type checking and compile-time constraints provided by Swift. The third method permits you to instantiate an HTTPServer object and configure each of the required properties before manually starting it.
+The first method is data driven whereby you provide either a Swift Dictionary or JSON file describing the servers you wish to launch. The second method describes the desired servers using Swift language constructs complete with the type checking and compile-time constraints provided by Swift. The third method permits you to instantiate an HTTPServer object and procedurally configure each of the required properties before manually starting it.
 
 HTTP servers are configured and started using the functions available in the `HTTPServer` namespace. A Perfect HTTP server consists of at least a name and a listen port, one or more handlers, and zero or more request or response filters. In addition, a secure HTTPS server will also have TLS related configuration information such as a certificate or key file path.
 
