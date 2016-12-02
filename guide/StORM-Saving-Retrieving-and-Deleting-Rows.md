@@ -21,7 +21,7 @@ try obj.save {
 Note that the `.email` property was omitted in the initial save. Lets fix that:
 
 ``` swift
-email = "joe.smith@example.com"
+obj.email = "joe.smith@example.com"
 try obj.save()
 ```
 
