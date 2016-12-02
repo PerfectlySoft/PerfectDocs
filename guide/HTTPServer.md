@@ -4,21 +4,21 @@
 
 This document describes the three methods by which you can launch new Perfect HTTP servers. These methods differ in their complexity and each caters to a different use case. 
 
-The first method is data driven whereby you provide either a Swift Dictionary or JSON file describing the servers you wish to launch. The second method describes the desired servers using Swift language constructs complete with the type checking and compile-time constraints provided by Swift. The third method permits you to instantiate an HTTPServer object and procedurally configure each of the required properties before manually starting it.
+The first method is data driven whereby you provide either a Swift Dictionary or JSON file describing the servers you wish to launch. The second method describes the desired servers using Swift language constructs complete with the type checking and compile-time constraints provided by Swift. The third method permits you to instantiate an HTTPServer object and then procedurally configure each of the required properties before manually starting it.
 
 HTTP servers are configured and started using the functions available in the `HTTPServer` namespace. A Perfect HTTP server consists of at least a name and a listen port, one or more handlers, and zero or more request or response filters. In addition, a secure HTTPS server will also have TLS related configuration information such as a certificate or key file path.
 
-When starting servers you can choose to wait until the servers have terminated (which will generally not happen until the process is terminated) or receive `LaunchContext` objects for each server which permit them to be terminated and waited upon.
+When starting servers you can choose to wait until the servers have terminated (which will generally not happen until the process is terminated) or receive `LaunchContext` objects for each server which permits them to be individually terminated and waited upon.
 
 ## HTTPServer Configuration Data
 
-One or more Perfect HTTP servers can be configured and launched using structured configuration data. This includes setting elements such as the listen port and bind address but also permits pointing handlers to specific fuctions by name. In order to enable this functionality on Linux, you must build your SPM executable with an additional flag:
+One or more Perfect HTTP servers can be configured and launched using structured configuration data. This includes setting elements such as the listen port and bind address but also permits pointing handlers to specific fuctions by name. This feature is required if loading server configuration data from a JSON file. In order to enable this functionality on Linux, you must build your SPM executable with an additional flag:
 
 ```
 swift build -Xlinker --export-dynamic
 ```
 
-This is only required on Linux and only if you are going to be using the configuration data system described in this section.
+This is only required on Linux and only if you are going to be using the configuration data system described in this section with JSON text files.
 
 Call one of the static `HTTPServer.launch` functions with either a path to a JSON configuration file, a File object pointing to the configuration file or a Swift Dictionary&lt;String:Any&gt;.
 
@@ -56,7 +56,7 @@ After it is decoded from JSON, at its top level, the configuration data should c
 ]
 ```
 
-A simple example single server configuration might look as follows. Note that the keys and values in this example are all explained in the subsequent sections of this document.
+A simple example single server configuration dictionary might look as follows. Note that the keys and values in this example are all explained in the subsequent sections of this document.
 
 ```swift
 [
@@ -158,7 +158,7 @@ It's important to note that the function names which you would enter into the co
 
 It's also vital that the name you provide be fully qualified. That is, it should include your Swift module name, the name of any interstitial nesting constructs such as struct or enum, and then the function name itself. These should all be separated by "." periods. For example you can see the static file handler is given as "PerfectHTTPServer.HTTPHandler.staticFiles". It resides in the module "PerfectHTTPServer", in an extension of the struct "HTTPHandler" and is named "staticFiles".
 
-
+Note that if you are creating a configuration directly in Swift code as a dictionary then you do not have to quote the function names that you provide. the value for the "handler" (and subsequently the "filters" described later in this chapter) can be given as direct function references.
 
 An example request handler generator which could be used in a server configuration follows.
 
@@ -265,13 +265,13 @@ If a "tlsConfig" key is provided then a secure HTTPS server will be attempted. T
 * cipherList - an optional array of ciphers that the server will support.
 * caCertPath - optional String file path to the CA cert file
 * verifyMode - optional String indicating how the secure connections should be verified. The value should be one of:
-	* sslVerifyNone
-	* sslVerifyPeer
-	* sslVerifyFailIfNoPeerCert
-	* sslVerifyClientOnce
-	* sslVerifyPeerWithFailIfNoPeerCert
-	* sslVerifyPeerClientOnce
-	* sslVerifyPeerWithFailIfNoPeerCertClientOnce
+	* none
+	* peer
+	* failIfNoPeerCert
+	* clientOnce
+	* peerWithFailIfNoPeerCert
+	* peerClientOnce
+	* peerWithFailIfNoPeerCertClientOnce
 
 The default values for the cipher list can be obtained through the `TLSConfiguration.defaultCipherList` property.
 
