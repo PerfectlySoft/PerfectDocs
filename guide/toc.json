@@ -25,6 +25,10 @@
 			"doc":  "buildingWithSPM"
 		},
 		{
+			"name": "Configuring and Launching HTTPServer",
+			"doc":  "HTTPServer"
+		},
+		{
 			"name": "Handling Requests",
 			"doc":  "handlingRequests",
 			"contents": [
