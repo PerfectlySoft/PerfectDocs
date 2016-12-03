@@ -22,7 +22,7 @@ To install Homebrew:
 To install mongo-c:
 
 ```
-brew install mongo-c
+brew install mongo-c-driver
 ```
 
 ### Linux

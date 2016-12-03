@@ -22,7 +22,7 @@ MongoDB库函数是在mongo-c语言库的基础上封装而成，能够为Swift�
 安装mongo-c:
 
 ```
-brew install mongo-c
+brew install mongo-c-driver
 ```
 
 ### Linux
