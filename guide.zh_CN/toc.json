@@ -24,7 +24,10 @@
 			"name": "用SPM软件包管理器编译项目",
 			"doc":  "buildingWithSPM"
 		},
-		{
+		{	"name": "HTTP服务器配置与启动",
+ 			"doc":  "HTTPServer"
+ 		},
+ 		{
 			"name": "处理HTTP请求",
 			"doc":  "handlingRequests",
 			"contents": [
