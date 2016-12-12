@@ -5,7 +5,7 @@
 When including the dependancy in your project's Package.swift dependancies, you will have access to all nested dependancies including the database connector.
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MySQL-StORM", majorVersion: 0, minor: 0)
+.Package(url: "https://github.com/SwiftORM/MySQL-StORM", majorVersion: 1, minor: 0)
 ```
 
 
