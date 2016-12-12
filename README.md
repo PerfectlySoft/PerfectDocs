@@ -126,6 +126,7 @@ StORM is not distributed as a Perfect.org project, however the Perfect libraries
 	* [PostgresStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-PostgreSQL.md)
 	* [SQLiteStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-SQLite.md)
 	* [MySQLStORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-MySQL.md)
+	* [Apache CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-CouchDB.md)
 
 ## Perfect Turnstile - an authentication layer for Perfect
 
@@ -134,3 +135,5 @@ StORM is not distributed as a Perfect.org project, however the Perfect libraries
 * [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
 * [Perfect Turnstile with SQLite Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
 * [Perfect Turnstile with PostgreSQL Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+* [Perfect Turnstile with MySQL Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+* [Perfect Turnstile with CouchDB Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)

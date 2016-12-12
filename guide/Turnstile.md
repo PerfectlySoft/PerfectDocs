@@ -14,17 +14,27 @@ Documentation for implementing Turnstile directly is available via the [Stormpat
 
 Perfect supplies some datasource-specific integrations that can be dropped in place and used, or forked and modified to suit your project's specific needs.
 
-* [Perfect-Turnstile-PostgreSQL](https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL) --  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-PostgreSQL-Demo)
-* [Perfect-Turnstile-SQLite](https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite) --  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo)
+* [Perfect Turnstile PostgreSQL](https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL) ::  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-PostgreSQL-Demo)
+* [Perfect Turnstile SQLite](https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite) ::  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo)
+* [Perfect Turnstile MySQL](https://github.com/PerfectlySoft/Perfect-Turnstile-MySQL) ::  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-MySQL-Demo)
+* [Perfect Turnstile CouchDB](https://github.com/PerfectlySoft/Perfect-Turnstile-CouchDB) ::  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-CouchDB-Demo)
 
 ### Installation
 
 In your Package.swift file, include the following line inside the dependancy array:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL.git", majorVersion: 0, minor: 0)
-// or
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite.git", majorVersion: 0, minor: 0)
+// PostgreSQL
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL.git", majorVersion: 1, minor: 0)
+
+// MySQL
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-MySQL.git", majorVersion: 1, minor: 0)
+
+// SQLite
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite.git", majorVersion: 1, minor: 0)
+
+// CouchDB
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-CouchDB.git", majorVersion: 1, minor: 0)
 ```
 
 ### Included JSON Routes
@@ -61,38 +71,37 @@ import PerfectHTTP
 import PerfectHTTPServer
 
 import StORM
+import PerfectRequestLogger
+import TurnstilePerfect
+
+// see next section for alternate daabase options
 import PostgresStORM
 import PerfectTurnstilePostgreSQL
 
-// or
-// import SQLiteStORM
-// import PerfectTurnstileSQLite
 
 // uncomment to turn on SQL Logging to console
 //StORMdebug = true
+
+RequestLogFile.location = "./requests.log"
 
 // Used later in script for the Realm and how the user authenticates.
 let pturnstile = TurnstilePerfectRealm()
 
 // Set the connection vatiable
 // Replace with your values
-connect = PostgresConnect(
-    host: "localhost",
-    username: "perfect",
-    password: "perfect",
-    database: "perfect_testing",
-    port: 32769
-)
-// or
-// connect = SQLiteConnect("./authdb")
+PostgresConnector.host        = "localhost"
+PostgresConnector.username    = "perfect"
+PostgresConnector.password    = "perfect"
+PostgresConnector.database    = "perfect_testing"
+PostgresConnector.port        = 5432
 
 // Set up the Authentication table
-let auth = AuthAccount(connect!)
-auth.setup()
+let auth = AuthAccount()
+try? auth.setup()
 
 // Connect the AccessTokenStore
-tokenStore = AccessTokenStore(connect!)
-tokenStore?.setup()
+tokenStore = AccessTokenStore()
+try? tokenStore?.setup()
 
 // Create HTTP server.
 let server = HTTPServer()
@@ -126,6 +135,10 @@ server.setResponseFilters([pturnstile.responseFilter])
 
 server.setRequestFilters([(authFilter, .high)])
 
+// Request and response filters for HTTP logging
+server.setRequestFilters([(myLogger, .high)])
+server.setResponseFilters([(myLogger, .low)])
+
 // Set a listen port of 8181
 server.serverPort = 8181
 
@@ -153,13 +166,11 @@ Define the connection parameters. If using PostgreSQL:
 
 ``` swift
 // Replace with your values
-connect = PostgresConnect(
-    host: "localhost",
-    username: "perfect",
-    password: "perfect",
-    database: "perfect_testing",
-    port: 32769
-)
+PostgresConnector.host        = "localhost"
+PostgresConnector.username    = "perfect"
+PostgresConnector.password    = "perfect"
+PostgresConnector.database    = "perfect_testing"
+PostgresConnector.port        = 5432
 ```
 
 Or, define the location and name of the SQLite3 database:
@@ -171,15 +182,15 @@ connect = SQLiteConnect("./authdb")
 Define, and initialize up the authentication table:
 
 ``` swift 
-let auth = AuthAccount(connect!)
-auth.setup()
+let auth = AuthAccount()
+try? auth.setup()
 ```
 
 Connect the AccessTokenStore:
 
 ``` swift
-tokenStore = AccessTokenStore(connect!)
-tokenStore?.setup()
+tokenStore = AccessTokenStore()
+try? tokenStore?.setup()
 ```
 
 Create the HTTP Server:
@@ -218,6 +229,10 @@ server.setRequestFilters([pturnstile.requestFilter])
 server.setResponseFilters([pturnstile.responseFilter])
 
 server.setRequestFilters([(authFilter, .high)])
+
+// Request and response filters for HTTP logging
+server.setRequestFilters([(myLogger, .high)])
+server.setResponseFilters([(myLogger, .low)])
 ```
 
 Now, set the port, static files location, and start the server:
@@ -235,4 +250,78 @@ do {
 } catch PerfectError.networkError(let err, let msg) {
 	print("Network error thrown: \(err) \(msg)")
 }
+```
+
+## Database-specific import and configuration
+
+### PostgreSQL
+
+Import:
+
+``` swift
+import PostgresStORM
+import PerfectTurnstilePostgreSQL
+```
+
+Configuration:
+
+``` swift
+PostgresConnector.host        = "localhost"
+PostgresConnector.username    = "username"
+PostgresConnector.password    = "secret"
+PostgresConnector.database    = "dbname"
+PostgresConnector.port        = 5432
+```
+
+### MySQL
+
+Import:
+
+``` swift
+import MySQLStORM
+import PerfectTurnstileMySQL
+```
+
+Configuration:
+
+``` swift
+MySQLConnector.host        = "localhost"
+MySQLConnector.username    = "username"
+MySQLConnector.password    = "secret"
+MySQLConnector.database    = "dbname"
+MySQLConnector.port        = 3306
+```
+
+### SQLite
+
+Import:
+
+``` swift
+import SQLiteStORM
+import PerfectTurnstileSQLite
+```
+
+Configuration:
+
+``` swift
+SQLiteConnector.db = "./mydb"
+```
+
+### CouchDB
+
+Import:
+
+``` swift
+import CouchDBStORM
+import PerfectTurnstileCouchDB
+```
+
+Configuration:
+
+``` swift
+CouchDBConnection.host = "localhost"
+CouchDBConnection.username = "username"
+CouchDBConnection.password = "secret"
+CouchDBConnection.port = 5984
+CouchDBConnection.ssl = false
 ```
