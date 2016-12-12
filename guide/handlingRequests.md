@@ -8,7 +8,7 @@ Consult the following sections for more details on each specific phase and what 
 * [Routing](routing.md) - Describes the routing system and shows how to install URL handlers
 * [HTTPRequest](HTTPRequest.md) - Provides details on the request object protocol
 * [HTTPResponse](HTTPResponse.md) - Provides details on the response object protocol
-* [Request &amp; Response Filters](filter.md) - Shows how to add filters and illustrates how they are useful
+* [Request &amp; Response Filters](filters.md) - Shows how to add filters and illustrates how they are useful
 
 In addition, the following sections show how to use some of the pre-made, specialized handlers to accomplish specific tasks:
 
