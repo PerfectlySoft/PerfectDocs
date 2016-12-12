@@ -13,6 +13,12 @@ Mustache详细说明请见[Mustache标准（英文）](https://mustache.github.i
 	)
 ```
 
+使用之前，请在源代码开头部分增加对Mustache的引用导入：
+
+``` swift
+import PerfectMustache
+```
+
 Mustache模板可以在HTTP服务器中调用，也可以单独使用，不需要服务器。
 
 ### 服务器内调用Mustache
