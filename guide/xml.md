@@ -271,7 +271,7 @@ firstLast()
 
 Any XML node or element can have attributes:
 
-``` xml
+```
 <node attribute1="value of attribute1" attribute2="value of attribute2">
 </node>
 ```
@@ -346,7 +346,7 @@ showNamespaces()
 
 XPath (XML Path Language) is a query language for selecting nodes from an XML document. In addition, XPath may be used to compute values (e.g., strings, numbers, or Boolean values) from the content of an XML document.
 
-Teh following code demonstrates extracting a specific path:
+The following code demonstrates extracting a specific path:
 
 ``` swift
 func showXPath(xpath: String) {
@@ -360,3 +360,5 @@ showXPath(xpath: "/rss/channel/title/@attribute1")
 showXPath(xpath: "/rss/channel/link/text()")
 showXPath(xpath: "/rss/channel/item[2]/deeper/foo:bar")
 ```
+
+ 

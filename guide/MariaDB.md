@@ -30,7 +30,7 @@ Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by de
 
 A typical configuration of mariadb.pc may looks like:
 
-``` bash
+```
 prefix=/usr/local
 exec_prefix=${prefix}/bin
 libdir=${prefix}/lib/mariadb
@@ -47,7 +47,7 @@ Libs_r: -L${libdir} -lmariadb -ldl -lm -lpthread
 
 Edit your ~/.bash_profile with the following line:
 
-``` bash
+```
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/lib/pkgconfig"
 ```
 

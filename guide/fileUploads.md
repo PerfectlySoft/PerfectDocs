@@ -13,7 +13,7 @@ All code used below can be seen in action as a complete example at [https://gith
 
 An example HTML form containing the correct encoding and file input element might be represented like this:
 
-``` html
+```
 <form 
 	method="POST" 
 	enctype="multipart/form-data" 
