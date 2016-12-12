@@ -21,7 +21,7 @@ In order to connect to your database you will need to specify the path to the da
 ``` swift
 SQLiteConnector.db = "./mydb"
 ```
-Once your connection object is created it can be used in the object class to create the connection on demand.
+Once your connection information is specified is created it can be used in the object class to create the connection on demand.
 
 ``` swift
 let obj = User()
