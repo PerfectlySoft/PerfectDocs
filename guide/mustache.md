@@ -13,6 +13,12 @@ To utilize this module, add this project as a dependency in your Package.swift f
 	)
 ```
 
+Then please import the Mustache Module in your source code before using:
+
+``` swift
+import PerfectMustache
+```
+
 Mustache templates can be used in either an HTTP server handler or standalone with no server.
 
 ### Mustache Server Handler
