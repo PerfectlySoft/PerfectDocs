@@ -1,6 +1,6 @@
 # FileMaker
 
-The FileMaker Server connector provides access to FileMaker Server databases using the XML Web publishing interface. It allows you to allows you to search for, add, update and delete records in a hosted FileMaker database.
+The FileMaker Server connector provides access to FileMaker Server databases using the XML Web publishing interface. It allows you to search for, add, update and delete records in a hosted FileMaker database.
 
 ## System Requirements
 
