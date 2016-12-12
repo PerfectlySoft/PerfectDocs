@@ -22,7 +22,7 @@ import PerfectXML
 
 If you receive a compile error that says the following, you need to install and link libxml2
 
-``` bash
+```
 note: you may be able to install libxml-2.0 using your system-packager:
 
     brew install libxml2
@@ -34,7 +34,7 @@ Compile Swift Module 'PerfectXML' (2 sources)
 
 To install and link libxml2 with homebrew, use the following two commands
 
-``` bash
+```
 brew install libxml2
 brew link --force libxml2
 ```
@@ -43,7 +43,7 @@ brew link --force libxml2
 
 Ensure that you have installed libxml2-dev and pkg-config.
 
-``` bash
+```
 sudo apt-get install libxml2-dev pkg-config
 ```
 
