@@ -101,15 +101,9 @@ Corresponding HTTPServer property: `HTTPServer.serverPort`.
 
 ### address:
 
-This **optional** String value should be a dotted IP address. This indicates the local address on which the server should bind. If not given, this value defaults to "0.0.0.0" which indicates that the server should bind on all available local IP addresses.
+This **optional** String value should be a dotted IP address. This indicates the local address on which the server should bind. If not given, this value defaults to "0.0.0.0" which indicates that the server should bind on all available local IP addresses. Using "::" for this value will enable listening on all local IPv6 &amp; IPv4 addresses.
 
 Corresponding HTTPServer property: `HTTPServer.serverAddress`.
-
-### runAs:
-
-This **optional** string value indicates the name of a local OS user. After starting as root and binding the server to the indicated port (a low, restricted port such as 80, for example), the server will switch to the given user. These runAs users are generally given low or restricted permissions in order to prevent security attacks which could be perpetrated were the server running as root.
-
-Corresponding HTTPServer property: `HTTPServer.runAsUser`.
 
 ### routes:
 
@@ -158,7 +152,7 @@ It's important to note that the function names which you would enter into the co
 
 It's also vital that the name you provide be fully qualified. That is, it should include your Swift module name, the name of any interstitial nesting constructs such as struct or enum, and then the function name itself. These should all be separated by "." periods. For example you can see the static file handler is given as "PerfectHTTPServer.HTTPHandler.staticFiles". It resides in the module "PerfectHTTPServer", in an extension of the struct "HTTPHandler" and is named "staticFiles".
 
-Note that if you are creating a configuration directly in Swift code as a dictionary then you do not have to quote the function names that you provide. the value for the "handler" (and subsequently the "filters" described later in this chapter) can be given as direct function references.
+Note that if you are creating a configuration directly in Swift code as a dictionary then you do not have to quote the function names that you provide. the value for the "handler" (and subsequently the "filters" described later in this chapter) can be given as direct function references. 
 
 An example request handler generator which could be used in a server configuration follows.
 
@@ -275,6 +269,16 @@ If a "tlsConfig" key is provided then a secure HTTPS server will be attempted. T
 
 The default values for the cipher list can be obtained through the `TLSConfiguration.defaultCipherList` property.
 
+### User Switching
+
+After starting as root and binding the servers to the indicated ports (low, restricted ports such as 80, for example), it us recommended that the server process switch to a non-root operating system user. These users are generally given low or restricted permissions in order to prevent security attacks which could be perpetrated were the server running as root.
+
+At the top level of your configuation data (as a sibling to the "servers" key), you can include a "runAs" key with a string value. This value indicates the name of the desired user. The process will switch to the user only after all servers have successfully bound their respective listen ports.
+
+Only a server process which is started as root can switch users.
+
+Corresponding HTTPServer function: `HTTPServer.runAs(_ user: String)`.
+
 ## HTTPServer.launch
 
 There are several variants of the `HTTPServer.launch` functions which permit one or more servers to be started. These functions abstract the inner workings of the HTTPServer object and provide a more streamlined interface for server launching.
@@ -283,13 +287,13 @@ The simpliest of these methods launches a single server with options:
 
 ```swift
 public extension HTTPServer {
-	public static func launch(wait: Bool = true, name: String, port: Int, routes: Routes, runAs: String? = nil,
+	public static func launch(wait: Bool = true, name: String, port: Int, routes: Routes,
 	                          requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 	                          responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = []) throws -> LaunchContext
-	public static func launch(wait: Bool = true, name: String, port: Int, routes: [Route], runAs: String? = nil,
+	public static func launch(wait: Bool = true, name: String, port: Int, routes: [Route],
 	                          requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 	                          responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = []) throws -> LaunchContext
-	public static func launch(wait: Bool = true, name: String, port: Int, documentRoot root: String, runAs: String? = nil,
+	public static func launch(wait: Bool = true, name: String, port: Int, documentRoot root: String,
 	                          requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 	                          responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = []) throws -> LaunchContext
 }
@@ -309,29 +313,29 @@ The `Server`, which describes the HTTPServer object that will eventually be laun
 ```swift
 public extension HTTPServer {	
 	public struct Server {
-		public init(name: String, address: String, port: Int, routes: Routes, runAs: String? = nil,
+		public init(name: String, address: String, port: Int, routes: Routes,
 		            requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		            responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = [])
-		public init(tlsConfig: TLSConfiguration, name: String, address: String, port: Int, routes: Routes, runAs: String? = nil,
+		public init(tlsConfig: TLSConfiguration, name: String, address: String, port: Int, routes: Routes,
 		            requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		            responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = [])
-		public init(name: String, port: Int, routes: Routes, runAs: String? = nil,
+		public init(name: String, port: Int, routes: Routes,
 		            requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		            responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = [])
-		public init(tlsConfig: TLSConfiguration, name: String, port: Int, routes: Routes, runAs: String? = nil,
+		public init(tlsConfig: TLSConfiguration, name: String, port: Int, routes: Routes,
 		            requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		            responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = [])
 		
-		public static func server(name: String, port: Int, routes: Routes, runAs: String? = nil,
+		public static func server(name: String, port: Int, routes: Routes,
 		                          requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		                          responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = []) -> Server
-		public static func server(name: String, port: Int, routes: [Route], runAs: String? = nil,
+		public static func server(name: String, port: Int, routes: [Route],
 		                          requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		                          responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = []) -> Server
-		public static func server(name: String, port: Int, documentRoot root: String, runAs: String? = nil,
+		public static func server(name: String, port: Int, documentRoot root: String,
 		                          requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		                          responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = []) -> Server
-		public static func secureServer(_ tlsConfig: TLSConfiguration, name: String, port: Int, routes: [Route], runAs: String? = nil,
+		public static func secureServer(_ tlsConfig: TLSConfiguration, name: String, port: Int, routes: [Route],
 		                                requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		                                responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = []) -> Server
 	}
