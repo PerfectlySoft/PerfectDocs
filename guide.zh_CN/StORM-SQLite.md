@@ -20,7 +20,7 @@ StORM 并无法确保您的数据被黑客通过参数化捆绑方式进行SQL�
 ``` swift
 SQLiteConnector.db = "./mydb"
 ```
-一旦连接对象创建，您就可以通过该类对象进行数据操作：
+一旦指定连接的参数，那么类对象就会根据需要自动创建连接。
 
 ``` swift
 let obj = User()
