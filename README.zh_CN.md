@@ -126,11 +126,13 @@ StORM 并非 Perfect.org 发行的项目，但是 Perfect 的函数库将 StORM 
   * [PostgresStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-PostgreSQL.md)
   * [SQLiteStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-SQLite.md)
   * [MySQLStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-MySQL.md)
-
+	* [Apache CouchDB 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-CouchDB.md)
  ## Perfect Turnstile - 用户身份验证管理
 
  [Turnstile](https://github.com/stormpath/Turnstile) 是一个用于用户身份跨平台认证的开源软件框架体系 [Stormpath](https://github.com/stormpath) 。感谢 [Edward Jiang](https://github.com/edjiang) 为 Perfect 提供了 Turnstile。
 
  * [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
  * [Perfect Turnstile 与 SQLite 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
- * [Perfect Turnstile 与 PostgreSQL  集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+ * [Perfect Turnstile 与 PostgreSQL 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+* [Perfect Turnstile 与 MySQL 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+* [Perfect Turnstile 与 CouchDB 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
