@@ -216,7 +216,11 @@
 				{
 					"name": "SQLiteStORM",
 					"doc":  "StORM-SQLite"
-				}
+        		},
+        		{
+        			"name": "CouchDBStORM",
+        			"doc":  "StORM-CouchDB"
+        		}
 
 			]
 		},
