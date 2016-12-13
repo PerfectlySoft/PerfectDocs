@@ -90,7 +90,7 @@ Additionally the `select` can include:
 
 `update(data: [(String, Any)], idName: String = "id", idValue: Any)` - Updates the row with the specified data, with a primary key value, and an optional idName column name.
 
-`update(cols: [String], params: [Any], idName: String, idValue: Any)` -  Updates the row by spefifying data as matching arrays of column names, and the associated value. A primary key value, and an idName column name are also required.
+`update(cols: [String], params: [Any], idName: String, idValue: Any)` -  Updates the row by specifying data as matching arrays of column names, and the associated value. A primary key value, and an idName column name are also required.
 
 
 
