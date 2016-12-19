@@ -170,6 +170,10 @@
 						{
 							"name": "BSON 数据转换",
 							"doc":  "MongoDB-BSON"
+						},
+						{
+							"name": "GridFS 文件系统",
+							"doc":  "MongoDB-GridFS"
 						}
 
 					]

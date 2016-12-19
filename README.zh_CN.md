@@ -98,6 +98,7 @@
 		* [MongoDB 集合](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-Collections.md)
 		* [MongoDB 客户端](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-Client.md)
 		* [BSON 数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-BSON.md)
+		* [GridFS 文件系统](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-GridFS.md)
 	* [CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/CouchDB.md)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @ kjessup
 	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
