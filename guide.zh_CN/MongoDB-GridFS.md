@@ -79,15 +79,15 @@ try gridfs.delete(name: "file.name.on.server")
 
 #### 上载文件
 
-输入本地路径名称和预期服务器名称则可以上传一个文件：
+输入本地路径名称和预期服务器名称则可以上传一个文件，在上传完成后回调给主线程一个GridFile文件句柄：
 
 ``` swift
-gridfs.upload(from: "/path/to/local.file", to: "name.on.server.type") { success in 
-	if success {
-		print("上载成功")
-	}else{
-		print("上载失败")
-	}//end if
+gridfs.upload(from: "/path/to/local.file", to: "name.on.server.type") { gridFile in 
+	guard gridFile != nil else {
+		// 上载失败，应在此处抛出错误
+	}//end guard
+	// 查看上载后的文件尺寸
+	print(gridFile?.length ?? 0)
 }//end upload
 ```
 

@@ -75,23 +75,23 @@ try gridfs.delete(name: "file.name.on.server")
 
 #### Upload a file
 
-Specify a local file path and its expected remote file name to upload:
+Specify a local file path and its expected remote file name to upload, then `upload()` will call back with the uploaded gridFile handle:
 
 ``` swift
-gridfs.upload(from: "/path/to/local.file", to: "name.on.server.type") { success in 
-	if success {
-		print("Upload Succeed.")
-	}else{
-		print("Upload failed.")
-	}//end if
+gridfs.upload(from: "/path/to/local.file", to: "name.on.server.type") { gridFile in 
+	guard gridFile != nil else {
+		// throw some error here
+	}//end guard
+	// print out the uploaded file length
+	print(gridFile?.length ?? 0)
 }//end upload
 ```
 
 The example above is highly recommended for large file operations which usually takes some time to complete, however, there is also a synchronized way of upload which could block the current thread, which could be possibly a convenient way for small files:
 
 ``` swift
-let success = gridfs.upload(from: "/path/to/local", to: "name.on.server")
-if success {
+let gridFile = gridfs.upload(from: "/path/to/local", to: "name.on.server")
+if gridFile != nil {
 	print("Upload Succeed");
 }//end if
 ```
