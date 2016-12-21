@@ -16,15 +16,24 @@ Perfect 支持某些数据源集成，您可以在此基础之上根据项目需
 
 * [Perfect-Turnstile-PostgreSQL](https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL) --  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-PostgreSQL-Demo)
 * [Perfect-Turnstile-SQLite](https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite) --  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo)
-
+* [Perfect Turnstile MySQL](https://github.com/PerfectlySoft/Perfect-Turnstile-MySQL) ::  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-MySQL-Demo)
+* [Perfect Turnstile CouchDB](https://github.com/PerfectlySoft/Perfect-Turnstile-CouchDB) ::  [Demo](https://github.com/PerfectExamples/Perfect-Turnstile-CouchDB-Demo)
 ### 安装
 
 在您的 Package.swift 文件中，请增加以下依存关系：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL.git", majorVersion: 0, minor: 0)
-// or
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite.git", majorVersion: 0, minor: 0)
+// PostgreSQL
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL.git", majorVersion: 1, minor: 0)
+
+// MySQL
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-MySQL.git", majorVersion: 1, minor: 0)
+
+// SQLite
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite.git", majorVersion: 1, minor: 0)
+
+// CouchDB
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-CouchDB.git", majorVersion: 1, minor: 0)
 ```
 
 ### JSON 路由
@@ -55,85 +64,88 @@ Mustache 文档样例请参考[https://github.com/PerfectExamples/Perfect-Turnst
 
 有了Turnstile，设置一个带用户身份验证的HTTP服务器是非常容易的。参考下列服务器主程序代码，更详细的逐步说明请见下文：
 
-``` swift
+``` swift 
 import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
 
 import StORM
+import PerfectRequestLogger
+import TurnstilePerfect
+
+// 如果选择其他数据库，请参考后续章节
 import PostgresStORM
 import PerfectTurnstilePostgreSQL
 
-// 或者，如果您的数据库是SQLite，则请选择下面的库函数
-// import SQLiteStORM
-// import PerfectTurnstileSQLite
 
-// 如果您需要在终端上调试SQL，请将下面一行的注释去掉
+// 如果需要进行日志追踪，请去掉以下代码注释
 //StORMdebug = true
 
-// 下面这个变量在后续的Real对象程序脚本中将用于用户身份验证
+RequestLogFile.location = "./requests.log"
+
+// 稍后会在用户身份验证过程中用到用户域。
 let pturnstile = TurnstilePerfectRealm()
 
 // 设置连接参数
-// 替换为您自己的信息
-connect = PostgresConnect(
-    host: "localhost",
-    username: "perfect",
-    password: "perfect",
-    database: "perfect_testing",
-    port: 32769
-)
-// 如果要连接SQLite，请使用：
-// connect = SQLiteConnect("./authdb")
+// 请自行替换为真正的连接参数
+PostgresConnector.host        = "localhost"
+PostgresConnector.username    = "perfect"
+PostgresConnector.password    = "perfect"
+PostgresConnector.database    = "perfect_testing"
+PostgresConnector.port        = 5432
 
-// 设置认证数据表
-let auth = AuthAccount(connect!)
-auth.setup()
+// 设置认证表
+let auth = AuthAccount()
+try? auth.setup()
 
-// 连接到令牌数据区
-tokenStore = AccessTokenStore(connect!)
-tokenStore?.setup()
+// 连接到令牌管理库
+tokenStore = AccessTokenStore()
+try? tokenStore?.setup()
 
-// 创建 HTTP 服务器。
+// 创建HTTP服务器
 let server = HTTPServer()
 
-// 注册路由和具柄
+// 注册路由和路由处理器句柄
 let authWebRoutes = makeWebAuthRoutes()
 let authJSONRoutes = makeJSONAuthRoutes("/api/v1")
 
-// 在服务器上注册路由
+// 将路由注册到服务器
 server.addRoutes(authWebRoutes)
 server.addRoutes(authJSONRoutes)
 
-// 其他的路由内容也可以在这里准备好
+// 追加更多路由
 var routes = Routes()
 // routes.add(method: .get, uri: "/api/v1/test", handler: AuthHandlersJSON.testHandler)
 
-// 追加其他路由
+// 增加到服务器
 server.addRoutes(routes)
 
-// 增加认证路由
+// 增加验证路由
 var authenticationConfig = AuthenticationConfig()
-authenticationConfig.include("/api/v1/check")
+authenticationConfig.include("/api/v1/*")
 authenticationConfig.exclude("/api/v1/login")
 authenticationConfig.exclude("/api/v1/register")
 
 let authFilter = AuthFilter(authenticationConfig)
 
-// 注意如果不同过滤器处于同等优先级过滤器，注意程序的执行顺序将影响过滤器处理的前后顺序
+// 注意过滤器的书写顺序决定了触发的优先级顺序
 server.setRequestFilters([pturnstile.requestFilter])
 server.setResponseFilters([pturnstile.responseFilter])
 
 server.setRequestFilters([(authFilter, .high)])
 
-// 设置监听端口 8181
+// 设置请求和响应过滤器
+server.setRequestFilters([(myLogger, .high)])
+server.setResponseFilters([(myLogger, .low)])
+
+// 设置监听端口
 server.serverPort = 8181
 
-// 设置服务器静态文件根目录
+// 设置静态文件根目录
 server.documentRoot = "./webroot"
 
 do {
-	// 启动 HTTP 服务器
+	// 启动服务器
 	try server.start()
 } catch PerfectError.networkError(let err, let msg) {
 	print("网络异常： \(err) \(msg)")
@@ -153,13 +165,12 @@ let pturnstile = TurnstilePerfectRealm()
 
 ``` swift
 // 请替换为您自己的配置
-connect = PostgresConnect(
-    host: "localhost",
-    username: "perfect",
-    password: "perfect",
-    database: "perfect_testing",
-    port: 32769
-)
+// Replace with your values
+PostgresConnector.host        = "localhost"
+PostgresConnector.username    = "perfect"
+PostgresConnector.password    = "perfect"
+PostgresConnector.database    = "perfect_testing"
+PostgresConnector.port        = 5432
 ```
 
 或者，配置好SQLite的数据库文件位置：
@@ -170,16 +181,16 @@ connect = SQLiteConnect("./authdb")
 
 定义并初始化身份认证表：
 
-``` swift
-let auth = AuthAccount(connect!)
-auth.setup()
+``` swift 
+let auth = AuthAccount()
+try? auth.setup()
 ```
 
 连接到令牌数据区：
 
 ``` swift
-tokenStore = AccessTokenStore(connect!)
-tokenStore?.setup()
+tokenStore = AccessTokenStore()
+try? tokenStore?.setup()
 ```
 
 创建 HTTP 服务
@@ -236,4 +247,77 @@ do {
 } catch PerfectError.networkError(let err, let msg) {
 	print("网络异常： \(err) \(msg)")
 }
+```
+## 数据库引用说明
+
+### PostgreSQL
+
+导入:
+
+``` swift
+import PostgresStORM
+import PerfectTurnstilePostgreSQL
+```
+
+配置：
+
+``` swift
+PostgresConnector.host        = "localhost"
+PostgresConnector.username    = "username"
+PostgresConnector.password    = "secret"
+PostgresConnector.database    = "dbname"
+PostgresConnector.port        = 5432
+```
+
+### MySQL
+
+导入：
+
+``` swift
+import MySQLStORM
+import PerfectTurnstileMySQL
+```
+
+配置：
+
+``` swift
+MySQLConnector.host        = "localhost"
+MySQLConnector.username    = "username"
+MySQLConnector.password    = "secret"
+MySQLConnector.database    = "dbname"
+MySQLConnector.port        = 3306
+```
+
+### SQLite
+
+导入：
+
+``` swift
+import SQLiteStORM
+import PerfectTurnstileSQLite
+```
+
+配置：
+
+``` swift
+SQLiteConnector.db = "./mydb"
+```
+
+### CouchDB
+
+导入：
+
+``` swift
+import CouchDBStORM
+import PerfectTurnstileCouchDB
+```
+
+配置：
+
+``` swift
+CouchDBConnection.host = "localhost"
+CouchDBConnection.username = "username"
+CouchDBConnection.password = "secret"
+CouchDBConnection.port = 5984
+CouchDBConnection.ssl = false
 ```

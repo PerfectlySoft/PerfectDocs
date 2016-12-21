@@ -74,7 +74,7 @@ import StORM
 import PerfectRequestLogger
 import TurnstilePerfect
 
-// see next section for alternate daabase options
+// see next section for alternate database options
 import PostgresStORM
 import PerfectTurnstilePostgreSQL
 

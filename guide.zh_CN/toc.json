@@ -62,7 +62,11 @@
 					"name": "过滤器",
 					"doc":  "filters"
 				},
-					{
+				{
+					"name": "Session 会话管理",
+					"doc":  "sessions"
+				},
+				{
 					"name": "JSON数据转换",
 					"doc":  "JSON"
 				},
@@ -170,6 +174,10 @@
 						{
 							"name": "BSON 数据转换",
 							"doc":  "MongoDB-BSON"
+						},
+						{
+							"name": "GridFS 文件系统",
+							"doc":  "MongoDB-GridFS"
 						}
 
 					]
@@ -216,7 +224,11 @@
 				{
 					"name": "SQLiteStORM",
 					"doc":  "StORM-SQLite"
-				}
+        		},
+        		{
+        			"name": "CouchDBStORM",
+        			"doc":  "StORM-CouchDB"
+        		}
 
 			]
 		},

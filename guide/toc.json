@@ -183,6 +183,10 @@
 						{
 							"name": "Working with BSON",
 							"doc":  "MongoDB-BSON"
+						},
+						{
+							"name": "MongoDB GridFS",
+							"doc":  "MongoDB-GridFS"
 						}
 		
 					]
