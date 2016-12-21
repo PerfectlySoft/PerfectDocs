@@ -62,7 +62,11 @@
 					"name": "过滤器",
 					"doc":  "filters"
 				},
-					{
+				{
+					"name": "Session 会话管理",
+					"doc":  "sessions"
+				},
+				{
 					"name": "JSON数据转换",
 					"doc":  "JSON"
 				},
