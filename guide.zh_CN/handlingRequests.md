@@ -10,7 +10,7 @@
 * [Routing请求／响应路由](routing.md)——描述了HTTP请求／响应之间的路由系统，以及如何安装URL处理句柄
 * [HTTPRequest请求](HTTPRequest.md)——提供HTTP请求对象的完整协议
 * [HTTPResponse响应](HTTPResponse.md)——提供HTTP响应对象的完整协议
-* [HTTP请求与响应过滤器](filter.md)——说明如何增加、如何使用过滤器
+* [HTTP请求与响应过滤器](filters.md)——说明如何增加、如何使用过滤器
 
 此外，以下内容描述了如何预制页面内容、为特定任务而定制处理句柄：
 
