@@ -13,7 +13,7 @@ HTTP表单数据主要采用以下两种编码格式：
 
 典型的HTML文件上传表单中编码类型声明应该像以下例子这样：
 
-``` html
+```
 <form
     method="POST"
     enctype="multipart/form-data"
