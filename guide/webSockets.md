@@ -1,6 +1,6 @@
 # WebSockets
 
-WebSocket is designed as full-duplex communication channels over a single TCP connection. The WebSocket protocol facilitates the real-time data transfer from and to a server. This is made possible by providing a standardized way for the server to send content to the browser without being solicited by the client, and allowing for messages to be passed back and forth while keeping the connection open. In this way, a bi-directional (two-way) ongoing conversation can take place between browser and server. The communications are done over standard TCP ports, typically 80 or 443.
+WebSockets are designed as full-duplex communication channels over a single TCP connection. The WebSocket protocol facilitates the real-time data transfer from and to a server. This is made possible by providing a standardized way for the server to send content to the browser without being solicited by the client, and allowing for messages to be passed back and forth while keeping the connection open. In this way, a bi-directional (two-way) ongoing conversation can take place between browser and server. The communications are typically done over standard TCP ports, such as 80 or 443.
 
 The WebSocket protocol is currently supported in most major browsers including Google Chrome, Microsoft Edge, Internet Explorer, Firefox, Safari and Opera. WebSockets also require support from web applications on the server.
 
@@ -13,7 +13,7 @@ Add the WebSocket dependency to your Package.swift file:
 .Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 2, minor: 0)
 ```
 
-Then import WebSocket library into your swift source code as need:
+Then import WebSocket library into your swift source code as needed:
 
 ``` swift
 import PerfectWebSockets
@@ -118,7 +118,7 @@ class EchoHandler: WebSocketSessionHandler {
 ```
 
 ## FastCGI Caveat
-WebSockets serving is only supported with the stand-alone Perfect HTTP server. At this time, the WebSocket server does not operate with the Perfect FastCGI server.
+WebSockets serving is only supported with the stand-alone Perfect HTTP server. At this time, the WebSocket server does not operate with the Perfect FastCGI connector.
 
 ## WebSocket Class
 
