@@ -70,6 +70,7 @@
 		* [文件上传](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/fileUploads.md)
 	* [HTTPResponse响应对象](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPResponse.md)
 	* [HTTP请求与响应过滤器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filters.md)
+	* [Session 会话管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/sessions.md)
 	* [JSON数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/JSON.md)
 	* [静态文件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/staticFileContent.md)
 	* [Mustache页面模板](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mustache.md)
@@ -98,6 +99,8 @@
 		* [MongoDB 集合](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-Collections.md)
 		* [MongoDB 客户端](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-Client.md)
 		* [BSON 数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-BSON.md)
+		* [GridFS 文件系统](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-GridFS.md)
+	* [CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/CouchDB.md)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @ kjessup
 	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
 * [iOS 消息与通知](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/iOSNotifications.md) @kjessup
@@ -126,11 +129,13 @@ StORM 并非 Perfect.org 发行的项目，但是 Perfect 的函数库将 StORM 
   * [PostgresStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-PostgreSQL.md)
   * [SQLiteStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-SQLite.md)
   * [MySQLStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-MySQL.md)
-
+	* [Apache CouchDB 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-CouchDB.md)
  ## Perfect Turnstile - 用户身份验证管理
 
  [Turnstile](https://github.com/stormpath/Turnstile) 是一个用于用户身份跨平台认证的开源软件框架体系 [Stormpath](https://github.com/stormpath) 。感谢 [Edward Jiang](https://github.com/edjiang) 为 Perfect 提供了 Turnstile。
 
  * [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
  * [Perfect Turnstile 与 SQLite 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
- * [Perfect Turnstile 与 PostgreSQL  集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+ * [Perfect Turnstile 与 PostgreSQL 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+* [Perfect Turnstile 与 MySQL 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+* [Perfect Turnstile 与 CouchDB 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)

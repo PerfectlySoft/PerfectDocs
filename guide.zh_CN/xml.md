@@ -272,14 +272,14 @@ firstLast()
 
 任意 XML 节点/元素都能自定义多个属性，格式如下：
 
- ``` XML
+ ```
  <node attribute1='value of attribute1' attribute2='value of attribute2'>
  </node>
 ```
 
 节点对象方法 .getAttribute(name: String) 用于访问这些属性。参考以下例子：
 
-```Swift
+``` swift
 func showAttributes() {
 	let node = xDoc?.documentElement?.getElementsByTagName("title").first
 
