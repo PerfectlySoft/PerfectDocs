@@ -137,14 +137,14 @@ Method `search()` and `list()` return `GridFile` and `[GridFile]` array correspo
 
 ### GridFile properties:
 
-- id: oid string property of GridFile. Read only
-- md5: md5 string property of GridFile. Read only
-- aliases: a BSON property which represents the aliases of the GridFile. Read only
-- contentType: string property of GridFile. Read only
+- id: oid string property of GridFile.
+- md5: md5 string property of GridFile. 
+- aliases: a BSON property which represents the aliases of the GridFile.
+- contentType: string property of GridFile. 
 - length: length of the GridFile, an Int64 number. Read only
 - uploadDate: Int64 unix epoch time stamp of the GridFile. Read only
-- fileName: file name stored in the remote server. Read only
-- metaData: a BSON type property of GridFile to hold the meta data. Read only
+- fileName: file name stored in the remote server. 
+- metaData: a BSON type property of GridFile to hold the meta data. 
 
 ### GridFile methods:
 

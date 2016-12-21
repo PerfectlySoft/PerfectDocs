@@ -141,14 +141,14 @@ GridFS 的方法 `search()` 和 `list()` 会分别返回 `GridFile`类对象 和
 
 ### GridFile 属性：
 
-- id: oid 标识字符串，只读属性。
-- md5: md5 校验字符串，只读属性。
-- aliases: BSON 类型的属性，代表文件别名。只读属性。
-- contentType: 代表文件内容类型的字符串，只读属性。
+- id: oid 标识字符串。
+- md5: md5 校验字符串。
+- aliases: BSON 类型的属性，代表文件别名。
+- contentType: 代表文件内容类型的字符串。
 - length: 64位整型的文件长度，只读。
 - uploadDate: 64位整型时间戳，Unix纪元格式。只读属性。
-- fileName: 存储在服务器上的文件名，只读属性。
-- metaData: BSON 类型的元数据，只读属性。
+- fileName: 存储在服务器上的文件名。
+- metaData: BSON 类型的元数据。
 
 ### GridFile 方法：
 
