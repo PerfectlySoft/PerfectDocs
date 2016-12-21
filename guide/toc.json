@@ -64,6 +64,10 @@
 					"doc":  "filters"
 				},
 				{
+					"name": "Sessions",
+					"doc":  "sessions"
+				},
+				{
 					"name": "JSON",
 					"doc":  "JSON"
 				},
