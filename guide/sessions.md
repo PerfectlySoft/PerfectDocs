@@ -1,0 +1,275 @@
+## Sessions
+
+Perfect includes session drivers for PostgreSQL, MySQL, SQLite3 and CouchDB servers, as well as in-memory session storage for development purposes. Support for MongoDB and Redis is planned for the near future.
+
+Session management is a foundation function for any web or application environment, and provides linkage to authentication, transitional preference storage, and transactional data like in a traditional shopping cart.
+
+The general priniciple is that when a user "visits" a web site or system with a browser, the server assigns the user a "token", or "session id" and pases this value back to the client/browser in the form of a cookie, or in returned JSON. This token is then included either as a cookie or Bearer Token with every subsequent request.
+
+Sessions have an expiry time, usually in the form of an "idle timeout". This means that if a session has not been active for X seconds, the session is considered expired and invalid.
+
+The Perfect Sessions implementation stores the date/time created, when it was last "touched", and the idle time. On each acess by the client/browser the session is "touched" and the idle time is reset. If the "last touched" plus "idle time" is less than the current date/time then the session has expired.
+
+Each session has the following properties:
+
+* **token** - the session id
+* **userid** - an optionally stored user id string
+* **created** - an integer representing the date/time created, in seconds
+* **updated** - an integer representing the date/time last touched, in seconds
+* **idle** - an integer representing the number of seconds the session should be idle for before considered expired
+* **data** - a [String:Any] Array that is converted to JSON for storage. This is intended for storage of simple preference values.
+
+## Examples
+
+Each of the modules has an associated example/demo. Much of the functionality described in this document can be observed in each of these examples.
+
+* [In-Memory Sessions](https://github.com/PerfectExamples/Perfect-Session-Memory-Demo)
+* [PostgreSQL Sessions](https://github.com/PerfectExamples/Perfect-Session-PostgreSQL-Demo)
+* [MySQL Sessions](https://github.com/PerfectExamples/Perfect-Session-MySQL-Demo)
+* [SQLite Sessions](https://github.com/PerfectExamples/Perfect-Session-SQLite-Demo)
+* [CouchDB Sessions](https://github.com/PerfectExamples/Perfect-Session-CouchDB-Demo)
+
+## Installation
+
+If using the in-memory driver, import the base module by including the following in your project's Package.swift:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 0, minor: 0)
+```
+
+### Database-Specific Drivers
+
+PostgreSQL:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+```
+
+MySQL:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 0, minor: 0)
+```
+
+SQLite3:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 0, minor: 0)
+```
+
+CouchDB:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 0, minor: 0)
+```
+
+Note: MongoDB- and Redis-backed sessions are coming soon.
+
+## Configuration
+
+The struct `SessionConfig` contains settings that can be customized to your own preference:
+
+``` swift
+// The name of the session. 
+// This will also be the name of the cookie set in a browser.
+SessionConfig.name = "PerfectSession"
+
+// The "Idle" time for the session, in seconds.
+// 86400 is one day.
+SessionConfig.idle = 86400
+
+// CouchDB-Specific
+// The CouchDB database used to store sessions
+SessionConfig.couchDatabase = "sessions"
+
+// MongoDB-Specific
+// The MongoDB collection used to store sessions
+SessionConfig.mongoCollection = "sessions"
+
+```
+
+If you wish to change the SessionConfig values, you mush set these before the Session Driver is defined.
+
+### Defining the Session Driver
+
+Each Session Driver has it's own implementation which is optimized for the storage option. Therefore you must set the session driver and HTTP filters before executing "server.start()".
+
+In main.swift, afer any SessionConfig changes, set the following":
+
+``` swift 
+// Instantiate the HTTPServer
+let server = HTTPServer()
+
+// Define the Session Driver
+let sessionDriver = SessionMemoryDriver()
+
+// Add the filters so the pre- and post- route actions are executed.
+server.setRequestFilters([sessionDriver.requestFilter])
+server.setResponseFilters([sessionDriver.responseFilter])
+```
+
+In Perfect, filters are analagous in some ways to the concept of "middleware" in other frameworks. The "request" filter fill intercept the incoming request and extract the session token, attempts to load the session from storage, and make the session data available to the application. The response will be executed immediately before the response is returned to the client/browser and saves the session, and re-sends the cookie to the client/browser.
+
+See "Database-Specific Options" below for storage-appropriate settings and Driver syntax.
+
+### Accessing the Session Data
+
+The `token`, `userid` and `data` properties of the session are exposed in the "request" object which is passed into all handlers. The `userid` and `data` properties can be read and written to during the scope of the handler, and automatically saved to storage in the response filter.
+
+A sample handler can be seen in the example systems. 
+
+``` swift
+// Defining an "Index" handler
+open static func indexHandlerGet(request: HTTPRequest, _ response: HTTPResponse) {
+	// Random generator from TurnstileCrypto
+	let rand = URandom()
+	
+	// Adding some random data to the session for demo purposes
+	request.session.data[rand.secureToken] = rand.secureToken
+
+	// For demo purposes, dumping all current session data as a JSON string.
+	let dump = try? request.session.data.jsonEncodedString()
+
+	// Some simple HTML that displays the session token/id, and the current data as JSON.
+	let body = "<p>Your Session ID is: <code>\(request.session.token)</code></p><p>Session data: <code>\(dump)</code></p>"
+
+	// Send the response back.
+	response.setBody(string: body)
+	response.completed()
+}
+
+```
+
+To read the current session id:
+
+``` swift
+request.session.token
+```
+
+To access the userid:
+
+``` swift
+// read:
+request.session.userid
+
+// write:
+request.session.userid = "MyString"
+```
+
+To access the data stored in the session:
+
+``` swift
+// read:
+request.session.data
+
+// write:
+request.session.data["keyString"] = "Value"
+request.session.data["keyInteger"] = 1
+request.session.data["keyBool"] = true
+
+// reading a specific value
+if let val = request.session.data["keyString"] as? String {
+	let keyString = val
+}
+```
+
+
+## Database-Specific options
+
+### PostgreSQL
+
+Importing the module, in Package.swift:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+```
+
+Defining the connection to the PostgreSQL server:
+
+``` swift
+PostgresSessionConnector.host = "localhost"
+PostgresSessionConnector.port = 5432
+PostgresSessionConnector.username = "username"
+PostgresSessionConnector.password = "secret"
+PostgresSessionConnector.database = "mydatabase"
+PostgresSessionConnector.table = "sessions"
+```
+
+Defining the Session Driver:
+
+``` swift
+let sessionDriver = SessionPostgresDriver()
+```
+
+### MySQL
+
+Importing the module, in Package.swift:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 0, minor: 0)
+```
+
+Defining the connection to the MySQL server:
+
+``` swift
+MySQLSessionConnector.host = "localhost"
+MySQLSessionConnector.port = 3306
+MySQLSessionConnector.username = "username"
+MySQLSessionConnector.password = "secret"
+MySQLSessionConnector.database = "mydatabase"
+MySQLSessionConnector.table = "sessions"
+```
+
+Defining the Session Driver:
+
+``` swift
+let sessionDriver = SessionMySQLDriver()
+```
+
+### SQLite
+
+Importing the module, in Package.swift:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 0, minor: 0)
+```
+
+Defining the connection to the SQLite server:
+
+``` swift
+SQLiteConnector.db = "./SessionDB"
+```
+
+Defining the Session Driver:
+
+``` swift
+let sessionDriver = SessionSQLiteDriver()
+```
+
+### CouchDB
+
+Importing the module, in Package.swift:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+```
+
+Defining the CouchDB database to use for session storage:
+
+``` swift
+SessionConfig.couchDatabase = "perfectsessions"
+```
+
+Defining the connection to the CouchDB server:
+
+``` swift
+CouchDBConnection.host = "localhost"
+CouchDBConnection.username = "username"
+CouchDBConnection.password = "secret"
+```
+
+Defining the Session Driver:
+
+``` swift
+let sessionDriver = SessionCouchDBDriver()
+```
