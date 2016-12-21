@@ -70,6 +70,7 @@
 		* [文件上传](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/fileUploads.md)
 	* [HTTPResponse响应对象](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPResponse.md)
 	* [HTTP请求与响应过滤器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filters.md)
+	* [Session 会话管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/sessions.md)
 	* [JSON数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/JSON.md)
 	* [静态文件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/staticFileContent.md)
 	* [Mustache页面模板](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mustache.md)
