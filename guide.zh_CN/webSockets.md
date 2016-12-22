@@ -1,6 +1,6 @@
 # WebSockets
 
-WebSocket是建立在一个单独的TCP连接基础之上的全双工通讯协议，目前广泛被应用与各类浏览器和Web服务器。WebSocket协议使得浏览器和服务器之间的实时通信成为可能。通信过程在TCP端口上完成，通常为80端口或443端口。
+WebSocket是建立在一个单独的TCP连接基础之上的全双工通讯协议，目前广泛被应用与各类浏览器和Web服务器。WebSocket协议使得浏览器和服务器之间的实时通信和通信连接维持成为可能。通信过程在TCP端口上完成，比如80端口或443端口。
 
 WebSocket协议目前支持大多数主流浏览器，包括谷歌Chrome、微软Edge和IE、火狐、苹果Safari，以及Opera。WebSocket的实现需要网页程序和后台服务器的同时支持。
 
@@ -118,7 +118,7 @@ class EchoHandler: WebSocketSessionHandler {
 ```
 
 ## FastCGI 使用注意
-WebSockets 目前支持独立运行的 Perfect HTTP 服务器，暂时无法支持 Perfect FastCGI 服务器的集成
+WebSockets 目前支持独立运行的 Perfect HTTP 服务器，暂时无法支持 Perfect FastCGI 连接的集成
 
 ## WebSocket 类
 
