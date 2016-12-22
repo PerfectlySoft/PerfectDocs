@@ -5,6 +5,9 @@ GridFS is a specification for storing and retrieving files that exceed the BSON-
 - GridFS: list(), search(), delete(), upload(), download() and drop()
 - GridFile: provides file info, download() and dedicated large file operations such as tell() / seek(), partially read()/write(), and download()
 
+## macOS Building Notes
+Please *NOTE* that a special BUG must be fixed on mongoc-library before compiling this module. Please use mongo-c-driver 1.7.1+ versions. [More Infomation about mongoc BSON-API file property setting issue](https://github.com/mongodb/mongo-c-driver/pull/415)
+
 ## GridFS Class
 
 Accessing a GridFS object in a Perfect MongoDB context is simple. First, make sure that a mongo client is already available, then call `gridFS()` method with database name and a prefix string as an option. Check the example code below:
@@ -28,7 +31,7 @@ GridFS has methods listed below:
 - drop(): drop all files and the gridfs system from the database
 - search(filename): search a file on the server
 - delete(filename): delete a file from the server
-- upload(from, to): upload a local file to server
+- upload(from, to, contentType, md5, metaData, aliases): upload a local file to server
 - download(from, to): download a remote to local path
 - close(): close gridfs handle
 
@@ -52,7 +55,7 @@ print("\(list.count) file(s) found")
 Method `drop()` Requests that an entire GridFS be dropped, including all files associated with it.
 
 ``` swift
-gridfs.drop()
+try gridfs.drop()
 ```
 
 
@@ -75,47 +78,29 @@ try gridfs.delete(name: "file.name.on.server")
 
 #### Upload a file
 
-Specify a local file path and its expected remote file name to upload, then `upload()` will call back with the uploaded gridFile handle:
+Specify a local file path and its expected remote file name to upload with properties:
 
 ``` swift
-gridfs.upload(from: "/path/to/local.file", to: "name.on.server.type") { gridFile in 
-	guard gridFile != nil else {
-		// throw some error here
-	}//end guard
-	// print out the uploaded file length
-	print(gridFile?.length ?? 0)
-}//end upload
+let gridfile = try gridfs.upload(from: "/path/to/local.file", to: "name.on.server.type", contentType: "primaryType/subType", md5: "MD5 string", metaData: BSON(json: "meta data in a json string"), aliases: BSON(json: "aliases in a json string")
+print(gridfile.length)
 ```
 
-The example above is highly recommended for large file operations which usually takes some time to complete, however, there is also a synchronized way of upload which could block the current thread, which could be possibly a convenient way for small files:
-
-``` swift
-let gridFile = gridfs.upload(from: "/path/to/local", to: "name.on.server")
-if gridFile != nil {
-	print("Upload Succeed");
-}//end if
-```
+Parameters:
+- from: a required string stands for the local path of file to upload
+- to: a required string stands for the destinated file name on the remote server
+- contentType: an optional string stands for the file type. Default value is `text/plain`
+- md5: an optional string stands for the MD5 hash of the file to upload. *NOTE* [Perfect 	COpenSSL](https://github.com/PerfectlySoft/Perfect-COpenSSL) and [Perfect 	COpenSSL Linux Edition](https://github.com/PerfectlySoft/Perfect-COpenSSL-Linux) provide MD5 caculation API
+- metaData: an optional BSON stands for the meta data of the file to upload. 
+- aliases: an optional BSON stands for the aliases of the file to upload.
 
 #### Download a file
 
-Specify a local path to download a file existing on server then call back once downloaded, and throws a MongoClientError if failed:
+Specify a local path to download a file existing on server or throws a MongoClientError if failed:
 
 ``` swift
 do {
-	try gridfs.download(from: "name.on.server", to: "/local/path/downloaded.name") { bytes in 
-		print("Totally \(bytes) downloaded.")
-	}//end download
-}catch(let err) {
-	print("Unexpected \(err) in downloading")
-}
-```
-
-Similar to `upload()`, `download()` also has an alternative blocking interface without completion callback, which is not suggested for large files:
-
-``` swift
-do {
-	let bytes = try gridfs.download(from: "name.on.server", to: "/local/path/downloaded.name") 
-	print("Totally \(bytes) downloaded.")
+	let bytes = try gridfs.download(from: "name.on.server", to: "/local/path/downloaded.name")
+	print("\(bytes) downloaded")
 }catch(let err) {
 	print("Unexpected \(err) in downloading")
 }
@@ -135,14 +120,14 @@ defer {
 
 Method `search()` and `list()` return `GridFile` and `[GridFile]` array correspondingly. GridFile is for dealing with file information and more complicated file operations such as file cursor and partially read / write, as described below:
 
-### GridFile properties:
+### GridFile properties (READONLY):
 
 - id: oid string property of GridFile.
 - md5: md5 string property of GridFile. 
 - aliases: a BSON property which represents the aliases of the GridFile.
 - contentType: string property of GridFile. 
-- length: length of the GridFile, an Int64 number. Read only
-- uploadDate: Int64 unix epoch time stamp of the GridFile. Read only
+- length: length of the GridFile, an Int64 number.
+- uploadDate: Int64 unix epoch time stamp of the GridFile.
 - fileName: file name stored in the remote server. 
 - metaData: a BSON type property of GridFile to hold the meta data. 
 
@@ -163,20 +148,7 @@ Method `download()` of GridFile class is the lower base of `GridFS.download()`, 
 
 ``` swift
 do {
-	try gridfile.download(to: "/local/path/downloaded.name") { bytes in 
-		print("Totally \(bytes) downloaded.")
-	}//end download
-}catch(let err) {
-	print("Unexpected \(err) in downloading")
-}
-```
-
-Or, alternatively, download the file without threading:
-
-``` swift
-do {
-	let bytes = try gridfile.download(to: "/local/path/downloaded.name") 
-	print("Totally \(bytes) downloaded.")
+	let bytes = try gridfile.download(to: "/local/path/downloaded.name") 	print("Totally \(bytes) downloaded.")
 }catch(let err) {
 	print("Unexpected \(err) in downloading")
 }
@@ -264,3 +236,7 @@ defer {
 	gridfile.close()
 }//end defer
 ```
+
+## Performance Suggestion
+
+Large file uploads / downloads are usually time consuming, please try `Threading.dispatch {}` to avoid blocking the main thread, or use partially read()/write() incrementally. For more information, please check [Perfect Threading](thread.md)
