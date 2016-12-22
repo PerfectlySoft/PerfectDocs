@@ -5,6 +5,9 @@ GridFS 文件网格系统是用于超出 16MB 以上的大型 BSON 文档而设�
 - GridFS：提供文件列表、检索、删除、上载、下载和删除整个文件系统的功能
 - GridFile：提供文件信息、下载、局部读写和设置文件读写位置的功能
 
+## macOS 编译注意事项
+请⚠️注意⚠️本模块需要 MongoDB 的 C语言模块在1.7.1版本之后的特殊修订，详见[BSON-API 无法设置文件属性问题的修订](https://github.com/mongodb/mongo-c-driver/pull/415)
+
 ## GridFS 类
 
 GridFS 程序基于 MongoClient 类之上。首先，请确定已经启动了一个 Monge Client 对象的实例，然后调用该实例的 `gridFS()` 方法，并在调用时注意提供必要的数据库名，以及可选的前缀参数：
@@ -79,26 +82,21 @@ try gridfs.delete(name: "file.name.on.server")
 
 #### 上载文件
 
-输入本地路径名称和预期服务器名称则可以上传一个文件，在上传完成后回调给主线程一个GridFile文件句柄：
+输入本地路径名称和预期服务器名称则可以上传一个文件，如果失败会报错：
 
 ``` swift
-gridfs.upload(from: "/path/to/local.file", to: "name.on.server.type") { gridFile in 
-	guard gridFile != nil else {
-		// 上载失败，应在此处抛出错误
-	}//end guard
-	// 查看上载后的文件尺寸
-	print(gridFile?.length ?? 0)
-}//end upload
+let gridfile = try gridfs.upload(from: "/path/to/local.file", to: "name.on.server.type", contentType: "primaryType/subType", md5: "MD5 string", metaData: BSON(json: "meta data in a json string"), aliases: BSON(json: "aliases in a json string")
+print(gridfile.length)
 ```
 
-注意上面例子中的异步闭包回调方式，实际上是启动了一个单独的线程用于下载，这是推荐的方式，因为大文件网络操作通常会需要相当长的时间。但是，Perfect GridFS 还提供了下载文件的简便方法，适用于小文件操作：
+参数：
+- from: 待上传的本地文件路径
+- to: 目标存放在服务器上的文件名
+- contentType: 文件类型，可选。默认值为 `text/plain`
+- md5: 可选字符串，代表文件的MD5校验值。⚠️请注意⚠️可以使用[Perfect 	COpenSSL](https://github.com/PerfectlySoft/Perfect-COpenSSL) 和 [Perfect 	COpenSSL Linux Edition](https://github.com/PerfectlySoft/Perfect-COpenSSL-Linux) 计算字符串的MD5
+- metaData: 可选的BSON()格式，代表文件的元数据属性
+- aliases: 可选的BSON()格式，代表文件的别名
 
-``` swift
-let success = gridfs.upload(from: "/path/to/local", to: "name.on.server")
-if success {
-	print("上载成功");
-}//end if
-```
 
 #### 下载文件
 
@@ -106,22 +104,10 @@ if success {
 
 ``` swift
 do {
-	try gridfs.download(from: "name.on.server", to: "/local/path/downloaded.name") { bytes in 
-		print("总共下载了 \(bytes) 个字节")
-	}//end download
+	let bytes = try gridfs.download(from: "name.on.server", to: "/local/path/downloaded.name")
+	print("总共下载了 \(bytes) 个字节")
 }catch(let err) {
 	print("下载中出现错误： \(err)")
-}
-```
-
-和文件上传类似，文件下载也同样提供阻塞当前进程的同步下载方法，不适合大文件操作：
-
-``` swift
-do {
-	let bytes = try gridfs.download(from: "name.on.server", to: "/local/path/downloaded.name") 
-	print("总共下载了 \(bytes) 字节。")
-}catch(let err) {
-	print("下载失败： \(err)")
 }
 ```
 
@@ -139,14 +125,14 @@ defer {
 
 GridFS 的方法 `search()` 和 `list()` 会分别返回 `GridFile`类对象 和 `[GridFile]` 数组。GridFile 用于管理文件信息以及处理更复杂的大文件操作，如文件位置游标及局部内容分片读写等等。
 
-### GridFile 属性：
+### GridFile 属性（只读）：
 
 - id: oid 标识字符串。
 - md5: md5 校验字符串。
 - aliases: BSON 类型的属性，代表文件别名。
 - contentType: 代表文件内容类型的字符串。
-- length: 64位整型的文件长度，只读。
-- uploadDate: 64位整型时间戳，Unix纪元格式。只读属性。
+- length: 64位整型的文件长度。
+- uploadDate: 64位整型时间戳，Unix纪元格式。
 - fileName: 存储在服务器上的文件名。
 - metaData: BSON 类型的元数据。
 
@@ -164,18 +150,6 @@ GridFS 的方法 `search()` 和 `list()` 会分别返回 `GridFile`类对象 和
 #### download() 下载文件
 
 GridFile对象的下载方法 `download()` 是文件系统 `GridFS.download()`方法的基础，后者在内部调用前者。如果已经获取了GridFile 对象句柄，那么可以直接设置本地路径来下载该文件：
-
-``` swift
-do {
-	try gridfile.download(to: "/local/path/downloaded.name") { bytes in 
-		print("共下载了 \(bytes) 字节")
-	}//end download
-}catch(let err) {
-	print("下载时出现异常： \(err)")
-}
-```
-
-或者也可以不使用多线程直接下载：
 
 ``` swift
 do {
@@ -268,3 +242,7 @@ defer {
 	gridfile.close()
 }//end defer
 ```
+
+## 关于性能
+
+大型文件读写通常都是非常耗时的，因此，请尝试使用线程管理`Threading.dispatch {}`，避免上传下载文件时阻塞主程序，或者尽量使用小片文件的读写`partiallyRead()/Write()`。关于线程的更多信息，请查看[Perfect Threading](thread.md)
