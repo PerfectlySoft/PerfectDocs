@@ -18,6 +18,8 @@ Each session has the following properties:
 * **updated** - an integer representing the date/time last touched, in seconds
 * **idle** - an integer representing the number of seconds the session should be idle for before considered expired
 * **data** - a [String:Any] Array that is converted to JSON for storage. This is intended for storage of simple preference values.
+* **ipaddress** - the IP Address (v4 or V6) that the session was first used on. Used for optional session verification.
+* **useragent** - the User Agent string that the session was first used with. Used for optional session verification.
 
 ## Examples
 
@@ -78,6 +80,15 @@ SessionConfig.name = "PerfectSession"
 // 86400 is one day.
 SessionConfig.idle = 86400
 
+// Optional cookie domain setting
+SessionConfig.cookieDomain = "localhost"
+
+// Optional setting to lock session to the initiating IP address. Default is false
+SessionConfig.IPAddressLock = true
+
+// Optional setting to lock session to the initiating user agent string. Default is false
+SessionConfig.userAgentLock = true
+
 // CouchDB-Specific
 // The CouchDB database used to store sessions
 SessionConfig.couchDatabase = "sessions"
@@ -89,6 +100,14 @@ SessionConfig.mongoCollection = "sessions"
 ```
 
 If you wish to change the SessionConfig values, you mush set these before the Session Driver is defined.
+
+### IP Address and User Agent Locks
+
+If the `SessionConfig.IPAddressLock` or `SessionConfig.userAgentLock` settings are true, then the session will be forcibly ended if the incoming information does not match that which was sent when the session was initiated. 
+
+This is a security measure to assist in preventing man-in-the-middle / session hijacking attacks.
+
+Be aware that if a user has logged on on a WiFi network and transitions to a mobile or wired connection and the `SessionConfig.IPAddressLock` setting has been set to `true`, the user will be logged out of their session.
 
 ### Defining the Session Driver
 
