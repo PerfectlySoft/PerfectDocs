@@ -18,6 +18,8 @@ Perfect 会话机制实现了存储每个会话的创建时间、最后一次访
 * **updated** - 会话最后一次访问时的整型时间戳，单位是秒
 * **idle** - 时效期限：整数，单位是秒。即允许客户在这个时间范围内处于不活动状态，在此期间不算过期。
 * **data** - 数据：一个[String:Any]类型字典，可以JSON格式进行存储。用于存储简单的临时信息。
+* **ipaddress** - 会话创建时客户端的 IPv4 或 IPv6 地址。可选项，用于校验会话安全性，防范会话欺诈。
+* **useragent** - 会话创建时请求头数据部分的 User Agent 用户代理字符串。可选项，用于校验会话安全性，防范会话欺诈。
 
 ## 代码示范
 
@@ -78,6 +80,15 @@ SessionConfig.name = "PerfectSession"
 // 86400 秒表示一天。
 SessionConfig.idle = 86400
 
+// 可选项，设置 Cookie作用域
+SessionConfig.cookieDomain = "localhost"
+
+// 可选项，锁定创建时用的 IP 地址，即在会话过程中不允许 IP 地址发生变化，否则视为欺诈。默认为 false
+SessionConfig.IPAddressLock = true
+
+// 可选项，锁定创建时所用的用户代理，即服务器在会话过程中不允许用户代理发生变化，否则视为欺诈。默认为 false
+SessionConfig.userAgentLock = true
+
 // 指定采用 CouchDB 作为内存管理后台
 // 指定 CouchDB 内用于管理会话的数据库名称
 SessionConfig.couchDatabase = "sessions"
@@ -89,6 +100,14 @@ SessionConfig.mongoCollection = "sessions"
 ```
 
 如果要改变上述会话配置结构的变量值，则必须在定义驱动之前完成配置。
+
+### 锁定 IP 地址和 User Agent 用户代理
+
+如果 `SessionConfig.IPAddressLock` 或 `SessionConfig.userAgentLock` 被设置为真，则服务器会在整个会话过程中不允许客户端更换 IP 地址和用户代理。
+
+这种方式增强了会话安全性，能够在一定程度上防止会话标识字符串被盗用后形成会话欺诈。
+
+⚠️请注意⚠️ 如果锁定了 IP 地址，那么用户在切换 WIFI 或者有线以太网时，则会话会被关闭，用户必须重新登录。
 
 ### 定义会话驱动
 
