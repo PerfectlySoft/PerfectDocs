@@ -140,7 +140,7 @@ Swift Package Manager (SPM) can generate an Xcode project which can run the Perf
 swift package generate-xcodeproj
 ```
 
-Open the generated file "PerfectTemplate.xcodeproj" and add the following to the library search part for the project (not just the target):
+Open the generated file "PerfectTemplate.xcodeproj" and add the following to the "Library Search Paths" for the project (not just the target):
 
 ```
 $(PROJECT_DIR) - Recursive
