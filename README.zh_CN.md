@@ -89,6 +89,7 @@
 	* [CURL联网传输](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/cURL.md)
 	* [XML数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/xml.md) @kjessup
 	* [Zip压缩](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/zip.md)
+	* [SMTP 简单邮件协议](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SMTP.md)
 * [数据库连接器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SQLite.md)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MySQL.md)

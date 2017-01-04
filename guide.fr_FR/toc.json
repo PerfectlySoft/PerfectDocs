@@ -136,6 +136,10 @@
 				{
 					"name": "Zip",
 					"doc":  "zip"
+				},
+				{
+					"name": "SMTP",
+					"doc":  "SMTP"
 				}
 
 			]

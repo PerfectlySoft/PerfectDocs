@@ -127,6 +127,10 @@
 				{
 					"name": "Zip压缩",
 					"doc":  "zip"
+				},
+				{
+					"name": "SMTP简单邮件协议",
+					"doc":  "SMTP"
 				}
 
 			]
