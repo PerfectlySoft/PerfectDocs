@@ -90,6 +90,9 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md)
 	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
 	* [SMTP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SMTP.md)
+	* [Google Analytics Measurement Protocol](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/GoogleAnalytics.md)
+
+	
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md)

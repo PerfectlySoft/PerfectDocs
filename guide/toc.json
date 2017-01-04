@@ -140,6 +140,10 @@
 				{
 					"name": "SMTP",
 					"doc":  "SMTP"
+				},
+				{
+					"name": "Google Analytics Measurement Protocol",
+					"doc":  "GoogleAnalytics"
 				}
 
 			]
