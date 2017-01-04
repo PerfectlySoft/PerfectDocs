@@ -25,7 +25,7 @@ Target: x86_64-apple-macosx10.9
 Make sure you are running the latest version of Swift 3.0. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.
 
 ### Ubuntu Linux
-Perfect runs in Ubuntu Linux 14.04 and 15.10 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
+Perfect runs in Ubuntu Linux 14.04, 15.10 and 16.04 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
 
 ```
 sudo apt-get install openssl libssl-dev uuid-dev
