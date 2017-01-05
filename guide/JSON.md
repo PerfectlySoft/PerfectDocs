@@ -216,6 +216,8 @@ XCTAssert(user.lastName == user2.lastName)
 XCTAssert(user.age == user2.age)
 ```
 
+Note that the `JSONDecoding.objectIdentifierKey` (the value of which is "_jsonobjid") key/value pair that identifies the Swift object to be decoded must be in the incoming JSON string. If it is not present then the result of jsonDecode will be a regular Dictionary instead of the intended Swift object.
+
 ### JSON Conversion Error
 
 As an object is converted to or from a JSON string, the process may throw a ```JSONConversionError```. This is defined as follows:
