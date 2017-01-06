@@ -110,7 +110,7 @@ func push(callback: (Bool) -> ())
 var isStreaming: Bool { get set }
 ```
 
-如果确定要使用流媒体模式，则需要在给客户端浏览器推送数居前，将```isStreaming```属性设置为真。
+如果确定要使用流媒体模式，则需要在给客户端浏览器推送数据前，将```isStreaming```属性设置为真。
 
 ### 完成请求
 
