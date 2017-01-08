@@ -13,7 +13,7 @@ brew install minizip
 On Ubuntu, install minizip:
 
 ```
-apt-get install minizip
+apt-get install libminizip-dev
 ```
 
 In addition to the PerfectLib, you will need the Perfect-Zip dependency in the Package.swift file:
