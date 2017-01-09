@@ -274,7 +274,7 @@ let result = try thisFile.unlock(byteCount: <Int>)
 
 ### 尝试锁定文件
 
-尝试对文件对象的当前位置开始的数个字节内容进行锁定。该函数如果在文件已经加锁的情况下会抛出一个异常，单不会阻塞当前线程。
+尝试对文件对象的当前位置开始的数个字节内容进行锁定。该函数如果在文件已经加锁的情况下会抛出一个异常，但不会阻塞当前线程。
 
 ``` swift
 let result = try thisFile.tryLock(byteCount: <Int>)
