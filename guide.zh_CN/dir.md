@@ -120,7 +120,7 @@ let workingDir = Dir.workingDir
 
 ### 读取目录树结构
 
-请以闭包为回调参数调用`forEachEntry`来遍历目录下的每一个节点子目录。
+请以闭包为回调参数调用`forEachEntry`来遍历目录下的每一个节点，包括文件和子目录。
 
 ``` swift
 try thisDir.forEachEntry(closure: {
