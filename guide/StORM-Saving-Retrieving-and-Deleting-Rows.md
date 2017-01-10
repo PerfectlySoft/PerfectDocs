@@ -1,6 +1,6 @@
 # Creating, Saving, Finding & Deleting
 
-For the purposes of this documentation the class "Users" from "[Setting up a class](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM/Setting-up-a-class.md)" will be used for most examples.
+For the purposes of this documentation the class "User" from "[Setting up a class](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Setting-up-a-class.md)" will be used for most examples.
 
 ## Creating and Updating Rows
 
