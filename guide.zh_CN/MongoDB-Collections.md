@@ -211,7 +211,7 @@ collection.count(
 
 #### 参数说明
 * **query:** 查询检索条件
-* **fields:** 字段（可选）：确定用于匹配文档的字段名称。如果希望返回匹配文档的所有字段，就忽略只鹅个参数
+* **fields:** 字段（可选）：确定用于匹配文档的字段名称。如果希望返回匹配文档的所有字段，就忽略这个参数
 * **flags:** 标志（可选）：用于设置当前检索的查询标志
 * **skip:** 忽略（可选）：确定需要忽略的记录数量
 * **limit:** 限额（可选）：要求检索返回时记录总数不能超过限额数量
@@ -249,7 +249,7 @@ collection.createIndex(
 * **options:** *Optional* 选项（可选）：该参数也是一个文档，用于控制索引的创建。详见MongoIndexOptions索引选项
 
 ### 删除索引
-从集合中删除一个指定的索引Drops or removes the specified index from a collection.
+从集合中删除一个指定的索引。
 
 ``` swift
 collection.dropIndex(name: <String>)
