@@ -20,6 +20,8 @@ Each session has the following properties:
 * **data** - a [String:Any] Array that is converted to JSON for storage. This is intended for storage of simple preference values.
 * **ipaddress** - the IP Address (v4 or V6) that the session was first used on. Used for optional session verification.
 * **useragent** - the User Agent string that the session was first used with. Used for optional session verification.
+* **CSRF** - [the CSRF (Cross Site Request Forgery) security configuration.](https://github.com/PerfectlySoft/PerfectDocs/guide/csrf.md)
+* **CORS** - [CORS (Cross Origin Resource Sharing) security configuration.](https://github.com/PerfectlySoft/PerfectDocs/guide/csrf.md)
 
 ## Examples
 
@@ -100,6 +102,11 @@ SessionConfig.mongoCollection = "sessions"
 ```
 
 If you wish to change the SessionConfig values, you mush set these before the Session Driver is defined.
+
+The [**CSRF** (Cross Site Request Forgery)](https://github.com/PerfectlySoft/PerfectDocs/guide/csrf.md) security configuration is discussed seperately.
+
+Similarly, the [**CORS** (Cross Origin Resource Sharing)](https://github.com/PerfectlySoft/PerfectDocs/guide/csrf.md) security configuration is discussed seperately.
+
 
 ### IP Address and User Agent Locks
 

@@ -65,7 +65,18 @@
 				},
 				{
 					"name": "Sessions",
-					"doc":  "sessions"
+					"doc":  "sessions",
+					"contents" : [
+						{
+							"name": "CSRF",
+							"doc":  "csrf"
+						},
+						{
+							"name": "CORS",
+							"doc":  "cors"
+						}
+
+					]
 				},
 				{
 					"name": "JSON",
