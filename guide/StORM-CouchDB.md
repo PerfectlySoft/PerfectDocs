@@ -47,10 +47,6 @@ The working database for the object is set by embedding this function in the obj
 
 > **NOTE:** The **primary key** is first property defined in the class.
 
-#### Specifying a custom table creation statement
-
-`setup(String)` - Specify a SQL statement to manually define the table cretion process. This will override any StORM setup statement.
-
 ### Saving objects
 
 `save(rev: String = "")` - Saves object. If an ID has been defined, save() will perform an update, otherwise a new document is created. Takes an optional "rev" parameter which is the document revision to be used. If empty the object's stored _rev property is used.
