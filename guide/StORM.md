@@ -23,6 +23,7 @@ It aims to be easy to use, but flexible, and maintain consistency between dataso
 * [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-PostgreSQL.md)
 * [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-MySQL.md)
 * [Apache CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-CouchDB.md)
+* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-MongoDB.md)
 
 
 ### Including in your project
@@ -51,6 +52,12 @@ To include CouchDBStORM:
 
 ``` swift
 .Package(url: "https://github.com/SwiftORM/CouchDB-StORM.git", majorVersion: 1, minor: 0)
+```
+
+To include MongoDBStORM:
+
+``` swift
+.Package(url: "https://github.com/SwiftORM/MongoDB-StORM.git", majorVersion: 1, minor: 0)
 ```
 
 Remember after you change your `Package.swift` file, you need to regenerate your Xcode Project file using:
