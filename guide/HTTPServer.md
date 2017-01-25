@@ -1,7 +1,5 @@
 # HTTPServer
 
-**NOTE:** The APIs described in this document are to be considered as experimental. Aspects may be changed, removed or added before they are finalized.
-
 This document describes the three methods by which you can launch new Perfect HTTP servers. These methods differ in their complexity and each caters to a different use case. 
 
 The first method is data driven whereby you provide either a Swift Dictionary or JSON file describing the servers you wish to launch. The second method describes the desired servers using Swift language constructs complete with the type checking and compile-time constraints provided by Swift. The third method permits you to instantiate an HTTPServer object and then procedurally configure each of the required properties before manually starting it.
