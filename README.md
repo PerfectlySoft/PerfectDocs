@@ -84,6 +84,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Dir](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md)
 	* [Threading](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/thread.md)
 	* [Networking](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/net.md) @kjessup
+	* [OAuth2 and Providers](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/OAuth2.md)
 	* [UUID](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/UUID.md)
 	* [SysProcess](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sysProcess.md)
 	* [Log](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/log.md)

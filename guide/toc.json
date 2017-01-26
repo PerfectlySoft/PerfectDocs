@@ -109,12 +109,44 @@
 					"doc":  "bytes"
 				},
 				{
-					"name": "File",
-					"doc":  "file"
+					"name": "CURL",
+					"doc":  "cURL"
 				},
 				{
 					"name": "Dir",
 					"doc":  "dir"
+				},
+				{
+					"name": "File",
+					"doc":  "file"
+				},
+				{
+					"name": "Google Analytics Measurement Protocol",
+					"doc":  "GoogleAnalytics"
+				},
+				{
+					"name": "Log",
+					"doc":  "log"
+				 },
+				 {
+				 "name": "Log Files",
+				 "doc":  "logFiles"
+				 },
+				 {
+				 "name": "OAuth2 and Providers",
+				 "doc":  "OAuth2"
+				 },
+				 {
+				 "name": "Remote Logging",
+				 "doc":  "logRemote"
+				 },
+				{
+					"name": "SMTP",
+					"doc":  "SMTP"
+				},
+				{
+					"name": "SysProcess",
+					"doc":  "sysProcess"
 				},
 				{
 					"name": "Threading",
@@ -125,36 +157,12 @@
 					"doc":  "UUID"
 				},
 				{
-					"name": "SysProcess",
-					"doc":  "sysProcess"
-				},
-				{
-					"name": "Log",
-					"doc":  "log"
-				 },
-				 {
-				 "name": "Log Files",
-				 "doc":  "logFiles"
-				 },
-				{
-					"name": "CURL",
-					"doc":  "cURL"
-				},
-				{
 					"name": "XML",
 					"doc":  "xml"
 				},
 				{
 					"name": "Zip",
 					"doc":  "zip"
-				},
-				{
-					"name": "SMTP",
-					"doc":  "SMTP"
-				},
-				{
-					"name": "Google Analytics Measurement Protocol",
-					"doc":  "GoogleAnalytics"
 				}
 
 			]
