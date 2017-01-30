@@ -7,7 +7,7 @@ To log HTTP requests to a file, use the `Perfect-RequestLogger` module.
 Add the following dependency to the `Package.swift` file:
 
 ```swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-RequestLogger.git", majorVersion: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-RequestLogger.git", majorVersion: 1)
 ```
 
 For each file you wish to directly reference the logging, import the module:
@@ -16,17 +16,73 @@ For each file you wish to directly reference the logging, import the module:
 import PerfectRequestLogger
 ```
 
+## When using PerfectHTTP 2.1 or later
+
 Add to `main.swift` after instantiating your `server`:
 
 ```swift
 // Instantiate a logger
-let myLogger = RequestLogger()
+let httplogger = RequestLogger()
+
+// Configure Server
+var confData: [String:[[String:Any]]] = [
+	"servers": [
+		[
+			"name":"localhost",
+			"port":8181,
+			"routes":[],
+			"filters":[
+				[
+					"type":"response",
+					"priority":"high",
+					"name":PerfectHTTPServer.HTTPFilter.contentCompression,
+					],
+				[
+					"type":"request",
+					"priority":"high",
+					"name":RequestLogger.filterAPIRequest,
+					],
+				[
+					"type":"response",
+					"priority":"low",
+					"name":RequestLogger.filterAPIResponse,
+					]
+			]
+		]
+	]
+]
+```
+The important parts of the configuration spec to add for enabling the Request Logger is:
+
+``` swift
+[
+	"type":"request",
+	"priority":"high",
+	"name":RequestLogger.filterAPIRequest,
+	],
+[
+	"type":"response",
+	"priority":"low",
+	"name":RequestLogger.filterAPIResponse,
+	]
+```
+These request & response filters add the required hooks to mark the beginning and the completion of the HTTP request and response.
+
+
+
+## When using PerfectHTTP 2.0
+
+Add to `main.swift` after instantiating your `server`:
+
+```swift
+// Instantiate a logger
+let httplogger = RequestLogger()
 
 // Add the filters
 // Request filter at high priority to be executed first
-server.setRequestFilters([(myLogger, .high)])
+server.setRequestFilters([(httplogger, .high)])
 // Response filter at low priority to be executed last
-server.setResponseFilters([(myLogger, .low)])
+server.setResponseFilters([(httplogger, .low)])
 ```
 
 These request & response filters add the required hooks to mark the beginning and the completion of the HTTP request and response.
