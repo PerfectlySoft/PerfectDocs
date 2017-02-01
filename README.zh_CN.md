@@ -101,7 +101,8 @@
 		* [MongoDB 客户端](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-Client.md)
 		* [BSON 数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-BSON.md)
 		* [GridFS 文件系统](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-GridFS.md)
-	* [CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/CouchDB.md)
+	* [CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/CouchDB.md)
+	* [LDAP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/LDAP.md)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @ kjessup
 	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
 * [iOS 消息与通知](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/iOSNotifications.md) @kjessup

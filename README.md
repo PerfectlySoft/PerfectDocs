@@ -109,6 +109,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 		* [Working with BSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-BSON.md)
 		* [GridFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-GridFS.md)
 	* [CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/CouchDB.md)
+	* [LDAP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/LDAP.md)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @ kjessup
 	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup

@@ -217,6 +217,10 @@
 				{
 					"name": "Apache CouchDB",
 					"doc":  "CouchDB"
+				},
+				{
+					"name": "LDAP",
+					"doc":  "LDAP"
 				}
 
 			]
