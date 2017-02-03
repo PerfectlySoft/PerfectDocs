@@ -104,6 +104,7 @@ let credential = LDAP.login(user: "judy", mechanism: .GSSAPI)
 // 将登录信息配置为DIGEST-MD5
 let credential = LDAP.Login(authname: "judy", user: "DN:CN=judy,CN=Users,DC=perfect,DC=com", password: "0penLDAP", realm: "PERFECT.COM", mechanism: .DIGEST)
 ```
+*⚠️注意⚠️* 参数 `authname` 等价于 `SASL_CB_AUTHNAME`，而 `user` 对应 `SASL_CB_USER`名称。如果您的程序不需要其中的某些参数，只要将该参数设置为空（“”）即可忽略。
 
 ## 检索
 
