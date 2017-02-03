@@ -87,30 +87,22 @@ PerfectLDAP 使用一个`LDAP.Login`对象来实现不同的登录选项。各�
 ``` swift
 let credential = LDAP.Login(binddn: "CN=judy,CN=Users,DC=perfect,DC=com", password: "0penLDAP")
 ```
+### GSSAPI
 
-### Digest-MD5 （⚠️试验性性质⚠️)
-
-Digest-MD5 加密方式采用内部交互登录。调用构造函数`LDAP.login(authname: String, user: String, password: String, realm: String)` 可尝试该加密方法：
+如果需要使用GSSAPI进行身份验证，请调用`LDAP.login(user:String, mechanism: AuthType)`函数构造登录信息（前提是用户已经提前取得有效票据）:
 
 ``` swift
-let credential = LDAP.Login(authname: "judy", user: "DN:CN=judy,CN=Users,DC=perfect,DC=com", password: "0penLDAP", realm: "PERFECT.COM")
+// 下列操作可以生成一个GSSAPI票据
+let credential = LDAP.login(user: "judy", mechanism: .GSSAPI)
 ```
 
-*⚠️注意⚠️* 参数 `authname` 等价于 `SASL_CB_AUTHNAME`，而 `user` 对应 `SASL_CB_USER`名称。如果您的程序不需要其中的某些参数，只要将该参数设置为空（“”）即可忽略。
+### GSS-SPNEGO 和 Digest-MD5 （⚠️试验性性质⚠️)
 
-### GSSAPI 和 GSS-SPNEGO （⚠️试验性性质⚠️)
-
-如果您希望程序中使用 GSSAPI / GSS-SPNEGO 认证方式，请调用`LDAP.login(mechanism: AuthType)` 构造函数，参考如下：
+对于其他 SASL 交互式登录机制，比如GSS-SPNEGO 和 Digest-MD5，请调用构造函数`LDAP.login(authname: String, user: String, password: String, realm: String, mechanism: AuthType)` 获取登录配置：
 
 ``` swift
-// 设置登录方式为 GSSAPI
-let credential = LDAP.login(mechanism: .GSSAPI)
-```
-或者
-
-``` swift
-// 设置登录方式为 GSS-SPNEGO
-let credential = LDAP.login(mechanism: .SPNEGO)
+// 将登录信息配置为DIGEST-MD5
+let credential = LDAP.Login(authname: "judy", user: "DN:CN=judy,CN=Users,DC=perfect,DC=com", password: "0penLDAP", realm: "PERFECT.COM", mechanism: .DIGEST)
 ```
 
 ## 检索
