@@ -89,28 +89,24 @@ To use simple login method, simply call `LDAP.login(binddn: String, password: St
 let credential = LDAP.Login(binddn: "CN=judy,CN=Users,DC=perfect,DC=com", password: "0penLDAP")
 ```
 
-### Digest-MD5 (⚠️EXPERIMENTAL⚠️)
+### GSSAPI
 
-To apply Digest-MD5 interactive login, call `LDAP.login(authname: String, user: String, password: String, realm: String)` as demo below:
-``` swift
-let credential = LDAP.Login(authname: "judy", user: "DN:CN=judy,CN=Users,DC=perfect,DC=com", password: "0penLDAP", realm: "PERFECT.COM")
-```
-*⚠️NOTE⚠️* The `authname` is equivalent to `SASL_CB_AUTHNAME` and `user` is actually the macro of `SASL_CB_USER`. If any parameter above is not applicable to your case, simply assign an empty string "" to ignore it.
-
-### GSSAPI and GSS-SPNEGO (⚠️EXPERIMENTAL⚠️)
-
-To apply GSSAPI / GSS-SPNEGO authentication, call `LDAP.login(mechanism: AuthType)` to construct a login credential:
+To apply GSSAPI authentication, call `LDAP.login(user:String, mechanism: AuthType)` to construct a login credential (assuming the user has already acquired a valid ticket):
 
 ``` swift
 // this call will generate a GSSAPI login credential
-let credential = LDAP.login(mechanism: .GSSAPI)
+let credential = LDAP.login(user: "judy", mechanism: .GSSAPI)
 ```
-or
+
+### GSS-SPNEGO and Digest-MD5 (⚠️EXPERIMENTAL⚠️)
+
+To apply other SASL mechanisms, such as GSS-SPNEGO and Digest-MD5 interactive logins, call `LDAP.login(authname: String, user: String, password: String, realm: String, mechanism: AuthType)` as demo below:
 
 ``` swift
-// this call will generate a GSS-SPNEGO login credential
-let credential = LDAP.login(mechanism: .SPNEGO)
+// apply DIGEST-MD5 mechanism.
+let credential = LDAP.Login(authname: "judy", user: "DN:CN=judy,CN=Users,DC=perfect,DC=com", password: "0penLDAP", realm: "PERFECT.COM", mechanism: .DIGEST)
 ```
+*⚠️NOTE⚠️* The `authname` is equivalent to `SASL_CB_AUTHNAME` and `user` is actually the macro of `SASL_CB_USER`. If any parameter above is not applicable to your case, simply assign an empty string "" to ignore it.
 
 ## Search
 
