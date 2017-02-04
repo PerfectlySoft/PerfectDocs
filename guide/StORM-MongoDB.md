@@ -1,13 +1,19 @@
 # MongoDBStORM
 
-### Including in your project
+## Relevant Examples
+
+* [MongoDBStORM-Demo](https://github.com/PerfectExamples/MongoDBStORM-Demo)
+* [Perfect-Session-MongoDB-Demo](https://github.com/PerfectExamples/Perfect-Session-MongoDB-Demo)
+* [Perfect-Turnstile-MongoDB-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-MongoDB-Demo)
+
+
+## Including in your project
 
 When including the dependancy in your project's Package.swift dependancies, you will have access to all nested dependancies including the database connector.
 
 ``` swift
 .Package(url: "https://github.com/SwiftORM/MongoDB-Storm.git", majorVersion: 1, minor: 0)
 ```
-
 
 ## Creating a connection to your database
 

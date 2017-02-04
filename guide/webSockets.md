@@ -4,6 +4,11 @@ WebSockets are designed as full-duplex communication channels over a single TCP 
 
 The WebSocket protocol is currently supported in most major browsers including Google Chrome, Microsoft Edge, Internet Explorer, Firefox, Safari and Opera. WebSockets also require support from web applications on the server.
 
+## Relevant Examples
+
+* [Perfect-Chat-Demo](https://github.com/PerfectExamples/Perfect-Chat-Demo)
+* [Perfect-WebSocketsServer](https://github.com/PerfectExamples/Perfect-WebSocketsServer)
+
 
 ## Getting started
 

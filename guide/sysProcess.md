@@ -2,7 +2,11 @@
 
 Perfect provides the ability to execute local processes or shell commands through the `SysProcess` type. This type allows local processes to be launched with an array of parameters and shell variables. Some processes will execute and return a result immediately. Other processes can be left open for interactive read/write operations.
 
-### Setup
+## Relevant Examples
+
+* [Perfect-System](https://github.com/PerfectExamples/Perfect-System)
+
+## Setup
 
 Add the "Perfect" project as a dependency in your Package.swift file:
 

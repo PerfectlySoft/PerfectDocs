@@ -2,6 +2,11 @@
 
 To log HTTP requests to a file, use the `Perfect-RequestLogger` module.
 
+## Relevant Examples
+
+* [Perfect-HTTPRequestLogging](https://github.com/PerfectExamples/Perfect-HTTPRequestLogging)
+* [Perfect-Session-Memory-Demo](https://github.com/PerfectExamples/Perfect-Session-Memory-Demo)
+
 ## Usage
 
 Add the following dependency to the `Package.swift` file:

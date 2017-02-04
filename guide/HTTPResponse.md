@@ -6,6 +6,11 @@ The HTTPResponse object contains all outgoing response data. It consists of the 
 
 In all of the sections below, unless otherwise noted, the properties and functions are part of the HTTPResponse protocol.
 
+### Relevant Examples
+
+* [Perfect-Cookie-Demo](https://github.com/PerfectExamples/Perfect-Cookie-Demo)
+* [Perfect-HTTPRequestLogging](https://github.com/PerfectExamples/Perfect-HTTPRequestLogging)
+
 ### HTTP Status
 
 The HTTP status indicates to the client whether or not the request was successful, if there was an error, or if it should take any other action. By default, the HTTPResponse object contains a 200 OK status. The status can be set to any other value if needed. HTTP status codes are represented by the ```HTTPResponseStatus``` enumeration (enum). This enum contains a case for each of the official status codes as well as a ```.custom(code: Int, message: String)``` case.

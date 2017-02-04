@@ -2,6 +2,11 @@
 
 When handling a request, all client interaction is performed through HTTPRequest and HTTPResponse objects. The HTTPRequest object makes available all client headers, query parameters, POST body data, and other relevant information such as the client IP address and URL variables.HTTPRequest objects will handle parsing and decoding all "application/x-www-form-urlencoded", as well as "multipart/form-data" content type requests. It will make the data for any other content types available in a raw, unparsed form. When handling multipart form data, HTTPRequest will automatically decode the data and create temporary files for any file uploads contained therein. These files will exist until the request ends after which they will be automatically deleted.In all of the sections below, the properties and functions are part of the HTTPRequest protocol.
 
+### Relevant Examples
+
+* [Perfect-HTTPRequestLogging](https://github.com/PerfectExamples/Perfect-HTTPRequestLogging)
+
+
 ### Meta Data
 
 HTTPRequest provides several pieces of data which are not explicitly sent by the client. Information such as the client and server IP addresses, TCP ports, and document root fit into this category.Client and server addresses are made available as tuples (a finite ordered list of elements) containing the IP addresses and respective ports of each:

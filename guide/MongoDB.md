@@ -7,7 +7,14 @@ be standalone, and does not require PerfectLib or any other components.
 
 Ensure you have installed and activated the latest Swift 3.0 toolchain.
 
-### Platform-Specific Preparation
+## Relevant Examples
+
+* [MongoDBStORM-Demo](https://github.com/PerfectExamples/MongoDBStORM-Demo)
+* [Perfect-Session-MongoDB-Demo](https://github.com/PerfectExamples/Perfect-Session-MongoDB-Demo)
+* [Perfect-Turnstile-MongoDB-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-MongoDB-Demo)
+
+
+## Platform-Specific Preparation
 
 ### OS X
 

@@ -6,6 +6,11 @@ Filters are added to the server along with a priority indicator. Priority levels
 
 Because filters are executed for every request, it is vital that they perform their tasks as quickly as possible so as to not hold up or delay request processing.
 
+### Relevant Examples
+
+* [Perfect-HTTPRequestLogging](https://github.com/PerfectExamples/Perfect-HTTPRequestLogging)
+
+
 ### Request Filters
 
 Request filters are called after the request has been fully read, but before the appropriate request handler has been located. This gives request filters an opportunity to modify the request before it is handled.

@@ -2,6 +2,13 @@
 
 Perfect brings file system operations into your sever-side Swift environments to control how data is stored and retrieved in an accessible way.
 
+## Relevant Examples
+
+* [Perfect-Directory-Lister](https://github.com/PerfectExamples/Perfect-Directory-Lister)
+* [Perfect-FileHandling](https://github.com/PerfectExamples/Perfect-FileHandling)
+
+## Usage
+
 First, ensure the `PerfectLib` is imported in your Swift file:
 
 ``` swift

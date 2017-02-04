@@ -2,7 +2,15 @@
 
 The SQLite connector provides a wrapper around SQLite3, allowing interaction between your Perfect applications and SQLite databases. 
 
-### System Requirements
+## Relevant Examples
+
+* [PerfectArcade](https://github.com/PerfectExamples/PerfectArcade)
+* [Perfect-Polling](https://github.com/PerfectExamples/Perfect-Polling)
+* [Perfect-Turnstile-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo)
+* [Perfect-Session-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Session-SQLite-Demo)
+
+
+## System Requirements
 
 ### macOS
 

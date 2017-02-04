@@ -4,6 +4,37 @@ StORM is a modular ORM for Swift, layered on top of [Perfect](https://github.com
 
 It aims to be easy to use, but flexible, and maintain consistency between datasource implementations for the user: you, the developer. It tries to allow you write great code without worrying about the details of how to interact with the database.
 
+## Relevant Examples
+
+PostgresSQL
+
+* [PostgreStORM-Demo](https://github.com/PerfectExamples/PostgreStORM-Demo)
+* [Perfect-Session-PostgreSQL-Demo](https://github.com/PerfectExamples/Perfect-Session-PostgreSQL-Demo)
+* [Perfect-Turnstile-PostgreSQL-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-PostgreSQL-Demo)
+
+MySQL:
+
+* [MySQLStorm-Demo](https://github.com/PerfectExamples/MySQLStorm-Demo)
+* [Perfect-Turnstile-MySQL-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-MySQL-Demo)
+* [Perfect-Session-MySQL-Demo](https://github.com/PerfectExamples/Perfect-Session-MySQL-Demo)
+
+CouchDB: 
+
+* [CouchDBStORM-Demo](https://github.com/PerfectExamples/CouchDBStORM-Demo)
+* [Perfect-Session-CouchDB-Demo](https://github.com/PerfectExamples/Perfect-Session-CouchDB-Demo)
+* [Perfect-Turnstile-CouchDB-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-CouchDB-Demo)
+
+MongoDB:
+
+* [MongoDBStORM-Demo](https://github.com/PerfectExamples/MongoDBStORM-Demo)
+* [Perfect-Session-MongoDB-Demo](https://github.com/PerfectExamples/Perfect-Session-MongoDB-Demo)
+* [Perfect-Turnstile-MongoDB-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-MongoDB-Demo)
+
+SQLite
+
+* [Perfect-Turnstile-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo)
+* [Perfect-Session-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Session-SQLite-Demo)
+
 ## StORM Documentation topics:
 
 [Setting up a class:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Setting-up-a-class.md) How to create a class that inherits all the StORM functionality.

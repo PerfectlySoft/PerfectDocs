@@ -2,6 +2,10 @@
 
 Perfect provides a wrapper around the minizip C library and implements a set of convenience functions for use when the PerfectZip package is imported.
 
+## Relevant Examples
+
+* [Perfect-Zip-Example](https://github.com/PerfectExamples/Perfect-Zip-Example)
+
 ## Getting Started
 
 For MacOS install minizip using homebrew:

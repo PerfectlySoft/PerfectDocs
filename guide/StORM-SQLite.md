@@ -1,6 +1,12 @@
 # SQLiteStORM
 
-### Including in your project
+## Relevant Examples
+
+* [Perfect-Turnstile-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo)
+* [Perfect-Session-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Session-SQLite-Demo)
+
+
+## Including in your project
 
 When including the dependancy in your project's Package.swift dependancies, you will have access to all nested dependancies including the database connector.
 

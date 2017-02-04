@@ -14,6 +14,12 @@ Please make sure libssl-dev was installed on Ubuntu 16.04:
 ```
 $ sudo apt-get install libssl-dev
 ```
+
+## Relevant Examples
+
+* [Perfect-SMTP-Demo](https://github.com/PerfectExamples/Perfect-SMTP-Demo)
+
+
 ## Quick Start
 
 To use SMTP class, please modify the Package.swift file and add following dependency:

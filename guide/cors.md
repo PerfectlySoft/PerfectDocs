@@ -16,7 +16,11 @@ The [Perfect Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/
 
 If you have included [Perfect Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sessions.md) or any of the datasource-specific implementations in your Packages.Swift file, you already have CORS support - however it is **off** by default.
 
-### Configuration
+## Relevant Examples
+
+* [Perfect-Session-Memory-Demo](https://github.com/PerfectExamples/Perfect-Session-Memory-Demo)
+
+## Configuration
 
 ``` swift
 // Enabled, true or false.

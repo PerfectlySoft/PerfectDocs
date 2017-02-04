@@ -1,6 +1,13 @@
 # CouchDBStORM
 
-### Including in your project
+## Relevant Examples
+
+* [CouchDBStORM-Demo](https://github.com/PerfectExamples/CouchDBStORM-Demo)
+* [Perfect-Session-CouchDB-Demo](https://github.com/PerfectExamples/Perfect-Session-CouchDB-Demo)
+* [Perfect-Turnstile-CouchDB-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-CouchDB-Demo)
+
+
+## Including in your project
 
 When including the dependancy in your project's Package.swift dependancies, you will have access to all nested dependancies including the database connector.
 

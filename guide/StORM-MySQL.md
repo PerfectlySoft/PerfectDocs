@@ -1,6 +1,12 @@
 # MySQLStORM
 
-### Including in your project
+## Relevant Examples
+
+* [MySQLStorm-Demo](https://github.com/PerfectExamples/MySQLStorm-Demo)
+* [Perfect-Turnstile-MySQL-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-MySQL-Demo)
+* [Perfect-Session-MySQL-Demo](https://github.com/PerfectExamples/Perfect-Session-MySQL-Demo)
+
+## Including in your project
 
 When including the dependancy in your project's Package.swift dependancies, you will have access to all nested dependancies including the database connector.
 
