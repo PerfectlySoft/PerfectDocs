@@ -272,7 +272,7 @@ firstLast()
 
 任意 XML 节点/元素都能自定义多个属性，格式如下：
 
- ```
+```
  <node attribute1='value of attribute1' attribute2='value of attribute2'>
  </node>
 ```

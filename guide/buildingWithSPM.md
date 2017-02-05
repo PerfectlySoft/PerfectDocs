@@ -38,13 +38,13 @@ let package = Package(
 
 **Note:** The version presented above may differ from what you have on your terminal. We recommend you consult the actual repository for the most up-to-date content.
 
-There are two important elements in the *Package.swift* file that you may wish to edit. 
+There are two important elements in the *Package.swift* file that you may wish to edit. 
 
-The first one is the **name** element. It indicates the name of the project, and thus, the name of the executable file which will be generated when the project is built. 
+The first one is the **name** element. It indicates the name of the project, and thus, the name of the executable file which will be generated when the project is built. 
 
-The second element is the **dependencies** list. This element indicates all of the subprojects that your application is dependent upon. Each item in this array consists of a “*.Package*” with a repository URL and a version. 
+The second element is the **dependencies** list. This element indicates all of the subprojects that your application is dependent upon. Each item in this array consists of a “*.Package*” with a repository URL and a version. 
 
-The example above indicates a wide range of versions so that the template will always grab the newest revision of the HTTPServer project. You may want to restrict your dependencies to specific stable versions. For example, if you want to only build against version 2 of the Perfect HTTPServer project, your “*.Package*” element may look like the following:
+The example above indicates a wide range of versions so that the template will always grab the newest revision of the HTTPServer project. You may want to restrict your dependencies to specific stable versions. For example, if you want to only build against version 2 of the Perfect HTTPServer project, your “*.Package*” element may look like the following:
 
 ```swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 2)
@@ -69,7 +69,7 @@ let package = Package(
 
 As you can see, the [Perfect-Mustache](https://github.com/PerfectlySoft/Perfect-Mustache) project was added as a dependency. It provides Mustache template support for your Perfect server. Within your project code, you can now import “PerfectMustache”, and use the facilities it offers.
 
-As your dependency list grows, you may want to manage the list differently. The following example includes all the Perfect repositories. The list of URLs is maintained separately, and they are mapped to the format required by the **dependencies** parameter.
+As your dependency list grows, you may want to manage the list differently. The following example includes all the Perfect repositories. The list of URLs is maintained separately, and they are mapped to the format required by the **dependencies** parameter.
 
 ```swift
 import PackageDescription

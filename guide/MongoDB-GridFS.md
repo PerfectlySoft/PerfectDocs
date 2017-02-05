@@ -168,14 +168,14 @@ print(“current position is \(position)”)
 Use `seek()` to move the current GridFile cursor to a new position, with an optional supporting parameter to indication whence the cursor will offset to, i.e., `.begin` as default for calculate offset from beginning of the file, `.current` for an offset from current position, and `.end` represents an offset from the every end of `GridFile`:
 
 ``` swift
- enum Whence {
- 	 // offset from starting point of file
+enum Whence {
+    // offset from starting point of file
     case begin
     // offset from current file cursor
     case current
     // offset from the last byte of the file
     case end
- }//end whence
+}//end whence
   
 func seek(cursor: Int64, whence:Whence = .begin) throws
 ```

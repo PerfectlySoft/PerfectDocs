@@ -20,7 +20,9 @@ While the above example only refers to a GET request, the `.queryParams` method 
 
 ## POST Parameters
 
-POST parameters, or params, are the standard method for passing complex data between browsers and other sources to APIs for creating or modifying content. Perfect’s HTTP libraries make it easy to access arrays of POST params or specific params. 
+POST parameters, or params, are the standard method for passing complex data between browsers and other sources to APIs for creating or modifying content.
+
+ Perfect’s HTTP libraries make it easy to access arrays of POST params or specific params.
 
 To return all params (Query or POST) as a `[(String,String)]` array:
 

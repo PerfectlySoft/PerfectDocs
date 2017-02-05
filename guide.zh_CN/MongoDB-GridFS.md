@@ -174,8 +174,8 @@ print(“当前文件指向 \(position)”)
 `seek()` 方法用于设置 `GridFile`对象的游标位置，可选参数`whence`用于说明相对位置所用的参考点。`.begin`为默认参考点，代表从文件头开始计算相对位置；而`.current`表示偏移量从目前游标所在位置开始计算；`.end`则代表从文件尾部开始计算偏移量：
 
 ``` swift
- enum Whence {
- 	 // 从文件头开始计算偏移量
+enum Whence {
+    // 从文件头开始计算偏移量
     case begin
     // 从当前游标所在文件位置计算相对偏移量
     case current
