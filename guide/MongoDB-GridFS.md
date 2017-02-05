@@ -158,7 +158,7 @@ do {
 
 Method `tell()` will return a `UInt64` integer to represent the current cursor position of `GridFile` instance:
 
-```
+``` swift
 let position = gridfile.tell()
 print(“current position is \(position)”)
 ```

@@ -148,7 +148,7 @@ do {
 
 该对象所有的函数API包括：
 
-```
+``` swift
 init(_:readOnly:)
 close()
 prepare(_:)

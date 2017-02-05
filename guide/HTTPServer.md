@@ -22,7 +22,7 @@ Call one of the static `HTTPServer.launch` functions with either a path to a JSO
 
 The resulting configuration data will be used to launch one or more HTTP servers. 
 
-```
+```swift
 public extension HTTPServer {
 	public static func launch(wait: Bool = true, configurationPath path: String) throws -> [LaunchContext]
 	public static func launch(wait: Bool = true, configurationFile file: File) throws -> [LaunchContext]

@@ -164,7 +164,7 @@ do {
 
 `tell()` 方法用于取得当前文件实例的缓冲区游标，返回类型为64位无符号整数：
 
-```
+``` swift
 let position = gridfile.tell()
 print(“当前文件指向 \(position)”)
 ```

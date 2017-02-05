@@ -12,7 +12,7 @@ Ensure you have installed and activated the latest Swift 3.0 tool chain.
 Please make sure libssl-dev was installed on Ubuntu 16.04:
 
 ```
-$ sudo apt-get install libssl-dev
+sudo apt-get install libssl-dev
 ```
 
 ## Relevant Examples

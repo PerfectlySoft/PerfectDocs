@@ -159,7 +159,7 @@ If that looks a little tricky, that’s okay. Our "doBindings:" argument takes a
 
 The full API consists of: 
 
-```
+``` swift
 init(_:readOnly:)
 close()
 prepare(_:)
@@ -188,7 +188,7 @@ Is the basic initializer for creating a new instance of the class. It’s utiliz
 
 ### close
 
-```
+``` swift
 public func close()
 ``` 
 

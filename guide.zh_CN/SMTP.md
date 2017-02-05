@@ -11,7 +11,7 @@
 请确保编译之前您的 Ubuntu 16.04 上已经安装了 `libssl-dev` 程序库：
 
 ```
-$ sudo apt-get install libssl-dev
+sudo apt-get install libssl-dev
 ```
 ## 快速上手
 
