@@ -22,7 +22,7 @@ Call one of the static `HTTPServer.launch` functions with either a path to a JSO
 
 The resulting configuration data will be used to launch one or more HTTP servers. 
 
-```swift
+``` swift
 public extension HTTPServer {
 	public static func launch(wait: Bool = true, configurationPath path: String) throws -> [LaunchContext]
 	public static func launch(wait: Bool = true, configurationFile file: File) throws -> [LaunchContext]
@@ -32,7 +32,7 @@ public extension HTTPServer {
 
 The default value for the `wait` parameter indicates that the function should not return but should block until all servers have terminated or the process is killed. If `false` is given for `wait` then the returned array of `LaunchContext` objects can be used to monitor or terminate the individual servers. Most applications will want the function to wait and so the functions can be called without including the `wait` parameter.
 
-```swift
+``` swift
 do {
 	try HTTPServer.launch(configurationPath: "/path/to/perfecthttp.json")
 } catch {
@@ -44,7 +44,7 @@ Note that the configuration file can be located or named whatever you'd like, bu
 
 After it is decoded from JSON, at its top level, the configuration data should contain a "servers" key with a value that is an array of Dictionary&lt;String:Any&gt;. These dictionaries describe the servers which will be launched.
 
-```swift
+``` swift
 [
 	"servers":[
 		[…],
@@ -56,7 +56,7 @@ After it is decoded from JSON, at its top level, the configuration data should c
 
 A simple example single server configuration dictionary might look as follows. Note that the keys and values in this example are all explained in the subsequent sections of this document.
 
-```swift
+``` swift
 [
 	"servers":[
 		[
@@ -115,7 +115,7 @@ Any additional keys/values are provided when the named function is called. These
 
 Perfect comes with request handlers that take care of various common tasks such as redirecting clients or serving static, on-disk files. The following example defines a server which listens on port 8080 and has two handlers, one of which serves static files while the other redirects clients to a new URL.
 
-```swift
+``` swift
 [
 	"servers":[
 		[
@@ -154,7 +154,7 @@ Note that if you are creating a configuration directly in Swift code as a dictio
 
 An example request handler generator which could be used in a server configuration follows.
 
-```swift
+``` swift
 public extension HTTPHandler {
 	public static func staticFiles(data: [String:Any]) throws -> RequestHandler {
 		let documentRoot = data["documentRoot"] as? String ?? "./webroot"
@@ -180,7 +180,7 @@ The value for the "filters" key is an array of dictionaries containing keys whic
 
 The following example adds two filters, one for requests and one for responses.
 
-```swift
+``` swift
 [
 	"servers": [
 		[
@@ -209,7 +209,7 @@ The following example adds two filters, one for requests and one for responses.
 
 Filter names work in much the same way as route handlers do, however, the function signatures are different. A request filter generator function takes the [String:Any] containing the configuration data and returns a `HTTPRequestFilter` or a `HTTPResponseFilter` depending on the filter type.
 
-```swift
+``` swift
 // a request filter generator
 public func customReqFilter(data: [String:Any]) throws -> HTTPRequestFilter {
 	struct ReqFilter: HTTPRequestFilter {
@@ -283,7 +283,7 @@ There are several variants of the `HTTPServer.launch` functions which permit one
 
 The simpliest of these methods launches a single server with options:
 
-```swift
+``` swift
 public extension HTTPServer {
 	public static func launch(wait: Bool = true, name: String, port: Int, routes: Routes,
 	                          requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
@@ -299,7 +299,7 @@ public extension HTTPServer {
 
 The remaining launch functions take one or more server descriptions, launches them and returns their `LaunchContext` objects.
 
-```swift
+``` swift
 public extension HTTPServer {
 	public static func launch(wait: Bool = true, _ servers: [Server]) throws -> [LaunchContext]
 	public static func launch(wait: Bool = true, _ server: Server, _ servers: Server...) throws -> [LaunchContext]
@@ -308,7 +308,7 @@ public extension HTTPServer {
 
 The `Server`, which describes the HTTPServer object that will eventually be launched, looks like so:
 
-```swift
+``` swift
 public extension HTTPServer {	
 	public struct Server {
 		public init(name: String, address: String, port: Int, routes: Routes,
@@ -342,7 +342,7 @@ public extension HTTPServer {
 
 The following examples show some common usages.
 
-```swift
+``` swift
 // start a single server serving static files
 try HTTPServer.launch(name: "localhost", port: 8080, documentRoot: "/path/to/webroot")
 
@@ -387,7 +387,7 @@ public struct TLSConfiguration {
 
 If `wait: false` is given to any of the `HTTPServer.launch` functions then one or more `LaunchContext` objects are returned. These objects permit each server's status to be checked and permit the server to be terminated.
 
-```swift
+``` swift
 public extension HTTPServer {
 	public struct LaunchFailure: Error {
 		let message: String
@@ -409,7 +409,7 @@ If a launched server fails because an error is thrown then that error will be tr
 
 An `HTTPServer` object can be instantiated, configured and manually started.
 
-```swift
+``` swift
 public class HTTPServer {
 	/// The directory in which web documents are sought.
 	/// Setting the document root will add a default URL route which permits
