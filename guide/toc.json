@@ -57,7 +57,11 @@
 				},
 				{
 					"name": "Request & Response Filters",
-					"doc":  "filters"
+					"doc":  "filters",
+					"contents": [{
+				 "name": "HTTP Web Redirects",
+				 "doc":  "webRedirects"
+				 }]
 				},
 				{
 					"name": "Filters",

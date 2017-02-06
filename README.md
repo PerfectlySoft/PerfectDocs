@@ -70,6 +70,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 		* [File Uploads](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/fileUploads.md)
 	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md)
 	* [Request &amp; Response Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filters.md)
+		* [Web Redirect Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webRedirects.md)
 	* [Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sessions.md)
 		* [CSRF Security](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/csrf.md)
 		* [CORS Security](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cors.md)
