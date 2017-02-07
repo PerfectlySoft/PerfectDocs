@@ -123,7 +123,7 @@ do {
 }
 ```
 
-Build and run the project again with:
+Build and run the project again with: 
 
 ```
 swift build
