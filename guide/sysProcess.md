@@ -101,12 +101,12 @@ myProcess.isOpen()
 myProcess.close()
 ```
 
-#### detatch
+#### detach
 
 Detach from the process such that it will not be manually terminated when this object is uninitialized.
 
 ``` swift
-myProcess.detatch()
+myProcess.detach()
 ```
 
 #### wait
