@@ -24,10 +24,11 @@
 			"name": "用SPM软件包管理器编译项目",
 			"doc":  "buildingWithSPM"
 		},
-		{	"name": "HTTP服务器配置与启动",
- 			"doc":  "HTTPServer"
- 		},
- 		{
+		{
+			"name": "HTTP服务器配置与启动",
+			"doc":  "HTTPServer"
+		},
+		{
 			"name": "处理HTTP请求",
 			"doc":  "handlingRequests",
 			"contents": [
@@ -38,7 +39,7 @@
 				{
 					"name": "HTTPRequest请求对象",
 					"doc":  "HTTPRequest",
-					"contents" : [
+					"contents": [
 						{
 							"name": "使用表单",
 							"doc":  "formData"
@@ -47,7 +48,6 @@
 							"name": "文件上传",
 							"doc":  "fileUploads"
 						}
-
 					]
 				},
 				{
@@ -56,10 +56,6 @@
 				},
 				{
 					"name": "HTTP请求与响应过滤器",
-					"doc":  "filters"
-				},
-				{
-					"name": "过滤器",
 					"doc":  "filters"
 				},
 				{
@@ -132,7 +128,6 @@
 					"name": "SMTP简单邮件协议",
 					"doc":  "SMTP"
 				}
-
 			]
 		},
 		{
@@ -183,7 +178,6 @@
 							"name": "GridFS 文件系统",
 							"doc":  "MongoDB-GridFS"
 						}
-
 					]
 				},
 				{
@@ -194,10 +188,9 @@
 					"name": "LDAP",
 					"doc":  "LDAP"
 				}
-
 			]
 		},
-				{
+		{
 			"name": "StORM：Swift对象关系管理（ORM）",
 			"doc":  "StORM",
 			"contents": [
@@ -236,18 +229,16 @@
 				{
 					"name": "SQLiteStORM",
 					"doc":  "StORM-SQLite"
-        		},
-        		{
-        			"name": "CouchDBStORM",
-        			"doc":  "StORM-CouchDB"
-        		}
-
+				},
+				{
+					"name": "CouchDBStORM",
+					"doc":  "StORM-CouchDB"
+				}
 			]
 		},
 		{
 			"name": "Turnstile 认证",
 			"doc":  "Turnstile"
 		}
-
 	]
 }

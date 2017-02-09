@@ -2,7 +2,7 @@
 
 <p align="center">
     <a href="http://perfect.org/get-involved.html" target="_blank">
-        <img src="http://perfect.org/assets/github/perfect_github_2_0_0.jpg" alt="Get Involed with Perfect!" width="854" />
+        <img src="http://perfect.org/assets/github/perfect_github_2_0_0.jpg" alt="Get Involved with Perfect!" width="854" />
     </a>
 </p>
 
@@ -63,10 +63,11 @@
 * [HTTP和Web服务基础](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/WebServicesPrimer.md)
 * [代码资源库结构](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/repositoryLayout.md)
 * [用SPM软件包管理器编译项目](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/buildingWithSPM.md)
+* [HTTP服务器配置与启动](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPServer.md)
 * [处理HTTP请求](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/handlingRequests.md)
 	* [HTTP路由](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/routing.md)
 	* [HTTPRequest请求对象](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPRequest.md)
-	 	* [使用表单](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/formData.md)
+		* [使用表单](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/formData.md)
 		* [文件上传](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/fileUploads.md)
 	* [HTTPResponse响应对象](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPResponse.md)
 	* [HTTP请求与响应过滤器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filters.md)
@@ -75,8 +76,8 @@
 	* [静态文件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/staticFileContent.md)
 	* [Mustache页面模板](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mustache.md)
 	* [HTTP请求日志记录器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPRequestLogging.md)
-	* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/webSockets.md)
-  * [基本工具](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/utilities.md)
+* [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/webSockets.md)
+* [基本工具](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/utilities.md)
 	* [字节流转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/bytes.md)
 	* [文件操作](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/file.md)
 	* [目录与路径](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/dir.md)
@@ -103,8 +104,8 @@
 		* [GridFS 文件系统](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MongoDB-GridFS.md)
 	* [CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/CouchDB.md)
 	* [LDAP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/LDAP.md)
-	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @ kjessup
-	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
+	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @kjessup
+	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
 * [iOS 消息与通知](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/iOSNotifications.md) @kjessup
 * [发行与部署](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment.md)
 	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment-Ubuntu1510.md)
@@ -122,22 +123,23 @@
 StORM 并非 Perfect.org 发行的项目，但是 Perfect 的函数库将 StORM 集成到了整个框架范围内，因此本项目与StORM存在共同的作者。
 
 * [StORM：Swift的对象关系管理（ORM） ](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM.md)
-  * [ StORM简介](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM.md)
-  * [设置对象](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Setting-up-a-class.md)
-  * [数据记录行操作：存、取和删除](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Saving-Retrieving-and-Deleting-Rows.md)
-  * [StORM游标](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Cursor.md)
-  * [插入数据](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Insert.md)
-  * [更新数据](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Update.md)
-  * [PostgresStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-PostgreSQL.md)
-  * [SQLiteStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-SQLite.md)
-  * [MySQLStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-MySQL.md)
-	* [Apache CouchDB 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-CouchDB.md)
- ## Perfect Turnstile - 用户身份验证管理
+	* [StORM简介](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM.md)
+	* [设置对象](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Setting-up-a-class.md)
+	* [数据记录行操作：存、取和删除](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Saving-Retrieving-and-Deleting-Rows.md)
+	* [StORM游标](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Cursor.md)
+	* [插入数据](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Insert.md)
+	* [更新数据](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Update.md)
+	* [PostgresStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-PostgreSQL.md)
+	* [SQLiteStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-SQLite.md)
+	* [MySQLStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-MySQL.md)
+	* [Apache CouchDB 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-CouchDB.md)
+
+ ## Perfect Turnstile – 用户身份验证管理
 
  [Turnstile](https://github.com/stormpath/Turnstile) 是一个用于用户身份跨平台认证的开源软件框架体系 [Stormpath](https://github.com/stormpath) 。感谢 [Edward Jiang](https://github.com/edjiang) 为 Perfect 提供了 Turnstile。
 
- * [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
- * [Perfect Turnstile 与 SQLite 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
- * [Perfect Turnstile 与 PostgreSQL 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
-* [Perfect Turnstile 与 MySQL 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
-* [Perfect Turnstile 与 CouchDB 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+* [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+	* [Perfect Turnstile 与 SQLite 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+	* [Perfect Turnstile 与 PostgreSQL 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+	* [Perfect Turnstile 与 MySQL 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)
+	* [Perfect Turnstile 与 CouchDB 集成](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Turnstile.md)

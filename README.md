@@ -2,7 +2,7 @@
 
 <p align="center">
     <a href="http://perfect.org/get-involved.html" target="_blank">
-        <img src="http://perfect.org/assets/github/perfect_github_2_0_0.jpg" alt="Get Involed with Perfect!" width="854" />
+        <img src="http://perfect.org/assets/github/perfect_github_2_0_0.jpg" alt="Get Involved with Perfect!" width="854" />
     </a>
 </p>
 
@@ -63,10 +63,11 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 * [An HTTP and Web Services Primer](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/WebServicesPrimer.md)
 * [Repository Layout](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/repositoryLayout.md)
 * [Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)
+* [Configuring and Launching HTTPServer](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPServer.md)
 * [Handling Requests](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/handlingRequests.md)
 	* [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md)
 	* [HTTPRequest](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequest.md)
-	 	* [Using Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md)
+		* [Using Form Data](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/formData.md)
 		* [File Uploads](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/fileUploads.md)
 	* [HTTPResponse](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPResponse.md)
 	* [Request &amp; Response Filters](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filters.md)
@@ -96,8 +97,6 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
 	* [SMTP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SMTP.md)
 	* [Google Analytics Measurement Protocol](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/GoogleAnalytics.md)
-
-	
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SQLite.md)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MySQL.md)
@@ -111,8 +110,8 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 		* [GridFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-GridFS.md)
 	* [CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/CouchDB.md)
 	* [LDAP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/LDAP.md)
-	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @ kjessup
-	* [Filemaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
+	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @kjessup
+	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
 	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Ubuntu1510.md)
@@ -127,7 +126,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 
 ## StORM, a Swift ORM
 
-StORM is not distributed as a Perfect.org project, however the Perfect libraries are integral to it's operation, and some authors are common.
+StORM is not distributed as a Perfect.org project; however, the Perfect libraries are integral to its operation, and some authors are common.
 	
 * [StORM, a Swift ORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM.md)
 	* [Introduction to StORM](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM.md)
@@ -143,12 +142,12 @@ StORM is not distributed as a Perfect.org project, however the Perfect libraries
 		* [Apache CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-CouchDB.md)
 		* [MongoDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-MongoDB.md)
 
-## Perfect Turnstile - an authentication layer for Perfect
+## Perfect Turnstile – an authentication layer for Perfect
 
 [Turnstile](https://github.com/stormpath/Turnstile) is an Open Source project from [Stormpath](https://github.com/stormpath) focussing on standardizing authentication across platforms and frameworks. Thanks to work done by [Edward Jiang](https://github.com/edjiang) on Turnstile and a foundation linking Turnstile with Perfect, an authentication layer is available for Perfect.
 
 * [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
-* [Perfect Turnstile with SQLite Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
-* [Perfect Turnstile with PostgreSQL Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
-* [Perfect Turnstile with MySQL Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
-* [Perfect Turnstile with CouchDB Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+	* [Perfect Turnstile with SQLite Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+	* [Perfect Turnstile with PostgreSQL Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+	* [Perfect Turnstile with MySQL Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
+	* [Perfect Turnstile with CouchDB Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)

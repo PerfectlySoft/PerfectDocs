@@ -39,7 +39,7 @@
 				{
 					"name": "HTTPRequest",
 					"doc":  "HTTPRequest",
-					"contents" : [
+					"contents": [
 						{
 							"name": "Using Form Data",
 							"doc":  "formData"
@@ -48,7 +48,6 @@
 							"name": "File Uploads",
 							"doc":  "fileUploads"
 						}
-
 					]
 				},
 				{
@@ -58,19 +57,17 @@
 				{
 					"name": "Request & Response Filters",
 					"doc":  "filters",
-					"contents": [{
-				 "name": "HTTP Web Redirects",
-				 "doc":  "webRedirects"
-				 }]
-				},
-				{
-					"name": "Filters",
-					"doc":  "filters"
+					"contents": [
+						{
+							"name": "HTTP Web Redirects",
+							"doc":  "webRedirects"
+						}
+					]
 				},
 				{
 					"name": "Sessions",
 					"doc":  "sessions",
-					"contents" : [
+					"contents": [
 						{
 							"name": "CSRF",
 							"doc":  "csrf"
@@ -79,7 +76,6 @@
 							"name": "CORS",
 							"doc":  "cors"
 						}
-
 					]
 				},
 				{
@@ -89,15 +85,15 @@
 				{
 					"name": "Static File Content",
 					"doc":  "staticFileContent"
-				 },
-				 {
-				 "name": "Mustache",
-				 "doc":  "mustache"
-				 },
-				 {
-				 "name": "HTTP Request Logging",
-				 "doc":  "HTTPRequestLogging"
-				 }
+				},
+				{
+					"name": "Mustache",
+					"doc":  "mustache"
+				},
+				{
+					"name": "HTTP Request Logging",
+					"doc":  "HTTPRequestLogging"
+				}
 			]
 		},
 		{
@@ -131,19 +127,19 @@
 				{
 					"name": "Log",
 					"doc":  "log"
-				 },
-				 {
-				 "name": "Log Files",
-				 "doc":  "logFiles"
-				 },
-				 {
-				 "name": "OAuth2 and Providers",
-				 "doc":  "OAuth2"
-				 },
-				 {
-				 "name": "Remote Logging",
-				 "doc":  "logRemote"
-				 },
+				},
+				{
+					"name": "Log Files",
+					"doc":  "logFiles"
+				},
+				{
+					"name": "OAuth2 and Providers",
+					"doc":  "OAuth2"
+				},
+				{
+					"name": "Remote Logging",
+					"doc":  "logRemote"
+				},
 				{
 					"name": "SMTP",
 					"doc":  "SMTP"
@@ -168,7 +164,6 @@
 					"name": "Zip",
 					"doc":  "zip"
 				}
-
 			]
 		},
 		{
@@ -215,7 +210,6 @@
 							"name": "Working with BSON",
 							"doc":  "MongoDB-BSON"
 						}
-		
 					]
 				},
 				{
@@ -226,10 +220,9 @@
 					"name": "LDAP",
 					"doc":  "LDAP"
 				}
-
 			]
 		},
-				{
+		{
 			"name": "StORM, a Swift ORM",
 			"doc":  "StORM",
 			"contents": [
@@ -273,13 +266,11 @@
 					"name": "CouchDBStORM",
 					"doc":  "StORM-CouchDB"
 				}
-
 			]
 		},
 		{
 			"name": "Turnstile Authentication",
 			"doc":  "Turnstile"
 		}
-
 	]
 }
