@@ -63,11 +63,11 @@
 					"doc":  "sessions",
 					"contents": [
 						{
-							"name": "CSRF 跨网站安全请求检查",
+							"name": "CSRF 安全功能",
 							"doc":  "csrf"
 						},
 						{
-							"name": "CORS 请求来源安全检查",
+							"name": "CORS 安全功能",
 							"doc":  "cors"
 						}
 					]

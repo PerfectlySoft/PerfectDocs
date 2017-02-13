@@ -113,3 +113,8 @@ let (user, response) = try spnego.accept(base64Token: "YIICnQYGKwYBBQUCoIICkTCCA
 如果成功的话，用户名称将会是"rocky@KRB5.CA"。而变量`response`有可能为空，表示这种申请不需要回复多余的数据；否则请将这个同样是base64的字符串返回给客户。
 
 到此为止，您的程序已经获得了用户信息，您的应用程序可以根据这个验证过的用户名称，查看ACL（安全控制表）来决定是否允许该用户访问其期待的资源。
+
+## 有关示例
+
+以下连接包括了一个如何在 Perfect HTTP 服务器中应用 SPNEGO 安全机制的范例：
+* [Perfect-Spnego-Demo](https://github.com/PerfectExamples/Perfect-Spnego-Demo)

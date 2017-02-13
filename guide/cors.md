@@ -27,7 +27,7 @@ If you have included Perfect Sessions or any of its datasource-specific implemen
 // Default is false.
 SessionConfig.CORS.enabled = true
 
-// Array of acceptable hostnames for incoming requets
+// Array of acceptable hostnames for incoming requests
 // To enable CORS on all, have a single entry, *
 SessionConfig.CORS.acceptableHostnames = ["*"]
 
@@ -68,7 +68,7 @@ Access-Control-Allow-Methods: GET, POST, PUT
 // (even if configured with *)
 Access-Control-Allow-Origin: http://www.test-cors.org
 
-// If the server wishes cookies to be sent along with requeusts, 
+// If the server wishes cookies to be sent along with requests, 
 // this should return true
 Access-Control-Allow-Credentials: true
 

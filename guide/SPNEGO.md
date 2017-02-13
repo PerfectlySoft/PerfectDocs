@@ -113,3 +113,8 @@ let (user, response) = try spnego.accept(base64Token: "YIICnQYGKwYBBQUCoIICkTCCA
 If succeeded, the user would be "rocky@KRB5.CA". The variable `response` might be `nil` which indicates nothing is required to reply such a token, otherwise you should send this `response` back to the client.
 
 Up till now, your application had already got the user information and request, then the application server might decide if this user could access the objective resource or not, according to your ACL (access control list) configuration.
+
+## Relevant Examples
+
+A good example to demonstrate how to use SPNEGO in a Perfect HTTP Server can be found from:
+* [Perfect-Spnego-Demo](https://github.com/PerfectExamples/Perfect-Spnego-Demo)
