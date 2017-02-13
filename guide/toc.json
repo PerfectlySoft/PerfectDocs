@@ -79,6 +79,10 @@
 					]
 				},
 				{
+					"name": "SPNEGO Security",
+					"doc":  "SPNEGO"
+				},
+				{
 					"name": "JSON",
 					"doc":  "JSON"
 				},

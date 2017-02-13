@@ -75,6 +75,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sessions.md)
 		* [CSRF Security](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/csrf.md)
 		* [CORS Security](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cors.md)
+	* [GSS-SPNEGO Security Feature](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SPNEGO.md)
 	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md)
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md)
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md)

@@ -60,7 +60,21 @@
 				},
 				{
 					"name": "Session 会话管理",
-					"doc":  "sessions"
+					"doc":  "sessions",
+					"contents": [
+						{
+							"name": "CSRF 跨网站安全请求检查",
+							"doc":  "csrf"
+						},
+						{
+							"name": "CORS 请求来源安全检查",
+							"doc":  "cors"
+						}
+					]
+				},
+				{
+					"name": "SPNEGO 安全功能",
+					"doc":  "SPNEGO"
 				},
 				{
 					"name": "JSON数据转换",
