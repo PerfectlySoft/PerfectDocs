@@ -1,21 +1,21 @@
-## CSRF (Cross Site Request Forgery) Security
+## CSRF (跨网站请求伪造) 安全功能
 
-Cross-Site Request Forgery (CSRF) is an attack that forces an end user to execute unwanted actions on a web application in which they're currently authenticated. **CSRF attacks specifically target state-changing requests, not theft of data, since the attacker has no way to see the response to the forged request.** With a little help of social engineering (such as sending a link via email or chat), an attacker may trick the users of a web application into executing actions of the attacker's choosing. If the victim is a normal user, a successful CSRF attack can force the user to perform state changing requests like transferring funds, changing their email address, and so forth. If the victim is an administrative account, CSRF can compromise the entire web application. [1] - (OWASP)
+跨网站请求伪造是一种网络攻击方法，能够在用户不知情的情况下代理用户已经完成的身份验证在目标网站上执行非法操作。 **CSRF 攻击主要瞄准状态变更操作，而不是盗取数据，因为攻击者无法看到来源请求的响应结果。** 此类攻击一般利用社交媒体设下陷阱（比如通过邮件或者聊天发送链接），通过引诱用户点击链接执行攻击者的操作。典型的受害者可能在不知情的情况下被转移资金，或者改变了邮件地址等等。如果受害者是一个具有高度权限的账户，比如管理员账户，则整个网站都可能被劫持。[1] - (OWASP)
 
-CSRF as an attack vector is often overlooked, and represents a significant "chaos" factor unless the validation is handled at the highest level: the framework. This allows web application and API authors to have significant control over a vital layer of security.
+CSRF 是一种经常被忽视的攻击方法，因此常常造成混乱，除非在整个软件体系上加以防范。一旦在最高级别的体系上实施防范，则网站整体安全性会得到大大提高。
 
-The [Perfect Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sessions.md) module includes support for CSRF configuration.
+[Perfect Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sessions.md) 会话模块包括了对 CSRF 的配置方法。
 
-If you have included Perfect Sessions or any of its datasource-specific implementations in your Packages.swift file, you already have CSRF support.
+如果您的工程软件配置文件 Package.Swift 包括了 Perfect Sessions 会话管理，或者任何带有数据源驱动的应用实现，则您的工程已经包括CSRF支持。
 
-## Relevant Examples
+## 相关范例
 
 * [Perfect-Session-Memory-Demo](https://github.com/PerfectExamples/Perfect-Session-Memory-Demo)
 
 
-## Configuration
+## 配置
 
-An example CSRF Configuration might look like this:
+一个典型的 CSRF 配置可能看起来像这样
 
 ``` swift 
 SessionConfig.CSRF.checkState = true
@@ -27,39 +27,39 @@ SessionConfig.CSRF.requireToken = true
 
 ### SessionConfig.CSRF.checkState
 
-This is the "master switch". If enabled, CSRF will be enabled for all routes.
+这是总开关，如果开启，则CSRF将在所有路由上启动安全管制。
 
 ### SessionConfig.CSRF.failAction
 
-This specifies the action to take if the CSRF validation fails. The possible options are: 
+该选项用于处理 CSRF 认证失败时应该采取的操作，允许值为：
 
-* `.fail` - Execute an immediate halt. No further processing will be done, and an HTTP Status `406 Not Acceptable` is generated.
-* `.log` - Processing will continue, however the event will be recorded in the log.
-* `.none` - Processing will continue, no action is taken.
+* `.fail` - 执行暂停。服务器将停止处理任何新请求操作，而HTTP状态会变更为 `406 Not Acceptable`。
+* `.log` - 允许继续服务，但是事件将记录到日志中去。
+* `.none` - 允许继续服务，而且也不会采取任何附加操作。
 
 ### SessionConfig.CSRF.acceptableHostnames
 
-An array of host names that are compared in the following section for "origin" match acceptance. 
+该数组用于代表允许进行CSRF的主机名称。
 
 
 ### SessionConfig.CSRF.checkHeaders
 
-If the `CORS.checkheader` is configured as `true`, origin and host headers are checked for validity.
+如果 `CORS.checkheader` 被启动（配置为 `true`）请求来源和主机名将被验证。
 
-* The `Origin`, `Referrer` or `X-Forwarded-For` headers must be populated ("origin").
-* If the "origin" is specified in `SessionConfig.CSRF.acceptableHostnames`, the CSRF check will continue to the next phase and the following checks are skipped.
-* The `Host` or `X-Forwarded-Host` header must be present ("host").
-* The "host" and "origin" values must match exactly.
+* 请求头数据必须包括 `Origin` 和 `Referrer` 或 `X-Forwarded-For` 三个内容段。
+* 如果 "origin" 值已经在配置选项 `SessionConfig.CSRF.acceptableHostnames`名单中，则 CSRF 检查则认可该来源，结束认证并执行请求后续操作。
+* 请求必须包括 `Host` 或 `X-Forwarded-Host`，用于代表代理主机 ("host").
+* "host" 和 "origin" 值必须完全匹配。
 
 
 
 ### SessionConfig.CSRF.requireToken
 
-When set to true, this setting will enforce all POST requests to include a "_csrf" param, or if the content type header is "application/json" then an associated "X-CSRF-Token" header must be sent with the request. The content of the header or parameter should match the `request.session.data["csrf"]` value. This value is set automatically at session start.
+当设置为真时，该设置会要求所有 HTTP POST 包括一个 "_csrf" 参数，或者如果内容类型为"application/json"时请求头数据必须包括一个相关的 "X-CSRF-Token" 票据变量。请求的内容或参数必须和`request.session.data["csrf"]`数值匹配。该数值在会话开始时自动设置。
 
-### Session state
+### 会话状态
 
-While not a configuration param, it is worth noting that if `SessionConfig.CSRF.checkState` is true, no POST request will be accepted if the session is "new". This is a deliberate position supported by security recommendations.
+虽然不是一个配置选项，但是需要注意的时，如果总开关`SessionConfig.CSRF.checkState`设置为真，则如果会话是一个“新会话”，则不会允许任何POST请求。这是根据安全建议中特别设置的特征。
 
 
  
