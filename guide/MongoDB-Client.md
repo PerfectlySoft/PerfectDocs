@@ -2,7 +2,7 @@
 
 The MongoClient class is where the initial connection to the MongoDB server is defined. 
 
-Create new Mongo client connection:
+Create a new Mongo client connection:
 
 ``` swift
 let client = try! MongoClient(uri: "mongodb://localhost")
@@ -10,7 +10,7 @@ let client = try! MongoClient(uri: "mongodb://localhost")
 
 ### Closing the Connection
 
-Once the connection is established and the database and collections have been defined, set the connection to close once completed using `defer`. This is done in reverse order - close collections, then databases, and then finally the client connection.
+Once the connection is established and the database and collections have been defined, set the connection to close once completed using `defer`. This is done in reverse order: close collections, then databases, and then finally the client connection.
 
 ``` swift
 defer {

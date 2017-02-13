@@ -1,10 +1,10 @@
 # File Logging
 
-Using the `PerfectLogger` module, events can be logged to a specfied file, in addition to the console.
+Using the `PerfectLogger` module, events can be logged to a specified file, in addition to the console.
 
-## Using in your project
+## Usage
 
-Add the dependancy to your project's Package.swift file:
+Add the dependency to your project's Package.swift file:
 
 ``` swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 0, minor: 0),
@@ -31,7 +31,7 @@ To log to the default file, omit the file name parameter.
 
 ## Linking events with "eventid"
 
-Each log event returns an event id string. If an eventid string is supplied to the directive then it will use the supplied eventid in the log file instead - this makes it easy to link together related events.
+Each log event returns an event id string. If an eventid string is supplied to the directive then it will use the supplied eventid in the log file instead. This makes it easy to link together related events.
 
 ``` swift
 let eid = LogFile.warning("test 1")
@@ -45,7 +45,7 @@ returns:
 [CRITICAL] [62f940aa-f204-43ed-9934-166896eda21c] [2016-11-16 15:18:02 GMT-05:00] test 2
 ```
 
-The returned eventid is marked `@discardableResult` therefore can be safely ignored if not required for re-use.
+The returned eventid is marked `@discardableResult` and therefore can be safely ignored if not required for re-use.
 
 
 ## Setting a custom Logfile location

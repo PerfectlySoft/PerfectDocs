@@ -10,7 +10,7 @@ HTTPRequest objects will handle parsing and decoding all "application/x-www-form
 
 * [Perfect-HTTPRequestLogging](https://github.com/PerfectExamples/Perfect-HTTPRequestLogging)
 
-### Meta Data
+### Metadata
 
 HTTPRequest provides several pieces of data which are not explicitly sent by the client. Information such as the client and server IP addresses, TCP ports, and document root fit into this category.
 
@@ -23,7 +23,7 @@ var remoteAddress: (host: String, port: UInt16) { get }
 var serverAddress: (host: String, port: UInt16) { get }
 ```
 
-When a server is created, you can set its canonical name, or CNAME. This can be useful in a variety of circumstances. For example, when creating full links to your server. When a HTTPRequest is created, the server will apply a CNAME to it. It is made available through the following property:
+When a server is created, you can set its canonical name, or CNAME. This can be useful in a variety of circumstances, such as when creating full links to your server. When a HTTPRequest is created, the server will apply a CNAME to it. It is made available through the following property:
 
 ```swift
 /// The canonical name for the server.
@@ -100,13 +100,13 @@ var cookies: [(String, String)]
 
 ### GET and POST Parameters
 
-For a detailed discussion of accessing GET and POST paramaters, please see [Using Form Data](formData.md).
+For a detailed discussion of accessing GET and POST paramaters, see [Using Form Data](formData.md).
 
 ### Body Data
 
 For the content types "application/x-www-form-urlencoded" and "multipart/form-data", HTTPRequest will automatically parse and make the values available through the ```postParams``` or ```postFileUploads``` properties, respectively. 
 
-For a more detailed discussion of file upload handling, please see [File Uploads](fileUploads.md). For more details on ```postParams```, please see [Using Form Data](formData.md).
+For a more detailed discussion of file upload handling, see [File Uploads](fileUploads.md). For more details on ```postParams```, see [Using Form Data](formData.md).
 
 Request body data with other content types are not parsed and are made available either as raw bytes or as String data. For example, for a client submitting JSON data, one would want to access the body data as a String which would then be decoded into a useful value.
 

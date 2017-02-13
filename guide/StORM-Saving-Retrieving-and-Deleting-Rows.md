@@ -18,7 +18,7 @@ try obj.save {
 }
 ```
 
-Note that the `.email` property was omitted in the initial save. Lets fix that:
+Note that the `.email` property was omitted in the initial save. Let's fix that:
 
 ``` swift
 obj.email = "joe.smith@example.com"
@@ -62,7 +62,7 @@ do {
 
 ## Retrieving Rows
 
-There are three ways to retrieve one or more rows: `.get`, `.find`, and `.select`
+There are three ways to retrieve one or more rows: `.get`, `.find`, and `.select`.
 
 ### Get Methods
 
@@ -97,7 +97,7 @@ print("Find Record:  \(obj.id), \(obj.firstname), \(obj.lastname)")
 
 By far the most powerful of the row retrieval methods is `.select`.
 
-The select method will take several input forms, the simplest is:
+The select method will take several input forms; the simplest is:
 
 ``` swift
 try obj.select(
@@ -107,7 +107,7 @@ try obj.select(
 	)
 ```
 
-The `.select` method takes advantage of parameter binding to protect from SQL Injection. Actually all methods do, but only a few core methods expose this and require knowledge of how Parameter Binding works.
+The `.select` method takes advantage of parameter binding to protect from SQL injection. Actually all methods do, but only a few core methods expose this and require knowledge of how parameter binding works.
 
 In the previous example, the parameter `$1` is used to signal that the first item in the array fed to `.params` should be used. The substitution will protect for data type and potential nasty input. 
 

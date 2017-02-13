@@ -1,8 +1,8 @@
 # MongoDB Database
 
-Use the MongoDB Database class to create a reference to a named database using provided MongoClient instance. 
+Use the MongoDB Database class to create a reference to a named database using a provided MongoClient instance.
 
-Create new Mongo Database connection:
+Create a new Mongo Database connection:
 
 ``` swift
 let database = try! MongoDatabase(
@@ -13,7 +13,7 @@ let database = try! MongoDatabase(
 
 ### Closing the Connection
 
-Once the connection is established and the database and collections have been defined, set the connection to close once completed using `defer`. This is done in reverse order - close collections, then databases, then finally the client connection.
+Once the connection is established and the database and collections have been defined, set the connection to close once completed using `defer`. This is done in reverse order: close collections, then databases, then finally the client connection.
 
 ``` swift
 defer {
@@ -45,7 +45,7 @@ let name = database.name()
 database.createCollection(name: <String>, options: <BSON>)
 ```
 
-####Parameters
+#### Parameters
 
 * **name:** String, name of collection to be created
 * **options:**  BSON document listing options for new collection

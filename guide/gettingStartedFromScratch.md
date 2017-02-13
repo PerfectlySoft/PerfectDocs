@@ -1,4 +1,4 @@
-## Getting Started From Scratch
+# Getting Started From Scratch
 
 This guide will take you through the steps of settings up a simple HTTP server from scratch with Swift and Perfect.
 
@@ -11,7 +11,7 @@ After you have installed a Swift 3.0 toolchain from [Swift.org](https://swift.or
 swift --version
 ```
 
-It will produce a message similar to this one: 
+It will produce a message similar to this one:
 
 ```
 Apple Swift version 3.0.1 (swiftlang-800.0.58.6 clang-800.0.42.1)
@@ -19,19 +19,21 @@ Target: x86_64-apple-macosx10.9
 ```
 Make sure you are running the release version of Swift 3.0.1. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.1.
 
-You can find out which version of Swift you will need by looking in [the README of the main Perfect repo](https://github.com/PerfectlySoft/Perfect#compatibility-with-swift)
+You can find out which version of Swift you will need by looking in [the README of the main Perfect repo](https://github.com/PerfectlySoft/Perfect#compatibility-with-swift).
 
 ### OS X
+
 Everything you need is already installed.
 
 ### Ubuntu Linux
+
 Perfect runs in Ubuntu Linux 14.04, 15.10 and 16.04 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
 
 ```
 sudo apt-get install openssl libssl-dev uuid-dev
 ```
 
-### Create the Swift Package
+## Getting Started with Perfect
 
 Now that you’re ready to build a simple web application from scratch, then go ahead and create a new folder where you will keep your project files:
 
@@ -49,7 +51,9 @@ git add README.md
 git commit -m "Initial commit"
 ```
 
-It's also recommended to add a `.gitignore` similar to the contents of [this Swift .gitignore template from Gitignore.io](https://www.gitignore.io/api/swift).
+It's also recommended to add a `.gitignore` similar to the contents of [this Swift .gitignore template from gitignore.io](https://www.gitignore.io/api/swift).
+
+### Create the Swift Package
 
 Now create a `Package.swift` file in the root of the repo with the following content. This is needed for the Swift Package Manager (SPM) to build the project.
 
@@ -60,7 +64,7 @@ let package = Package(
     name: "MyAwesomeProject",
     dependencies: [
         .Package(
-        url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", 
+        url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
         majorVersion: 2, minor: 0
         )
     ]
@@ -89,7 +93,7 @@ Well hi there!
 
 ### Setting up the server
 
-Now that the swift package is up and running, then next step is to implement the Perfect-HTTPServer. Open up the `Sources/main.swift` and change its content the following:
+Now that the Swift package is up and running, the next step is to implement the Perfect-HTTPServer. Open up the `Sources/main.swift` and change its content the following:
 
 ``` swift
 import PerfectLib
@@ -130,7 +134,7 @@ swift build
 .build/debug/MyAwesomeProject
 ```
 
-The server is now running and it’s waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit "control-c" to terminate the server.
+The server is now running and waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit "control-c" to terminate the server.
 
 ### Xcode
 

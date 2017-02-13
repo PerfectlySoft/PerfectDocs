@@ -70,13 +70,13 @@ Note that the `SysProcess` command is executed in this example with a hardcoded 
 ### SysProcess Members
 
 #### stdin
-`stdin` is the standard "in" file stream.
+`stdin` is the standard input file stream.
 
 #### stdout
-`stdout` is the standard out file stream.
+`stdout` is the standard output file stream.
 
 #### stderr
-`stderr` is the standard err file stream.
+`stderr` is the standard error file stream.
 
 #### pid
 `pid` is the process identifier.

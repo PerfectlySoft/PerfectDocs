@@ -51,9 +51,9 @@ Add this project as a dependency in your Package.swift file.
 	)
 ```
 
-For more information about using Perfect libraries with your project, please see the chapter on "[Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)".
+For more information about using Perfect libraries with your project, see the chapter on "[Building with Swift Package Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/buildingWithSPM.md)".
 
-###Quick Start
+### Quick Start
 
 The following will clone an empty starter project:
 
@@ -62,7 +62,7 @@ git clone https://github.com/PerfectlySoft/PerfectTemplate.git
 cd PerfectTemplate
 ```
 
-Add to the Package.swift file the dependency:
+Add this to the Package.swift file:
 
 ``` swift
 let package = Package(
@@ -85,7 +85,7 @@ Open the generated `PerfectTemplate.xcodeproj` file in Xcode.
 
 The project will now build in Xcode and start a server on localhost port 8181.
 
->   **Important:** When a dependancy has been added to the project, the Swift Package Manager must be invoked to generate a new Xcode project file. Be aware that any customizations that have been made to this file will be lost.
+>   **Important:** When a dependency has been added to the project, the Swift Package Manager must be invoked to generate a new Xcode project file. Be aware that any customizations that have been made to this file will be lost.
 
 ### Importing MongoDB for Use in Your Project
 
@@ -136,7 +136,7 @@ defer {
 ```
 ### Performing a Find
 
-Using the ```find``` method to find all documents in the collection:
+Use the ```find``` method to find all documents in the collection:
 
 ``` swift
     let fnd = collection.find(query: BSON())
@@ -151,4 +151,4 @@ Using the ```find``` method to find all documents in the collection:
 
 ```
 
-For more detailed documentation on the MongoDB Collections class, please see the chapter on [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md).
+For more detailed documentation on the MongoDB Collections class, see the chapter on [MongoDB Collections](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/MongoDB-Collections.md).

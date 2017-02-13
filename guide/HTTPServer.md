@@ -1,6 +1,6 @@
 # HTTPServer
 
-This document describes the three methods by which you can launch new Perfect HTTP servers. These methods differ in their complexity and each caters to a different use case. 
+This document describes the three methods by which you can launch new Perfect HTTP servers. These methods differ in their complexity and each caters to a different use case.
 
 The first method is data driven whereby you provide either a Swift Dictionary or JSON file describing the servers you wish to launch. The second method describes the desired servers using Swift language constructs complete with the type checking and compile-time constraints provided by Swift. The third method permits you to instantiate an HTTPServer object and then procedurally configure each of the required properties before manually starting it.
 
@@ -20,7 +20,7 @@ This is only required on Linux and only if you are going to be using the configu
 
 Call one of the static `HTTPServer.launch` functions with either a path to a JSON configuration file, a File object pointing to the configuration file or a Swift Dictionary&lt;String:Any&gt;.
 
-The resulting configuration data will be used to launch one or more HTTP servers. 
+The resulting configuration data will be used to launch one or more HTTP servers.
 
 ``` swift
 public extension HTTPServer {
@@ -67,7 +67,7 @@ A simple example single server configuration dictionary might look as follows. N
 					"method":"get",
 					"uri":"/**",
 					"handler":"PerfectHTTPServer.HTTPHandler.staticFiles",
-					"documentRoot":"/path/to/webroot"	
+					"documentRoot":"/path/to/webroot"
 				],
 				[
 					"methods":["get", "post"],
@@ -87,7 +87,7 @@ The options available for servers are as follows:
 
 This **required** string value is primarily used to identify the server and would generally be the same as the server's domain name. Applications may use the server name to construct URLs pointing back to the server.
 
-It is permitted to use the same name for multiple servers. For example you may have three servers on the same host all listening on different ports. These three servers could all have the same name.
+It is permitted to use the same name for multiple servers. For example, you may have three servers on the same host all listening on different ports. These three servers could all have the same name.
 
 Corresponding HTTPServer property: `HTTPServer.serverName`.
 
@@ -105,9 +105,9 @@ Corresponding HTTPServer property: `HTTPServer.serverAddress`.
 
 ### routes:
 
-This **optional** element should have a value that is an array of [String:Any] dictionaries. Each element of the array indicates a URI route which maps an incoming HTTP request to a handler. See [Routing](http://perfect.org/docs/routing.html) for specifics on Perfect's URI routing system.
+This **optional** element should have a value that is an array of [String:Any] dictionaries. Each element of the array indicates a URI route which maps an incoming HTTP request to a handler. See [Routing](routing.md) for specifics on Perfect's URI routing system.
 
-Each route consists of zero or more HTTP methods, a uri and the name of a function which returns a `RequestHandler`.
+Each route consists of zero or more HTTP methods, a URI and the name of a function which returns a `RequestHandler`.
 
 The key names are: "method" or "methods", "uri" and "handler". The value for each of these should be a string, except in the case of "methods" which should be an array of strings. If no method values are provided then any HTTP method may trigger the handler.
 
@@ -126,7 +126,7 @@ Perfect comes with request handlers that take care of various common tasks such 
 					"method":"get",
 					"uri":"/**",
 					"handler":"PerfectHTTPServer.HTTPHandler.staticFiles",
-					"documentRoot":"/path/to/webroot"	
+					"documentRoot":"/path/to/webroot"
 				],
 				[
 					"methods":["get", "post"],
@@ -146,11 +146,11 @@ Corresponding HTTPServer property: `HTTPServer.addRoutes`.
 
 While the built-in Perfect request handlers can be handy, most developers will want to add custom behaviour to their servers. The "handler" key values can point to your own functions which will each return the `RequestHandler` to be called when the route uri matches an incoming request.
 
-It's important to note that the function names which you would enter into the configuration data are **static** functions which *return* the `RequestHandler` that will be subsequently utilized. These functions accept the current configuration data [String:Any] for the particular route in order to extract any available configuration data such as the `staticFiles` "documentRoot" described above.
+It's important to note that the function names which you would enter into the configuration data are **static** functions which *return* the `RequestHandler` that will be subsequently used. These functions accept the current configuration data [String:Any] for the particular route in order to extract any available configuration data such as the `staticFiles` "documentRoot" described above.
 
-It's also vital that the name you provide be fully qualified. That is, it should include your Swift module name, the name of any interstitial nesting constructs such as struct or enum, and then the function name itself. These should all be separated by "." periods. For example you can see the static file handler is given as "PerfectHTTPServer.HTTPHandler.staticFiles". It resides in the module "PerfectHTTPServer", in an extension of the struct "HTTPHandler" and is named "staticFiles".
+It's also vital that the name you provide be fully qualified. That is, it should include your Swift module name, the name of any interstitial nesting constructs such as struct or enum, and then the function name itself. These should all be separated by "." (periods). For example, you can see the static file handler is given as "PerfectHTTPServer.HTTPHandler.staticFiles". It resides in the module "PerfectHTTPServer", in an extension of the struct "HTTPHandler" and is named "staticFiles".
 
-Note that if you are creating a configuration directly in Swift code as a dictionary then you do not have to quote the function names that you provide. the value for the "handler" (and subsequently the "filters" described later in this chapter) can be given as direct function references. 
+Note that if you are creating a configuration directly in Swift code as a dictionary then you do not have to quote the function names that you provide. The value for the "handler" (and subsequently the "filters" described later in this chapter) can be given as direct function references.
 
 An example request handler generator which could be used in a server configuration follows.
 
@@ -170,11 +170,11 @@ public extension HTTPHandler {
 
 Note: the `HTTPHandler` struct is an abstract namespace defined in PerfectHTTPServer. It consists of only static request handler generators such as this.
 
-Request handler generators are encouraged to `throw` when required configuration data is not provided by the user or if the data is invalid. Ensure that the Error you throw will provide a helpful message when it is converted to String. This will ensure that users see such configuration problems early so that they can be corrected. If the handler generator can not return a valid `RequestHandler` then it should throw an error.
+Request handler generators are encouraged to `throw` when required configuration data is not provided by the user or if the data is invalid. Ensure that the Error you throw will provide a helpful message when it is converted to String. This will ensure that users see such configuration problems early so that they can be corrected. If the handler generator cannot return a valid `RequestHandler` then it should throw an error.
 
 ### filters:
 
-Request filters can screen or manipulate incoming request data. For example an authentication filter might check to see if a request has certain permissions, and if not, return an error to the client. Response filters do the same for outgoing data, having an opportunity to change response headers or body data. See [Request and Response Filters](http://perfect.org/docs/filters.html) for specifics on Perfect's request filtering system.
+Request filters can screen or manipulate incoming request data. For example, an authentication filter might check to see if a request has certain permissions, and if not, return an error to the client. Response filters do the same for outgoing data, having an opportunity to change response headers or body data. See [Request and Response Filters](filters.md) for specifics on Perfect's request filtering system.
 
 The value for the "filters" key is an array of dictionaries containing keys which describe each filter. The required keys for these dictionaries are "type", and "name". The possible values for the "type" key are "request" or "response", to indicate either a request or a response filter. A "priority" key can also be provided with a value of either "high", "medium", or "low". If a priority is not provided then the default value will be "high".
 
@@ -246,7 +246,7 @@ public func custom404(data: [String:Any]) throws -> HTTPResponseFilter {
 }
 ```
 
-Corresponding HTTPServer property: `HTTPServer.setRequestFilters`, `HTTPServer.setResponseFilters`.
+Corresponding HTTPServer properties: `HTTPServer.setRequestFilters`, `HTTPServer.setResponseFilters`.
 
 ### tlsConfig:
 
@@ -254,7 +254,7 @@ If a "tlsConfig" key is provided then a secure HTTPS server will be attempted. T
 
 * certPath - **required** String file path to the certificate file
 * keyPath - optional String file path to the key file
-* cipherList - an optional array of ciphers that the server will support.
+* cipherList - optional array of ciphers that the server will support
 * caCertPath - optional String file path to the CA cert file
 * verifyMode - optional String indicating how the secure connections should be verified. The value should be one of:
 	* none
@@ -269,9 +269,9 @@ The default values for the cipher list can be obtained through the `TLSConfigura
 
 ### User Switching
 
-After starting as root and binding the servers to the indicated ports (low, restricted ports such as 80, for example), it us recommended that the server process switch to a non-root operating system user. These users are generally given low or restricted permissions in order to prevent security attacks which could be perpetrated were the server running as root.
+After starting as root and binding the servers to the indicated ports (low, restricted ports such as 80, for example), it is recommended that the server process switch to a non-root operating system user. These users are generally given low or restricted permissions in order to prevent security attacks which could be perpetrated were the server running as root.
 
-At the top level of your configuation data (as a sibling to the "servers" key), you can include a "runAs" key with a string value. This value indicates the name of the desired user. The process will switch to the user only after all servers have successfully bound their respective listen ports.
+At the top level of your configuration data (as a sibling to the "servers" key), you can include a "runAs" key with a string value. This value indicates the name of the desired user. The process will switch to the user only after all servers have successfully bound their respective listen ports.
 
 Only a server process which is started as root can switch users.
 
@@ -281,7 +281,7 @@ Corresponding HTTPServer function: `HTTPServer.runAs(_ user: String)`.
 
 There are several variants of the `HTTPServer.launch` functions which permit one or more servers to be started. These functions abstract the inner workings of the HTTPServer object and provide a more streamlined interface for server launching.
 
-The simpliest of these methods launches a single server with options:
+The simplest of these methods launches a single server with options:
 
 ``` swift
 public extension HTTPServer {
@@ -309,7 +309,7 @@ public extension HTTPServer {
 The `Server`, which describes the HTTPServer object that will eventually be launched, looks like so:
 
 ``` swift
-public extension HTTPServer {	
+public extension HTTPServer {
 	public struct Server {
 		public init(name: String, address: String, port: Int, routes: Routes,
 		            requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
@@ -323,7 +323,7 @@ public extension HTTPServer {
 		public init(tlsConfig: TLSConfiguration, name: String, port: Int, routes: Routes,
 		            requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		            responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = [])
-		
+
 		public static func server(name: String, port: Int, routes: Routes,
 		                          requestFilters: [(HTTPRequestFilter, HTTPFilterPriority)] = [],
 		                          responseFilters: [(HTTPResponseFilter, HTTPFilterPriority)] = []) -> Server
@@ -364,7 +364,7 @@ try HTTPServer.launch(name: "localhost", port: 8080, routes: [
 	Route(method: .get, uri: "/foo/bar", handler:
 		HTTPHandler.staticFiles(documentRoot: "/path/to/webroot"))
 	])
-	
+
 let apiRoutes = Route(method: .get, uri: "/foo/bar", handler: {
 		req, resp in
 		//do stuff
@@ -393,7 +393,7 @@ public extension HTTPServer {
 		let message: String
 		let configuration: Server
 	}
-	
+
 	public class LaunchContext {
 		public var terminated: Bool
 		public let server: Server
@@ -421,7 +421,7 @@ public class HTTPServer {
 	public var serverAddress = "0.0.0.0"
 	/// Switch to user after binding port
 	public var runAsUser: String?
-    
+
 	/// The canonical server name.
 	/// This is important if utilizing the `HTTPRequest.serverName` property.
 	public var serverName = ""

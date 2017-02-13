@@ -1,10 +1,10 @@
-# Mustache Template Support for Perfect
+# Mustache Template Support
 
-Mustache is a logic-less templating system. It permits you to use pre-written text files with placeholders. The placeholders will be filled in at run-time with values particular to a given request.
+Mustache is a logic-less templating system. It permits you to use pre-written text files with placeholders that will be replaced at run-time with values particular to a given request.
 
 For more general information on Mustache, consult the [mustache specification](https://mustache.github.io/mustache.5.html).
 
-To utilize this module, add this project as a dependency in your Package.swift file.
+To use this module, add this project as a dependency in your Package.swift file.
 
 ```swift
 .Package(
@@ -13,7 +13,7 @@ To utilize this module, add this project as a dependency in your Package.swift f
 	)
 ```
 
-Then please import the Mustache Module in your source code before using:
+Then import the Mustache Module in your source code before using:
 
 ``` swift
 import PerfectMustache
@@ -23,7 +23,7 @@ Mustache templates can be used in either an HTTP server handler or standalone wi
 
 ### Mustache Server Handler
 
-To utilize a mustache template as an HTTP response, you will need to create a handler object which conforms to ```MustachePageHandler```. These handler objects generate the values which the template processor will use to produce its content.
+To use a mustache template as an HTTP response, you will need to create a handler object which conforms to ```MustachePageHandler```. These handler objects generate the values which the template processor will use to produce its content.
 
 ```swift
 /// A mustache handler, which should be passed to `mustacheRequest`, generates values to fill a mustache template
@@ -117,7 +117,7 @@ This Mustache template processor supports:
 
 **Partials**
 
-All files used for partials must be located in the same directory as the calling template. Additionally, all partial files *must* have the file extension of **Mustache**, but this extension must not be included in the partial tag itself. For example, to include the contents of the file *foo.mustache*, you would use the tag ```{{> foo }}```.
+All files used for partials must be located in the same directory as the calling template. Additionally, all partial files *must* have the file extension of **.mustache**, but this extension must not be included in the partial tag itself. For example, to include the contents of the file *foo.mustache*, you would use the tag ```{{> foo }}```.
 
 **Encoding**
 

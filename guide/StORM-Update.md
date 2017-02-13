@@ -1,6 +1,6 @@
 # Updating Rows with StORM
 
-In a similar way to StORM's `.insert` methods, you can use `.update` methods to specificy updates directly.
+In a way similar to StORM's `.insert` methods, you can use `.update` methods to specify updates directly.
 
 The two forms of `.update` available are:
 
@@ -23,7 +23,7 @@ The only difference between these two is the format of the data supplied.
 
 ## Using Update
 
-Lets look at an example of how to create, then update a row:
+Let's look at an example of how to create, then update a row:
 
 ``` swift
 let obj 		= User(connect)

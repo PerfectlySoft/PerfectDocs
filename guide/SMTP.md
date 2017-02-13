@@ -1,15 +1,13 @@
-# Perfect - SMTP
+# Perfect – SMTP
 
 
 This project provides an SMTP library.
 
-This package builds with Swift Package Manager and is part of the [Perfect](https://github.com/PerfectlySoft/Perfect) project.
-
-Ensure you have installed and activated the latest Swift 3.0 tool chain.
+This package builds with Swift Package Manager and is part of the [Perfect](https://github.com/PerfectlySoft/Perfect) project. Ensure you have installed and activated the latest Swift 3.0 tool chain.
 
 ## Linux Build Note
 
-Please make sure libssl-dev was installed on Ubuntu 16.04:
+Make sure libssl-dev was installed on Ubuntu 16.04:
 
 ```
 sudo apt-get install libssl-dev
@@ -22,13 +20,13 @@ sudo apt-get install libssl-dev
 
 ## Quick Start
 
-To use SMTP class, please modify the Package.swift file and add following dependency:
+To use SMTP class, modify the Package.swift file and add following dependency:
 
 ``` swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-SMTP.git", majorVersion: 1, minor: 0)
 ```
 
-Then please import SMTP library into the swift source code:
+Then import SMTP library into the Swift source code:
 
 ``` swift
 import PerfectSMTP
@@ -56,7 +54,7 @@ let recipient = Recipient(name: "Someone's Full Name", address: "someone@some.wh
 
 ### EMail
 
-Using email object to compose and send an email. Check the following example code:
+Use email object to compose and send an email. Check the following example code:
 
 ``` swift
 // initialize an email draft with mail connection / login info
@@ -103,9 +101,8 @@ do {
 - subject: String, title of the email
 - attachments: [String], full path of attachments, i.e., ["/path/to/file1.txt", "/path/to/file2.gif" ...]
 - content: String, mail body in text, plain text or html
-- html: String, alias of `content` (share the same variable as `content`)
-- send(completion: @escaping ((Int, String, String)->Void)), function of sending email with callback.
-The completion callback has three parameters, please check Perfect-CURL `performFully()` for more information:
+- html: String, alias of `content` (shares the same variable as `content`)
+- send(completion: @escaping ((Int, String, String)->Void)), function of sending email with callback. The completion callback has three parameters; check Perfect-CURL `performFully()` for more information:
   - code: Int, mail server response code. Zero for OK.
   - header: String, mail server response header string.
   - body: String, mail server response body string.

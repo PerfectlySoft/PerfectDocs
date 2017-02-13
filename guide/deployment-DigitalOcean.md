@@ -107,7 +107,7 @@ sudo gunzip < swift-3.0-GM-CANDIDATE-ubuntu15.10.tar.gz | sudo tar -C / -xv --st
 sudo rm -f swift-3.0-GM-CANDIDATE-ubuntu15.10.tar.gz
 ```
 
-You can test if swift was copied/installed correctly by running
+You can test if Swift was copied/installed correctly by running
 ```
 swift --version
 ```
@@ -214,7 +214,7 @@ Now that we're finished with the server setup, and all prerequisites are install
 
 The main plan is to have the app delivered to the server using `git`. If you noticed, the earlier package installation, did add `git` as an app to the server. Okay, so, `git` will deliver the raw Swift files to the server, we will need to compile the app, move it to another folder (for a clear structure) and run it from there.
 
-To accomplish this we will use the `post-receive` git hook, which will run all the needed commands to compile. move and restart the app. Yes, restart it, because we will also make use of the `supervisor` app to keep our Swift compiled application up and running 24/7.
+To accomplish this we will use the `post-receive` git hook, which will run all the needed commands to compile. Move and restart the app. Yes, restart it, because we will also make use of the `supervisor` app to keep our Swift compiled application up and running 24/7.
 
 First, let's setup the folder structure for our app.
 

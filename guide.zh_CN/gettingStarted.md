@@ -1,4 +1,4 @@
-## 快速上手
+# 快速上手
 
 您期望用Perfect和Swift进行编程吗？本文将向您介绍所有需要运行Perfect的基本内容，并帮助您创建第一个应用程序。
 
@@ -70,7 +70,7 @@ swift package generate-xcodeproj
 
 以下的源代码例子显示了几种在开发web应用或者REST中应用常见的任务。在所有的例子中，```request```请求和```response```响应变量分别代表了传递给您的请求／响应句柄的```HTTPRequest```请求和```HTTPResponse```响应对象。
 
-上述对象详见[API参考手册](introduction.md)
+上述对象详见[API参考手册](https://perfect.org/docs/api.html)
 
 ### 获得客户端请求消息头
 
@@ -85,7 +85,7 @@ if let acceptEncoding = request.header(.acceptEncoding) {
 ``` swift
 if let foo = request.param(name: "foo") {
 	...
-}   
+}
 if let foo = request.param(name: "foo", defaultValue: "default foo") {
 	...
 }

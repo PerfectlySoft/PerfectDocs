@@ -1,14 +1,14 @@
-## Sessions
+# Sessions
 
 Perfect includes session drivers for PostgreSQL, MySQL, SQLite3 and CouchDB servers, as well as in-memory session storage for development purposes. Support for MongoDB and Redis is planned for the near future.
 
-Session management is a foundation function for any web or application environment, and provides linkage to authentication, transitional preference storage, and transactional data like in a traditional shopping cart.
+Session management is a foundational function for any web or application environment, and can provide linkage to authentication, transitional preference storage, and transactional data such as for a traditional shopping cart.
 
-The general priniciple is that when a user "visits" a web site or system with a browser, the server assigns the user a "token", or "session id" and pases this value back to the client/browser in the form of a cookie, or in returned JSON. This token is then included either as a cookie or Bearer Token with every subsequent request.
+The general principle is that when a user visits a web site or system with a browser, the server assigns the user a "token" or "session id" and passes this value back to the client/browser in the form of a cookie or JSON data. This token is then included as either a cookie or Bearer Token with every subsequent request.
 
-Sessions have an expiry time, usually in the form of an "idle timeout". This means that if a session has not been active for X seconds, the session is considered expired and invalid.
+Sessions have an expiry time, usually in the form of an "idle timeout". This means that if a session has not been active for a set number of seconds, the session is considered expired and invalid.
 
-The Perfect Sessions implementation stores the date/time created, when it was last "touched", and the idle time. On each acess by the client/browser the session is "touched" and the idle time is reset. If the "last touched" plus "idle time" is less than the current date/time then the session has expired.
+The Perfect Sessions implementation stores the date and time each was created, when it was last "touched", and an idle time. On each access by the client/browser the session is "touched" and the idle time is reset. If the "last touched" plus "idle time" is less than the current date/time then the session has expired.
 
 Each session has the following properties:
 
@@ -16,12 +16,12 @@ Each session has the following properties:
 * **userid** - an optionally stored user id string
 * **created** - an integer representing the date/time created, in seconds
 * **updated** - an integer representing the date/time last touched, in seconds
-* **idle** - an integer representing the number of seconds the session should be idle for before considered expired
+* **idle** - an integer representing the number of seconds the session can be idle before being considered expired
 * **data** - a [String:Any] Array that is converted to JSON for storage. This is intended for storage of simple preference values.
-* **ipaddress** - the IP Address (v4 or V6) that the session was first used on. Used for optional session verification.
+* **ipaddress** - the IP Address (v4 or v6) that the session was first used on. Used for optional session verification.
 * **useragent** - the User Agent string that the session was first used with. Used for optional session verification.
-* **CSRF** - [the CSRF (Cross Site Request Forgery) security configuration.](https://github.com/PerfectlySoft/PerfectDocs/guide/csrf.md)
-* **CORS** - [CORS (Cross Origin Resource Sharing) security configuration.](https://github.com/PerfectlySoft/PerfectDocs/guide/csrf.md)
+* **CSRF** - the [CSRF (Cross Site Request Forgery)](csrf.md) security configuration.
+* **CORS** - the [CORS (Cross Origin Resource Sharing)](cors.md) security configuration.
 
 ## Examples
 
@@ -103,10 +103,7 @@ SessionConfig.mongoCollection = "sessions"
 
 If you wish to change the SessionConfig values, you mush set these before the Session Driver is defined.
 
-The [**CSRF** (Cross Site Request Forgery)](https://github.com/PerfectlySoft/PerfectDocs/guide/csrf.md) security configuration is discussed seperately.
-
-Similarly, the [**CORS** (Cross Origin Resource Sharing)](https://github.com/PerfectlySoft/PerfectDocs/guide/csrf.md) security configuration is discussed seperately.
-
+The [**CSRF** (Cross Site Request Forgery)](csrf.md) security configuration and [**CORS** (Cross Origin Resource Sharing)](cors.md) security configuration are discussed separately.
 
 ### IP Address and User Agent Locks
 
@@ -114,13 +111,13 @@ If the `SessionConfig.IPAddressLock` or `SessionConfig.userAgentLock` settings a
 
 This is a security measure to assist in preventing man-in-the-middle / session hijacking attacks.
 
-Be aware that if a user has logged on on a WiFi network and transitions to a mobile or wired connection and the `SessionConfig.IPAddressLock` setting has been set to `true`, the user will be logged out of their session.
+Be aware that if a user has logged on through a WiFi network and transitions to a mobile or wired connection while the `SessionConfig.IPAddressLock` setting has been set to `true`, the user will be logged out of their session.
 
 ### Defining the Session Driver
 
-Each Session Driver has it's own implementation which is optimized for the storage option. Therefore you must set the session driver and HTTP filters before executing "server.start()".
+Each Session Driver has its own implementation which is optimized for the storage option. Therefore you must set the session driver and HTTP filters before executing "server.start()".
 
-In main.swift, afer any SessionConfig changes, set the following":
+In main.swift, after any SessionConfig changes, set the following:
 
 ``` swift 
 // Instantiate the HTTPServer
@@ -134,7 +131,7 @@ server.setRequestFilters([sessionDriver.requestFilter])
 server.setResponseFilters([sessionDriver.responseFilter])
 ```
 
-In Perfect, filters are analagous in some ways to the concept of "middleware" in other frameworks. The "request" filter fill intercept the incoming request and extract the session token, attempts to load the session from storage, and make the session data available to the application. The response will be executed immediately before the response is returned to the client/browser and saves the session, and re-sends the cookie to the client/browser.
+In Perfect, filters are analogous in some ways to the concept of "middleware" in other frameworks. The "request" filter will intercept the incoming request and extract the session token, attempt to load the session from storage, and make the session data available to the application. The response will be executed immediately before the response is returned to the client/browser and saves the session, and re-sends the cookie to the client/browser.
 
 See "Database-Specific Options" below for storage-appropriate settings and Driver syntax.
 

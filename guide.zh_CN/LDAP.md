@@ -135,6 +135,7 @@ connection.search(base: "CN=Users,DC=perfect,DC=com", filter:"(objectclass=*)") 
 ```
 
 ### 检索参数
+
 - base: String, 检索时采用的基本DN，默认为空
 - filter: String, 检索过滤条件，默认为 `"(objectclass=*)"`，即所有对象类
 - scope: Scope, 检索范围，即 .BASE（基本） .SINGLE_LEVEL（单层） .SUBTREE（子树） 或 .CHILDREN（所有分支）
@@ -165,6 +166,7 @@ PerfectLDAP 为属性操作提供了增删改功能。每个操作都有同步�
 ### 增加属性 （⚠️试验性质⚠️)
 
 函数 `LDAP.add()` 可以针对一个特定 DN 增加属性，参数如下：
+
 - distinguishedName: String, 目标 DN （唯一命名）
 - attributes:[String:[String]], 以字典方式表达的属性集合。该字典中，每一个属性对应一个条目，每个条目之下都允许一个数组来保存多个字符串值。
 
@@ -187,6 +189,7 @@ connection.add(distinguishedName: "CN=judy,CN=User,DC=perfect,DC=com", attribute
 ### 修改属性
 
 函数 `LDAP.modify()` 可以针对一个特定 DN 修改属性，参数如下：
+
 - distinguishedName: String, 目标 DN （唯一命名）
 - attributes:[String:[String]], 以字典方式表达的属性集合。该字典中，每一个属性对应一个条目，每个条目之下都允许一个数组来保存多个字符串值。
 
@@ -209,6 +212,7 @@ connection.modify(distinguishedName: "CN=judy,CN=User,DC=perfect,DC=com", attrib
 ### 删除属性（⚠️试验性质⚠️)
 
 函数 `LDAP.delete()` 用于删除特定DN的所有属性，只有一个参数：
+
 - distinguishedName: String, 目标 DN （唯一命名）
 
 无论同步删除还是异步删除都采用上面的参数，比如：

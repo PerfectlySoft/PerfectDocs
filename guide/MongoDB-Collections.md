@@ -39,7 +39,7 @@ collection.name()
 
 ### Rename Collection
 
-To rename the collection using newDbName and newCollectionName, with an option to drop existing collection immediately instead of after the move:
+To rename the collection using newDbName and newCollectionName, with an option to drop any existing collection immediately instead of after the move:
 
 ``` swift
 collection.rename(
@@ -52,7 +52,7 @@ collection.rename(
 #### Parameters
 * **newDbName:** String name for db after move
 * **newCollectionName:** String name for collection after move
-* **dropExisting:** Bool option to drop existing collection immediately instead of after move
+* **dropExisting:** Bool option to drop any existing collection immediately instead of after move
 
 The returned value is the status of the renaming action.
 
@@ -212,7 +212,7 @@ collection.count(
 #### Parameters
 * **query:** The query selection criteria
 * **fields:** Optional. Specifies the fields to return in the documents that match the query filter. To return all fields in the matching documents, omit this parameter
-* **flags:** Optional. set queryFlags for the current search
+* **flags:** Optional. Set queryFlags for the current search
 * **skip:** Optional. Skip the supplied number of records
 * **limit:** Optional. Returns no more than the supplied number of records
 * **batchSize:** Optional. Change number of automatically iterated documents
@@ -246,7 +246,7 @@ collection.createIndex(
 
 #### Parameters
 * **keys:** A document that contains the field and value pairs where the field is the index key and the value describes the type of index for that field. For an ascending index on a field, specify a value of 1; for descending index, specify a value of -1
-* **options:** *Optional*. A document that contains a set of options that controls the creation of the index. see MongoIndexOptions for details
+* **options:** *Optional*. A document that contains a set of options that controls the creation of the index. See MongoIndexOptions for details
 
 ### Dropping an Index
 Drops or removes the specified index from a collection.

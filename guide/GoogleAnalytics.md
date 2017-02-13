@@ -6,7 +6,7 @@ It means that you can log any sort of activity - Raw TCP or UDP events, or speci
 
 ## API Documentation
 
-For full API documentation please visit [https://www.perfect.org/docs/api-Perfect-GoogleAnalytics-MeasurementProtocol.html](https://www.perfect.org/docs/api-Perfect-GoogleAnalytics-MeasurementProtocol.html).
+For full API documentation, visit [https://www.perfect.org/docs/api-Perfect-GoogleAnalytics-MeasurementProtocol.html](https://www.perfect.org/docs/api-Perfect-GoogleAnalytics-MeasurementProtocol.html).
 
 The API documentation explains every property that can be set within the system.
 

@@ -18,15 +18,15 @@ Add the WebSocket dependency to your Package.swift file:
 .Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 2, minor: 0)
 ```
 
-Then import WebSocket library into your swift source code as needed:
+Then import the WebSocket library into your Swift source code as needed:
 
 ``` swift
 import PerfectWebSockets
 ```
 
-A typical scenario is a communication inside a web page like a chat room where multiple users are interacting in near-real time.
+A typical scenario is communication inside a web page like a chat room where multiple users are interacting in near-real time.
 
-Seting up a WebSocket service handler interacting on the route `/echo`:
+This example sets up a WebSocket service handler interacting on the route `/echo`:
 
 ``` swift
 var routes = Routes()
@@ -69,7 +69,7 @@ A read timeout can be set with `WebSocket.readTimeoutSeconds`.
 Close the session using `WebSocket.close()`.
 
 
-The example `EchoHandler` consists of the following.
+The example `EchoHandler` consists of the following:
 
 ``` swift
 class EchoHandler: WebSocketSessionHandler {
@@ -87,11 +87,11 @@ class EchoHandler: WebSocketSessionHandler {
 			// This callback is provided:
 			//	the received data
 			//	the message's op-code
-			//	a boolean indicating if the message is complete 
+			//	a boolean indicating if the message is complete
 			// (as opposed to fragmented)
 			string, op, fin in
 
-			// The data parameter might be nil here if either a timeout 
+			// The data parameter might be nil here if either a timeout
 			// or a network error, such as the client disconnecting, occurred.
 			// By default there is no timeout.
 			guard let string = string else {
@@ -104,11 +104,11 @@ class EchoHandler: WebSocketSessionHandler {
 			print("Read msg: \(string) op: \(op) fin: \(fin)")
 
 			// Echo the data received back to the client.
-			// Pass true for final. This will usually be the case, but WebSockets has 
+			// Pass true for final. This will usually be the case, but WebSockets has
 			// the concept of fragmented messages.
-			// For example, if one were streaming a large file such as a video, 
+			// For example, if one were streaming a large file such as a video,
 			// one would pass false for final.
-			// This indicates to the receiver that there is more data to come in 
+			// This indicates to the receiver that there is more data to come in
 			// subsequent messages but that all the data is part of the same logical message.
 			// In such a scenario one would pass true for final only on the last bit of the video.
 			socket.sendStringMessage(string, final: true) {
@@ -134,7 +134,7 @@ WebSocket messages can be various types: continuation, text, binary, close, ping
 When trying to read a message from the current socket, this property helps the socket to read a message before timeout. If this property has been set to NetEvent.noTimeout (-1), it will wait infinitely.
 
 ### read message
-There are two ways of reading messages: text or binary, and the only difference between both methods is the data returned, i.e, String and [UInt8] array correspondingly.
+There are two ways of reading messages: text or binary, which differ only in the data type returned, i.e. String and [UInt8] array respectively.
 
 #### read text message:
 
@@ -148,19 +148,19 @@ public func readStringMessage(continuation: @escaping (String?, _ opcode: Opcode
 public func readBytesMessage(continuation: @escaping ([UInt8]?, _ opcode: OpcodeType, _ final: Bool) -> ())
 ```
 
-There are three parameters when it is calling back:
+There are three parameters when it calls back:
 
 #### String / [UInt8]
-readMessage will deliver the text / binary data sent from client to your closure by this parameter.
+readMessage will deliver the text / binary data sent from the client to your closure by this parameter.
 
 #### opcode
 Use opcode if you want more controls in the communication.
 
 #### final
-This parameter indicates whether the message is a completed or a fragmented.
+This parameter indicates whether the message is completed or fragmented.
 
 ### send message
-There are two ways of sending messages: text or binary, and the only difference between both methods is the data returned, i.e, String and [UInt8] array correspondingly.
+There are two ways of sending messages: text or binary, which differ only in the data type sent, i.e. String and [UInt8] array respectively.
 
 #### send text message:
 
@@ -174,7 +174,7 @@ public func sendStringMessage(string: String, final: Bool, completion: @escaping
 public func sendBinaryMessage(bytes: [UInt8], final: Bool, completion: @escaping () -> ())
 ```
 
-Parameter final indicates whether the message is a completed or a fragmented.
+Parameter final indicates whether the message is completed or fragmented.
 
 ### ping & pong
 
@@ -198,4 +198,4 @@ To close the WebSocket connection:
 socket.close()
 ```
 
-For a Perfect WebSockets server example, visit the [https://github.com/PerfectExamples/Perfect-WebSocketsServer](https://github.com/PerfectExamples/Perfect-WebSocketsServer)
+For a Perfect WebSockets server example, visit the [Perfect-WebSocketsServer](https://github.com/PerfectExamples/Perfect-WebSocketsServer) demo.

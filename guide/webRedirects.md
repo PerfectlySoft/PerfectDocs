@@ -2,9 +2,9 @@
 
 The Perfect WebRedirects module will filter for specified routes (including trailing wildcard routes) and perform redirects as instructed if a match is found.
 
-This can be important for maintaining SEO ranking in systems that have moved. For example, if moving from a static HTML site where `/about.html` no longer exists, and the new route is `/about` then if no valid redirect is in place the site or system will loose SEO ranking.
+This can be important for maintaining SEO ranking in systems that have moved. For example, if moving from a static HTML site where `/about.html` is replaced with the new route `/about` and no valid redirect is in place, the site or system will lose SEO ranking.
 
-A demo showing the usage, and working of the Perfect WebRedirects module can be found at [https://github.com/PerfectExamples/Perfect-WebRedirects-Demo](https://github.com/PerfectExamples/Perfect-WebRedirects-Demo).
+A demo showing the usage, and working of the Perfect WebRedirects module can be found at [Perfect-WebRedirects-Demo](https://github.com/PerfectExamples/Perfect-WebRedirects-Demo).
 
 ## Including in your project
 
@@ -31,7 +31,7 @@ Adding the filter:
 ]
 ```
 
-If you are also adding Request Logger filters, if the Web Redirects object is added second, directly after the RequestLogger filter, then both the original request (and it's associated redirect code) and the new request, will be logged correctly.
+If you are also adding Request Logger filters, if the Web Redirects object is added second, directly after the RequestLogger filter, then both the original request (and its associated redirect code) and the new request will be logged correctly.
 
 ## Configuration file
 
@@ -63,6 +63,6 @@ The configuration for the routes is included in JSON files at `/config/redirect-
 }
 ```
 
-Note that multiple JSON files can exist in this directory - all will be loaded the first time the filter is invoked.
+Note that multiple JSON files can exist in this directory; all will be loaded the first time the filter is invoked.
 
 The "key" is the matching route (the "old" file or route), and the "value" contains the HTTP code and new destination route to redirect to.

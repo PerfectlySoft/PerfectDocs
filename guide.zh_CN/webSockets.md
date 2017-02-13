@@ -193,4 +193,4 @@ public func sendPing(completion: @escaping () -> ())
 socket.close()
 ```
 
-详细的WebSockets例子，请参见 [https://github.com/PerfectExamples/Perfect-WebSocketsServer](https://github.com/PerfectExamples/Perfect-WebSocketsServer)
+详细的WebSockets例子，请参见 [Perfect-WebSocketsServer](https://github.com/PerfectExamples/Perfect-WebSocketsServer)

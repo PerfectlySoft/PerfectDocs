@@ -1,8 +1,8 @@
 ## CORS (Cross Origin Resource Sharing) Security
 
-Cross-Origin Resource Sharing (CORS) is an important part of the "open web" - and as such no framework is complete without enabling support for CORS.
+Cross-Origin Resource Sharing (CORS) is an important part of the "open web", and as such, no framework is complete without enabling support for CORS.
 
-Monsur Hossain from [html5rocks.com introduces CORS very effectivey](https://www.html5rocks.com/en/tutorials/cors/):
+Monsur Hossain from [html5rocks.com introduces CORS very effectively](https://www.html5rocks.com/en/tutorials/cors/):
 
 > APIs are the threads that let you stitch together a rich web experience. But this experience has a hard time translating to the browser, where the options for cross-domain requests are limited to techniques like JSON-P (which has limited use due to security concerns) or setting up a custom proxy (which can be a pain to set up and maintain).
 > 
@@ -12,9 +12,9 @@ Monsur Hossain from [html5rocks.com introduces CORS very effectivey](https://www
 > 
 > As you can see from this example, CORS support requires coordination between both the server and client. Luckily, if you are a client-side developer you are shielded from most of these details. The rest of this article shows how clients can make cross-origin requests, and how servers can configure themselves to support CORS.
 
-The [Perfect Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sessions.md) module includes support for CORS configuration, to enable your API and assets to be available or secured in the way you wish.
+The [Perfect Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sessions.md) module includes support for CORS configuration, enabling your API and assets to be available or secured in the way you wish.
 
-If you have included [Perfect Sessions](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/sessions.md) or any of the datasource-specific implementations in your Packages.Swift file, you already have CORS support - however it is **off** by default.
+If you have included Perfect Sessions or any of its datasource-specific implementations in your Packages.swift file, you already have CORS support; however, it is **off** by default.
 
 ## Relevant Examples
 
@@ -55,7 +55,7 @@ public var maxAge = 3600
 
 ```
 
-When a CORS request is submitted to the server, if there is no match then the CORS specific headers are not generated in the OPTIONS response, which will instruct the browser if cannot accept the resource.
+When a CORS request is submitted to the server, if there is no match then the CORS specific headers are not generated in the OPTIONS response, which will instruct the browser that it cannot accept the resource.
 
 If the server determines that CORS headers should be generated, the following headers are sent with the response:
 

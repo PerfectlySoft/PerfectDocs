@@ -1,6 +1,6 @@
 # Working with BSON
 
-BSON, short for Bin­ary JSON, is a bin­ary-en­coded seri­al­iz­a­tion of JSON-like doc­u­ments. Like JSON, BSON sup­ports the em­bed­ding of doc­u­ments and ar­rays with­in oth­er doc­u­ments and ar­rays. BSON also con­tains ex­ten­sions that al­low rep­res­ent­a­tion of data types that are not part of the JSON spec. For ex­ample, BSON has a Date type and a BinData type.
+BSON, short for Binary JSON, is a binary-encoded serialization of JSON-like documents. Like JSON, BSON supports the embedding of documents and arrays within other documents and arrays. BSON also contains extensions that allow representation of data types that are not part of the JSON spec. For example, BSON has a Date type and a BinData type.
 
 ### Creating a BSON Object
 
@@ -73,7 +73,7 @@ let bytesArray = bson.asBytes()
 
 Using the `append` method, data can be added to the BSON document.
 
-The `append` method utilizes the `@discardableResult` property. The result of the operation can be returned or ignored.
+The `append` method uses the `@discardableResult` property. The result of the operation can be returned or ignored.
 
 If the result of the `append` operation is returned:
 
@@ -154,10 +154,10 @@ The `appendArray` method will append a complete array to the BSON document. BSON
 bson.appendArray(key: <String>, array: <BSON>)
 ```
 
-It is also possible to begin an array append operation, then finish it after further processing, using `appendArrayBegin` and `appendArrayEnd`
+It is also possible to begin an array append operation, then finish it after further processing, using `appendArrayBegin` and `appendArrayEnd`.
 
-`appendArrayBegin` appends a new field named key to the BSON document, the field is, however, incomplete. @child will be initialized so that you may add fields to the child array. Child will use a memory buffer owned by BSON document, and therefore, grow the parent buffer as additional space is used. This allows a single malloc'd buffer to be used when building arrays which can help reduce memory fragmentation.
-     
+`appendArrayBegin` appends a new field named key to the BSON document; the field is, however, incomplete. @child will be initialized so that you may add fields to the child array. Child will use a memory buffer owned by BSON document, and therefore, grow the parent buffer as additional space is used. This allows a single malloc'd buffer to be used when building arrays which can help reduce memory fragmentation.
+
 The type of @child will be `BSON_TYPE_ARRAY`, and therefore, the keys inside of it MUST be "0", "1", etc.
 
 ``` swift
@@ -205,13 +205,10 @@ guard let bson == bson2 else {
 
 ### Compare Two BSON Documents for Sort Priority
 
-Returns `true` if lhs sorts above rhs, `false` otherwise
+Returns `true` if lhs sorts above rhs, `false` otherwise.
 
 ``` swift
 guard let bson < bson2 else {
 	return false
 }
 ```
-
-
-

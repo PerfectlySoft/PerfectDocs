@@ -1,4 +1,4 @@
-## Sessions 会话
+# Sessions 会话
 
 Perfect 提供了包括 PostgreSQL、MySQL、SQLite3 和 CouchDB 在内的各类数据库，并包括用于开发会话交互过程的临时内存管理机制，并很快会提供 MongoDB 和 Redis 为后台的会话管理。
 

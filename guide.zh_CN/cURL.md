@@ -50,7 +50,7 @@ print(curlObject.url)
 
 ### 设置cURL选项
 
-使用cURL前必须为其选择适当的属性。多数选项已经超出了本文范围。如果您需要详细了解一个完整的cURL选项说明，请参考Perfect API编程参考手册，或参考[libcurl API 参考（英文版）](https://curl.haxx.se/libcurl/c/)
+使用cURL前必须为其选择适当的属性。多数选项已经超出了本文范围。如果您需要详细了解一个完整的cURL选项说明，请参考[Perfect API](https://perfect.org/docs/api.html)编程参考手册，或参考[libcurl API 参考（英文版）](https://curl.haxx.se/libcurl/c/)
 
 为设置具体的选项，请为`.setOption`挑选适当的变量，如下所示：
 

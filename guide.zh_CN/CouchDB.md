@@ -75,15 +75,15 @@ db.databaseInfo("mydb")
 
 响应结果信息包括：
 
-* committed_update_seq (Int) – 提交更新的数量
+* committed\_update_seq (Int) – 提交更新的数量
 * compact_running (Bool) – 如果数据库上在运行压缩程序的话，这个值会为真。
 * db_name (String) – 数据库名称
-* disk_format_version (Int) – 数据所在的物理磁盘版本。
+* disk\_format_version (Int) – 数据所在的物理磁盘版本。
 * data_size (Int) – 在数据库文件内实际的数据所占字节数量。
 * disk_size (Int) – 数据库文件实际尺寸，注意视图和索引不包括在这个尺寸计算中。
 * doc_count (Int) – 具体数据库内的文档数量。
-* doc_del_count (Int) – 已删除的文件数量。
-* instance_start_time (String) – 数据库打开的时间戳，自unix epock纪元开始的毫秒数。
+* doc\_del_count (Int) – 已删除的文件数量。
+* instance\_start_time (String) – 数据库打开的时间戳，自unix epock纪元开始的毫秒数。
 * purge_seq (Int) – 执行垃圾清空所用操作的数量。
 * update_seq (Int) – 当前数据库更新操作的数量
 

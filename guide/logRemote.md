@@ -1,6 +1,6 @@
 # Remote Logging
 
-Using the `PerfectLogger` module, events can be logged to a specfied remote Perfect Log Server, in addition to the console.
+Using the `PerfectLogger` module, events can be logged to a specified remote Perfect Log Server, in addition to the console.
 
 The [Perfect Log Server](https://github.com/PerfectServers/Perfect-LogServer) is a stand-alone project that can be deployed on your own servers.
 
@@ -35,8 +35,9 @@ RemoteLogger.logServer = "http://localhost:8181"
 
 ```
 
+## Usage
 
-## To log events to the log server:
+To log events to the log server:
 
 ``` swift
 var obj = [String: Any]()
@@ -46,11 +47,11 @@ RemoteLogger.critical(obj)
 
 ## Linking events with "eventid"
 
-Each log event returns an event id string. If an eventid string is supplied to the directive then it will use the supplied eventid in the log directive instead - this makes it easy to link together related events.
+Each log event returns an event id string. If an eventid string is supplied to the directive then it will use the supplied eventid in the log directive instead. This makes it easy to link together related events.
 
 ``` swift
 let eid = RemoteLogger.critical(obj)
 RemoteLogger.info(obj, eventid: eid)
 ```
 
-The returned eventid is marked @discardableResult therefore can be safely ignored if not required for re-use.
+The returned eventid is marked `@discardableResult` and therefore can be safely ignored if not required for re-use.

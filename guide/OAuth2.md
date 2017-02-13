@@ -1,6 +1,6 @@
 # OAuth2
 
-The Perfect Authentication OAuth2 provides [OAuth2](https://oauth.net/2/) libraries and select OAuth2 provider drivers - Facebook, Google, GitHub.
+The Perfect Authentication OAuth2 provides [OAuth2](https://oauth.net/2/) libraries and OAuth2 provider drivers for Facebook, Google, and GitHub.
 
 A demo application can be found at [https://github.com/PerfectExamples/Perfect-Authentication-Demo](https://github.com/PerfectExamples/Perfect-Authentication-Demo) that shows the usage of the libraries and providers.
 
@@ -54,7 +54,7 @@ GitHubConfig.redirectAfterAuth = "http://localhost:8181/"
 
 The OAuth2 system relies on an authentication / exchange system, which requires a URL to be specially assembled that the user is redirected to, and a URL that the user is returned to after the user has committed the authorization action.
 
-The first set of routes below are the action URL's that will redirect to the OAuth2 provider's system. They can be anything you wish them to be. The user will never see anything on them as they will be immediately redirected to the correct place.
+The first set of routes below are the action URLs that will redirect to the OAuth2 provider's system. They can be anything you wish them to be. The user will never see anything on them as they will be immediately redirected to the correct location.
 
 The second set of routes below are where the OAuth2 provider should return the user to. Note that this is the same as the "endpointAfterAuth" configuration option. Once the "authResponse" function has been completed the user is automatically forwarded to the URL in the "redirectAfterAuth" option.
 

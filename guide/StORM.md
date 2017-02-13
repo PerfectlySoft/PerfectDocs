@@ -1,8 +1,8 @@
 # Swift ORM: "StORM"
 
-StORM is a modular ORM for Swift, layered on top of [Perfect](https://github.com/PerfectlySoft/Perfect)
+StORM is a modular ORM for Swift, layered on top of [Perfect](https://github.com/PerfectlySoft/Perfect).
 
-It aims to be easy to use, but flexible, and maintain consistency between datasource implementations for the user: you, the developer. It tries to allow you write great code without worrying about the details of how to interact with the database.
+It aims to be easy to use, but flexible, and maintain consistency between datasource implementations for the user: you, the developer. It tries to allow you to write great code without worrying about the details of how to interact with the database.
 
 ## Relevant Examples
 
@@ -35,7 +35,7 @@ SQLite
 * [Perfect-Turnstile-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo)
 * [Perfect-Session-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Session-SQLite-Demo)
 
-## StORM Documentation topics:
+## StORM Documentation topics
 
 [Setting up a class:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Setting-up-a-class.md) How to create a class that inherits all the StORM functionality.
 
@@ -48,7 +48,7 @@ SQLite
 [Updating rows:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Update.md) More detailed access to the update process.
 
 
-## Datasource specific documentation for StORM:
+## Datasource specific documentation for StORM
 
 * [SQLite3](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-SQLite.md)
 * [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-PostgreSQL.md)
@@ -59,15 +59,15 @@ SQLite
 
 ### Including in your project
 
-When including the dependancy in your project's Package.swift dependancies, you will have access to all nested dependancies including the database connector.
+When including the dependency in your project's Package.swift dependencies, you will have access to all nested dependencies including the database connector.
 
-For example to include PostgresStORM:
+To include PostgresStORM:
 
 ``` swift
 .Package(url: "https://github.com/SwiftORM/Postgres-StORM.git", majorVersion: 1, minor: 0)
 ```
 
-For example to include MySQLStORM:
+To include MySQLStORM:
 
 ``` swift
 .Package(url: "https://github.com/SwiftORM/MySQL-StORM.git", majorVersion: 1, minor: 0)
@@ -91,7 +91,7 @@ To include MongoDBStORM:
 .Package(url: "https://github.com/SwiftORM/MongoDB-StORM.git", majorVersion: 1, minor: 0)
 ```
 
-Remember after you change your `Package.swift` file, you need to regenerate your Xcode Project file using:
+Remember: after you change your `Package.swift` file, you need to regenerate your Xcode Project file using:
 
 ```
 swift package generate-xcodeproj 

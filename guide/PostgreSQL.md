@@ -39,7 +39,7 @@ Add the "Perfect-PostgreSQL" project as a dependency in your Package.swift file:
 	)
 ```
 
-> Remember to rebuild your Xcode project file after making any changes to your Package.swift file
+> Remember to rebuild your Xcode project file after making any changes to your Package.swift file.
 
 ```
 swift package generate-xcodeproj
@@ -47,7 +47,7 @@ swift package generate-xcodeproj
 
 ### Import
 
-To utilize the PostgreSQL connector in a source file, import the module:
+To use the PostgreSQL connector in a source file, import the module:
 
 ``` swift
 import PostgreSQL
@@ -87,7 +87,7 @@ let result = p.exec(
 	")
 
 ```
-The result of the query (`result`) is returned as type `PGResult` - for more on how to work with these result sets, see the `PGResult` documentation below.
+The result of the query (`result`) is returned as type `PGResult`. For more on how to work with these result sets, see the `PGResult` documentation below.
 
 ### Parameter binding
 
@@ -132,12 +132,12 @@ p.close()
 
 ```
 
-Whats happening:
+What's happening:
 
-* `res` is assigned the results of the query, it's type is `PGResult`
+* `res` is assigned the results of the query, its type is `PGResult`
 * `res.numTuples()` provides the number of rows returned in the result
 * `PGResult` is iterable, so `for x in 0..<num {}` provides access to each row in turn
-* `getFieldString`, `getFieldInt`, `getFieldBool` - these methods are processing the contents of the row and field number requested
+* `getFieldString`, `getFieldInt`, `getFieldBool` methods are processing the contents of the row and field number requested
 
 
 ### Managing the Connection: PGConnection
@@ -186,7 +186,7 @@ postgresql://other@localhost/otherdb?connect_timeout=10&application_name=myapp
 
 Once a connection has been opened, it is important to specify a close of the connection.
 
-This can be done with `.finish()`
+This can be done with `.finish()`:
 
 ``` swift
 let p = PGConnection()
@@ -197,11 +197,11 @@ defer {
 }
 
 ```
-> Note that `.close()` is also valid and is functionaly equivalent to `.finish()`. It is included for syntax consistency with other connectors.
+> Note that `.close()` is also valid and is functionally equivalent to `.finish()`. It is included for syntax consistency with other connectors.
 
-### Getting the Status of a Conneciton
+### Getting the Status of a Connection
 
-After opening a connection you can see it's success status:
+After opening a connection you can see its success status:
 
 ``` swift
 let p = PGConnection()
@@ -287,12 +287,12 @@ p.close()
 
 ```
 
-Whats happening:
+What's happening:
 
 * `res` is assigned the results of the query, its type is `PGResult`
 * `res.numTuples()` provides the number of rows returned in the result
 * `PGResult` is iterable, so `for x in 0..<num {}` provides access to each row in turn
-* `getFieldString`, `getFieldInt`, `getFieldBool` - these methods are processing the contents of the row and field number requested
+* `getFieldString`, `getFieldInt`, `getFieldBool` methods are processing the contents of the row and field number requested
 
 ### Returning the Status of the Executed Statement
 
@@ -335,7 +335,7 @@ let num = res.numTuples()
 
 ### Determining Field Name and Type
 
-Because fields are not addressed using name but by index, if the precise order of the response is not certain, it may be important to determine the name and type. In this case use `.fieldName(index)` and `.fieldType(index)`
+Because fields are not addressed using name but by index, if the precise order of the response is not certain, it may be important to determine the name and type. In this case use `.fieldName(index)` and `.fieldType(index)`:
 
 ``` swift
 print("The first field name is: \(res.fieldName(0))")

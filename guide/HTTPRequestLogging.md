@@ -15,7 +15,7 @@ Add the following dependency to the `Package.swift` file:
 .Package(url: "https://github.com/PerfectlySoft/Perfect-RequestLogger.git", majorVersion: 1)
 ```
 
-For each file you wish to directly reference the logging, import the module:
+In each file you wish to implement logging, import the module:
 
 ``` swift 
 import PerfectRequestLogger
@@ -57,7 +57,7 @@ var confData: [String:[[String:Any]]] = [
 	]
 ]
 ```
-The important parts of the configuration spec to add for enabling the Request Logger is:
+The important parts of the configuration spec to add for enabling the Request Logger are:
 
 ``` swift
 [
@@ -69,7 +69,7 @@ The important parts of the configuration spec to add for enabling the Request Lo
 	"type":"response",
 	"priority":"low",
 	"name":RequestLogger.filterAPIResponse,
-	]
+]
 ```
 These request & response filters add the required hooks to mark the beginning and the completion of the HTTP request and response.
 

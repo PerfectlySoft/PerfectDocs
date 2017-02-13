@@ -6,7 +6,7 @@ PerfectThread is imported by PerfectNet and so it is not generally required that
 
 PerfectThread provides the following constructs:
 
-* Threading.Lock - Mutually exclusive thread lock, aka a mutex or critical section
+* Threading.Lock - Mutually exclusive thread lock, a.k.a. a mutex or critical section
 * Threading.RWLock - A many reader/single writer based thread lock
 * Threading.Event - Wait/signal/broadcast type synchronization
 * Threading.sleep - Block/pause; a single thread for a given period of time
@@ -97,7 +97,7 @@ public extension Threading {
 }
 ```
 
-RWLock supports ```tryReadLock``` and ```tryWriteLock```, both of which will return false if the lock can not be immediately acquired. It also supports ```doWithReadLock``` and ```doWithWriteLock``` which will call the provided closure with the lock held and then release it when it has completed.
+RWLock supports ```tryReadLock``` and ```tryWriteLock```, both of which will return false if the lock cannot be immediately acquired. It also supports ```doWithReadLock``` and ```doWithWriteLock``` which will call the provided closure with the lock held and then release it when it has completed.
 
 ### Events
 

@@ -25,12 +25,12 @@ public typealias RequestHandler = (HTTPRequest, HTTPResponse) -> ()
 ```
 Requests are considered active until the handler indicates that it has concluded. This is done by calling the ```HTTPResponse.completed()``` function. Request handling in Perfect is fully asynchronous, so a handler function can return, spin off into new threads, or perform any other sort of asynchronous activity. The request will still be considered active up until ```HTTPResponse.completed()``` is called. Once the response is marked as completed, the outgoing headers and body data, if any, will be sent to the client.
 
-Routes are added to a ```Routes``` object before they are added to the server. When a Routes object is created, and one or more routes are added using its ```add``` functions. Routes provides the following functions:
+Routes are added to a ```Routes``` object before they are added to the server. When a Routes object is created, one or more routes are added using its ```add``` functions. Routes provides the following functions:
 
 ```swift
 public struct Routes {
 	/// Initialize with no baseUri.
-	public init()	
+	public init()
 	// Initialize with a baseUri.
 	public init(baseUri: String)
 	/// Add all the routes in the Routes object to this one.
@@ -39,7 +39,7 @@ public struct Routes {
 	public mutating func add(method: HTTPMethod, uri: String, handler: RequestHandler)
 	/// Add the given method, uris and handler as a route.
 	public mutating func add(method: HTTPMethod, uris: [String], handler: RequestHandler)
-	/// Add the given uri and handler as a route. 
+	/// Add the given uri and handler as a route.
 	/// This will add the route got both GET and POST methods.
 	public mutating func add(uri: String, handler: RequestHandler)
 	/// Add the given method, uris and handler as a route.
@@ -107,11 +107,11 @@ For example, when given the URI ```/foo/{bar}/baz```, a request to the URL ```/f
 
 ### Wildcards
 
-A wildcard, also referred to as a wild character, is a symbol used to replace or represent one or more characters. Beyond full literal URI paths, routes can contain wildcard segments. 
+A wildcard, also referred to as a wild character, is a symbol used to replace or represent one or more characters. Beyond full literal URI paths, routes can contain wildcard segments.
 
 Wildcards match any portion of a URI and can be used to route groups of URIs to a single handler. Wildcards consist of either one or two asterisks. A single asterisk can occur anywhere in a URI path as long as it represents one full component of the URI. A double asterisk, or trailing wildcard, can occur only at the end of a URI. Trailing wildcards match any remaining portion of a URI.
 
-A route with the the URI ```/foo/*/baz``` would match the both of the URLs:
+A route with the the URI ```/foo/*/baz``` would match the both of these URLs:
 
 ```
 /foo/123/baz
@@ -127,7 +127,7 @@ A route with the URI ```/foo/**``` would match all of the following URLs:
 
 A route with the URI ```/**``` would match any request.
 
-A trailing wildcard route will save the URI portion which is matched by the wildcard. It will place this path segment in the ```HTTPRequest.urlVariables``` map under the key indicated by the global variable ```routeTrailingWildcardKey```. For example, given the route URI "/foo/**" and a request URI of "/foo/bar/baz", the following snippet would be true:
+A trailing wildcard route will save the URI portion which is matched by the wildcard. It will place this path segment in the ```HTTPRequest.urlVariables``` map under the key indicated by the global variable ```routeTrailingWildcardKey```. For example, given the route URI "/foo/**" and a request URI "/foo/bar/baz", the following snippet would be true:
 
 ```swift
 request.urlVariables[routeTrailingWildcardKey] == "/bar/baz"
@@ -148,4 +148,4 @@ When the ```.documentRoot``` property of the server is set, the server will auto
 
 ### Further Information
 
-For more information and examples of URL routing, please see the [URL Routing](https://github.com/PerfectExamples/Perfect-URLRouting) example application.
+For more information and examples of URL routing, see the [URL Routing](https://github.com/PerfectExamples/Perfect-URLRouting) example application.

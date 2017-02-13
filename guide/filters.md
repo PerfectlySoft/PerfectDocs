@@ -1,6 +1,6 @@
 # Request and Response Filters
 
-In addition to the regular request/response handler system, the Perfect server also provides a request and response filtering system. Any filters which are added to the server are called for each client request. These filters run, each in turn, and are given a chance to modify either the request object before it is delivered to the handler, or the response object after the request has been marked as complete. Filters also have the option to terminate the current request.
+In addition to the regular request/response handler system, the Perfect server also provides a request and response filtering system. Any filters which are added to the server are called for each client request. When these filters run in turn, each are given a chance to modify either the request object before it is delivered to the handler, or the response object after the request has been marked as complete. Filters also have the option to terminate the current request.
 
 Filters are added to the server along with a priority indicator. Priority levels can be either high, medium, or low. High-priority filters are executed before medium and low. Medium priorities are executed before any low-level filters.
 
@@ -151,7 +151,7 @@ public enum HTTPResponseFilterResult {
 
 These values indicate if the system should continue processing filters, stop executing filters until the next data push, or halt and terminate the request entirely.
 
-When it comes time to send out one descrete chunk of data to the client, the filters' ```filterBody``` function is called. This function can inspect the outgoing data in the ```HTTPResponse.bodyBytes``` property, and potentially modify or replace the data. Since the headers have already been pushed out at this stage, any modifications to the header data will be ignored. Once a filter's body filtering has concluded, it should call the provided callback and deliver a ```HTTPResponseFilterResult```. The meaning of these values is the same as for the ```filterHeaders``` function.
+When it comes time to send out one discrete chunk of data to the client, the filters' ```filterBody``` function is called. This function can inspect the outgoing data in the ```HTTPResponse.bodyBytes``` property, and potentially modify or replace the data. Since the headers have already been pushed out at this stage, any modifications to the header data will be ignored. Once a filter's body filtering has concluded, it should call the provided callback and deliver a ```HTTPResponseFilterResult```. The meaning of these values is the same as for the ```filterHeaders``` function.
 
 ### Adding
 
@@ -238,7 +238,7 @@ server.addRoutes(routes)
 try server.start()
 ```
 
-The example filters will add a X-Custom header and lowercase any A or B character in the body data. Note that the handler in this example sets the response to streaming mode, meaning that chunked encoding is utilized, and the body data is sent out in two descrete chunks.
+The example filters will add a X-Custom header and lowercase any A or B character in the body data. Note that the handler in this example sets the response to streaming mode, meaning that chunked encoding is used, and the body data is sent out in two discrete chunks.
 
 #### 404 Response Filter
 

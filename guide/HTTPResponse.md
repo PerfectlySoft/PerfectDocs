@@ -24,7 +24,7 @@ var status: HTTPResponseStatus { get set }
 
 ### Response Headers
 
-Response headers can be retreived, set, or iterated. Official/common header names are represented by the ```HTTPResponseHeader.Name``` enum. This also contains a case for custom header names: ```.custom(name: String)```.
+Response headers can be retrieved, set, or iterated. Official/common header names are represented by the ```HTTPResponseHeader.Name``` enum. This also contains a case for custom header names: ```.custom(name: String)```.
 
 ```swift
 /// Returns the requested outgoing header value.
@@ -107,7 +107,7 @@ For example, if one were to serve a very large file, it may not be practical to 
 
 ### Streaming
 
-In some cases, the content length of the response cannot be easily determined. For example, if one were streaming live video or audio content, then it may not be possible to set a content-length header. In cases such as this, set the HTTPResponse object into streaming mode. When using streaming mode, the response will be sent as HTTP-chunked encoding. When streaming, it is not required that the content length be set. Instead, add content to the body as usual, and call the ```push``` function. If the push succeeds, then the body data will be empty and ready for more data to be added. Continue calling ```push``` until the request has ended, or until push gives a ```false``` to the callback.
+In some cases, the content length of the response cannot be easily determined. For example, if one were streaming live video or audio content, then it may not be possible to set a content-length header. In such cases, set the HTTPResponse object into streaming mode. When using streaming mode, the response will be sent as HTTP-chunked encoding. When streaming, it is not required that the content length be set. Instead, add content to the body as usual, and call the ```push``` function. If the push succeeds, then the body data will be empty and ready for more data to be added. Continue calling ```push``` until the request has ended, or until push gives a ```false``` to the callback.
 
 ```swift
 /// Indicate that the response should attempt to stream all outgoing data.

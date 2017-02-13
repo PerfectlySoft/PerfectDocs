@@ -86,6 +86,7 @@ print(gridfile.length)
 ```
 
 Parameters:
+
 - from: a required string stands for the local path of file to upload
 - to: a required string stands for the destinated file name on the remote server
 - contentType: an optional string stands for the file type. Default value is `text/plain`
@@ -108,7 +109,7 @@ do {
 
 #### Closing the Connection
 
-Practically, swift GC mechanism will automatically release the `GridFS` / `GridFile` objects and related resources, however, users can also call defer closing manually if preferred:
+Practically, Swift's garbage collection mechanism will automatically release the `GridFS` / `GridFile` objects and related resources, however, users can also call defer closing manually if preferred:
 
 ``` swift
 defer {
@@ -229,7 +230,7 @@ If succeed, the above code would write five different bytes at the 1k point from
 
 #### close()
 
-Practically, swift GC mechanism will automatically release the `GridFS` / `GridFile` objects and related resources, however, users can also call defer closing manually if preferred:
+Practically, Swift's garbage collection mechanism will automatically release the `GridFS` / `GridFile` objects and related resources, however, users can also call defer closing manually if preferred:
 
 ``` swift
 defer {
@@ -239,4 +240,4 @@ defer {
 
 ## Performance Suggestion
 
-Large file uploads / downloads are usually time consuming, please try `Threading.dispatch {}` to avoid blocking the main thread, or use partially read()/write() incrementally. For more information, please check [Perfect Threading](thread.md)
+Since large file uploads / downloads are usually time consuming, try using `Threading.dispatch {}` to avoid blocking the main thread, or use partially read()/write() incrementally. For more information, see [Perfect Threading](thread.md)

@@ -10,7 +10,7 @@ cURL has built-in support for SSL certificates, HTTP POST, HTTP PUT, FTP uploadi
 
 ### Getting Started
 
-In addition to the PerfectLib, you will need the Perfect-cURL dependency in the Package.swift file:
+In addition to PerfectLib, you will need the Perfect-cURL dependency in the Package.swift file:
 
 ``` swift
 .Package(
@@ -50,7 +50,7 @@ print(curlObject.url)
 
 ### Setting cURL Options
 
-Setting options for the cURL object is an important part of the process. Many options are available and listing them all is beyond the scope of this document. For a complete list of available cURL options please see the Perfect API Reference, or the [libcurl API reference](https://curl.haxx.se/libcurl/c/)
+Setting options for the cURL object is an important part of the process. Many options are available and listing them all is beyond the scope of this document. For a complete list of available cURL options, see the [Perfect API Reference](https://perfect.org/docs/api.html) or the [libcurl API reference](https://curl.haxx.se/libcurl/c/).
 
 To set an option, use the appropriate `.setOption` variant as below:
 
@@ -89,7 +89,7 @@ curlObject.setOption(CURLOPT_SSL_VERIFYPEER, int: 0)
 
 Once all the options have been set for the cURL object, the operation can be "performed" in one of the following ways:
 
-Executes the current request:
+This executes the current request:
 
 ``` swift
 var perf = curlObject.perform()
@@ -122,7 +122,7 @@ curlObject.perform {
 
 ```
 
-When it is necessary to execute the cURL request, and blocking the current thread until it completes, use the `.performFully` method:
+When it is necessary to execute the cURL request, and block the current thread until it completes, use the `.performFully` method:
 
 ``` swift
 var perf = curlObject.performFully()

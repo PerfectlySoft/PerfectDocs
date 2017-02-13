@@ -53,7 +53,7 @@ connection.timeout = 10
 
 ### Login or Anonymous
 
-Many servers mandate login before performing any actual LDAP operations, however, PerfectLDAP provides multiple login options as demo below:
+Many servers mandate login before performing any actual LDAP operations, so PerfectLDAP provides multiple login options as demo below:
 
 ``` swift
 // this snippet demonstrate how to connect to LDAP server with a login credential
@@ -62,7 +62,7 @@ Many servers mandate login before performing any actual LDAP operations, however
 let credential = LDAP.login( ... )
 let connection = try LDAP(url: "ldaps://...", loginData: login)
 ```
-Aside the above synchronous login option, a two phased threading login process could also bring more controls to the application:
+Aside from the above synchronous login option, a two-phased threaded login process could also bring more controls to the application:
 
 ``` swift
 // first create a connection
@@ -83,7 +83,7 @@ PerfectLDAP provides a special object called `LDAP.Login` to store essential acc
 
 ### Simple Login
 
-To use simple login method, simply call `LDAP.login(binddn: String, password: String)`, as snippet below:
+To use simple login method, simply call `LDAP.login(binddn: String, password: String)`, as shown below:
 
 ``` swift
 let credential = LDAP.Login(binddn: "CN=judy,CN=Users,DC=perfect,DC=com", password: "0penLDAP")
@@ -100,7 +100,7 @@ let credential = LDAP.login(user: "judy", mechanism: .GSSAPI)
 
 ### GSS-SPNEGO and Digest-MD5 (⚠️EXPERIMENTAL⚠️)
 
-To apply other SASL mechanisms, such as GSS-SPNEGO and Digest-MD5 interactive logins, call `LDAP.login(authname: String, user: String, password: String, realm: String, mechanism: AuthType)` as demo below:
+To apply other SASL mechanisms, such as GSS-SPNEGO and Digest-MD5 interactive logins, call `LDAP.login(authname: String, user: String, password: String, realm: String, mechanism: AuthType)` as shown below:
 
 ``` swift
 // apply DIGEST-MD5 mechanism.
@@ -138,6 +138,7 @@ connection.search(base: "CN=Users,DC=perfect,DC=com", filter:"(objectclass=*)") 
 ```
 
 ### Parameters of Search
+
 - base: String, search base domain (dn), default = ""
 - filter: String, the filter of query, default is `"(objectclass=*)"`, means all possible results
 - scope: Searching Scope, i.e., .BASE, .SINGLE_LEVEL, .SUBTREE or .CHILDREN
@@ -145,7 +146,7 @@ connection.search(base: "CN=Users,DC=perfect,DC=com", filter:"(objectclass=*)") 
 - completion: callback with a parameter of dictionary, empty if failed
 
 #### Server Side Sort (⚠️EXPERIMENTAL⚠️)
-The `sortedBy` parameters is a string that indicates the remote server to perform search with a sorted set. PerfectLDAP provides a more verbal way to build such a string, i.e, an array of tuples to describe what attributes would control the result set:
+The `sortedBy` parameter is a string that instructs the remote server to perform search with a sorted set. PerfectLDAP provides a more verbal way to build such a string, i.e, an array of tuples to describe what attributes would control the result set:
 
 ``` swift
 // each tuple consists two parts: the sorting field and its order - .ASC or .DSC
@@ -168,10 +169,11 @@ PerfectLDAP provides add() / modify() and delete() for attributes operations wit
 ### Add Attributes (⚠️EXPERIMENTAL⚠️)
 
 Function `LDAP.add()` can add attributes to a specific DN with parameters below:
+
 - distinguishedName: String, specific DN
 - attributes:[String:[String]], attributes as an dictionary to add. In this dictionary, every attribute, as a unique key in the dictionary, could have a series of values as an array.
 
-Both asynchronous add() and synchronous add() share the same parameters above, take example:
+Both asynchronous add() and synchronous add() share the same parameters above, for example:
 
 ``` swift
 // try an add() synchronously.
@@ -190,10 +192,11 @@ connection.add(distinguishedName: "CN=judy,CN=User,DC=perfect,DC=com", attribute
 ### Modify Attributes
 
 Function `LDAP.modify()` can modify attributes from a specific DN with parameters below:
+
 - distinguishedName: String, specific DN
 - attributes:[String:[String]], attributes as an dictionary to modify. In this dictionary, every attribute, as a unique key in the dictionary, could have a series of values as an array.
 
-Both asynchronous modify() and synchronous modify() share the same parameters above, take example:
+Both asynchronous modify() and synchronous modify() share the same parameters above, for example:
 
 ``` swift
 // try an modify() synchronously.
@@ -212,9 +215,10 @@ connection.modify(distinguishedName: "CN=judy,CN=User,DC=perfect,DC=com", attrib
 ### Delete Attributes (⚠️EXPERIMENTAL⚠️)
 
 Function `LDAP.delete()` can delete attributes from a specific DN with only one parameter:
+
 - distinguishedName: String, specific DN
 
-Both asynchronous delete() and synchronous delete() share the same parameter above, take example:
+Both asynchronous delete() and synchronous delete() share the same parameter above, for example:
 
 ``` swift
 // try an delete() synchronously.

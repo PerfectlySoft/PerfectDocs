@@ -1,4 +1,5 @@
 # Repository Layout
+
 The Perfect framework has been divided into several repositories to make it easy for you to find, download, and install the components you need for your project:
 
 ## The Perfect Core Library
@@ -23,7 +24,7 @@ There are many components in the main [Perfect Repo, https://github.com/Perfectl
 
 ## StORM - A Swift ORM 
 
-[StORM is a Swift ORM](https://github.com/SwiftORM), written in Pefect. The list of supported databases will continue to grow and mature.
+[StORM is a Swift ORM](https://github.com/SwiftORM), written in Perfect. The list of supported databases will continue to grow and mature.
 
 ## Perfect Servers
 

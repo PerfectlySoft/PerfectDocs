@@ -19,7 +19,7 @@ let thisFile = File("/path/to/file/helloWorld.txt")
 
 ### Opening a File for Read or Write Access
 
-> **Important:** Before writing to a file - even if it is a new file - the file must be opened with the appropriate permissions.
+> **Important:** Before writing to a file — even if it is a new file — it must be opened with the appropriate permissions.
 
 To open a file:
 
@@ -36,7 +36,7 @@ try thisFile.write(string: "Hello, World!")
 thisFile.close()
 ```
 
-For full outlines of [OpenMode](#OpenMode) and [PermissionMode](PermissionMode) values, please see their definitions later in this document.
+For full outlines of [OpenMode](#OpenMode) and [PermissionMode](PermissionMode) values, see their definitions later in this document.
 
 ### Checking If a File Exists
 
@@ -169,7 +169,7 @@ let contents = try thisFile.readString()
 
 ## Writing, Copying, and Moving Files
 
-> **Important:** Before writing to a file - even if it is a new file - the file must be opened with the appropriate permissions.
+> **Important:** Before writing to a file — even if it is a new file — it must be opened with the appropriate permissions.
 
 
 ### Writing a String to a File

@@ -9,7 +9,7 @@
 
 ## Including in your project
 
-When including the dependancy in your project's Package.swift dependancies, you will have access to all nested dependancies including the database connector.
+When including the dependency in your project's Package.swift dependencies, you will have access to all nested dependencies including the database connector.
 
 ``` swift
 .Package(url: "https://github.com/SwiftORM/CouchDB-Storm.git", majorVersion: 1, minor: 0)

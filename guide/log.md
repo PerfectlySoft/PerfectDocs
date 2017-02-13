@@ -1,6 +1,6 @@
 # Log
 
-Perfect has a built-in error logging system that allows messages to be logged at several different levels. Each log level can be routed to either console or the system log.
+Perfect has a built-in error logging system that allows messages to be logged at several different levels. Each log level can be routed to either the console or the system log.
 
 The built-in log levels, in order of increasing severity:
 
@@ -30,7 +30,7 @@ If you wish to pipe all log entries to the system log, set the `Log.logger` prop
 Log.logger = SysLogger()
 ```
 
-If you wish to change the logger process back to the console only at any point, set the property back to `ConsoleLogger()`
+If you wish to change the logger process back to only the console at any point, set the property back to `ConsoleLogger()`
 
 ``` swift
 Log.logger = ConsoleLogger()

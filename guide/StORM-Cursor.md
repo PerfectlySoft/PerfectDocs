@@ -1,8 +1,8 @@
 # StORM Cursor
 
-In databse terms, a cursor defines the size and location of the returned rows within the context of the complete found set.
+In database terms, a cursor defines the size and location of the returned rows within the context of the complete found set.
 
-For a request using StORM, the cursor govens the number of rows returned and the position of the cursor in the total possible result set.
+For a request using StORM, the cursor governs the number of rows returned and the position of the cursor in the total possible result set.
 
 For the response, this information is echoed but the total number of possible rows in the found set is also populated.
 

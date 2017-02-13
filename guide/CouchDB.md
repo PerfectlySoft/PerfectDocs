@@ -1,6 +1,6 @@
 # Apache CouchDB
 
-The CouchDB connector prvoides access to Apache CouchDB servers. It allows you to search for, add, update and delete documents in a CouchDB server.
+The CouchDB connector provides access to Apache CouchDB servers. It allows you to search for, add, update and delete documents in a CouchDB server.
 
 
 ## System Requirements
@@ -9,7 +9,7 @@ This module uses libcurl along with the Perfect-CURL package.
 
 ### macOS
 
-macOS currently includes suitable versions of the dependent libraries and no manual installation is nessesary.
+macOS currently includes suitable versions of the dependent libraries and no manual installation is necessary.
 
 ### Linux
 Install the libcurl4-openssl-dev package through apt.
@@ -75,15 +75,15 @@ db.databaseInfo("mydb")
 
 Possible information responses include:
 
-* committed_update_seq (Int) – The number of committed update.
+* committed\_update_seq (Int) – The number of committed update.
 * compact_running (Bool) – Set to true if the database compaction routine is operating on this database.
 * db_name (String) – The name of the database.
-* disk_format_version (Int) – The version of the physical format used for the data when it is stored on disk.
+* disk\_format_version (Int) – The version of the physical format used for the data when it is stored on disk.
 * data_size (Int) – The number of bytes of live data inside the database file.
 * disk_size (Int) – The length of the database file on disk. Views indexes are not included in the calculation.
 * doc_count (Int) – A count of the documents in the specified database.
-* doc_del_count (Int) – Number of deleted documents
-* instance_start_time (String) – Timestamp of when the database was opened, expressed in microseconds since the epoch.
+* doc\_del_count (Int) – Number of deleted documents
+* instance\_start_time (String) – Timestamp of when the database was opened, expressed in microseconds since the epoch.
 * purge_seq (Int) – The number of purge operations on the database.
 * update_seq (Int) – The current number of updates to the database.
 
@@ -100,7 +100,7 @@ Parameters:
 
 The stored document can be supplied as a JSON encoded string, or as a [String: Any] type.
 
-Returns a tuple of CouchDBResponse and the returned JSON as [String:Any]
+This returns a tuple of CouchDBResponse and the returned JSON as [String:Any].
 
 ``` swift
 let data = ["one":"ONE","two":"TWO"]
@@ -157,7 +157,7 @@ Status Codes:
 * 202 Accepted – Request was accepted, but changes are not yet stored on disk
 * 400 Bad Request – Invalid request body or parameters
 * 401 Unauthorized – Read or write privileges required
-* 404 Not Found – Specified database, document ID or revision doesn’t exists
+* 404 Not Found – Specified database, document ID or revision doesn’t exist
 * 409 Conflict – Document with the specified ID already exists or specified revision is not latest for target document
 
 ``` swift
@@ -236,7 +236,7 @@ Query Parameters:
 
 * attachments (Bool) – Includes attachments bodies in response. Default is false
 *  att\_encoding_info (Bool) – Includes encoding information in attachment stubs if the particular attachment is compressed. Default is false.
-* atts_since (array) – Includes attachments only since specified revisions. Doesn’t includes attachments for specified revisions. Optional
+* atts_since (array) – Includes attachments only since specified revisions. Doesn’t include attachments for specified revisions. Optional
 * conflicts (Bool) – Includes information about conflicts in document. Default is false
 * deleted_conflicts (Bool) – Includes information about deleted conflicted revisions. Default is false
 * latest (Bool) – Forces retrieving latest “leaf” revision, no matter what rev was requested. Default is false

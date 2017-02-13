@@ -20,7 +20,7 @@ import PerfectXML
 
 ### macOS Build Notes
 
-If you receive a compile error that says the following, you need to install and link libxml2
+If you receive a compile error that says the following, you need to install and link libxml2.
 
 ```
 note: you may be able to install libxml-2.0 using your system-packager:
@@ -32,7 +32,7 @@ Compile Swift Module 'PerfectXML' (2 sources)
 #import "libxml2.h"
 ```
 
-To install and link libxml2 with homebrew, use the following two commands
+To install and link libxml2 with Homebrew, use the following two commands:
 
 ```
 brew install libxml2
@@ -50,13 +50,13 @@ sudo apt-get install libxml2-dev pkg-config
 
 ## Parsing an XML string
 
-Instantiate an XDocument object with your XML string
+Instantiate an XDocument object with your XML string:
 
 ``` swift
 let xDoc = XDocument(fromSource: <XMLSource>)
 ```
 
-Now you can get the root node of the XML structure by using the documentElement property
+Now you can get the root node of the XML structure by using the documentElement property.
 
 
 ## Convert the node tree to String
@@ -71,16 +71,16 @@ let plainString = xDoc?.string(pretty: false)
 
 ## Working with Nodes
 
-XML is a structured documentation standard with a basic format of `<A>B</A>` - an XML node. Each node has a tag name, a value, or sub nodes we call "children".  Each node has several important properties
+XML is a structured document standard consisting of nodes in the format `<A>B</A>`. Each node has a tag name and either a value, or sub nodes we call "children". Each node has several important properties:
 
 - nodeValue
 - nodeName
 - parentNode
 - childNodes
 
-Each node also has a getElementsByTagName: method that recursively searches through it and its children to return an array of all nodes that have that name. This method makes it easy to find a single value in the XML file.
+Each node also has a `getElementsByTagName` method that recursively searches through it and its children to return an array of all nodes that have that name. This method makes it easy to find a single value in the XML file.
 
-To demonstrate, a recursive function to iterate through all elements in the node:
+To demonstrate, this recursive function iterates through all elements in the node:
 
 ``` swift
 func printChildrenName(_ xNode: XNode) {
@@ -137,7 +137,7 @@ testTag(tagName: "description")
 
 ### Access Node by ID
 
-Alternatively querying a node by it's id using `.getElementById()`:
+Alternatively querying a node by its id using `.getElementById()`:
 
 ``` swift
 func testID(id: String) {
@@ -244,7 +244,7 @@ showSiblings(tag: "description")
 
 #### First & Last Child
 
-If an XML node has a child `.firstChild` and `.lastChild` can be used:
+If an XML node has a child, `.firstChild` and `.lastChild` can be used:
 
 ``` swift
 func firstLast() {
@@ -344,7 +344,7 @@ showNamespaces()
 
 ## XPath
 
-XPath (XML Path Language) is a query language for selecting nodes from an XML document. In addition, XPath may be used to compute values (e.g., strings, numbers, or Boolean values) from the content of an XML document.
+XPath (XML Path Language) is a query language for selecting nodes from an XML document. In addition, XPath may be used to compute values (e.g. strings, numbers, or Boolean values) from the content of an XML document.
 
 The following code demonstrates extracting a specific path:
 

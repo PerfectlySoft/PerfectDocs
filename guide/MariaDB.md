@@ -2,7 +2,7 @@
 
 The MariaDB connector provides a wrapper around MariaDB, allowing interaction between your Perfect Applications and MariaDB databases. 
 
-**Note** Because of the history of MySQL & MariaDB, MariaDB keeps the same name with MySQL API functions; However, it is not possible to compile MariaDB in a MySQL configuration "as-is" context. So that's the reason why Perfect 2.0 includes both MySQL & MariaDB connectors. 
+**Note:** Because of the history of MySQL & MariaDB, MariaDB keeps the same names as MySQL API functions; however, it is not possible to compile MariaDB in a MySQL configuration "as-is" context. This is why Perfect 2.0 includes both MySQL & MariaDB connectors.
 
 ### System Requirements
 
@@ -14,7 +14,7 @@ Requires the use of Homebrew’s MariaDB connector.
 brew install mariadb-connector-c
 ```
 
-If you need Homebrew if required: 
+If you need Homebrew, you can install it with:
 
 ``` 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -26,7 +26,7 @@ You will need to edit the mariadb.pc file:
 /usr/local/lib/pkgconfig/mariadb.pc
 ```
 
-Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by default so you will need to change that first.
+Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by default so you will need to change its permissions first.
 
 A typical configuration of mariadb.pc may looks like:
 
@@ -97,7 +97,7 @@ import MariaDB
 
 ### Access the Database
 
-In order to access the database, setup your credentials:
+In order to access the database, set up your credentials:
 
 ``` swift
 let testHost = "127.0.0.1"
@@ -188,7 +188,7 @@ Choosing the database is great, but it is much more helpful to run queries, such
 
 ### Run Queries
 
-Getting data from your schema is essential. It’s relatively easy to do. After running a query, save your data and then act on it. In the example below, we’re assuming we have a table called options with a row id, an option name (text) and an option value (text):
+Getting data from your schema is essential, and relatively easy to do. After running a query, save your data and then act on it. In the example below, we’re assuming we have a table called options with a row id, an option name (text) and an option value (text):
 
 ``` swift
 
@@ -227,12 +227,12 @@ Getting data from your schema is essential. It’s relatively easy to do. After 
 
             ary.append("\(optionName)":optionValue]) //store our options
         }
-		}
+	}
 ```
 
 ## MariaDB Server API
 
-The MariaDB server API provides you with a set of tools to connect to and work with MariaDB server instances. This includes basic connections, disconnections, querying the instance for databases/tables, and running queries (which is actually a light wrapper for the full [Statements API](#mariadb-statements-api). Results returned, however, are handled and manipulated with the [Results API](#mariadb-results-api). Statements also have a [Satements API](#mariadb-statements-api) that lets you work with statements in much more detail that simply running queries though the main MySQL class.
+The MariaDB server API provides you with a set of tools to connect to and work with MariaDB server instances. This includes basic connections, disconnections, querying the instance for databases/tables, and running queries (which is actually a light wrapper for the full [Statements API](#mariadb-statements-api). Results returned, however, are handled and manipulated with the [Results API](#mariadb-results-api). Statements also have a [Statements API](#mariadb-statements-api) that lets you work with statements in much more detail than simply running queries though the main MySQL class.
 
 ### init
 
@@ -256,7 +256,7 @@ Closes a connection to MariaDB. Most commonly used as a defer after guarding a c
 public static func clientInfo() -> String
 ```
 
-This will give you a string of the MariaDB client library version. i.e. "5.5.x" or similar depending on your MariaDB installation. 
+This will give you a string of the MariaDB client library version, e.g. "5.5.x" or similar depending on your MariaDB installation.
 
 ### errorCode & errorMessage
 
@@ -377,7 +377,7 @@ Runs an SQL Query given as a string.
 public func storeResults() -> MySQL.Results?
 ```
 
-This retrieves a complete results set from the server and stores it on the client. This should be run after your query and before a function like forEachRow() or next() so that you can ensure that you iterate through all results. 
+This retrieves a complete result set from the server and stores it on the client. This should be run after your query and before a function like forEachRow() or next() so that you can ensure that you iterate through all results.
 
 ### setOption
 
@@ -422,7 +422,7 @@ The results API set provides a set of tools for working with result sets that ar
 public func close()
 ```
 
-Closes the results set by releasing the results. make sure you have a close function that is always executed after each session with a connection, otherwise you are going to have some memory problems. This is most commonly found in the defer block, just like in the examples at the top of this page. 
+Closes the result set by releasing the results. Make sure you have a close function that is always executed after each session with a connection, otherwise you are going to have some memory problems. This is most commonly found in the defer block, just like in the examples at the top of this page.
 
 ### dataSeek
 
@@ -438,7 +438,7 @@ Moves to an arbitrary row number in the results given an unsigned integer as an 
 public func numRows() -> Int
 ```
 
-Lets you know how many rows are in a results set. 
+Lets you know how many rows are in a result set.
 
 ### numFields
 
@@ -446,7 +446,7 @@ Lets you know how many rows are in a results set.
 public func numFields() -> Int
 ```
 
-Similar to numRows, but returns the number of columns in a results set instead. Very useful for `Select *` type queries where you may need to know how many columns are in the results. 
+Similar to numRows, but returns the number of columns in a result set instead. Very useful for `Select *` type queries where you may need to know how many columns are in the results.
 
 ### next
 
@@ -454,7 +454,7 @@ Similar to numRows, but returns the number of columns in a results set instead. 
 public func next() -> Element?
 ```
 
-Returns the next row in the results set as long as one exists. 
+Returns the next row in the result set as long as one exists.
 
 ### forEachRow
 
@@ -488,7 +488,7 @@ This frees the MySQL statement structure pointer. Use it or lose valuable memory
 public func reset()
 ```
 
-Resets the statement buffers that are in the server. This doesn’t affect bindings or stored results sets. Learn more about this feature [here](https://mariadb.com/kb/en/mariadb/reset/). 
+Resets the statement buffers that are in the server. This doesn’t affect bindings or stored result sets. Learn more about this feature [here](https://mariadb.com/kb/en/mariadb/reset/).
 
 ### clearBinds
 
@@ -516,7 +516,7 @@ public func errorCode() -> UInt32
 public func errorMessage() -> String
 ```
 
-Error codes and messages are useful when debugging. These functions retrieve, display, and make use of those in Swift. You can learn more about what those mean [here](https://mariadb.com/kb/en/mariadb/mariadb-error-codes/). This is especially useful after connecting or running queries. Example:
+Error codes and messages are useful when debugging. These functions retrieve, display, and make use of both in Swift. You can learn more about what those mean [here](https://mariadb.com/kb/en/mariadb/mariadb-error-codes/). This is especially useful after connecting or running queries. Example:
 
 ``` swift
 let mysql = MySQL()
@@ -560,7 +560,7 @@ Returns current results from the server.
 public func fetch() -> FetchResult
 ```
 
-Fetches the next row of data from the results set. 
+Fetches the next row of data from the result set.
 
 ### numRows
 
@@ -568,7 +568,7 @@ Fetches the next row of data from the results set.
 public func numRows() -> UInt
 ```
 
-Returns the row count in a buffered statement results set. 
+Returns the row count in a buffered statement result set.
 
 ### affectedRows
 
@@ -576,7 +576,7 @@ Returns the row count in a buffered statement results set.
 public func affectedRows() -> UInt
 ```
 
-Returns the number of rows that were changed, deleted, or inserted by prepared a UPDATE, DELETE, or INSERT statement that was executed. 
+Returns the number of rows that were changed, deleted, or inserted by a prepared statement or an UPDATE, DELETE, or INSERT statement that was executed.
 
 ### insertId
 
@@ -608,7 +608,7 @@ Returns the next result in a multi-result execution.
 public func dataSeek(offset: Int)
 ```
 
-Given an offset, it will seek to an arbitrary row in a statement results set. 
+Given an offset, it will seek to an arbitrary row in a statement result set.
 
 ### paramCount
 

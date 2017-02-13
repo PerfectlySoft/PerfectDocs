@@ -76,9 +76,9 @@ print(thisDir.perms)
 
 ### Creating a Directory
 
-Creates the directory using the provided permissions. All directories along the path will be created if needed.
+`create` creates the directory using the provided permissions. All directories along the path will be created if needed.
 
-The following will create a new directory with the default permissions (Owner: read-write-execute, Group and Everyone: read-exexute.
+The following will create a new directory with the default permissions (Owner: read-write-execute, Group and Everyone: read-execute.
 
 ``` swift
 let newDir = Dir("/path/to/directory/newDirectory")
@@ -127,7 +127,7 @@ let workingDir = Dir.workingDir
 
 ### Reading the Directory Structure
 
-`forEachEntry` enumerates the contents of the directory passing the name of each contained element to the provided callback.
+`forEachEntry` enumerates the contents of the directory, passing the name of each contained element to the provided callback.
 
 ``` swift 
 try thisDir.forEachEntry(closure: {

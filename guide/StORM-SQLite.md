@@ -8,7 +8,7 @@
 
 ## Including in your project
 
-When including the dependancy in your project's Package.swift dependancies, you will have access to all nested dependancies including the database connector.
+When including the dependency in your project's Package.swift dependencies, you will have access to all nested dependencies including the database connector.
 
 ``` swift
 .Package(url: "https://github.com/SwiftORM/SQLite-StORM.git", majorVersion: 1, minor: 0)
@@ -16,9 +16,10 @@ When including the dependancy in your project's Package.swift dependancies, you 
 
 ### A note about protecting from SQL Injection attacks
 
-StORM does it's best to protect your data from SQL Injection attacks by parameterizing values. 
+StORM does its best to protect your data from SQL injection attacks by parameterizing values.
 
-However in some methods it is possible to specify raw data or SQL query components so it is important to take care to validate ALL incoming data prior to use in a SQL context.
+However in some methods it is possible to specify raw data or SQL query components, so it is important to take care to validate *all* incoming data prior to use in a SQL context.
+
 
 ## Creating a connection to your database
 
@@ -27,7 +28,8 @@ In order to connect to your database you will need to specify the path to the da
 ``` swift
 SQLiteConnector.db = "./mydb"
 ```
-Once your connection information is specified is created it can be used in the object class to create the connection on demand.
+
+Once your connection information is specified it can be used in the object class to create the connection on demand.
 
 ``` swift
 let obj = User()
@@ -65,8 +67,8 @@ let obj = User()
 
 `select(whereclause:	String,
 		params:			[Any],
-		orderby:		[String])` - Performs a select with a specified where clause, having the values parameterized to protect from SQL Injection. The orderby array is an array of column names that can optionally include the "ASC" or "DESC" keywords to indicate sort direction.
-		
+		orderby:		[String])` - Performs a select with a specified where clause, having the values parameterized to protect from SQL injection. The orderby array is an array of column names that can optionally include the "ASC" or "DESC" keywords to indicate sort direction.
+
 Additionally the `select` can include:
 
 *  `cursor: StORMCursor` - The optional `cursor` object is a [StORMCursor](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Cursor.md)
@@ -87,16 +89,16 @@ Additionally the `select` can include:
 
 ### Inserts
 
-`insert([(String, Any)])` - Insert a new row spefifying data as `[(String, Any)]` where the first in the pair is the column name, and the second is the value.
+`insert([(String, Any)])` - Insert a new row specifying data as `[(String, Any)]` where the first in the pair is the column name, and the second is the value.
 
-`insert(cols: [String], params: [Any])` - Insert a new row spefifying data as matching arrays of column names, and the associated value.
+`insert(cols: [String], params: [Any])` - Insert a new row specifying data as matching arrays of column names, and the associated value.
 
 
 ### Updates
 
 `update(data: [(String, Any)], idName: String = "id", idValue: Any)` - Updates the row with the specified data, with a primary key value, and an optional idName column name.
 
-`update(cols: [String], params: [Any], idName: String, idValue: Any)` -  Updates the row by spefifying data as matching arrays of column names, and the associated value. A primary key value, and an idName column name are also required.
+`update(cols: [String], params: [Any], idName: String, idValue: Any)` -  Updates the row by specifying data as matching arrays of column names, and the associated value. A primary key value, and an idName column name are also required.
 
 
 

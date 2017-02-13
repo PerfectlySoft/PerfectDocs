@@ -1,6 +1,6 @@
 # Static File Content
 
-As seen in the [Routing chapter](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md), Perfect is capable of complex dynamic routing. It is also capable of serving static content including HTML, images, CSS, and JavaScript.
+As seen in the [Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/routing.md) chapter, Perfect is capable of complex dynamic routing. It is also capable of serving static content including HTML, images, CSS, and JavaScript.
 
 Static file content serving is handled through the ```StaticFileHandler``` object. Once a request is given to an instance of this object, it will handle finding the indicated file or returning a 404 if it does not exist. ```StaticFileHandler``` also handles caching through use of the ETag header as well as byte range serving for very large files.
 
@@ -17,7 +17,7 @@ For example, a handler which simply returns the request file might look as follo
 }
 ```
 
-However, unless custom behaviour is required, it is not nessesary to handle this manually. Setting the server's ```documentRoot``` property will automatically install a handler which will serve any files from the indicated directory. Setting the server's document root is analogous to the following snippet:
+However, unless custom behaviour is required, it is not necessary to handle this manually. Setting the server's ```documentRoot``` property will automatically install a handler which will serve any files from the indicated directory. Setting the server's document root is analogous to the following snippet:
 
 ```swift
 let dir = Dir(documentRoot)
@@ -78,7 +78,7 @@ do {
 
 ``` 
 
-Note the `server.documentRoot = "./webroot"` line. It means that if there is a styles.css document in the specified webroot directory, then a request to the uri "/styles.css" will return that file to the browser.
+Note the `server.documentRoot = "./webroot"` line. It means that if there is a styles.css document in the specified webroot directory, then a request to the URI "/styles.css" will return that file to the browser.
 
 The following example establishes a virtual documents path, serving all URIs which begin with "/files" from the physical directory "/var/www/htdocs":
 

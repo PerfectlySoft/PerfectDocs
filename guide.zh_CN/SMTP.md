@@ -1,4 +1,4 @@
-# Perfect - SMTP 简单邮件协议
+# Perfect – SMTP 简单邮件协议
 
 本项目提供了SMTP函数库封装。
 

@@ -2,7 +2,7 @@
 
 In addition to the `.save()` method, StORM provides access to a more granular set of `.insert` functionality.
 
-This can be used to more rapidly insert larger number of rows without having to populate each property in advance.
+This can be used to rapidly insert larger number of rows without having to populate each property in advance.
 
 It is also worth noting that StORM's `.save` functions are effectively convenience functions for `.insert`.
 
@@ -14,9 +14,9 @@ insert(cols: [String], params: [Any])
 insert(cols: [String], params: [Any], idcolumn: String)
 ```
 
-`insert([(String, Any)])` will take the name/value pairs and insert them into the table. It will infer the id column and return it's value.
+`insert([(String, Any)])` will take the name/value pairs and insert them into the table. It will infer the id column and return its value.
 
-`insert(cols: [String], params: [Any])` performs the same operation, however with different input supplied.
+`insert(cols: [String], params: [Any])` performs the same operation, but with different input supplied.
 
 `insert(cols: [String], params: [Any], idcolumn: String)` allows you to specify the primary key column. The resulting primary key is returned.
 

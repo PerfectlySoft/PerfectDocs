@@ -9,7 +9,7 @@ There are two main form encoding types:
 
 When you wish to include file upload elements, you must choose multipart/form-data as your form's `enctype` (encoding) type.
 
-All code used below can be seen in action as a complete example at [https://github.com/iamjono/perfect-file-uploads](https://github.com/iamjono/perfect-file-uploads)
+All code used below can be seen in action as a complete example at [https://github.com/iamjono/perfect-file-uploads](https://github.com/iamjono/perfect-file-uploads).
 
 An example HTML form containing the correct encoding and file input element might be represented like this:
 
@@ -91,4 +91,4 @@ do {
 
 Now the uploaded files will move to the specified directory with the original filename restored.
 
-For more information on file system manipulation, please see the [Directory Operations](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md) and [File Operations](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) chapters. 
+For more information on file system manipulation, see the [Directory Operations](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md) and [File Operations](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md) chapters.

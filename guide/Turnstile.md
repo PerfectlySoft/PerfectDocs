@@ -6,7 +6,7 @@ The base library written by Edward Jiang from Stormpath is not specific to a fra
 
 Datasource-specific implementations are available, which can be forked and extended as needed. They include basic JSON and Web routes for logging a user in, registering, and checking authentication.
 
-Turnstile "Realms" have been written for these implementations, as well as Session drivers. Web session persistance is handled via Cookies, and JSON session persistance is handled via header bearer tokens.
+Turnstile "Realms" have been written for these implementations, as well as session drivers. Web session persistence is handled via cookies, and JSON session persistence is handled via header bearer tokens.
 
 Documentation for implementing Turnstile directly is available via the [Stormpath/Turnstile](https://github.com/stormpath/Turnstile) GitHub repo.
 
@@ -21,7 +21,7 @@ Perfect supplies some datasource-specific integrations that can be dropped in pl
 
 ### Installation
 
-In your Package.swift file, include the following line inside the dependancy array:
+In your Package.swift file, include the following line inside the dependency array:
 
 ``` swift
 // PostgreSQL
@@ -59,11 +59,11 @@ http://localhost:8181/register
 
 These routes are using Mustache files in the webroot directory.
 
-Example Mustache files can be found in [https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo) or [https://github.com/PerfectExamples/Perfect-Turnstile-PostgreSQL-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-PostgreSQL-Demo)
+Example Mustache files can be found in [https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-SQLite-Demo) or [https://github.com/PerfectExamples/Perfect-Turnstile-PostgreSQL-Demo](https://github.com/PerfectExamples/Perfect-Turnstile-PostgreSQL-Demo).
 
 ### Creating an HTTP Server with Authentication
 
-Setting up a complete HTTP web server with the Turnstile authentication layer and database access is easy. The following script is a complete "main.swift" starting point for your executable. A detailed breakdown of this script is included below:
+Setting up a complete HTTP web server with the Turnstile authentication layer and database access is easy. The following script is a complete "main.swift" starting point for your executable. A detailed breakdown of this script is included below.
 
 ``` swift 
 import PerfectLib
@@ -156,7 +156,7 @@ do {
 
 #### Requirements
 
-Define the "Realm" - this is the Turnstile definition of how the authentication is handled. The implementation is specific to the SQLite datasource, although it is very similar between datasources and is designed to be generic and extendable.
+Define the "Realm" which is the Turnstile definition of how the authentication is handled. The implementation is specific to the SQLite datasource, although it is very similar between datasources and is designed to be generic and extendable.
 
 ``` swift 
 let pturnstile = TurnstilePerfectRealm()
@@ -220,7 +220,7 @@ authenticationConfig.exclude("/api/v1/register")
 let authFilter = AuthFilter(authenticationConfig)
 ```
 
-These routes can be either seperate, or as an array of strings. They describe inclusions and exclusions. Wildcards are supported where the wildcard character (*) is the last character in the string.
+These routes can be either separate, or as an array of strings. They describe inclusions and exclusions. Wildcards are supported where the wildcard character (*) is the last character in the string.
 
 Add request & response filters. Note the order which you specify filters that are of the same priority level:
 
@@ -235,7 +235,7 @@ server.setRequestFilters([(myLogger, .high)])
 server.setResponseFilters([(myLogger, .low)])
 ```
 
-Now, set the port, static files location, and start the server:
+Now, set the port and static files location, and start the server:
 
 ``` swift
 // Set a listen port of 8181

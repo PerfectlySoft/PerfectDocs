@@ -26,7 +26,7 @@ class User: SQLiteStORM {
 
 Next, you will need to add properties to the class. They will mirror closely your columns in the associated table. It's strongly recommended that you keep non-standard characters out of the column names and therefore property names too.
 
-The first property should be your table's primary key. Convention is that this column is called `id` but in reality it can be any valid column name. Common data types for primary keys in SQL datasources are integers, strings, and UUID's. If your primary key is not an auto-incrementing integer sequence, take care with setting your id and maintaining integrity.
+The first property should be your table's primary key. Convention is that this column is called `id` but in reality it can be any valid column name. Common data types for primary keys in SQL datasources are integers, strings, and UUIDs. If your primary key is not an auto-incrementing integer sequence, take care with setting your id and maintaining integrity.
 
 ``` swift
 // NOTE: First param in class should be the ID.
@@ -36,11 +36,11 @@ var lastname		: String = ""
 var email			: String = ""
 ```
 
-You will see above that the default values are set for each property rather than set via an `init()`. This is simply to make this explanation easier. If you choose to write your own `init()` or `init(_ connect: XXConnect)` function, please include `super.init()` and beware of the need to add the connection property.
+You will see above that the default values are set for each property rather than set via an `init()`. This is simply to make this explanation easier. If you choose to write your own `init()` or `init(_ connect: XXConnect)` function, include `super.init()` and beware of the need to add the connection property.
 
 ### Specifying the table
 
-The table name to be manually specified in a function - this is to avoid any possible collision with the introspection that is performed on the class for database operations.
+The table name is to be manually specified in a function. This is to avoid any possible collision with the introspection that is performed on the class for database operations.
 
 Include a function to specify the table as follows:
 
@@ -73,10 +73,9 @@ func rows() -> [User] {
 }
 ```
 
-Note that in the `to` function, assign each property.
-This has the added benefit that at this stage validation or any other special processing can be added.
+Note that in the `to` function, you assign each property. This has the added benefit that at this stage validation or any other special processing can be added.
 
-The `rows` function is simply an array processor. Copy-paste this function and change the 3 ocurrances of the class name.
+The `rows` function is simply an array processor. Copy-paste this function and change the 3 occurrences of the class name.
 
 
 ### Putting it all together

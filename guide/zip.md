@@ -8,7 +8,7 @@ Perfect provides a wrapper around the minizip C library and implements a set of 
 
 ## Getting Started
 
-For MacOS install minizip using homebrew:
+On MacOS, install minizip using Homebrew:
 
 ```
 brew install minizip
@@ -32,7 +32,7 @@ The two main functions of the Perfect Zip module are to zip files, or unzip a zi
 
 ### Declaring an instance of the Zip class
 
-Before initiating compression or decompression, an instance of the class myst be created:
+Before initiating compression or decompression, an instance of the class must be created:
 
 ``` swift
 let myVar = Zip()
@@ -59,7 +59,7 @@ This method returns the success/fail status of the operation as a `ZipStatus` en
 * **paths:** The array of file paths to add to the zip file
 * **zipFilePath:** The path and filename of the destination zip file
 * **overwrite:** A boolean declaring the behaviour to attempt when the destination zip file exists
-* **password:** The password string to use for password-protect the zip file. Optional. Leave empty or omit to create an unprotected zip file.
+* **password:** The password string to use for password-protecting the zip file. Optional. Leave empty or omit to create an unprotected zip file.
 
 
 ### UnZip
@@ -95,7 +95,7 @@ The `ZipStatus` values are as follows:
 * .ZipCannotOverwrite
 * .ZipSuccess
 
-The enum has a `.description` variable which returns human-readable dewscriptors of each enum value.
+The enum has a `.description` variable which returns human-readable descriptors of each enum value.
 
 * .FileNotFound - **"File not found."**
 * .UnzipFail - **"Failed to unzip file."**
