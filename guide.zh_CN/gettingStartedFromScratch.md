@@ -143,7 +143,7 @@ Swift软件包管理器（SPM）能够创建一个Xcode项目，并且能够运�
 swift package generate-xcodeproj
 ```
 
-然后打开产生的文件“PerfectTemplate.xcodeproj”，在library search检索项目软件库中增加（不单单是编译目标）：
+然后打开产生的文件“PerfectTemplate.xcodeproj”，在”Library Search Paths“检索项目软件库中增加（不单单是编译目标）：
 
 ```
 $(PROJECT_DIR) - Recursive
