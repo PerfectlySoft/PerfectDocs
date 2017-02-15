@@ -185,6 +185,14 @@ public init()
 
 创建一个MySQL类实例并允许程序访问MySQL数据库。
 
+### ⚠️文字编码注意事项⚠️
+
+如果您的数据库中包含非ascii码，比如中文，那么必须要在连接前设置下列选项：
+
+``` swift
+setOption(MYSQL_SET_CHARSET_NAME, "utf8")
+```
+
 ### close
 
 ``` swift

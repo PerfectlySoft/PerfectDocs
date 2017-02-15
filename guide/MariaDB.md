@@ -242,6 +242,14 @@ public init()
 
 Creates an instance of the MySQL class that allows you to interact with MariaDB databases. 
 
+### NOTE for ⚠️Character Encoding⚠️
+
+If your dataset contains non-ascii characters, please set this option for proper encoding:
+
+``` swift
+setOption(MYSQL_SET_CHARSET_NAME, "utf8")
+```
+
 ### close
 
 ``` swift
