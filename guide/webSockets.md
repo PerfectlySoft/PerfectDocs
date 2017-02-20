@@ -35,7 +35,7 @@ routes.add(method: .get, uri: "/echo", handler: {
 		request, response in
     // Provide your closure which will return the service handler.
     WebSocketHandler(handlerProducer: {
-        (request: WebRequest, protocols: [String]) -> WebSocketSessionHandler? in
+        (request: HTTPRequest, protocols: [String]) -> WebSocketSessionHandler? in
 
         // Check to make sure the client is requesting our "echo" service.
         guard protocols.contains("echo") else {
@@ -53,9 +53,9 @@ routes.add(method: .get, uri: "/echo", handler: {
 
 A WebSocket service handler must implement the `WebSocketSessionHandler` protocol.
 
-This protocol requires the function `handleSession(request: WebRequest, socket: WebSocket)`. This function will be called once the WebSocket connection has been established, at which point it is safe to begin reading and writing messages.
+This protocol requires the function `handleSession(request: HTTPRequest, socket: WebSocket)`. This function will be called once the WebSocket connection has been established, at which point it is safe to begin reading and writing messages.
 
-The initial `WebRequest` object which instigated the session is provided for reference.
+The initial `HTTPRequest` object which instigated the session is provided for reference.
 
 Messages are transmitted through the provided WebSocket object.
 
@@ -79,7 +79,7 @@ class EchoHandler: WebSocketSessionHandler {
 	let socketProtocol: String? = "echo"
 
 	// This function is called by the WebSocketHandler once the connection has been established.
-	func handleSession(request: WebRequest, socket: WebSocket) {
+	func handleSession(request: HTTPRequest, socket: WebSocket) {
 
 		// Read a message from the client as a String.
 		// Alternatively we could call `WebSocket.readBytesMessage` to get the data as a String.
