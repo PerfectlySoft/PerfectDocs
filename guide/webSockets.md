@@ -15,7 +15,7 @@ The WebSocket protocol is currently supported in most major browsers including G
 Add the WebSocket dependency to your Package.swift file:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 2, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 2)
 ```
 
 Then import the WebSocket library into your Swift source code as needed:
@@ -82,7 +82,7 @@ class EchoHandler: WebSocketSessionHandler {
 	func handleSession(request: HTTPRequest, socket: WebSocket) {
 
 		// Read a message from the client as a String.
-		// Alternatively we could call `WebSocket.readBytesMessage` to get the data as a String.
+		// Alternatively we could call `WebSocket.readBytesMessage` to get the data as an array of bytes.
 		socket.readStringMessage {
 			// This callback is provided:
 			//	the received data
