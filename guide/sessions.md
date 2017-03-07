@@ -1,6 +1,6 @@
 # Sessions
 
-Perfect includes session drivers for PostgreSQL, MySQL, SQLite3 and CouchDB servers, as well as in-memory session storage for development purposes. Support for MongoDB and Redis is planned for the near future.
+Perfect includes session drivers for Redis, PostgreSQL, MySQL, SQLite3 and CouchDB servers, as well as in-memory session storage for development purposes. Support for MongoDB and Redis is planned for the near future.
 
 Session management is a foundational function for any web or application environment, and can provide linkage to authentication, transitional preference storage, and transactional data such as for a traditional shopping cart.
 
@@ -28,46 +28,59 @@ Each session has the following properties:
 Each of the modules has an associated example/demo. Much of the functionality described in this document can be observed in each of these examples.
 
 * [In-Memory Sessions](https://github.com/PerfectExamples/Perfect-Session-Memory-Demo)
+* [Redis Sessions](https://github.com/PerfectExamples/Perfect-Session-Redis-Demo)
 * [PostgreSQL Sessions](https://github.com/PerfectExamples/Perfect-Session-PostgreSQL-Demo)
 * [MySQL Sessions](https://github.com/PerfectExamples/Perfect-Session-MySQL-Demo)
 * [SQLite Sessions](https://github.com/PerfectExamples/Perfect-Session-SQLite-Demo)
 * [CouchDB Sessions](https://github.com/PerfectExamples/Perfect-Session-CouchDB-Demo)
+* [MongoDB Sessions](https://github.com/PerfectExamples/Perfect-Session-MongoDB-Demo)
 
 ## Installation
 
 If using the in-memory driver, import the base module by including the following in your project's Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 1)
 ```
 
 ### Database-Specific Drivers
 
+Redis:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 1)
+```
+
 PostgreSQL:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 1)
 ```
 
 MySQL:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 1)
 ```
 
 SQLite3:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 1)
 ```
 
 CouchDB:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 1)
 ```
 
-Note: MongoDB- and Redis-backed sessions are coming soon.
+MongoDB:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 1)
+```
+
 
 ## Configuration
 
@@ -199,12 +212,34 @@ if let val = request.session.data["keyString"] as? String {
 
 ## Database-Specific options
 
+### Redis
+
+Importing the module, in Package.swift:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 1)
+```
+
+Defining the connection to the PostgreSQL server:
+
+``` swift
+RedisSessionConnector.host = "localhost"
+RedisSessionConnector.port = 5432
+RedisSessionConnector.password = "secret"
+```
+
+Defining the Session Driver:
+
+``` swift
+let sessionDriver = SessionRedisDriver()
+```
+
 ### PostgreSQL
 
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 1)
 ```
 
 Defining the connection to the PostgreSQL server:
@@ -229,7 +264,7 @@ let sessionDriver = SessionPostgresDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 1)
 ```
 
 Defining the connection to the MySQL server:
@@ -254,7 +289,7 @@ let sessionDriver = SessionMySQLDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 1)
 ```
 
 Defining the connection to the SQLite server:
@@ -274,7 +309,7 @@ let sessionDriver = SessionSQLiteDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 1)
 ```
 
 Defining the CouchDB database to use for session storage:
@@ -295,4 +330,31 @@ Defining the Session Driver:
 
 ``` swift
 let sessionDriver = SessionCouchDBDriver()
+```
+
+### MongoDB
+
+Importing the module, in Package.swift:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 1)
+```
+
+Defining the CouchDB database to use for session storage:
+
+``` swift
+SessionConfig.mongoCollection = "perfectsessions"
+```
+
+Defining the connection to the CouchDB server:
+
+``` swift
+MongoDBConnection.host = "localhost"
+MongoDBConnection.database = "perfect_testing"
+```
+
+Defining the Session Driver:
+
+``` swift
+let sessionDriver = SessionMongoDBDriver()
 ```
