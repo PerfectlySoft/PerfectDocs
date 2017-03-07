@@ -268,6 +268,7 @@ consumer.stop(partId)
 Now we take a walk through:
 
 Firstly, `OnArrival()` event is a callback with a `Message` data structure:
+
 Member|Type|Description
 ------|----|-----------
 err|Exception|Error: if the message is good or not

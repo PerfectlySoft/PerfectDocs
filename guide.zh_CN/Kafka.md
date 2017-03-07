@@ -268,6 +268,7 @@ consumer.stop(partId)
 以下为上述代码的展开解释：
 
 首先，`OnArrival()`事件会提供一个`Message`数据结构：
+
 成员变量|类型|说明
 ------|----|-----------
 err|Exception|本消息包是否有误
