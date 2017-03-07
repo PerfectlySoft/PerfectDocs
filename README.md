@@ -113,6 +113,14 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [LDAP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/LDAP.md)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @kjessup
 	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
+	* [Kafka](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Kafka.md)
+	* [ZooKeeper (Linux Only)](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/ZooKeeper.md)
+	* [Hadoop](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Hadoop.md)
+		* [HDFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopWebHDFS.md)
+		* [MapReduce Master](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopMapReduceMaster.md)
+		* [MapReduce History](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopMapReduceHistory.md)
+		* [YARN Node Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopYARNNodeManager.md)
+		* [YARN Resource Manager](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopYARNResourceManager.md)
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
 	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Ubuntu1510.md)

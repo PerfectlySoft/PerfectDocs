@@ -109,6 +109,14 @@
 	* [LDAP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/LDAP.md)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @kjessup
 	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
+	* [Kafka](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Kafka.md)
+	* [ZooKeeper (Linux Only)](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/ZooKeeper.md)
+	* [Hadoop](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Hadoop.md)
+		* [HDFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HadoopWebHDFS.md)
+		* [MapReduce Master（待翻译）](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopMapReduceMaster.md)
+		* [MapReduce 历史服务器（待翻译）](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopMapReduceHistory.md)
+		* [YARN 节点管理器（待翻译）](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopYARNNodeManager.md)
+		* [YARN 资源管理器（待翻译）](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopYARNResourceManager.md)
 * [iOS 消息与通知](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/iOSNotifications.md) @kjessup
 * [发行与部署](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment.md)
 	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment-Ubuntu1510.md)

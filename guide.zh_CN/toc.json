@@ -201,6 +201,40 @@
 				{
 					"name": "LDAP",
 					"doc":  "LDAP"
+				},
+				{
+					"name": "Kafka",
+					"doc":  "Kafka"
+				},
+				{
+					"name": "ZooKeeper",
+					"doc":  "ZooKeeper"
+				},
+				{
+					"name": "Hadoop",
+					"doc":  "Hadoop",
+					"contents":[
+						{
+							"name": "HDFS",
+							"doc":  "HadoopHadoopWebHDFS"
+						},
+						{
+							"name": "MapReduce Master",
+							"doc":  "Hadoop"
+						},
+						{
+							"name": "MapReduce History",
+							"doc":  "Hadoop"
+						},
+						{
+							"name": "YARN Node Manager",
+							"doc":  "Hadoop"
+						},
+						{
+							"name": "YARN Resource Manager",
+							"doc":  "Hadoop"
+						}
+					]
 				}
 			]
 		},
