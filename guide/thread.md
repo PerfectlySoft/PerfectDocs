@@ -211,16 +211,13 @@ The system will automatically create a queue called "default". Calling the stati
 
 ### Promise
 
-A Promise is an object which is shared between one or more threads. 
-The promise will execute the closure given to it when it is created on a new thread. When the
-thread produces its return value a consumer thread will be able to obtain 
-the value or handle the error if one occurred.
+A Promise is an object which is shared between one or more threads. A promise will execute the closure/function given to it on a new thread. When the thread produces its return value a consumer thread will be able to obtain the value or handle the error if one occurred.
 
 This object is generally used in one of two ways:
 
 * By passing a closure/function which accepts zero parameters and returns some abitrary type, followed by zero or more calls to `.then`
 
-Example:
+Example: Count to three on another thread
 
 ```swift
 let v = try Promise { 1 }
@@ -234,7 +231,7 @@ Note that the closure/function given to `.then` accepts a function which must be
 
 * By passing a closure/function which is executed on another thread and accepts the Promise as a parameter. The promise can at some later point be `.set` or `.fail`'ed, with a return value or error object, respectively. The Promise creator can periodically `.get` or `.wait` for the value or error. This provides the most flexible usage as the Promise can be .set at any point, for example after a series of asynchronous API calls.
 
-Example:
+Example: Pause then set a Bool value
 		
 ```swift
 let prom = Promise<Bool> {
@@ -244,4 +241,49 @@ let prom = Promise<Bool> {
 }
 XCTAssert(try prom.get() == nil) // not fulfilled yet
 XCTAssert(try prom.wait(seconds: 3.0) == true)
+```
+
+Regardless of which method is used, the Promise's closure will immediately begin executing on a new thread.
+
+The full Promise API is as follows:
+
+```swift
+public class Promise<ReturnType> {
+	/// Initialize a Promise with a closure. The closure is passed the promise object on which the
+	/// return value or error can be later set.
+	/// The closure will be executed on a new serial thread queue and will begin 
+	/// executing immediately.
+	public init(closure: @escaping (Promise<ReturnType>) throws -> ())
+	/// Initialize a Promise with a closure. The closure will return a single value type which will
+	/// fulfill the promise.
+	/// The closure will be executed on a new serial thread queue and will begin
+	/// executing immediately.
+	public init(closure: @escaping () throws -> ReturnType)
+	/// Chain a new Promise to an existing. The provided closure will receive the previous promise's 
+	/// value once it is available and should return a new value.
+	public func then<NewType>(closure: @escaping (() throws -> ReturnType) throws -> NewType) -> Promise<NewType>
+}
+
+public extension Promise {
+	/// Get the return value if it is available.
+	/// Returns nil if the return value is not available.
+	/// If a failure has occurred then the Error will be thrown.
+	/// This is called by the consumer thread.
+	public func get() throws -> ReturnType?
+	/// Get the return value if it is available.
+	/// Returns nil if the return value is not available.
+	/// If a failure has occurred then the Error will be thrown.
+	/// Will block and wait up to the indicated number of seconds for the return value to be produced.
+	/// This is called by the consumer thread.
+	public func wait(seconds: Double = Threading.noTimeout) throws -> ReturnType?
+}
+
+public extension Promise {
+	/// Set the Promise's return value, enabling the consumer to retrieve it.
+	/// This is called by the producer thread.
+	public func set(_ value: ReturnType)
+	/// Fail the Promise and set its error value.
+	/// This is called by the producer thread.
+	public func fail(_ error: Error)
+}
 ```
