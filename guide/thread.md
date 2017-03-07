@@ -10,8 +10,9 @@ PerfectThread provides the following constructs:
 * Threading.RWLock - A many reader/single writer based thread lock
 * Threading.Event - Wait/signal/broadcast type synchronization
 * Threading.sleep - Block/pause; a single thread for a given period of time
-* Threading.ThreadQueue - Create either a serial or concurrent thread queue with a given name
+* Threading queue - Create either a serial or concurrent thread queue with a given name
 * Threading.dispatch - Dispatch a closure on a named queue
+* Promise - An API for executing one or more tasks on alternate threads and polling or waiting for return values or errors.
 
 These systems provide internal concurrency for Perfect, and are heavily used in the PerfectNet package in particular.
 
@@ -162,6 +163,7 @@ This queue system provides the following features:
 
 * Named serial queues - one thread operating, removing and executing tasks
 * Named concurrent queues - multiple threads operating, the count varying depending on the number of available CPUs, removing and executing tasks simultaneously
+* Anonymous serial or concurrent qeueues which are not shared and can be explicitly destroyed.
 * A default concurrent queue
 
 This system provides the following functions:
@@ -189,6 +191,14 @@ public extension Threading {
 	}
 	/// Find or create a queue indicated by name and type.
 	public static func getQueue(name nam: String, type: QueueType) -> ThreadQueue
+	/// Returns an anonymous queue of the indicated type.
+	/// This queue can not be utilized without the returned ThreadQueue object.
+	/// The queue should be destroyed when no longer needed.
+	public static func getQueue(type: QueueType) -> ThreadQueue
+	/// Return the default queue
+	public static func getDefaultQueue() -> ThreadQueue
+	/// Terminate and remove a thread queue.
+	public static func destroyQueue(_ queue: ThreadQueue)
 	/// Call the given closure on the "default" concurrent queue
 	/// Returns immediately.
 	public static func dispatch(closure: Threading.ThreadClosure)
@@ -199,4 +209,39 @@ Calling ```Threading.getQueue``` will create the queue if it does not already ex
 
 The system will automatically create a queue called "default". Calling the static ```Threading.dispatch``` function will always dispatch the closure on this queue.
 
+### Promise
 
+A Promise is an object which is shared between one or more threads. 
+The promise will execute the closure given to it when it is created on a new thread. When the
+thread produces its return value a consumer thread will be able to obtain 
+the value or handle the error if one occurred.
+
+This object is generally used in one of two ways:
+
+* By passing a closure/function which accepts zero parameters and returns some abitrary type, followed by zero or more calls to `.then`
+
+Example:
+
+```swift
+let v = try Promise { 1 }
+	.then { try $0() + 1 }
+	.then { try $0() + 1 }
+	.wait()
+XCTAssert(v == 3, "\(v)")
+```
+
+Note that the closure/function given to `.then` accepts a function which must be called to either throw the error produced by the previous call or return its value.
+
+* By passing a closure/function which is executed on another thread and accepts the Promise as a parameter. The promise can at some later point be `.set` or `.fail`'ed, with a return value or error object, respectively. The Promise creator can periodically `.get` or `.wait` for the value or error. This provides the most flexible usage as the Promise can be .set at any point, for example after a series of asynchronous API calls.
+
+Example:
+		
+```swift
+let prom = Promise<Bool> {
+	(p: Promise) in
+	Threading.sleep(seconds: 2.0)
+	p.set(true)
+}
+XCTAssert(try prom.get() == nil) // not fulfilled yet
+XCTAssert(try prom.wait(seconds: 3.0) == true)
+```
