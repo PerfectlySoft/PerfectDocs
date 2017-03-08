@@ -89,6 +89,10 @@
 					"doc":  "mustache"
 				},
 				{
+					"name": "Markdown",
+					"doc":  "Markdown"
+				},
+				{
 					"name": "HTTP请求日志记录",
 					"doc":  "HTTPRequestLogging"
 				}

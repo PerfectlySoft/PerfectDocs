@@ -79,6 +79,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [JSON](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/JSON.md)
 	* [Static File Content](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/staticFileContent.md)
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md)
+	* [Markdown](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Markdown.md)
 	* [HTTP Request Logging](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequestLogging.md)
 * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md)
 * [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)

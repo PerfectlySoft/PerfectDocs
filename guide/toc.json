@@ -95,6 +95,10 @@
 					"doc":  "mustache"
 				},
 				{
+					"name": "Markdown",
+					"doc":  "Markdown"
+				},
+				{
 					"name": "HTTP Request Logging",
 					"doc":  "HTTPRequestLogging"
 				}
