@@ -238,7 +238,7 @@
 					"contents":[
 						{
 							"name": "HDFS",
-							"doc":  "HadoopHadoopWebHDFS"
+							"doc":  "HadoopWebHDFS"
 						},
 						{
 							"name": "MapReduce Master",
