@@ -56,10 +56,10 @@ In order for the class to do certain things, such as taking a result set from th
 
 ``` swift
 override func to(_ this: StORMRow) {
-	id				= this.data["id"] as! Int
-	firstname		= this.data["firstname"] as! String
-	lastname		= this.data["lastname"] as! String
-	email			= this.data["email"] as! String
+	id				= this.data["id"] as? Int            ?? 0
+	firstname		= this.data["firstname"] as? String  ?? ""
+	lastname		= this.data["lastname"] as? String   ?? ""
+	email			= this.data["email"] as? String      ?? ""
 }
 
 func rows() -> [User] {
@@ -98,10 +98,10 @@ class User: PostgresStORM {
 	}
 
 	override func to(_ this: StORMRow) {
-		id				= this.data["id"] as! Int
-		firstname		= this.data["firstname"] as! String
-		lastname		= this.data["lastname"] as! String
-		email			= this.data["email"] as! String
+		id				= this.data["id"] as? Int            ?? 0
+		firstname		= this.data["firstname"] as? String  ?? ""
+		lastname		= this.data["lastname"] as? String   ?? ""
+		email			= this.data["email"] as? String      ?? ""
 	}
 
 	func rows() -> [User] {
