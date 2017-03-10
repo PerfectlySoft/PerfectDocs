@@ -104,6 +104,9 @@ SessionConfig.IPAddressLock = true
 // Optional setting to lock session to the initiating user agent string. Default is false
 SessionConfig.userAgentLock = true
 
+// The interval at which stale sessions are purged from the database
+SessionConfig.purgeInterval = 3600 // in seconds. Default is 1 hour.
+
 // CouchDB-Specific
 // The CouchDB database used to store sessions
 SessionConfig.couchDatabase = "sessions"
@@ -111,12 +114,13 @@ SessionConfig.couchDatabase = "sessions"
 // MongoDB-Specific
 // The MongoDB collection used to store sessions
 SessionConfig.mongoCollection = "sessions"
-
 ```
 
 If you wish to change the SessionConfig values, you mush set these before the Session Driver is defined.
 
 The [**CSRF** (Cross Site Request Forgery)](csrf.md) security configuration and [**CORS** (Cross Origin Resource Sharing)](cors.md) security configuration are discussed separately.
+
+Note that for the Redis session driver there is no "timed event" via the `SessionConfig.purgeInterval` as the mechanism for expiry is handled directly via the `Expires` value added at session creation or update.
 
 ### IP Address and User Agent Locks
 
