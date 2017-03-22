@@ -163,7 +163,7 @@ This queue system provides the following features:
 
 * Named serial queues - one thread operating, removing and executing tasks
 * Named concurrent queues - multiple threads operating, the count varying depending on the number of available CPUs, removing and executing tasks simultaneously
-* Anonymous serial or concurrent qeueues which are not shared and can be explicitly destroyed.
+* Anonymous serial or concurrent queues which are not shared and can be explicitly destroyed.
 * A default concurrent queue
 
 This system provides the following functions:
@@ -215,7 +215,7 @@ A Promise is an object which is shared between one or more threads. A promise wi
 
 This object is generally used in one of two ways:
 
-* By passing a closure/function which accepts zero parameters and returns some abitrary type, followed by zero or more calls to `.then`
+* By passing a closure/function which accepts zero parameters and returns some arbitrary type, followed by zero or more calls to `.then`
 
 Example: Count to three on another thread
 
