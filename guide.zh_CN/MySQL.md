@@ -453,7 +453,7 @@ func clearBinds()
 ### freeResult释放结果记录集
 
 ``` swift
-public func freeResult(
+public func freeResult()
 ```
 
 释放由SQL查询或者编译SQL语句产生的结果记录集。调用该方法时，如果编译语句中有活动的记录游标，则连同游标一并关闭。

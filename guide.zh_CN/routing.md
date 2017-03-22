@@ -87,7 +87,7 @@ routes.add(routes: api2Routes)
 
 ### 增加服务器路由
 
-在Perfect项目中，无论是HTTP 1.1服务器还是FastCGI服务器都支持路由。如果要增加路由，请调用服务器的```addRoutes```方法。```addRoutes```函数可以根据需要多次调用。一旦服务器启动监听之后，就无非再追加或修改路由表了。
+在Perfect项目中，无论是HTTP 1.1服务器还是FastCGI服务器都支持路由。如果要增加路由，请调用服务器的```addRoutes```方法。```addRoutes```函数可以根据需要多次调用。一旦服务器启动监听之后，就无法再追加或修改路由表了。
 
 ``` swift
 // 创建服务器对象
@@ -146,6 +146,6 @@ request.urlVariables[routeTrailingWildcardKey] == "/bar/baz"
 
 当服务器文档根目录```.documentRoot```属性被设置后，服务器会自动将一个结尾通配符```/**```自动路由到指定目录的静态内容上去。比如，将文档根目录设置为“./webroot”会允许服务器从该目录中读取静态文件用于完成请求响应。
 
-### Further Information
+### 更多信息
 
 关于URL路由的更多信息，请参见[URL路由](https://github.com/PerfectlySoft/PerfectExample-URLRouting)程序案例
