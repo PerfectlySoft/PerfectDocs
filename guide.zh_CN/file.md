@@ -16,6 +16,7 @@ import PerfectLib
 let thisFile = File("/path/to/file/helloWorld.txt")
 ```
 
+如果您对文件路径还不熟悉，请先阅读[目录与路径](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/dir.md)
 
 ### 打开文件用于读写操作
 
