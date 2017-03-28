@@ -111,6 +111,7 @@
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @kjessup
 	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
 	* [Kafka](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Kafka.md)
+	* [Mosquitto](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mosquitto.md)
 	* [ZooKeeper (Linux Only)](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/ZooKeeper.md)
 	* [Hadoop](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Hadoop.md)
 		* [HDFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HadoopWebHDFS.md)

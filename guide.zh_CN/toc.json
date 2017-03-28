@@ -211,6 +211,10 @@
 					"doc":  "Kafka"
 				},
 				{
+					"name": "Mosquitto",
+					"doc":  "mosquitto"
+				},
+				{
 					"name": "ZooKeeper",
 					"doc":  "ZooKeeper"
 				},

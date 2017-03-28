@@ -115,6 +115,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @kjessup
 	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
 	* [Kafka](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Kafka.md)
+	* [Mosquitto](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mosquitto.md)
 	* [ZooKeeper (Linux Only)](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/ZooKeeper.md)
 	* [Hadoop](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Hadoop.md)
 		* [HDFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopWebHDFS.md)
