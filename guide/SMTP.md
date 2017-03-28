@@ -107,3 +107,61 @@ do {
   - header: String, mail server response header string.
   - body: String, mail server response body string.
 
+## Summary
+
+For better understanding, here is the brief structure of sending emails:
+
+``` swift
+import PerfectSMTP
+
+let client = SMTPClient(url: "smtp://smtp.gmx.com", username: "yourname@youraddress.com", password:"yourpassword")
+
+var email = EMail(client: client)
+
+email.subject = "a topic"
+email.content = "a message"
+
+email.cc.append(Recipient(address: "who@where.com"))
+
+do {
+  try email.send { code, header, body in
+    /// response info from mail server
+    print(code)
+  }//end send
+}catch(let err) {
+  /// something wrong
+}
+```
+
+## Example
+
+A demo can be found here:
+[Perfect SMTP Demo](https://github.com/PerfectExamples/Perfect-SMTP-Demo)
+
+## Tips for SMTPS
+
+We've received a lot of requests about google smtp examples, Thanks for @ucotta @james and of course the official Perfect support from @iamjono, this note might be helpful for building gmail applications: ⚠️*the SMTPClient url needs to be `smtps://smtp.gmail.com:465`, and you may need to “turn on access for less secure apps” in the google settings.*⚠️
+
+Please check the SMTPS code below, note the only difference is the URL pattern:
+
+``` swift
+import PerfectSMTP
+
+let client = SMTPClient(url: "smtps://smtp.gmail.com:465", username: "yourname@gmail.com", password:"yourpassword")
+
+var email = EMail(client: client)
+
+email.subject = "a topic"
+email.content = "a message"
+
+email.cc.append(Recipient(address: "who@where.com"))
+
+do {
+  try email.send { code, header, body in
+    /// response info from mail server
+    print(code)
+  }//end send
+}catch(let err) {
+  /// something wrong
+}
+```
