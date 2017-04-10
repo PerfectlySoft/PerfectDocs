@@ -48,11 +48,11 @@ catch (let err){
 ## 用户手册
 - WebHDFS: [Perfect-HDFS](HadoopWebHDFS.md)
 - MapReduce: 
-	* [Perfect-MapReduce 应用程序接口 API] HadoopMapReduceMaster.md  ⚠️ 试验版本 ⚠️ 内容待翻译
-        * [Perfect-MapReduce 历史服务器接口 API] HadoopMapReduceHistory.md  内容待翻译
+	* [Perfect-MapReduce 应用程序接口 API](HadoopMapReduceMaster.md)  ⚠️ 试验版本 ⚠️ 
+	* [Perfect-MapReduce 历史服务器接口 API](HadoopMapReduceHistory.md)
 - YARN:
-	* [Perfect-YARN 节点管理器] HadoopYARNNodeManager.md  内容待翻译
-	* [Perfect-YARN 资源管理器] HadoopYARNResourceManager.md  内容待翻译
+	* [Perfect-YARN 节点管理器](HadoopYARNNodeManager.md)
+	* [Perfect-YARN 资源管理器](HadoopYARNResourceManager.md)
 
 
 

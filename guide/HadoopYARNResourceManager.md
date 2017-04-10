@@ -1,6 +1,6 @@
 # PerfectHadoop: YARN Resource Manager
 
-This project provides a Swift wrapper of YARN Node Manager REST API:
+This project provides a Swift wrapper of YARN Resource Manager REST API:
 
 - `YARNResourceManager()`: access to cluster information of YARN, including cluster and its metrics, scheduler, application submit, etc.
 
@@ -367,6 +367,9 @@ vCores|Int|The maximum number of cores available for a container
 ### Submit Modification to An Application
 
 Method `submit()` can submit modifications to a specific application.
+
+⚠️Note⚠️ Detail configuration of Yarn MapReduce Application is out of the range of this document, please get more information at [Hadoop MapReduce Next Generation - Writing YARN Applications https://wiki.apache.org/hadoop/WritingYarnApps](https://wiki.apache.org/hadoop/WritingYarnApps)
+
 
 ``` swift
 // create an empty application to fill in the blanks

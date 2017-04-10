@@ -203,7 +203,7 @@ totalCounterValue|Int|The counter value of all tasks
 Use `checkJobConfig()` to check configuration of a specific job:
 
 ``` swift
-gurard let config = try his.checkJobConfig(jobId: "job_1484231633049_0005") else {
+guard let config = try his.checkJobConfig(jobId: "job_1484231633049_0005") else {
 	/// something wrong
 }
 // print the configuration path
