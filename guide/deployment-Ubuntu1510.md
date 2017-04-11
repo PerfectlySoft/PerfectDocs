@@ -100,7 +100,7 @@ If you wish to install a "development snapshot" of Swift before Swift 3 has been
 
 ```
 cd /usr/src/
-wget https://swift.org/builds/swift-3.0-preview-3/ubuntu1510/swift-3.0-PREVIEW-3/swift-3.0-PREVIEW-3-ubuntu15.10.tar.gz`
+wget https://swift.org/builds/swift-3.0-preview-3/ubuntu1510/swift-3.0-PREVIEW-3/swift-3.0-PREVIEW-3-ubuntu15.10.tar.gz
 ```
 
 To install it:
