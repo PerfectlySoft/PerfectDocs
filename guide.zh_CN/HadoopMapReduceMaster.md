@@ -385,7 +385,7 @@ print(attempt.rack)
 print(attempt.state)
 print(attempt.progress)
 ```
-函数`checkJobTaskAttempt()` 调用后会返回一个 [TaskAttempt 作业子任务尝试对象](### TaskAttempt 作业子任务尝试对象) 如上文所述。
+函数`checkJobTaskAttempt()` 调用后会返回一个“TaskAttempt 作业子任务尝试对象” 如上文所述。
 
 ## Attempt State Control 作业尝试状态控制
 
