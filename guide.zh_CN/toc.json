@@ -99,6 +99,10 @@
 			]
 		},
 		{
+			"name": "WebSockets",
+			"doc":  "webSockets"
+		},
+		{
 			"name": "基本工具",
 			"doc":  "utilities",
 			"contents": [
