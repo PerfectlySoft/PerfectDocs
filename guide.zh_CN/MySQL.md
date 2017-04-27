@@ -41,7 +41,7 @@ sudo apt-get install libmysqlclient-dev
 请在您的Package.swift文件中增加“Perfect-MySQL”用于说明调用库函数的依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2)
 ```
 
 ### 声明和导入
@@ -84,8 +84,8 @@ func fetchData() {
 	}
 
 	// 选择具体的数据Schema
-   guard dataMysql.selectDatabase(named: testDB) else {
-   		Log.info(message: "数据库选择失败。错误代码：\(dataMysql.errorCode()) 错误解释：\(dataMysql.errorMessage())")
+   guard mysql.selectDatabase(named: testDB) else {
+   		Log.info(message: "数据库选择失败。错误代码：\(mysql.errorCode()) 错误解释：\(dataMysql.errorMessage())")
 		return
 	}
 }
@@ -95,7 +95,7 @@ func fetchData() {
 
 ``` swift
 func fetchData() {
-	let dataMysql = MySQL() // 创建一个MySQL连接实例
+	let mysql = MySQL() // 创建一个MySQL连接实例
 	let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
 
 	guard connected else {
@@ -116,7 +116,7 @@ Perfect允许在程序内创建表格。进一步继续前面的例子，很容�
 
 ``` swift
 func setupMySQLDB() {
-	let dataMysql = MySQL() // 创建一个MySQL连接实例
+	let mysql = MySQL() // 创建一个MySQL连接实例
 	let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
 
 	guard connected else {
@@ -139,7 +139,7 @@ func setupMySQLDB() {
 
 ``` swift
 func fetchData() {
-	let dataMysql = MySQL() // 创建一个MySQL连接实例
+	let mysql = MySQL() // 创建一个MySQL连接实例
 	let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
 	
 	guard connected else {
@@ -265,7 +265,7 @@ public func listTables(wildcard wild: String? = nil) -> [String]
 
 调用后，将返回一个字符串数组，数组中的每一个元素代表了目标数据库Schema中的不同数据表名称。
 
-### listDatabases列出所有数据库Schema
+### listDatabases 列出所有数据库
 
 ``` swift
 public func listDatabases(wildcard wild: String? = nil) -> [String]
