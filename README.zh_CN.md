@@ -128,6 +128,11 @@
 	* AWS
 	* Linode
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment-DigitalOcean.md)
+
+* 服务器性能远程监控
+	* [New Relic](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/NEWRELIC.md)
+
+
 * 平台安装说明
 	* [Ubuntu 16.04 系统服务安装指南](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/starting-services.md)
 

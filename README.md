@@ -132,6 +132,10 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* AWS
 	* Linode
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md)
+
+* Performance Profiling & Remote Monitoring
+	* [New Relic](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/NEWRELIC.md)
+
 * Platform specific Notes
 	* [Ubuntu 16.04: Starting Services at System Boot](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/starting-services.md)
 

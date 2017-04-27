@@ -251,6 +251,16 @@
 			]
 		},
 		{
+			"name": "服务器性能远程监控",
+			"doc": "profiling",
+			"contents":[
+				{
+					"name": "New Relic",
+					"doc": "NEWRELIC"
+				}
+			]
+		},
+		{
 			"name": "StORM：Swift对象关系管理（ORM）",
 			"doc":  "StORM",
 			"contents": [

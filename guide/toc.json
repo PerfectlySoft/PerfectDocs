@@ -269,6 +269,16 @@
 			]
 		},
 		{
+			"name": "Performance Profiling & Remote Monitoring",
+			"doc": "profiling",
+			"contents":[
+				{
+					"name": "New Relic",
+					"doc": "NEWRELIC"
+				}
+			]
+		},
+		{
 			"name": "StORM, a Swift ORM",
 			"doc":  "StORM",
 			"contents": [
