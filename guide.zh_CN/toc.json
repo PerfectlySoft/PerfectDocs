@@ -143,6 +143,14 @@
 					"doc":  "cURL"
 				},
 				{
+					"name": "XML",
+					"doc":  "xml"
+				},
+				{
+					"name": "INI",
+					"doc":  "ini"
+				},
+				{
 					"name": "Zip压缩",
 					"doc":  "zip"
 				},

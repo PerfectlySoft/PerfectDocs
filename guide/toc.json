@@ -169,6 +169,10 @@
 					"doc":  "xml"
 				},
 				{
+					"name": "INI",
+					"doc":  "ini"
+				},
+				{
 					"name": "Zip",
 					"doc":  "zip"
 				}

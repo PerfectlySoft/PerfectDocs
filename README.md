@@ -96,6 +96,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Remote Logging](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/logRemote.md)
 	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
 	* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md)
+	* [INI](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/ini.md)
 	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
 	* [SMTP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SMTP.md)
 	* [Google Analytics Measurement Protocol](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/GoogleAnalytics.md)

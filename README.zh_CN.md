@@ -92,7 +92,8 @@
 	* [日志](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/log.md)
 	* [日志文件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/logFiles.md)
 	* [CURL联网传输](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/cURL.md)
-	* [XML数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/xml.md) @kjessup
+	* [XML数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/xml.md)
+	* [INI配置](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/ini.md)
 	* [Zip压缩](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/zip.md)
 	* [SMTP 简单邮件协议](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SMTP.md)
 * [数据库连接器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/databaseConnectors.md)
