@@ -130,7 +130,7 @@ let t = try Transaction(nr, webType: false,
 	maxTraceSegments: 2000)
 ```
 
-#### 错误同志
+#### 错误通知
 
 Perfect NewRelic 为事务提供 `setErrorNotice()` 函数：
 
