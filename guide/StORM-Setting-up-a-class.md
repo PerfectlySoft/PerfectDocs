@@ -36,7 +36,7 @@ var lastname		: String = ""
 var email			: String = ""
 ```
 
-You will see above that the default values are set for each property rather than set via an `init()`. This is simply to make this explanation easier. If you choose to write your own `init()` or `init(_ connect: XXConnect)` function, include `super.init()` and beware of the need to add the connection property.
+You will see above that the default values are set for each property rather than set via an `init()`. This is simply to make this explanation easier. If you choose to write your own `init()` function, include `super.init()` and beware of the need to add the connection property.
 
 ### Specifying the table
 
