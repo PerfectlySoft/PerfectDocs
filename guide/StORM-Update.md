@@ -26,7 +26,7 @@ The only difference between these two is the format of the data supplied.
 Let's look at an example of how to create, then update a row:
 
 ``` swift
-let obj 		= User(connect)
+let obj 		= User()
 obj.firstname 	= "Joe"
 obj.lastname 	= "Smith"
 
@@ -55,7 +55,7 @@ Where an `.update` would be more effective, is a situation where you know all th
 This way, an update would be called directly without any initial round trip connection to the database.
 
 ``` swift
-let obj 		= User(connect)
+let obj 		= User()
 try obj.update(
 	cols: ["firstname","lastname","email"], 
 	params: ["Mickey", "Mouse", "Mickey.Mouse@mailinator.com"], 
