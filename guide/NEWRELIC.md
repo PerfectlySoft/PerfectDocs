@@ -26,7 +26,7 @@ Configure Package.swift:
 .Package(url: "https://github.com/PerfectlySoft/Perfect-NewRelic-linux.git", majorVersion: 1)
 ```
 
-Import library into your code ( ⚠️**NOTE**⚠️ Since Swift 3.1 on linux has a significant linker issue, so module `PerfectNewRelic` must be accompanied with `Foundation`):
+Import library into your code ( **NOTE** Since Swift 3.1 on linux has a significant linker issue, so module `PerfectNewRelic` must be accompanied with `Foundation`):
 
 ``` swift
 import PerfectNewRelic
