@@ -27,7 +27,7 @@ In each case, if the primary key value is specified, a successful insert will ec
 To insert a new row and return the auto-generated primary key:
 
 ``` swift
-var obj = User(connect)
+var obj = User()
 obj.id = try obj.insert(
 	cols: ["firstname","lastname","email"], 
 	params: ["Donkey", "Kong", "donkey.kong@mailinator.com"]
@@ -37,7 +37,7 @@ obj.id = try obj.insert(
 To insert a new row and return the supplied primary key:
 
 ``` swift
-var obj = User(connect)
+var obj = User()
 obj.id = try obj.insert(
 	cols: ["id","firstname","lastname","email"], 
 	params: ["10001","Donkey", "Kong", "donkey.kong@mailinator.com"]
