@@ -64,31 +64,31 @@ When including the dependency in your project's Package.swift dependencies, you 
 To include PostgresStORM:
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/Postgres-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/Postgres-StORM.git", majorVersion: 1)
 ```
 
 To include MySQLStORM:
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MySQL-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/MySQL-StORM.git", majorVersion: 1)
 ```
 
 To include SQLiteStORM:
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/SQLite-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/SQLite-StORM.git", majorVersion: 1)
 ```
 
 To include CouchDBStORM:
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/CouchDB-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/CouchDB-StORM.git", majorVersion: 1)
 ```
 
 To include MongoDBStORM:
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MongoDB-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/MongoDB-StORM.git", majorVersion: 1)
 ```
 
 Remember: after you change your `Package.swift` file, you need to regenerate your Xcode Project file using:
