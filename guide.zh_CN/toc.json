@@ -263,6 +263,10 @@
 			"doc": "profiling",
 			"contents":[
 				{
+					"name": "系统信息",
+					"doc": "SYSINFO"
+				},
+				{
 					"name": "New Relic",
 					"doc": "NEWRELIC"
 				}

@@ -131,6 +131,7 @@
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment-DigitalOcean.md)
 
 * 服务器性能远程监控
+	* [SysInfo](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SYSINFO.md)
 	* [New Relic](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/NEWRELIC.md)
 
 

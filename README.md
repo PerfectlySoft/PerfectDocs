@@ -135,6 +135,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md)
 
 * Performance Profiling & Remote Monitoring
+	* [SysInfo](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SYSINFO.md)
 	* [New Relic](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/NEWRELIC.md)
 
 * Platform specific Notes

@@ -277,6 +277,10 @@
 			"doc": "profiling",
 			"contents":[
 				{
+					"name": "System Information",
+					"doc": "SYSINFO"
+				},
+				{
 					"name": "New Relic",
 					"doc": "NEWRELIC"
 				}
