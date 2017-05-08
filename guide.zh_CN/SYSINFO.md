@@ -158,3 +158,63 @@ if let net = SysInfo.Net {
   (interface: "virbr0-nic", i: 0, o: 0)
 ]
 ```
+
+
+### 磁盘读写监控
+
+调用静态方法 `SysInfo.Disk` 可以获得磁盘当前活动统计数据，返回结果为一个 `[String:[String: UInt64]]` 字典，如下所示。关于这些参数指标，请参考操作系统手册。
+
+#### Linux 发行说明
+
+``` swift
+print(SysInfo.Disk)
+
+// Linux 典型输出
+[
+  "sda":
+    [
+      "io_ms": 7516, "reads_merged": 17, "reads_completed": 14993,
+      "writing_ms": 9772, "io_in_progress": 0, "writes_completed": 4921,
+      "sectors_read": 1292762, "reading_ms": 11952, "writes_merged": 5738,
+      "sectors_written": 969480, "weighte_io_ms": 21636
+    ],
+  "sda2":
+    [
+      "io_ms": 0, "reads_merged": 0, "reads_completed": 4,
+      "writing_ms": 0, "io_in_progress": 0, "writes_completed": 0,
+      "sectors_read": 8, "reading_ms": 0, "writes_merged": 0,
+      "sectors_written": 0, "weighte_io_ms": 0
+    ],
+  "sda1":
+    [
+      "io_ms": 7252, "reads_merged": 7, "reads_completed": 14817,
+      "writing_ms": 9520, "io_in_progress": 0, "writes_completed": 3971,
+      "sectors_read": 1281954, "reading_ms": 11908, "writes_merged": 5426,
+      "sectors_written": 966696, "weighte_io_ms": 21340
+    ]
+]
+
+```
+
+#### Mac OS X 发行说明
+
+请注意如果在循环内使用 `SysInfo.Disk`，则强烈建议增加 `autoreleasepool{ }` 闭包，用于避免不必要的内存堆积：
+
+``` swift
+
+autoreleasepool(invoking: {
+  let io = SysInfo.Disk
+  print(io)
+})
+
+// macOS下的参考输出
+[
+  "disk0":
+    [
+      "operations_read": 501077, "latency_time_read": 0,
+      "bytes_written": 21265645056, "bytes_read": 25022815232,
+      "operations_written": 360598, "latency_time_written": 0
+    ]
+]
+```
+

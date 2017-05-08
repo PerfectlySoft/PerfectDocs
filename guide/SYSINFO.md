@@ -158,3 +158,62 @@ If success, it will print something like these mac  / linux outputs:
   (interface: "virbr0-nic", i: 0, o: 0)
 ]
 ```
+
+
+### Disk IO
+
+Call static method `SysInfo.Disk` may inspect disk i/o activity statistics in real time. It will return a `[String:[String: UInt64]]` dictionary with metrics as sample below. For more information of these counters, please refer to the operating system manual.
+
+#### Linux Release Notes
+
+``` swift
+print(SysInfo.Disk)
+
+// here is a sample output from Linux:
+[
+  "sda":
+    [
+      "io_ms": 7516, "reads_merged": 17, "reads_completed": 14993,
+      "writing_ms": 9772, "io_in_progress": 0, "writes_completed": 4921,
+      "sectors_read": 1292762, "reading_ms": 11952, "writes_merged": 5738,
+      "sectors_written": 969480, "weighte_io_ms": 21636
+    ],
+  "sda2":
+    [
+      "io_ms": 0, "reads_merged": 0, "reads_completed": 4,
+      "writing_ms": 0, "io_in_progress": 0, "writes_completed": 0,
+      "sectors_read": 8, "reading_ms": 0, "writes_merged": 0,
+      "sectors_written": 0, "weighte_io_ms": 0
+    ],
+  "sda1":
+    [
+      "io_ms": 7252, "reads_merged": 7, "reads_completed": 14817,
+      "writing_ms": 9520, "io_in_progress": 0, "writes_completed": 3971,
+      "sectors_read": 1281954, "reading_ms": 11908, "writes_merged": 5426,
+      "sectors_written": 966696, "weighte_io_ms": 21340
+    ]
+]
+
+```
+
+#### Mac OS X Release Notes
+
+Please note that if using `SysInfo.Disk` in a loop, then an `autoreleasepool{ }` is strongly recommend to avoid unnecessary memory caching on such objects:
+
+``` swift
+
+autoreleasepool(invoking: {
+  let io = SysInfo.Disk
+  print(io)
+})
+
+// here is the sample output from macOS:
+[
+  "disk0":
+    [
+      "operations_read": 501077, "latency_time_read": 0,
+      "bytes_written": 21265645056, "bytes_read": 25022815232,
+      "operations_written": 360598, "latency_time_written": 0
+    ]
+]
+```
