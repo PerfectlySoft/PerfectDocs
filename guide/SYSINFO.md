@@ -34,8 +34,7 @@ Call static variable `SysInfo.CPU` will return a dictionary `[String: [String: I
 
 print(SysInfo.CPU)
 
-/*
-here is a typical return of single CPU:
+//here is a typical return of single CPU (from Linux): 
 
 [
   "cpu0":
@@ -44,7 +43,7 @@ here is a typical return of single CPU:
     ["nice": 1201, "system": 3598, "user": 8432, "idle": 8657606]
 ]
 
-and the following is another example with 8 cores:
+// and the following is another example with 8 cores (from Mac):
 [
   "cpu3":
     ["user": 18095, "idle": 9708265, "nice": 0, "system": 16177],
@@ -62,8 +61,8 @@ and the following is another example with 8 cores:
     ["user": 17708, "idle": 9708996, "nice": 0, "system": 15950],
   "cpu4":
     ["user": 647701, "idle": 8800643, "nice": 0, "system": 294544],
-  "cpu6": ["user": 656136, "idle": 8793002, "nice": 0, "system": 293640]]
-*/
+  "cpu6": ["user": 656136, "idle": 8793002, "nice": 0, "system": 293640]
+]
 
 ```
 
@@ -83,7 +82,7 @@ print(SysInfo.Memory)
 
 Typical Linux memory looks like this ( 1G total memory with about 599MB available):
 
-```
+``` swift
 [
   "Inactive": 283, "MemTotal": 992, "CmaFree": 0,
   "VmallocTotal": 33554431, "CmaTotal": 0, "Mapped": 74,
@@ -105,7 +104,7 @@ Typical Linux memory looks like this ( 1G total memory with about 599MB availabl
 
 And here is a typical mac OS X memory summary, which indicates that there is about 4.5GB free memory:
 
-```
+``` swift
 [
   "hits": 0, "faults": 3154324, "cow": 31476,
   "wired": 3576, "reactivations": 366, "zero_filled": 2296248,
@@ -117,7 +116,7 @@ And here is a typical mac OS X memory summary, which indicates that there is abo
 
 ### Network Traffic
 
-Call static property `SysInfo.Net` will return total traffic summary from all interfaces as a tuple array `[(interface: String, i: Int, o: Int)]` where interface represents the network interface name, `i` stands for receiving and `o` for transmitting, both in KB:
+Call static property `SysInfo.Net` will return total traffic summary from all interfaces as a dictionary `[String: [String: Int]]` where the key represents the network interface name, and the value is a detailed dictionary with two key-value pairs - `i` stands for receiving and `o` for transmitting, both in KB:
 
 ``` swift
 
@@ -129,36 +128,35 @@ if let net = SysInfo.Net {
 
 If success, it will print something like these mac  / linux outputs:
 
-```
+``` swift
 // typical mac os x network summary, where the only physical network
-// adapter "en0" has 2MB incoming data totally.
+// adapter "en0" has 1MB incoming data totally.
 
 [
-  (interface: "lo0", i: 1030, o: 0),
-  (interface: "gif0", i: 0, o: 0),
-  (interface: "stf0", i: 0, o: 0),
-  (interface: "en0", i: 2158, o: 0),
-  (interface: "en1", i: 0, o: 0),
-  (interface: "en2", i: 0, o: 0),
-  (interface: "bridge0", i: 0, o: 0),
-  (interface: "p2p0", i: 0, o: 0),
-  (interface: "awdl0", i: 9, o: 0),
-  (interface: "utun0", i: 0, o: 0),
-  (interface: "vboxnet0", i: 26, o: 0)
+	"p2p0": ["o": 0, "i": 0], 
+	"stf0": ["o": 0, "i": 0], 
+	"vboxnet0": ["o": 0, "i": 1], 
+	"gif0": ["o": 0, "i": 0], 
+	"lo0": ["o": 0, "i": 887], 
+	"bridge0": ["o": 0, "i": 0], 
+	"utun0": ["o": 0, "i": 0], 
+	"awdl0": ["o": 0, "i": 318], 
+	"en1": ["o": 0, "i": 0], 
+	"en0": ["o": 0, "i": 1063], 
+	"en2": ["o": 0, "i": 0]
 ]
 
 // typical linux network summary, where the only physical network
-// adapter "enp0s3" has received 4MB data and sent out 74KB in the same time.
+// adapter "enp0s3" has received 0.6MB data and sent out 506KB in the same time.
 
 [
-  (interface: "enp0s8", i: 527, o: 901),
-  (interface: "enp0s3", i: 4354, o: 74),
-  (interface: "lo", i: 840, o: 840),
-  (interface: "virbr0", i: 0, o: 0),
-  (interface: "virbr0-nic", i: 0, o: 0)
+	"virbr0": ["o": 0, "i": 0], 
+	"enp0s8": ["o": 506, "i": 614], 
+	"virbr0-nic": ["o": 0, "i": 0], 
+	"lo": ["o": 1804, "i": 1804], 
+	"enp0s3": ["o": 158, "i": 7594]
 ]
 ```
-
 
 ### Disk IO
 

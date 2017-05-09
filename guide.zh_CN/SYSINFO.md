@@ -36,8 +36,7 @@ import PerfectSysInfo
 
 print(SysInfo.CPU)
 
-/*
-典型的单核处理器统计结果：
+// 典型的单核处理器统计结果（Linux）：
 
 [
   "cpu0":
@@ -46,7 +45,7 @@ print(SysInfo.CPU)
     ["nice": 1201, "system": 3598, "user": 8432, "idle": 8657606]
 ]
 
-下面是另外一个例子，8核处理器统计结果：
+// 下面是另外一个例子，8核处理器统计结果（Mac OS）：
 [
   "cpu3":
     ["user": 18095, "idle": 9708265, "nice": 0, "system": 16177],
@@ -64,8 +63,8 @@ print(SysInfo.CPU)
     ["user": 17708, "idle": 9708996, "nice": 0, "system": 15950],
   "cpu4":
     ["user": 647701, "idle": 8800643, "nice": 0, "system": 294544],
-  "cpu6": ["user": 656136, "idle": 8793002, "nice": 0, "system": 293640]]
-*/
+  "cpu6": ["user": 656136, "idle": 8793002, "nice": 0, "system": 293640]
+]
 
 ```
 
@@ -86,7 +85,7 @@ print(SysInfo.Memory)
 
 比如调用上述命令后，一个典型的Linux系统将输出如下报告（1G内存，大约599兆可用）：
 
-```
+``` swift
 [
   "Inactive": 283, "MemTotal": 992, "CmaFree": 0,
   "VmallocTotal": 33554431, "CmaTotal": 0, "Mapped": 74,
@@ -108,7 +107,7 @@ print(SysInfo.Memory)
 
 而下面则是一个典型的mac OS X内存摘要，看起来还有 4.5GB 空闲内存：
 
-```
+``` swift
 [
   "hits": 0, "faults": 3154324, "cow": 31476,
   "wired": 3576, "reactivations": 366, "zero_filled": 2296248,
@@ -120,7 +119,7 @@ print(SysInfo.Memory)
 
 ### 网络流量
 
-调用静态属性 `SysInfo.Net` 可以获得当前所有网卡流量统计，以三元组数组 `[(interface: String, i: Int, o: Int)]` 统计，其中`interface`为网络适配器名称， `i` 表示接收字节数，`o` 表示发送字节数，二者单位都是“KB”（千字节）
+调用静态属性 `SysInfo.Net` 可以获得当前所有网卡流量统计，以字典 `[String:[String:Int]]` 统计，其中条目为网络适配器名称，对应的子项字典中有两个条目： `i` 表示接收字节数，`o` 表示发送字节数，二者单位都是“KB”（千字节）
 
 ``` swift
 
@@ -133,32 +132,31 @@ if let net = SysInfo.Net {
 
 如果调用成功，则会根据操作系统是 mac 还是 linux 不同，输出以下结果:
 
-```
-// 典型的 mac OS X 网络统计结果，可以看到其中真正的网卡"en0"收到了2MB数据。
+``` swift
+// 典型的 mac OS X 网络统计结果，可以看到其中真正的网卡"en0"收到了1MB数据。
 [
-  (interface: "lo0", i: 1030, o: 0),
-  (interface: "gif0", i: 0, o: 0),
-  (interface: "stf0", i: 0, o: 0),
-  (interface: "en0", i: 2158, o: 0),
-  (interface: "en1", i: 0, o: 0),
-  (interface: "en2", i: 0, o: 0),
-  (interface: "bridge0", i: 0, o: 0),
-  (interface: "p2p0", i: 0, o: 0),
-  (interface: "awdl0", i: 9, o: 0),
-  (interface: "utun0", i: 0, o: 0),
-  (interface: "vboxnet0", i: 26, o: 0)
+	"p2p0": ["o": 0, "i": 0], 
+	"stf0": ["o": 0, "i": 0], 
+	"vboxnet0": ["o": 0, "i": 1], 
+	"gif0": ["o": 0, "i": 0], 
+	"lo0": ["o": 0, "i": 887], 
+	"bridge0": ["o": 0, "i": 0], 
+	"utun0": ["o": 0, "i": 0], 
+	"awdl0": ["o": 0, "i": 318], 
+	"en1": ["o": 0, "i": 0], 
+	"en0": ["o": 0, "i": 1063], 
+	"en2": ["o": 0, "i": 0]
 ]
 
-// 典型的 Linux 网络统计结果，可以看到其中真正的网卡 "enp0s3" 收到了 4MB 数据并发出了 74KB 字节。
+// 典型的 Linux 网络统计结果，可以看到其中真正的网卡 "enp0s3" 收到了 0.6MB 数据并发出了 506KB 字节。
 [
-  (interface: "enp0s8", i: 527, o: 901),
-  (interface: "enp0s3", i: 4354, o: 74),
-  (interface: "lo", i: 840, o: 840),
-  (interface: "virbr0", i: 0, o: 0),
-  (interface: "virbr0-nic", i: 0, o: 0)
+	"virbr0": ["o": 0, "i": 0], 
+	"enp0s8": ["o": 506, "i": 614], 
+	"virbr0-nic": ["o": 0, "i": 0], 
+	"lo": ["o": 1804, "i": 1804], 
+	"enp0s3": ["o": 158, "i": 7594]
 ]
 ```
-
 
 ### 磁盘读写监控
 
@@ -217,4 +215,3 @@ autoreleasepool(invoking: {
     ]
 ]
 ```
-
