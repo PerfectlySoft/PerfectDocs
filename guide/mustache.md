@@ -78,7 +78,7 @@ The following snippet illustrates how to use a Mustache template in your URL han
 }
 ```
 
-Look at the [UploadEnumerator](https://github.com/PerfectlySoft/PerfectExample-UploadEnumerator) example for a more concrete example.
+Look at the [UploadEnumerator](https://github.com/PerfectExamples/Perfect-UploadEnumerator) example for a more concrete example.
 
 ### Standalone Usage
 
