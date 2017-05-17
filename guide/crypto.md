@@ -18,7 +18,7 @@ The underlying cryptography library requires a one-time initialization to be per
 
 Much of the functionality provided by this package is through extensions on several of the Swift builtin types, namely: `String`, `Array<UInt8>`, `UnsafeRawBufferPointer`, and `UnsafeMutableRawBufferPointer`. The extensions mainly consist of adding `encode/decode`, `encrypt/decrypt` and `digest` functions for these types. Others provide convenience functions for dealing with raw binary data, generating random data, etc.
 
-The extensions are listed below in order of "convenience". The higher level functions are listed first and the more effecient "unsafes" are listed at the end.
+The extensions are listed below in order of "convenience". The higher level functions are listed first and the more efficient "unsafes" are listed at the end.
 
 ### String
 
@@ -97,9 +97,9 @@ public extension Array where Element: Octal {
 	func decode(_ encoding: Encoding) -> [UInt8]?
 	/// Digest the Array data into an array of bytes using the indicated algorithm.
 	func digest(_ digest: Digest) -> [UInt8]?
-	/// Decrypt this buffer using the indicated cipher, key an iv (initialization vector)
-	func encrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
 	/// Encrypt this buffer using the indicated cipher, key an iv (initialization vector)
+	func encrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
+	/// Decrypt this buffer using the indicated cipher, key an iv (initialization vector)
 	func decrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
 }
 ```
@@ -201,7 +201,7 @@ public extension UnsafeRawBufferPointer {
 }
 ```
 
-It's very important to adhere to the proper memory ownership guidlines when using these functions. Any `UnsafeMutableRawBufferPointer` returned by one of these functions must at some point be deallocated by the caller. All such return buffers will properly have their `.count` properties set to indicate their size. No `UnsafeRawBufferPointer` passed into a function will be deallocated or otherwise modified.
+It's very important to adhere to the proper memory ownership guidelines when using these functions. Any `UnsafeMutableRawBufferPointer` returned by one of these functions must at some point be deallocated by the caller. All such return buffers will properly have their `.count` properties set to indicate their size. No `UnsafeRawBufferPointer` passed into a function will be deallocated or otherwise modified.
 
 ## Algorithms
 
@@ -211,5 +211,5 @@ The available encoding, digest and cipher algorithms are enumerated in the `Enco
 * Digest: md4, md5, sha, sha1, dss, dss1, ecdsa, sha224, sha256, sha384, sha512, ripemd160, whirlpool, custom(String)
 * Cipher: des\_ecb, des\_ede, des\_ede3, des\_ede\_ecb, des\_ede3\_ecb, des\_cfb64, des\_cfb1, des\_cfb8, des\_ede\_cfb64, des\_ede3\_cfb1, des\_ede3\_cfb8, des\_ofb, des\_ede\_ofb, des\_ede3\_ofb, des\_cbc, des\_ede\_cbc, des\_ede3\_cbc, desx\_cbc, des\_ede3\_wrap, rc4, rc4\_40, rc4\_hmac\_md5, rc2\_ecb, rc2\_cbc, rc2\_40\_cbc, rc2\_64\_cbc, rc2\_cfb64, rc2\_ofb, bf\_ecb, bf\_cbc, bf\_cfb64, bf\_ofb, cast5\_ecb, cast5\_cbc, cast5\_cfb64, cast5\_ofb, aes\_128\_ecb, aes\_128\_cbc, aes\_128\_cfb1, aes\_128\_cfb8, aes\_128\_cfb128, aes\_128\_ofb, aes\_128\_ctr, aes\_128\_ccm, aes\_128\_gcm, aes\_128\_xts, aes\_128\_wrap, aes\_192\_ecb, aes\_192\_cbc, aes\_192\_cfb1, aes\_192\_cfb8, aes\_192\_cfb128, aes\_192\_ofb, aes\_192\_ctr, aes\_192\_ccm, aes\_192\_gcm, aes\_192\_wrap, aes\_256\_ecb, aes\_256\_cbc, aes\_256\_cfb1, aes\_256\_cfb8, aes\_256\_cfb128, aes\_256\_ofb, aes\_256\_ctr, aes\_256\_ccm, aes\_256\_gcm, aes\_256\_xts, aes\_256\_wrap, aes\_128\_cbc\_hmac\_sha1, aes\_256\_cbc\_hmac\_sha1, aes\_128\_cbc\_hmac\_sha256, aes\_256\_cbc\_hmac\_sha256, camellia\_128\_ecb, camellia\_128\_cbc, camellia\_128\_cfb1, camellia\_128\_cfb8, camellia\_128\_cfb128, camellia\_128\_ofb, camellia\_192\_ecb, camellia\_192\_cbc, camellia\_192\_cfb1, camellia\_192\_cfb8, camellia\_192\_cfb128, camellia\_192\_ofb, camellia\_256\_ecb, camellia\_256\_cbc, camellia\_256\_cfb1, camellia\_256\_cfb8, camellia\_256\_cfb128, camellia\_256\_ofb, seed\_ecb, seed\_cbc, seed\_cfb128, seed\_ofb, custom(String)
 
-The Digest and Cipher enums provide a `custom` case which can be used to indicate the digest or encoding by name. This can be useful if your system includes additional algorithms which are not made explicitly available by this package. All of the digest and cipher algorithms are implimented by the underlaying crypto library (OpenSSL). Some of the encodings are implemented by the underlying library but others may be implemented directly by this package (hex, for example).
+The Digest and Cipher enums provide a `custom` case which can be used to indicate the digest or encoding by name. This can be useful if your system includes additional algorithms which are not made explicitly available by this package. All of the digest and cipher algorithms are implemented by the underlaying crypto library (OpenSSL). Some of the encodings are implemented by the underlying library but others may be implemented directly by this package (hex, for example).
 
