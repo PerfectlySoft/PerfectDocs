@@ -151,6 +151,10 @@
 					"doc":  "ini"
 				},
 				{
+					"name": "Crypto 加密",
+					"doc":  "crypto"
+				},
+				{
 					"name": "Zip压缩",
 					"doc":  "zip"
 				},

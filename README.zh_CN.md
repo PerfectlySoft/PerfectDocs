@@ -95,6 +95,7 @@
 	* [XML数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/xml.md)
 	* [INI配置](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/ini.md)
 	* [Zip压缩](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/zip.md)
+	* [Crypto 加密](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/crypto.md)
 	* [SMTP 简单邮件协议](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SMTP.md)
 * [数据库连接器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SQLite.md)

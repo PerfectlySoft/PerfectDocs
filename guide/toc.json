@@ -173,6 +173,10 @@
 					"doc":  "ini"
 				},
 				{
+					"name": "Crypto",
+					"doc":  "crypto"
+				},
+				{
 					"name": "Zip",
 					"doc":  "zip"
 				}
