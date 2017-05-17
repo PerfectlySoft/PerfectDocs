@@ -65,7 +65,7 @@ if let digestBytes = testStr.digest(.sha256),
 }
 ```
 
-第二组字符串扩展是从C语言字符串，也就是**可变长零结尾字符串**直接创建Swift标准字符串的方法，输入类型可以是 `[UInt8]` 或 `UnsafeRawBufferPointer`。
+第二组字符串扩展是从**非零结尾字符串**直接创建Swift标准字符串的方法，输入类型可以是 `[UInt8]` 或 `UnsafeRawBufferPointer`。
 
 ```swift
 public extension String {
