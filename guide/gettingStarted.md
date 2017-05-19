@@ -40,6 +40,8 @@ Perfect runs in Ubuntu Linux 14.04, 15.10 and 16.04 environments. Perfect relies
 sudo apt-get install openssl libssl-dev uuid-dev
 ```
 
+When building on Linux, OpenSSL 1.0.2+ is required for this package. On Ubuntu 14 or some Debian distributions you will need to update your OpenSSL before this package will build.
+
 ## Getting Started with Perfect
 
 Now you’re ready to build your first web application starter project.

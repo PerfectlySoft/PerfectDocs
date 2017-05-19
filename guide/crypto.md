@@ -2,9 +2,12 @@
 
 The Perfect-Crypto package is a general purpose cryptography library built on OpenSSL. It provides high level objects for dealing with the following cryptographic tasks:
 
-* Message digests and hashes
+* Message digests and hashes, sign/verify
 * Cipher based encryption/decryption
 * Random data generation of arbitrary byte lengths
+* HMAC key generation
+* PEM format public/private key reading
+* JWT (JSON Web Token) creation and validation
 
 It also provides some encoding related functions which are generally useful but are commonly used along with cryptography, particularly when converting binary data to and from a character printable state.
 
@@ -16,7 +19,7 @@ The underlying cryptography library requires a one-time initialization to be per
 
 ## Extensions
 
-Much of the functionality provided by this package is through extensions on several of the Swift builtin types, namely: `String`, `Array<UInt8>`, `UnsafeRawBufferPointer`, and `UnsafeMutableRawBufferPointer`. The extensions mainly consist of adding `encode/decode`, `encrypt/decrypt` and `digest` functions for these types. Others provide convenience functions for dealing with raw binary data, generating random data, etc.
+Much of the functionality provided by this package is through extensions on several of the Swift builtin types, namely: `String`, `Array<UInt8>`, `UnsafeRawBufferPointer`, and `UnsafeMutableRawBufferPointer`. The extensions mainly consist of adding `encode/decode`, `encrypt/decrypt`, `sign/verify` and `digest` functions for these types. Others provide convenience functions for dealing with raw binary data, generating random data, etc.
 
 The extensions are listed below in order of "convenience". The higher level functions are listed first and the more effecient "unsafes" are listed at the end.
 
@@ -32,8 +35,13 @@ public extension String {
 	/// Encode the String into an array of bytes using the indicated encoding.
 	/// The string's UTF8 characters are encoded.
 	func encode(_ encoding: Encoding) -> [UInt8]?
-	/// Perform the digest algorithm on the String's UTF8 bytes
+	/// Perform the digest algorithm on the String's UTF8 bytes.
 	func digest(_ digest: Digest) -> [UInt8]?
+	/// Sign the String data into an array of bytes using the indicated algorithm and key.
+	func sign(_ digest: Digest, key: Key) -> [UInt8]?
+	/// Verify the signature against the String data.
+	/// Returns true if the signature is verified. Returns false otherwise.
+	func verify(_ digest: Digest, signature: [UInt8], key: Key) -> Bool
 }
 ```
 
@@ -65,7 +73,9 @@ if let digestBytes = testStr.digest(.sha256),
 }
 ```
 
-The second group of String extension add convenience functions for creating a String from *non null terminated* UTF-8 characters. These characters can be given through either a `[UInt8]` or `UnsafeRawBufferPointer`.
+The `sign` and `verify` functions permit a block of data to be cryptographically signed using a specified key and then later verified to ensure that the data has not been modified in any way. Signing can be done with either HMAC, RSA or EC type keys.
+
+The second group of String extensions add convenience functions for creating a String from *non null terminated* UTF-8 characters. These characters can be given through either a `[UInt8]` or `UnsafeRawBufferPointer`.
 
 ```swift
 public extension String {
@@ -97,9 +107,14 @@ public extension Array where Element: Octal {
 	func decode(_ encoding: Encoding) -> [UInt8]?
 	/// Digest the Array data into an array of bytes using the indicated algorithm.
 	func digest(_ digest: Digest) -> [UInt8]?
-	/// Decrypt this buffer using the indicated cipher, key an iv (initialization vector)
+	/// Sign the Array data into an array of bytes using the indicated algorithm and key.
+	func sign(_ digest: Digest, key: Key) -> [UInt8]?
+	/// Verify the array against the signature.
+	/// Returns true if the signature is verified. Returns false otherwise.
+	func verify(_ digest: Digest, signature: [UInt8], key: Key) -> Bool
+	/// Decrypt this buffer using the indicated cipher, key an iv (initialization vector).
 	func encrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
-	/// Encrypt this buffer using the indicated cipher, key an iv (initialization vector)
+	/// Encrypt this buffer using the indicated cipher, key an iv (initialization vector).
 	func decrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
 }
 ```
@@ -192,10 +207,16 @@ public extension UnsafeRawBufferPointer {
 	/// Digest the buffer using the indicated algorithm.
 	/// The return value must be deallocated by the caller.
 	func digest(_ digest: Digest) -> UnsafeMutableRawBufferPointer?
-	/// Encrypt this buffer using the indicated cipher, key and iv (initialization vector)
+	/// Sign the buffer using the indicated algorithm and key.
+	/// The return value must be deallocated by the caller.
+	func sign(_ digest: Digest, key: Key) -> UnsafeMutableRawBufferPointer?
+	/// Verify the signature against the buffer.
+	/// Returns true if the signature is verified. Returns false otherwise.
+	func verify(_ digest: Digest, signature: UnsafeRawBufferPointer, key: Key) -> Bool
+	/// Encrypt this buffer using the indicated cipher, key and iv (initialization vector).
 	/// Returns a newly allocated buffer which must be freed by the caller.
 	func encrypt(_ cipher: Cipher, key: UnsafeRawBufferPointer, iv: UnsafeRawBufferPointer) -> UnsafeMutableRawBufferPointer?
-	/// Decrypt this buffer using the indicated cipher, key and iv (initialization vector)
+	/// Decrypt this buffer using the indicated cipher, key and iv (initialization vector).
 	/// Returns a newly allocated buffer which must be freed by the caller.
 	func decrypt(_ cipher: Cipher, key: UnsafeRawBufferPointer, iv: UnsafeRawBufferPointer) -> UnsafeMutableRawBufferPointer?
 }
