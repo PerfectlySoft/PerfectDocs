@@ -9,7 +9,7 @@ The act of creating and saving a record is remarkably similar: The `save` method
 To create a new row:
 
 ``` swift
-let obj 		= User(connect)
+let obj 		= User()
 obj.firstname 	= "Joe"
 obj.lastname 	= "Smith"
 
@@ -36,7 +36,7 @@ Here, you will need to invoke the `.create()` method instead.
 This forces an insert instead, using your value for the primary key.
 
 ``` swift
-let obj 		= User(connect)
+let obj 		= User()
 obj.id			= 10001
 obj.firstname	= "Mister"
 obj.lastname	= "PotatoHead"
@@ -69,7 +69,7 @@ There are three ways to retrieve one or more rows: `.get`, `.find`, and `.select
 The `.get` methods will attempt to retrieve rows via an exact primary key column match.
 
 ``` swift
-let obj = User(connect)
+let obj = User()
 try obj.get(1)
 print("User's name: \(obj.firstname) \(obj.lastname)")
 ```
@@ -77,7 +77,7 @@ print("User's name: \(obj.firstname) \(obj.lastname)")
 The user id can also be set before the `.get` is performed:
 
 ``` swift
-let obj 	= User(connect)
+let obj 	= User()
 obj.id 		= 2
 try obj.get()
 print("User's name: \(obj.firstname) \(obj.lastname)")
@@ -88,7 +88,7 @@ print("User's name: \(obj.firstname) \(obj.lastname)")
 `.find` will perform an exact match on the name/value pairs supplied.
 
 ``` swift
-let obj = User(connect)
+let obj = User()
 try obj.find([("firstname", "Joe")])
 print("Find Record:  \(obj.id), \(obj.firstname), \(obj.lastname)")
 ```
@@ -129,12 +129,12 @@ cursor:			StORMCursor
 Deleting a row is done in a similar way to the `.get` method: it can be done by supplying a primary key, or by deleting the currently held row.
 
 ``` swift
-let obj = User(connect)
+let obj = User()
 try obj.delete(1)
 ```
 
 ``` swift
-let obj = User(connect)
+let obj = User()
 obj.id = 1
 try obj.delete()
 ```

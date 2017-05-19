@@ -92,8 +92,10 @@
 	* [日志](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/log.md)
 	* [日志文件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/logFiles.md)
 	* [CURL联网传输](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/cURL.md)
-	* [XML数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/xml.md) @kjessup
+	* [XML数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/xml.md)
+	* [INI配置](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/ini.md)
 	* [Zip压缩](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/zip.md)
+	* [Crypto 加密](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/crypto.md)
 	* [SMTP 简单邮件协议](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SMTP.md)
 * [数据库连接器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SQLite.md)
@@ -111,13 +113,14 @@
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @kjessup
 	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
 	* [Kafka](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Kafka.md)
+	* [Mosquitto](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mosquitto.md)
 	* [ZooKeeper (Linux Only)](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/ZooKeeper.md)
 	* [Hadoop](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Hadoop.md)
 		* [HDFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HadoopWebHDFS.md)
-		* [MapReduce Master（待翻译）](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopMapReduceMaster.md)
-		* [MapReduce 历史服务器（待翻译）](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopMapReduceHistory.md)
-		* [YARN 节点管理器（待翻译）](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopYARNNodeManager.md)
-		* [YARN 资源管理器（待翻译）](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopYARNResourceManager.md)
+		* [MapReduce Master 应用程序服务器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopMapReduceMaster.md)
+		* [MapReduce 历史服务器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopMapReduceHistory.md)
+		* [YARN 节点管理器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopYARNNodeManager.md)
+		* [YARN 资源管理器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopYARNResourceManager.md)
 * [iOS 消息与通知](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/iOSNotifications.md) @kjessup
 * [发行与部署](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment.md)
 	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment-Ubuntu1510.md)
@@ -127,6 +130,12 @@
 	* AWS
 	* Linode
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment-DigitalOcean.md)
+
+* 服务器性能远程监控
+	* [SysInfo](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SYSINFO.md)
+	* [New Relic](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/NEWRELIC.md)
+
+
 * 平台安装说明
 	* [Ubuntu 16.04 系统服务安装指南](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/starting-services.md)
 

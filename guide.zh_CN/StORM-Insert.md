@@ -20,7 +20,7 @@ insert(cols: [String], params: [Any], idcolumn: String)
 
 `insert(cols: [String], params: [Any], idcolumn: String)` 允许指定主索引所在列，执行后主索引值将被返回。
 
-上述各种情况下只要主索引被确定了，调用时都会把数索引值一同返回。
+上述各种情况下只要主索引被确定了，调用时都会把索引值一同返回。
 
 ## 使用插入方法
 

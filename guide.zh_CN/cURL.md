@@ -202,3 +202,22 @@ curlObject.reset()
 ```swift
 curlObject.close()
 ```
+
+### 提交表单
+
+*注意* 该功能自 2.0.7 版以后生效
+
+某种情况下服务器会要求在正式接收表单之前使用 100-continue 请求头，此时`CURL.POSTFields()` 数据结构能够非常有效：
+
+``` swift
+let fields = CURL.POSTFields()
+
+// 用一个字符串变量填写表单
+_ = fields.append(key: "变量名", value: "字符串值")
+
+// 增加一个文件上传
+_ = fields.append(key: "文件变量", path: "/路径名/变量名")
+
+// 在请求中加入表单
+_ = curl.formAddPost(fields: fields)
+```

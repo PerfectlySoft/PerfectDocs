@@ -33,6 +33,7 @@ let app = MapReduceApplication(applicationId: "application_12345678_xxxxxx", hos
 
 
 ### Parameters of MapReduceApplication Object
+
 Item|Data Type|Description
 ----|---------|-----------
 applicationId|String|the id string of the application to control. *Required* 
@@ -42,7 +43,7 @@ port|Int|the port of map reduce application master host, default is 8088
 auth| Authorization| .off or .krb5. Default value is .off
 proxyUser|String|proxy user, if applicable
 apibase|String|use this parameter *ONLY* the target server has a different api routine other than `/ws/v1/mapreduce`
-timeout`:Int, timeout in seconds, zero means never timeout during transfer
+timeout|Int|timeout in seconds, zero means never timeout during transfer
 
 
 ## Get General Information

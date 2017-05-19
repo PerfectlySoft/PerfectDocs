@@ -15,7 +15,7 @@ Specify the absolute or relative path to the file:
 ``` swift
 let thisFile = File("/path/to/file/helloWorld.txt")
 ```
-
+If you are not familiar with the file path, please read [Directory Operations](https://github.com/PerfectlySoft/PerfectDocs/edit/master/guide/dir.md) first.
 
 ### Opening a File for Read or Write Access
 

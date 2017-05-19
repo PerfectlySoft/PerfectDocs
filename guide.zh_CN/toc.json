@@ -99,6 +99,10 @@
 			]
 		},
 		{
+			"name": "WebSockets",
+			"doc":  "webSockets"
+		},
+		{
 			"name": "基本工具",
 			"doc":  "utilities",
 			"contents": [
@@ -137,6 +141,18 @@
 				{
 					"name": "CURL联网传输",
 					"doc":  "cURL"
+				},
+				{
+					"name": "XML",
+					"doc":  "xml"
+				},
+				{
+					"name": "INI",
+					"doc":  "ini"
+				},
+				{
+					"name": "Crypto 加密",
+					"doc":  "crypto"
 				},
 				{
 					"name": "Zip压缩",
@@ -211,6 +227,10 @@
 					"doc":  "Kafka"
 				},
 				{
+					"name": "Mosquitto",
+					"doc":  "mosquitto"
+				},
+				{
 					"name": "ZooKeeper",
 					"doc":  "ZooKeeper"
 				},
@@ -239,6 +259,20 @@
 							"doc":  "Hadoop"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "服务器性能远程监控",
+			"doc": "profiling",
+			"contents":[
+				{
+					"name": "系统信息",
+					"doc": "SYSINFO"
+				},
+				{
+					"name": "New Relic",
+					"doc": "NEWRELIC"
 				}
 			]
 		},

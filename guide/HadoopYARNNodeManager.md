@@ -78,7 +78,6 @@ With the Applications API, you can obtain a collection of resources, each of whi
 ``` swift
 let apps = try yarn.checkApps()
 apps.forEach { a in
-  print(" ------------  applications on node -----------")
   print(a.id)
   print(a.containerids)
   print(a.state)
@@ -139,7 +138,7 @@ containerLogsLink|String|The http link to the container logs
 user|String|The user name of the user which started the container
 exitCode|Int|Exit code of the container
 diagnostics|String|A diagnostic message for failed containers
-totalMemoryNeededMB|Int|Total amout of memory needed by the container (in MB)
+totalMemoryNeededMB|Int|Total amount of memory needed by the container (in MB)
 totalVCoresNeeded|Int|Total number of virtual cores needed by the container
 
 ## Check a Specific Container

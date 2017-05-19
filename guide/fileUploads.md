@@ -43,7 +43,7 @@ Once the request has been offloaded to the `handler` we can:
 // Grab the fileUploads array and see what's there
 // If this POST was not multi-part, then this array will be empty
 
-if let uploads = request.postFileUploads where uploads.count > 0 {
+if let uploads = request.postFileUploads, uploads.count > 0 {
 	// Create an array of dictionaries which will show what was uploaded
 	var ary = [[String:Any]]()
 

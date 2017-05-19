@@ -202,3 +202,22 @@ If the cURL object created is no longer required, use the `.close()` method inst
 ``` swift
 curlObject.close()
 ```
+
+### Post a form 
+
+*NOTE* THIS FEATURE WENT AVAILABLE SINCE VERSION 2.0.7
+
+In some cases, the server will require 100-continue before actual accepting the form being post, then the `CURL.POSTFields()` structure will be useful:
+
+``` swift
+let fields = CURL.POSTFields()
+
+// set a post field with a string value
+_ = fields.append(key: "A_VARIABLE_NAME", value: "STRING_VALUE")
+
+// set a post field with a local file path
+_ = fields.append(key: "A_FILE_VARIABLE", path: "/PATH/TO")
+
+// add all post fields to the form to submit
+_ = curl.formAddPost(fields: fields)
+```

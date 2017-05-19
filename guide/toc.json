@@ -169,6 +169,14 @@
 					"doc":  "xml"
 				},
 				{
+					"name": "INI",
+					"doc":  "ini"
+				},
+				{
+					"name": "Crypto",
+					"doc":  "crypto"
+				},
+				{
 					"name": "Zip",
 					"doc":  "zip"
 				}
@@ -233,6 +241,10 @@
 					"doc":  "Kafka"
 				},
 				{
+					"name": "Mosquitto",
+					"doc":  "mosquitto"
+				},
+				{
 					"name": "ZooKeeper",
 					"doc":  "ZooKeeper"
 				},
@@ -261,6 +273,20 @@
 							"doc":  "HadoopYARNResourceManager"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Performance Profiling & Remote Monitoring",
+			"doc": "profiling",
+			"contents":[
+				{
+					"name": "System Information",
+					"doc": "SYSINFO"
+				},
+				{
+					"name": "New Relic",
+					"doc": "NEWRELIC"
 				}
 			]
 		},

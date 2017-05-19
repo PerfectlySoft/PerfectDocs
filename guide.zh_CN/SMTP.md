@@ -4,7 +4,7 @@
 
 该软件使用SPM进行编译和测试，本软件也是[Perfect](https://github.com/PerfectlySoft/Perfect)项目的一部分。
 
-请确保您已经安装并激活了最新版本的 Swift 3.0 tool chain 工具链。
+请确保您已经安装并激活了最新版本的 Swift 3.0 工具链。
 
 ## Linux 编译注意事项
 
@@ -103,3 +103,62 @@ do {
   - header: String，邮件响应头数据字符串。
   - body: String，邮件响应体数据字符串。
 
+
+## 总结
+
+以下是发送邮件过程的简明结构：
+
+``` swift
+import PerfectSMTP
+
+let client = SMTPClient(url: "smtp://smtp.gmx.com", username: "yourname@youraddress.com", password:"yourpassword")
+
+var email = EMail(client: client)
+
+email.subject = "邮件主题"
+email.content = "邮件内容"
+
+email.cc.append(Recipient(address: "who@where.com"))
+
+do {
+  try email.send { code, header, body in
+    /// 从邮件服务器响应的结果
+    print(code)
+  }//end send
+}catch(let err) {
+  /// 出错了
+}
+```
+
+## 示范程序
+
+在github上有一个完整邮件发送程序供参考：
+[Perfect SMTP Demo](https://github.com/PerfectExamples/Perfect-SMTP-Demo)
+
+## SMTPS协议注意事项
+
+我们收到了很多关于google smtp示范的要求，在此感谢 @ucotta 、@james，当然还有来自Perfect 官方专业支持的 @iamjono，以下说明可能会为您的gmail客户端开发有所帮助： ⚠️*SMTPClient 的地址应该设置为 `smtps://smtp.gmail.com:465`，并且在谷歌设置中一定要开启“降低安全性以便于某些传统客户端访问”*⚠️
+
+以下是使用SMTPS加密协议的示范例子（以gmail为例）
+
+``` swift
+import PerfectSMTP
+
+let client = SMTPClient(url: "smtps://smtp.gmail.com:465", username: "yourname@gmail.com", password:"yourpassword")
+
+var email = EMail(client: client)
+
+email.subject = "a topic"
+email.content = "a message"
+
+email.cc.append(Recipient(address: "who@where.com"))
+
+do {
+  try email.send { code, header, body in
+    /// response info from mail server
+    print(code)
+  }//end send
+}catch(let err) {
+  /// something wrong
+}
+```

@@ -10,8 +10,9 @@ PerfectThread提供如下功能：
 * Threading.RWLock - 基于多读单写操作的线程锁
 * Threading.Event - 用于线程同步的等待/信号/广播类型
 * Threading.sleep - 单线程阻塞/暂停一段时间
-* Threading.ThreadQueue - 为顺序启动或者并发启动的线程创建一个命名队列
+* Threading.queue - 为顺序启动或者并发启动的线程创建一个命名队列
 * Threading.dispatch - 调度或关闭一个命名队列
+* Promise - “承诺”—— 用于处理分布在不同线程上一个或者多个任务，等待所有任务完成并集中返回结果或者错误的函数。
 
 以下系统部件为Perfect提供内部并发支持，而且PerfectNet函数库高度依赖于本函数库。
 
@@ -183,7 +184,14 @@ public extension Threading {
     }
     /// 根据命名和类型寻找或者创建一个队列。
     public static func getQueue(name nam: String, type: QueueType) -> ThreadQueue
-    /// 在名为“default”的默认的并发队列中调用指定闭包
+    /// 根据指定类型返回一个匿名队列
+    /// 如果没有返回 ThreadQueue对象，则该队列不能使用。
+    /// 如果不再需要该队列，则请注销。
+    public static func getQueue(type: QueueType) -> ThreadQueue
+    /// 返回默认队列
+    public static func getDefaultQueue() -> ThreadQueue
+    /// 终止并注销队列
+    public static func destroyQueue(_ queue: ThreadQueue    /// 在名为“default”的默认的并发队列中调用指定闭包
     /// 会立刻返回。
     public static func dispatch(closure: Threading.ThreadClosure)
 }
@@ -192,3 +200,83 @@ public extension Threading {
 通过```Threading.getQueue```获取命名队列时，如果队列不存在，则会自动创建一个队列。一旦队列对象调用后返回，其调度函数```dispatch```将把闭包传递给队列进行执行操作
 
 系统回自动创建一个默认的队列，名字就叫“default”。调用```Threading.dispatch```静态函数时，总是会通过这个名为“default”的默认队列执行调度闭包的操作。
+
+### Promise “承诺”
+
+承诺是用于一个或者多个线程之间的对象。承诺能够以线程的方式执行指定的闭包，一旦生产者线程完成工作并返回结果，则消费者线程能够获取该结果，或者是该工作执行时产生的错误。
+
+该对象有两种使用方法：
+
+* 链式承诺：首先是执行一个闭包，同时允许闭包不包含任何参数，同时返回类型也允许指定；随后可以进行一系列链式操作，用.then子句进行连接。
+
+举例：三线程串式写法、并发执行、合并等待。
+
+```swift
+let v = try Promise { 1 }
+	.then { try $0() + 1 }
+	.then { try $0() + 1 }
+	.wait()
+// 如果没问题的话，变量 v 的结果等于3
+```
+
+注意上面的例子中，每一个`.then`子句尾随的闭包可接受的函数必须是从前驱线程（前驱线程）返回的结果，或者是检测并处理前驱线程的错误。
+
+* 将承诺以参数方式传递给其他线程的函数或者必报。该承诺可以在后续执行中触发`.set`或者`.fail`，即返回执行结果，或者抛出一个错误对象。⚠️注意⚠️承诺代码段set/fail是可以多次反复调用的，这种方式提高了编程的灵活性，允许执行一系列异步操作。
+
+举例：暂停并设置逻辑值
+Example: Pause then set a Bool value
+		
+```swift
+let prom = Promise<Bool> {
+	(p: Promise) in
+	Threading.sleep(seconds: 2.0)
+	p.set(true)
+}
+XCTAssert(try prom.get() == nil) // 承诺尚未履行（即预期条件尚未满足）
+XCTAssert(try prom.wait(seconds: 3.0) == true) // 等待三秒后是否设置结果
+```
+
+无论是上述哪一种方法，承诺声明的闭包函数都会立刻另起线程开始工作。
+
+承诺函数库的完整调用参考：
+
+```swift
+public class Promise<ReturnType> {
+	/// 以尾随闭包方式初始化一个承诺，闭包回继续传递该承诺，
+	/// 用于随时设置承诺的结果值或错误对象。
+	/// 该闭包会启动一个新的线程队列并立刻执行。
+	public init(closure: @escaping (Promise<ReturnType>) throws -> ())
+	
+	/// 带尾随闭包初始化一个承诺。
+	/// 该闭包回返回一个执行类型结果，一旦结果有效则意味着承诺已经履行。
+	/// 该闭包会启动一个新的线程队列并立刻执行。
+	public init(closure: @escaping () throws -> ReturnType)
+
+	/// 在现有承诺基础上链式追加新承诺。
+	/// 新的尾随闭包回继承前驱线程的结果。
+	public func then<NewType>(closure: @escaping (() throws -> ReturnType) throws -> NewType) -> Promise<NewType>
+}
+
+public extension Promise {
+	/// 获取承诺结果。如果承诺已经履行，则结果有效；
+	/// 未履行承诺返回为 nil
+	/// 出错时抛出异常。
+	/// 该函数应该由消费者线程调用
+	public func get() throws -> ReturnType?
+	
+	/// 获取承诺结果。如果承诺已经履行，则结果有效；
+	/// 未履行承诺返回为 nil
+	/// 出错时抛出异常。
+	/// 阻塞当前线程并直到承诺履行或者超时。
+	/// 该函数应该由消费者线程调用
+	public func wait(seconds: Double = Threading.noTimeout) throws -> ReturnType?
+}
+
+public extension Promise {
+	/// 在生产者线程中设置承诺的返回结果，允许消费者调用读取该结果。
+	public func set(_ value: ReturnType)
+	
+	/// 在生产者线程中触发错误并设置错误对象。
+	public func fail(_ error: Error)
+}
+```

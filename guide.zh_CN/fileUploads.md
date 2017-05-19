@@ -61,7 +61,7 @@ if let uploads = request.postFileUploads where uploads.count > 0 {
 }
 ```
 
-如上所述，被上传的文件（一个或多个文件）可以用`request.postFileUploads`数组表示，每个数组元素都有不同的属性，如`fileName`文件名］、`fileSize`文件尺寸、`tmpFileName`临时文件名等等。
+如上所述，被上传的文件（一个或多个文件）可以用`request.postFileUploads`数组表示，每个数组元素都有不同的属性，如`fileName`文件名、`fileSize`文件尺寸、`tmpFileName`临时文件名等等。
 
 **⚠️注意⚠️** ：文件上传后会被自动放置到一个临时目录。您需要自己将临时文件转移至期望位置。
 

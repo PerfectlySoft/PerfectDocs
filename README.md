@@ -96,7 +96,9 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Remote Logging](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/logRemote.md)
 	* [CURL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/cURL.md)
 	* [XML](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/xml.md)
+	* [INI](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/ini.md)
 	* [Zip](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/zip.md)
+	* [Crypto](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/crypto.md)
 	* [SMTP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SMTP.md)
 	* [Google Analytics Measurement Protocol](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/GoogleAnalytics.md)
 * [Database Connectors](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/databaseConnectors.md)
@@ -115,6 +117,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Redis.md) @kjessup
 	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/filemaker.md)
 	* [Kafka](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Kafka.md)
+	* [Mosquitto](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mosquitto.md)
 	* [ZooKeeper (Linux Only)](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/ZooKeeper.md)
 	* [Hadoop](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Hadoop.md)
 		* [HDFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HadoopWebHDFS.md)
@@ -131,6 +134,11 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 	* AWS
 	* Linode
 	* [Digital Ocean](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-DigitalOcean.md)
+
+* Performance Profiling & Remote Monitoring
+	* [SysInfo](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/SYSINFO.md)
+	* [New Relic](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/NEWRELIC.md)
+
 * Platform specific Notes
 	* [Ubuntu 16.04: Starting Services at System Boot](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/starting-services.md)
 

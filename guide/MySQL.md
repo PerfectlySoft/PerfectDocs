@@ -41,7 +41,7 @@ Please note that Ubuntu 14 defaults to including a version of MySQL client which
 Add the "Perfect-MySQL" project as a dependency in your Package.swift file:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2)
 ```
 
 ### Import
@@ -73,7 +73,7 @@ There are two common ways to connect to MySQL. First, you can omit the schema, s
 
     func fetchData() {
 		   
-			  let dataMysql = MySQL() // Create an instance of MySQL to work with
+	            let mysql = MySQL() // Create an instance of MySQL to work with
 		   
 		    let connected = mysql.connect(host: testHost, user: testUser, password: testPassword)
 		    
@@ -88,8 +88,8 @@ There are two common ways to connect to MySQL. First, you can omit the schema, s
 		    }
 		    
 		    //Choose the database to work with
-		    guard dataMysql.selectDatabase(named: testDB) else {
-				    Log.info(message: "Failure: \(dataMysql.errorCode()) \(dataMysql.errorMessage())")
+		    guard mysql.selectDatabase(named: testDB) else {
+				    Log.info(message: "Failure: \(mysql.errorCode()) \(dataMysql.errorMessage())")
 				    return
 		    }
 		}
@@ -101,7 +101,7 @@ Alternatively, you can pass the database you would like to access into the conne
 
     func fetchData() {
     
-		    let dataMysql = MySQL() // Create an instance of MySQL to work with
+		    let mysql = MySQL() // Create an instance of MySQL to work with
 		    
 		    let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
 		    
@@ -125,7 +125,7 @@ Choosing the database is great, but it is much more helpful to run queries, such
 		
     func setupMySQLDB() {
 		    
-		    let dataMysql = MySQL() // Create an instance of MySQL to work with
+		    let mysql = MySQL() // Create an instance of MySQL to work with
 		    
 		    let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
 		    
@@ -153,7 +153,7 @@ Getting data from your schema is essential, and relatively easy to do. After run
 
     func fetchData() {
     
-		    let dataMysql = MySQL() // Create an instance of MySQL to work with
+		    let mysql = MySQL() // Create an instance of MySQL to work with
 		    
 		    let connected = mysql.connect(host: testHost, user: testUser, password: testPassword, db: testDB)
 		    
