@@ -87,7 +87,7 @@ routes.add(method: .get, uri: "/files/**", handler: {
 	request, response in
 
 	// get the portion of the request path which was matched by the wildcard
-	request.path = request.urlVariables[routeTrailingWildcardKey]
+	request.path = request.urlVariables[routeTrailingWildcardKey]!
 
 	// Initialize the StaticFileHandler with a documentRoot
 	let handler = StaticFileHandler(documentRoot: "/var/www/htdocs")
