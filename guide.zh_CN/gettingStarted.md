@@ -29,6 +29,7 @@ Perfect软件框架可以在Ubuntu Linux 14.04 and 15.10环境下运行。Perfec
 
 ```
 sudo apt-get install openssl libssl-dev uuid-dev
+mac os x命令更换为：brew install openssl
 ```
 
 ### Perfect项目快速上手
