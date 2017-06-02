@@ -30,25 +30,25 @@ StORM 是为 Swift 语言配套的对象管理函数库（ORM），基于[Perfec
 比如，如果需要使用PostgreSQL，则请配置为 PostgresStORM 程序库：
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/Postgres-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/Postgres-StORM.git", majorVersion: 1)
 ```
 
 比如，如果需要使用 MySQL，则请配置为 MySQLStORM 程序库：
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MySQL-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/MySQL-StORM.git", majorVersion: 1)
 ```
 
 比如，如果需要使用 SQLite，则请配置为 SQLiteStORM 程序库：
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/SQLite-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/SQLite-StORM.git", majorVersion: 1)
 ```
 
 比如，如果要使用 CouchDB，则请配置为 CouchDBStORM 程序库:
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/CouchDB-StORM.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/CouchDB-StORM.git", majorVersion: 1)
 ```
 
 如果您在使用 Xcode，请务必在改变 `Package.swift` 文件之后，需要再次运行 SPM 管理脚本重建 Xcode 项目：
