@@ -36,7 +36,7 @@ Perfect 会话机制实现了存储每个会话的创建时间、最后一次访
 如果希望使用基于内存变量的会话管理，请在您的项目中修改Package.swift 文件并增加以下内容：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 1)
 ```
 
 ### 基于数据库的会话管理所需驱动
@@ -44,25 +44,25 @@ Perfect 会话机制实现了存储每个会话的创建时间、最后一次访
 PostgreSQL:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 1)
 ```
 
 MySQL:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 1)
 ```
 
 SQLite3:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 1)
 ```
 
 CouchDB:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 1)
 ```
 
 Note: 注意，基于MongoDB 和 Redis 数据库的会话管理系统会很快发行。
