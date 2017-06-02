@@ -21,7 +21,7 @@ PerfectHadoop 目前支持 Hadoop 3.0.0，以及 2.7.3 的部分功能。
 请在您的 Package.swift 文件中增加以下内容
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Hadoop.git", majorVersion: 1, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Hadoop.git", majorVersion: 1)
 ```
 
 并在您的源程序部分增加以下函数库声明：
