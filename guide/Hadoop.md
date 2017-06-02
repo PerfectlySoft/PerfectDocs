@@ -13,7 +13,7 @@ PerfectHadoop supports Hadoop 3.0.0 with a limitation on 2.7.3.
 Add this project as a dependency in your Package.swift file.
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Hadoop.git", majorVersion: 1, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Hadoop.git", majorVersion: 1)
 ```
 
 Then please add the following line to the beginning part of swift sources:

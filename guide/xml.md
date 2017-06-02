@@ -8,7 +8,7 @@ Perfect provides XML & HTML parsing support via the Perfect-XML module.
 In addition to the PerfectLib, you will need the Perfect-XML dependency in the Package.swift file:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-XML.git", majorVersion: 2, minor: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-XML.git", majorVersion: 2)
 ```
 
 In each Swift source file that references the XML classes, include the import directive:

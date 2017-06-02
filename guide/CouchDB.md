@@ -23,7 +23,7 @@ Add the "Perfect-CouchDB" project as a dependency in your Package.swift file:
 
 ``` swift
 .Package(
-    url:"https://github.com/PerfectlySoft/Perfect-CouchDB.git",majorVersion: 0, minor: 0)
+    url:"https://github.com/PerfectlySoft/Perfect-CouchDB.git",majorVersion: 0)
 ```
 
 ### Import

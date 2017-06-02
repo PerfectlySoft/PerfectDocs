@@ -82,7 +82,7 @@ Libs_r: -L${libdir} -lmariadb -ldl -lm -lpthread
 Add the "Perfect-MariaDB" project as a dependency in your Package.swift file:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-MariaDB.git", majorVersion: 2, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-MariaDB.git", majorVersion: 2)
 ```
 
 ### Import

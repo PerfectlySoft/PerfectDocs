@@ -27,7 +27,7 @@ Add the "Perfect-SQLite" project as a dependency in your Package.swift file:
 ``` swift
 .Package(
 	url: "https://github.com/PerfectlySoft/Perfect-SQLite.git",
-	majorVersion: 2, minor: 0
+	majorVersion: 2
 	)
 ```
 

@@ -35,7 +35,7 @@ Add the "Perfect-PostgreSQL" project as a dependency in your Package.swift file:
 ``` swift
 .Package(
 	url: "https://github.com/PerfectlySoft/Perfect-PostgreSQL.git",
-	majorVersion: 2, minor: 0
+	majorVersion: 2
 	)
 ```
 

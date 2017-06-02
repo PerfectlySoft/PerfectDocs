@@ -7,7 +7,7 @@ Using the `PerfectLogger` module, events can be logged to a specified file, in a
 Add the dependency to your project's Package.swift file:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 0, minor: 0),
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 0),
 ```
 
 Now add the `import` directive to the file you wish to use the logging in:
