@@ -269,7 +269,7 @@ let sessionDriver = SessionSQLiteDriver()
 首先在 Package.swift 文件中追加依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 0, minor: 0)
 ```
 
 设置会话管理的后台CouchDB 数据库：
