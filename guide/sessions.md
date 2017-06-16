@@ -341,7 +341,7 @@ let sessionDriver = SessionCouchDBDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 1)
 ```
 
 Defining the CouchDB database to use for session storage:
