@@ -15,6 +15,8 @@ When including the dependency in your project's Package.swift dependencies, you 
 .Package(url: "https://github.com/SwiftORM/Postgres-Storm.git", majorVersion: 1)
 ```
 
+Please note that you may need to include the XML libraries for your platform as documented in [https://www.perfect.org/docs/xml.html](https://www.perfect.org/docs/xml.html)
+
 ### A note about protecting from SQL Injection attacks
 
 StORM does its best to protect your data from SQL injection attacks by parameterizing values.
