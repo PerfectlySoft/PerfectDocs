@@ -202,7 +202,7 @@ public extension CURLResponse {
 
 For convenience properties have been added for pulling commonly requested data from a response such as `url` and `responseCode`.
 
-The following examples show how to pull header and other meta-data from the request:
+The following examples show how to pull header and other meta-data from the response:
 
 ```swift
 // get the response code
@@ -259,12 +259,12 @@ The following is a list of the numerous `CURLRequest` options which can be set. 
 |.timeout(Int)|Maximum time in seconds for the request to complete. The default timeout is never.|
 |.connectTimeout(Int)|Maximum time in seconds for the request connection phase. The default timeout is 300 seconds.|
 |.lowSpeedLimit(Int)|The average transfer speed in bytes per second that the transfer should be below during `.lowSpeedLimit` seconds for the request to be too slow and abort.|
-|.lowSpeedTime(Int)|The time in seconds that the transfer speed should be below the `.lowSpeedLimit` for therequest to be considered too slow and aborted.|
+|.lowSpeedTime(Int)|The time in seconds that the transfer speed should be below the `.lowSpeedLimit` for the request to be considered too slow and aborted.|
 |.range(String)|Range request value as a string in the format "X-Y", where either X or Y may be left out and X and Y are byte indexes|
-|.resumeFrom(Int)|The offset in bytes at which the request should start form.|
+|.resumeFrom(Int)|The offset in bytes at which the request should start from.|
 |.cookie(String)|Set one or more cookies for the request. Should be in the format "name=value". Separate multiple cookies with a semi-colon: "name1=value1; name2=value2".|
 |.cookieFile(String)|The name of the file holding cookie data for the request.|
-|.cookieJar(String)|The name opf the file to which received cookies will be written.|
+|.cookieJar(String)|The name of the file to which received cookies will be written.|
 |.followLocation(Bool)|Indicated that the request should follow redirects. Default is false.|
 |.maxRedirects(Int)|Maximum number of redirects the request should follow. Default is unlimited.|
 |.maxConnects(Int)|Maximum number of simultaneously open persistent connections that may cached for the request.|
@@ -280,11 +280,11 @@ The following is a list of the numerous `CURLRequest` options which can be set. 
 |.sslKeyPwd(String)|Password to be used if the SSL key file is password protected.|
 |.sslKeyType(SSLFileType)|Specifies the type for the SSL private key file.|
 |.sslVersion(TLSMethod)|Force the request to use a specific version of TLS or SSL.|
-|.sslVerifyPeer(Bool)|Inticates whether the request should verify the authenticity of the peer's certificate.|
+|.sslVerifyPeer(Bool)|Indicates whether the request should verify the authenticity of the peer's certificate.|
 |.sslVerifyHost(Bool)|Indicates whether the request should verify that the server cert is for the server it is known as.|
 |.sslCAFilePath(String)|Path to file holding one or more certificates which will be used to verify the peer.|
 |.sslCADirPath(String)|Path to directory holding one or more certificates which will be used to verify the peer.|
-|.sslCiphers([String])|Override the list of ciphers to use for the SSL connection. Consists of one or more cipher strings separated by colons. Commas or spaces are also acceptable separators but colons are normally used. "!", "-" and "+" can be used as operators.|
+|.sslCiphers([String])|Override the list of ciphers to use for the SSL connection.|
 |.sslPinnedPublicKey(String)|File path to the pinned public key. When negotiating a TLS or SSL connection, the server sends a certificate indicating its identity. A public key is extracted from this certificate and if it does not exactly match the public key provided to this option, curl will abort the connection before sending or receiving any data.|
 |.ftpPreCommands([String])|List of (S)FTP commands to be run before the file transfer.|
 |.ftpPostCommands([String])|List of (S)FTP commands to be run after the file transfer.|
@@ -293,7 +293,7 @@ The following is a list of the numerous `CURLRequest` options which can be set. 
 |.sshPublicKey(String)|Path to the public key file used for SSH connections.|
 |.sshPrivateKey(String)|Path to the private key file used for SSH connections.|
 |.httpMethod(HTTPMethod)|HTTP method to be used for the request.|
-|.postField(POSTField)|Adds a single POST field to the request. Generally, multiple POSt fields are added for a request.|
+|.postField(POSTField)|Adds a single POST field to the request. Generally, multiple POST fields are added for a request.|
 |.postData([UInt8])|Raw bytes to be used for a POST request.|
 |.postString(String)|Raw string data to be used for a POST request.|
 |.mailFrom(String)|Specifies the sender's address when performing an SMTP request.|
@@ -338,5 +338,5 @@ The lists which follow describe the `CURLResponse.Info` cases which are used wit
 |.contentLengthDownload|The content-length of the download. This value is obtained from the Content-Length header field.|
 |.contentLengthUpload|The specified size of the upload.|
 |.startTransferTime|The time, in seconds, it took from the start of the request until the first byte was received.|
-|.redirectTime|The total time, in seconds, it took for all redirection steps include name lookup, connect, pretransfer and transfer before final transaction was started.|
+|.redirectTime|The total time, in seconds, it took for all redirection steps include name lookup, connect, pre-transfer and transfer before final transaction was started.|
 |.appConnectTime|The time, in seconds, it took from the start until the SSL/SSH connect/handshake to the remote host was completed.|
