@@ -149,6 +149,10 @@
 					"doc":  "OAuth2"
 				},
 				{
+					"name": "Repeater/Cron",
+					"doc":  "repeater"
+				},
+				{
 					"name": "Remote Logging",
 					"doc":  "logRemote"
 				},
