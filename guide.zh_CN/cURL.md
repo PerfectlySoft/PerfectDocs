@@ -94,10 +94,6 @@ public extension CURLRequest {
 
 以下三个例子展示了上述三种方法的用法。每个例子都是执行请求并将响应结果从JSON字符串转化为一个[String:Any]字典：
 
-[Perfect-Thread](http://www.perfect.org/docs/thread.html) documentation.
-
-The following three example shows how each of the functions are used. Each will perform a request and convert the resulting response body from JSON into a [String:Any] dictionary.
-
 • 同步请求并解析JSON数据：
 
 ``` swift
