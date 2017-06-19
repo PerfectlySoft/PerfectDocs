@@ -79,6 +79,10 @@
 					]
 				},
 				{
+					"name": "Local Authentication modules",
+					"doc":  "authentication"
+				},
+				{
 					"name": "SPNEGO Security",
 					"doc":  "SPNEGO"
 				},
