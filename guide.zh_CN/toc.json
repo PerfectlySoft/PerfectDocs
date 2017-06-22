@@ -115,20 +115,32 @@
 					"doc":  "bytes"
 				},
 				{
-					"name": "文件操作",
-					"doc":  "file"
+					"name": "Crypto 加密",
+					"doc":  "crypto"
+				},
+				{
+					"name": "CURL联网传输",
+					"doc":  "cURL"
 				},
 				{
 					"name": "目录与路径",
 					"doc":  "dir"
 				},
 				{
-					"name": "线程",
-					"doc":  "thread"
+					"name": "文件操作",
+					"doc":  "file"
 				},
 				{
-					"name": "UUID唯一标识符",
-					"doc":  "UUID"
+					"name": "谷歌网站分析协议",
+					"doc":  "GoogleAnalytics"
+				},
+				{
+					"name": "Log日志",
+					"doc":  "log"
+				},
+				{
+					"name": "Log日志文件",
+					"doc":  "logFiles"
 				},
 				{
 					"name": "定时器",
@@ -143,16 +155,12 @@
 					"doc":  "sysProcess"
 				},
 				{
-					"name": "Log日志",
-					"doc":  "log"
+					"name": "线程",
+					"doc":  "thread"
 				},
 				{
-					"name": "Log日志文件",
-					"doc":  "logFiles"
-				},
-				{
-					"name": "CURL联网传输",
-					"doc":  "cURL"
+					"name": "UUID唯一标识符",
+					"doc":  "UUID"
 				},
 				{
 					"name": "XML",
@@ -161,10 +169,6 @@
 				{
 					"name": "INI",
 					"doc":  "ini"
-				},
-				{
-					"name": "Crypto 加密",
-					"doc":  "crypto"
 				},
 				{
 					"name": "Zip压缩",
