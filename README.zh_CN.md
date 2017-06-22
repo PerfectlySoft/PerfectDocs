@@ -74,6 +74,7 @@
 	* [Session 会话管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/sessions.md)
 		* [CSRF 安全功能](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/csrf.md)
 		* [CORS 安全功能](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/cors.md)
+	* [用户身份认证](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/authentication.md)	
 	* [GSS-SPNEGO 安全插件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SPNEGO.md)
 	* [JSON数据转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/JSON.md)
 	* [静态文件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/staticFileContent.md)

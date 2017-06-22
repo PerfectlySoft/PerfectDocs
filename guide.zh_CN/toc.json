@@ -73,6 +73,10 @@
 					]
 				},
 				{
+					"name": "用户身份验证",
+					"doc":  "authentication"
+				},
+				{
 					"name": "SPNEGO 安全功能",
 					"doc":  "SPNEGO"
 				},

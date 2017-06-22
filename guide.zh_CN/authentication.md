@@ -1,32 +1,30 @@
 # Perfect Local Authentication
 
-This package provides Local Authentication libraries for projects that require locally stored and handled authentication.
+服务器端用户身份验证函数库
 
-## Relevant Templates & Examples
+## 参考实例
 
-A template application can be found at [https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template](https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template), providing a fully functional starting point, as well as demonstrating the usage of the system.
+请参考如下链接的模板应用程序：[https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template](https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template)，内容为完整的函数使用方法展示。
 
-## Adding to your project
+## 添加组件
 
-Add this project as a dependency in your Package.swift file.
+欲使用本函数库，请选择如下适当的模块并追加到您项目的Package.swift文件中去。
 
-PostgreSQL Driver:
+如果选择以 PostgreSQL 作为数据驱动：
 
 ``` swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-LocalAuthentication-PostgreSQL.git", majorVersion: 1)
 ```
 
-MySQL Driver:
+如果选择以 MySQL 作为数据驱动：
 
 ``` swift
 .Package(url: "https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL.git", majorVersion: 1)
 ```
 
-## Configuration
+## 模块配置
 
-It is important to configure the following in main.swift to set up database and session configuration:
-
-Import the required modules:
+具体使用之前，请务必做好模块配置工作（以下例子假设您使用main.swift作为程序入口）。首先导入函数库：
 
 ``` swift
 import PerfectSession
@@ -35,23 +33,23 @@ import PerfectCrypto
 import LocalAuthentication
 ```
 
-Initialize PerfectCrypto:
+然后请初始化 PerfectCrypto 加密函数库：
 
 ``` swift
 let _ = PerfectCrypto.isInitialized
 ```
 
-Now set some defaults:
+设置默认选项：
 
 ``` swift
-// Used in email communications
-// The Base link to your system, such as http://www.example.com/
+// 以下配置在电子邮件系统中会用上。
+// 请设置链接到您自己系统主页的基本地址，比如 http://www.example.com/
 var baseURL = ""
 
-// Configuration of Session
-SessionConfig.name = "perfectSession" // <-- change
+// 配置会话过程
+SessionConfig.name = "perfectSession" // <-- 请自行设定名称
 SessionConfig.idle = 86400
-SessionConfig.cookieDomain = "localhost" //<-- change
+SessionConfig.cookieDomain = "localhost" //<-- 请自行设定主机名
 SessionConfig.IPAddressLock = false
 SessionConfig.userAgentLock = false
 SessionConfig.CSRF.checkState = true
@@ -59,23 +57,23 @@ SessionConfig.CORS.enabled = true
 SessionConfig.cookieSameSite = .lax
 ```
 
-Detailed Session configuration documentation can be found at [https://www.perfect.org/docs/sessions.html](https://www.perfect.org/docs/sessions.html)
+详细的会话过程文档请参考 [https://www.perfect.org/docs/sessions_zh_CN.html](https://www.perfect.org/docs/sessions_zh_CN.html)
 
-The database and email configurations should be set as follows (if using JSON file config):
+数据库和电邮配置方法参考如下（假设您使用JSON进行配置）：
 
 ``` swift
-let opts = initializeSchema("./config/ApplicationConfiguration.json") // <-- loads base config like db and email configuration
+let opts = initializeSchema("./config/ApplicationConfiguration.json") // <-- 该JSON文件包含数据库和邮件配置信息
 httpPort = opts["httpPort"] as? Int ?? httpPort
 baseURL = opts["baseURL"] as? String ?? baseURL
 ```
 
-Otherwise, these will need to be set equivalent to one of these functions:
+否则，请使用下列函数完成等价的配置：
 
 * PostgreSQL: [https://github.com/PerfectlySoft/Perfect-LocalAuthentication-PostgreSQL/blob/master/Sources/LocalAuthentication/Schema/InitializeSchema.swift](https://github.com/PerfectlySoft/Perfect-LocalAuthentication-PostgreSQL/blob/master/Sources/LocalAuthentication/Schema/InitializeSchema.swift)
 
 * MySQL: [https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/LocalAuthentication/Schema/InitializeSchema.swift](https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/LocalAuthentication/Schema/InitializeSchema.swift)
 
-### Set the session driver
+### 设置会话数据库驱动
 
 PostgreSQL: 
 
@@ -89,11 +87,11 @@ MySQL:
 let sessionDriver = SessionMySQLDriver()
 ```
 
-### Request & Response Filters
+### 设置请求/响应过滤器
 
-The following two session filters need to be added to your server config:
+下列两个会话过滤器需要追加到您服务器的配置中：
 
-PostgreSQL Driver:
+如果使用 PostgreSQL 作为会话数据库驱动:
 
 ``` swift
 // (where filter is a [[String: Any]] object)
@@ -101,7 +99,7 @@ filters.append(["type":"request","priority":"high","name":SessionPostgresFilter.
 filters.append(["type":"response","priority":"high","name":SessionPostgresFilter.filterAPIResponse])
 ```
 
-MySQL Driver:
+如果使用 MySQL 作为会话数据库驱动:
 
 ``` swift
 // (where filter is a [[String: Any]] object)
@@ -109,11 +107,11 @@ filters.append(["type":"request","priority":"high","name":SessionMySQLFilter.fil
 filters.append(["type":"response","priority":"high","name":SessionMySQLFilter.filterAPIResponse])
 ```
 
-For example, see [https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template/blob/master/Sources/PerfectLocalAuthPostgreSQLTemplate/configuration/Filters.swift](https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template/blob/master/Sources/PerfectLocalAuthPostgreSQLTemplate/configuration/Filters.swift)
+关于过滤器的使用，请参考范例： [https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template/blob/master/Sources/PerfectLocalAuthPostgreSQLTemplate/configuration/Filters.swift](https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template/blob/master/Sources/PerfectLocalAuthPostgreSQLTemplate/configuration/Filters.swift)
 
-### Add routes for login, register etc
+### 追加注册及登录函数
 
-The following routes can be added as needed or customized to add login, logout, register:
+请将下列函数句柄追加到服务器路由，用于实现注册、登录和注销命令。
 
 ``` swift
 // Login
@@ -134,17 +132,17 @@ routes.append(["method":"post", "uri":"/api/v1/register", "handler":LocalAuthJSO
 routes.append(["method":"login", "uri":"/api/v1/login", "handler":LocalAuthJSONHandlers.login])
 ```
 
-An example can be found at [https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template/blob/master/Sources/PerfectLocalAuthPostgreSQLTemplate/configuration/Routes.swift](https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template/blob/master/Sources/PerfectLocalAuthPostgreSQLTemplate/configuration/Routes.swift)
+详细例子可以参考这里： [https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template/blob/master/Sources/PerfectLocalAuthPostgreSQLTemplate/configuration/Routes.swift](https://github.com/PerfectlySoft/Perfect-Local-Auth-PostgreSQL-Template/blob/master/Sources/PerfectLocalAuthPostgreSQLTemplate/configuration/Routes.swift)
 
-## Testing for authentication:
+## 测试验证模块是否工作
 
-The user id can be accessed as follows:
+如果配置成功，您可以通过下列方式获取用户身份编号：
 
 ``` swift
 request.session?.userid ?? ""
 ```
 
-If a user id (i.e. logged in state) is required to access a page, code such as this could be used to detect and redirect:
+如果在具体页面实现中需要用户处于登录状态，您可以用下列代码测试用户是否登录；如果没有登录则自动调用登录过程：
 
 ``` swift
 let contextAuthenticated = !(request.session?.userid ?? "").isEmpty
