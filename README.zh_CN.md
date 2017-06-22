@@ -139,6 +139,9 @@
 * 平台安装说明
 	* [Ubuntu 16.04 系统服务安装指南](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/starting-services.md)
 
+* 人工智能与机器学习
+	* [TensorFlow](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/tensorflow.md)
+
 ## StORM：Swift的对象关系管理（ORM）
 
 StORM 并非 Perfect.org 发行的项目，但是 Perfect 的函数库将 StORM 集成到了整个框架范围内，因此本项目与StORM存在共同的作者。

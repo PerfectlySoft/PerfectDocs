@@ -277,6 +277,10 @@
 			]
 		},
 		{
+			"name": "人工智能与机器学习",
+			"doc": "tensorflow"
+		},
+		{
 			"name": "StORM：Swift对象关系管理（ORM）",
 			"doc":  "StORM",
 			"contents": [

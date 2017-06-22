@@ -299,6 +299,10 @@
 			]
 		},
 		{
+			"name": "Artificial Intelligence & Machine Learning",
+			"doc": "tensorflow"
+		},
+		{
 			"name": "StORM, a Swift ORM",
 			"doc":  "StORM",
 			"contents": [
