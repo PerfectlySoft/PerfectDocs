@@ -88,6 +88,7 @@
 	* [目录与路径](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/dir.md)
 	* [线程](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/thread.md)
 	* [网络](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/net.md) @kjessup
+	* [OAuth2 身份授权](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/OAuth2.md)
 	* [UUID唯一标识符](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/UUID.md)
 	* [SysProcess系统进程](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/sysProcess.md)
 	* [日志](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/log.md)

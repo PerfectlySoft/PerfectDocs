@@ -143,6 +143,10 @@
 					"doc":  "logFiles"
 				},
 				{
+					"name": "OAuth2 身份授权",
+					"doc":  "OAuth2"
+				},
+				{
 					"name": "定时器",
 					"doc":  "repeater"
 				},
