@@ -30,7 +30,7 @@ Repeater.exec(timer: <Double>, callback: <Closure>)
 
 The `timer` value is the time in seconds to repeat the event.
 
-The `callback` contains a closure containing code to execute. This must contain a boolean return value. Returning `true` will requeue the event, and `false` will remove the event from the queue.
+The `callback` contains a closure containing code to execute. This must contain a boolean return value. Returning `true` will re-queue the event, and `false` will remove the event from the queue.
 
 The following code demonstrates the process of repeating a closure containing your code and optionally re-queuing:
 

@@ -131,6 +131,14 @@
 					"doc":  "UUID"
 				},
 				{
+					"name": "定时器",
+					"doc":  "repeater"
+				},
+				{
+					"name": "SMTP简单邮件协议",
+					"doc":  "SMTP"
+				},
+				{
 					"name": "SysProcess系统进程",
 					"doc":  "sysProcess"
 				},
@@ -161,10 +169,6 @@
 				{
 					"name": "Zip压缩",
 					"doc":  "zip"
-				},
-				{
-					"name": "SMTP简单邮件协议",
-					"doc":  "SMTP"
 				}
 			]
 		},

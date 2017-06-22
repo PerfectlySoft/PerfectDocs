@@ -98,6 +98,7 @@
 	* [Zip压缩](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/zip.md)
 	* [Crypto 加密](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/crypto.md)
 	* [SMTP 简单邮件协议](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SMTP.md)
+	* [定时器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/repeater.md)
 * [数据库连接器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/databaseConnectors.md)
 	* [SQLite](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SQLite.md)
 	* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/MySQL.md)
