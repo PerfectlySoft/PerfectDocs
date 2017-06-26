@@ -629,7 +629,7 @@ let runner = try g.load(
 
 In this case, you can check the meta data stored in this previously saved model, if available, for more information:
 
-```
+``` swift
 if let data = metaBuf.data {
 	let meta = try TF.MetaGraphDef(serializedData: data)
 	let signature_def = meta.signatureDef["some signatures ..."] 

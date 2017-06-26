@@ -505,7 +505,7 @@ let list = graph.operations
 以下是在流程图内构造运算操作的常用方法：
 
 
-|名称|说明|距离|
+|名称|说明|举例|
 |----|-----------|-------|
 |const|构造常量|`let x = try graph.const(tensor: t, name: "Const_0")`|
 |placeholder|构造一个占位操作|`let feed = try graph.placeholder(name: "feed")`|
@@ -624,7 +624,7 @@ let runner = try g.load(
 
 这样的话，如果模型里面包括签名，则可以读出来：
 
-```
+``` swift
 if let data = metaBuf.data {
 	let meta = try TF.MetaGraphDef(serializedData: data)
 	let signature_def = meta.signatureDef["某些签名"] 
