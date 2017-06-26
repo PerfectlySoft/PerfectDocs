@@ -243,7 +243,27 @@
 				{
 					"name": "LDAP",
 					"doc":  "LDAP"
+				}
+			]
+		},
+		{
+			"name": "Performance Profiling & Remote Monitoring",
+			"doc": "profiling",
+			"contents":[
+				{
+					"name": "System Information",
+					"doc": "SYSINFO"
 				},
+				{
+					"name": "New Relic",
+					"doc": "NEWRELIC"
+				}
+			]
+		},
+		{
+			"name": "Message Queue & Cluster",
+			"doc": "cluster",
+			"contents":[
 				{
 					"name": "Kafka",
 					"doc":  "Kafka"
@@ -255,6 +275,16 @@
 				{
 					"name": "ZooKeeper",
 					"doc":  "ZooKeeper"
+				}
+			]
+		},
+		{
+			"name": "Big Data & Machine Learning",
+			"doc": "ai",
+			"contents":[
+				{
+					"name": "TensorFlow",
+					"doc": "tensorflow"
 				},
 				{
 					"name": "Hadoop",
@@ -283,24 +313,6 @@
 					]
 				}
 			]
-		},
-		{
-			"name": "Performance Profiling & Remote Monitoring",
-			"doc": "profiling",
-			"contents":[
-				{
-					"name": "System Information",
-					"doc": "SYSINFO"
-				},
-				{
-					"name": "New Relic",
-					"doc": "NEWRELIC"
-				}
-			]
-		},
-		{
-			"name": "Artificial Intelligence & Machine Learning",
-			"doc": "tensorflow"
 		},
 		{
 			"name": "StORM, a Swift ORM",

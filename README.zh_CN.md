@@ -116,15 +116,6 @@
 	* [LDAP](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/LDAP.md)
 	* [Redis](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Redis.md) @kjessup
 	* [FileMaker](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filemaker.md)
-	* [Kafka](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Kafka.md)
-	* [Mosquitto](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mosquitto.md)
-	* [ZooKeeper (Linux Only)](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/ZooKeeper.md)
-	* [Hadoop](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Hadoop.md)
-		* [HDFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HadoopWebHDFS.md)
-		* [MapReduce Master 应用程序服务器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopMapReduceMaster.md)
-		* [MapReduce 历史服务器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopMapReduceHistory.md)
-		* [YARN 节点管理器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopYARNNodeManager.md)
-		* [YARN 资源管理器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopYARNResourceManager.md)
 * [iOS 消息与通知](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/iOSNotifications.md) @kjessup
 * [发行与部署](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment.md)
 	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/deployment-Ubuntu1510.md)
@@ -139,12 +130,22 @@
 	* [SysInfo](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/SYSINFO.md)
 	* [New Relic](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/NEWRELIC.md)
 
+* 消息队列及服务器集群
+	* [Kafka](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Kafka.md)
+	* [Mosquitto](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mosquitto.md)
+	* [ZooKeeper (Linux Only)](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/ZooKeeper.md)
+
+* 大数据、人工智能及机器学习
+	* [TensorFlow](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/tensorflow.md)
+	* [Hadoop](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Hadoop.md)
+		* [HDFS](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HadoopWebHDFS.md)
+		* [MapReduce Master 应用程序服务器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopMapReduceMaster.md)
+		* [MapReduce 历史服务器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopMapReduceHistory.md)
+		* [YARN 节点管理器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopYARNNodeManager.md)
+		* [YARN 资源管理器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN//HadoopYARNResourceManager.md)
 
 * 平台安装说明
 	* [Ubuntu 16.04 系统服务安装指南](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/starting-services.md)
-
-* 人工智能与机器学习
-	* [TensorFlow](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/tensorflow.md)
 
 ## StORM：Swift的对象关系管理（ORM）
 
