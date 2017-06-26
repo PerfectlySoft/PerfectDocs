@@ -434,7 +434,7 @@ public class OperationBuilder {
 
 一旦用辅助工具类OperationBuilder成功构造运算操作，该运算操作内的所有属性和值都可以通过下列方法进行访问：
 
-|Instance Interface|Type|Description|
+|接口函数/属性|类型|说明|
 |---------------|----|-----------|
 |fun attribute(forKey: String)|[AttrValue](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/attr_value.proto)|根据属性名称查看当前运算操作的某个属性|
 |var NodeDefinition|[NodeDef](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/node_def.proto)|获取节点定义|
