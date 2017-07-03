@@ -1,13 +1,14 @@
 # Routing
 
-Routing determines which handler receives a specific request. A handler is a routine, function, or method dedicated to receiving and acting on certain types of requests or signals. Requests are routed based on two pieces of information: the HTTP request method, and the request path. A route refers to an HTTP method, path, and handler combination. Routes are created and added to the server before it starts listening for requests or signals. For example:
+Routing determines which handler receives a specific request. A handler is a routine, function, or method dedicated to receiving and acting on certain types of requests or signals. Requests are routed based on two pieces of information: the HTTP request method, and the request path. A route refers to an HTTP method, path, and handler combination. Routes are created and added to the server before it starts listening for requests. For example:
 
 ```swift
 var routes = Routes()
-routes.add(method: .get, uri: "/path/one", handler: { request, response in
+routes.add(method: .get, uri: "/path/one") { 
+	request, response in
 	response.setBody(string: "Handler was called")
-	response.completed()
-})
+		.completed()
+}
 server.addRoutes(routes)
 ```
 
@@ -23,16 +24,21 @@ Before adding any route, you will need an appropriate handler function. Handler 
 /// Function which receives request and response objects and generates content.
 public typealias RequestHandler = (HTTPRequest, HTTPResponse) -> ()
 ```
-Requests are considered active until the handler indicates that it has concluded. This is done by calling the ```HTTPResponse.completed()``` function. Request handling in Perfect is fully asynchronous, so a handler function can return, spin off into new threads, or perform any other sort of asynchronous activity. The request will still be considered active up until ```HTTPResponse.completed()``` is called. Once the response is marked as completed, the outgoing headers and body data, if any, will be sent to the client.
 
-Routes are added to a ```Routes``` object before they are added to the server. When a Routes object is created, one or more routes are added using its ```add``` functions. Routes provides the following functions:
+Requests are considered active until a handler indicates that it has concluded. This is done by calling either the `HTTPResponse.next()` or the `HTTPResponse.completed()` function. Request handling in Perfect is fully asynchronous, so a handler function can return, spin off into new threads, or perform any other sort of asynchronous activity before calling either of these functions.
+
+Request handlers can be chained, in that one request URI can identify multiple handlers along its path. The handlers will be executed in order, and each given a chance to either continue the request processing or halt it.
+
+A request is considered to be active up until `HTTPResponse.completed()` is called. Calling `.next()` when there are no more handlers to execute is equivalent to calling `.completed()`. Once the response is marked as completed, the outgoing headers and body data, if any, will be sent to the client.
+
+Individual uri handlers are added to a ```Routes``` object before they are added to the server. When a Routes object is created, one or more routes are added using its ```add``` functions. Routes provides the following functions:
 
 ```swift
 public struct Routes {
 	/// Initialize with no baseUri.
-	public init()
+	public init(handler: RequestHandler? = nil)
 	// Initialize with a baseUri.
-	public init(baseUri: String)
+	public init(baseUri: String, handler: RequestHandler? = nil)
 	/// Add all the routes in the Routes object to this one.
 	public mutating func add(routes: Routes)
 	/// Add the given method, uri and handler as a route.
@@ -50,7 +56,7 @@ public struct Routes {
 }
 ```
 
-A Routes object can be initialized with a baseURI. The baseURI will be prepended to any route added to the object. For example, one could initialize a Routes object for version one of an API, and give it a baseURI of "/v1". Every route added will be prefixed with /v1. Routes objects can also be added to other Routes objects, and each route therein will be prefixed in the same manner. The following example shows the creation of two sets of routes for two versions of an API. The second version differs in behavior in only one endpoint:
+A Routes object can be initialized with a baseURI. The baseURI will be prepended to any route added to the object. For example, one could initialize a Routes object for version one of an API and give it a baseURI of "/v1". Every route added will be prefixed with /v1. Routes objects can also be added to other Routes objects, and each route therein will be prefixed in the same manner. The following example shows the creation of two sets of routes for two versions of an API. The second version differs in behavior in only one endpoint:
 
 ```swift
 var routes = Routes()
@@ -85,19 +91,36 @@ routes.add(routes: api1Routes)
 routes.add(routes: api2Routes)
 ```
 
-### Adding Server Routes
+A Routes object can also be given an optional handler. This handler will be called if that part of a path is matched against another subsequent handler.
 
-Both the HTTP 1.1 and FastCGI Perfect servers support routing. To add routes to a server, call the server's ```addRoutes``` function. The ```addRoutes``` function can be called several times to add more routes if needed. Routes cannot be added or modified after a server has started listening for requests.
+For example, a "/v1" version of an API might enforce a particular authentication mechanism on the clients. The authentication handler could be added to the "/v1" portion of the api and as each actual endpoint is reached the authentication handler would be given a chance to evaluate the request before passing it down to the remaining handlers(s).
 
 ```swift
-// Create server object
-let server = HTTPServer()
-// Add our routes
-let routes = Routes()
-...
-// Add routes to server
-server.addRoutes(routes)
+var routes = Routes(baseUri: "/v1") {
+	request, response in 
+	if authorized(request) {
+		response.next()
+	} else {
+		response.completed(.unauthorized)
+	}
+}
+routes.add(method: .get, uri: "/call1") { 
+	_, response in
+	response.setBody(string: "API CALL 1").next()
+}
+routes.add(method: .get, uri: "/call2") { 
+	_, response in
+	response.setBody(string: "API CALL 2").next()
+}
 ```
+
+Accessing either "/v1/call1" or "/v1/call2" will pass the request to the handler set on "/v1" routes.
+
+Routes can be nested like this as deeply as you wish. Handlers set directly on Routes objects are considered non-terminal. That is, they can not be accessed directly by clients and will only be executed if the request goes on to match a handler which is terminal. Likewise, handlers which are terminal but lie on the path of a more complete match will not be executed. For example with a handler on "/v1/users" and on "/v1/users/foo", accessing "/v1/users/foo" will not execute "/v1/users".
+
+### Adding Server Routes
+
+Both Perfect-HTTPServer and Perfect-FastCGI support routing. Consult [HTTPServer]([Routing](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPServer.md) for details on how to apply routes to HTTP servers.
 
 ### Variables
 
