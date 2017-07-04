@@ -110,13 +110,8 @@ print(s2)
 | 3 4 | * |0 0| = |0 3|
 */
 // 输入矩阵
-// *注意* 不管目标矩阵的维度到底是多少，输入时必须按照扁平化处理，即所有元素一个挨一个列出
-let srcA:[Float] = [[1, 2], [3, 4]].flatMap { $0 }
-let srcB:[Float] = [[0, 0], [1, 0]].flatMap { $0 }
-
-// 根据矩阵创建张量
-let tA = try TF.Tensor.Array(dimenisons: [2,2], value: srcA)
-let tB = try TF.Tensor.Array(dimenisons: [2,2], value: srcB)
+let tA = try TF.Tensor.Matrix([[1, 2], [3, 4]])
+let tB = try TF.Tensor.Matrix([[0, 0], [1, 0]])
 
 // 将张量转化为流程图节点
 let g = try TF.Graph()
@@ -334,6 +329,14 @@ let datastr = tensor.strings
 
 // 将上述结果映射为 [String] 字符串数组
 let str = datastr.map { $0.string }
+```
+
+### Matrix
+
+自从 Perfect-TensorFlow v1.2.1 版本开始，您可以直接输入矩阵作为张量了！上述例子现在可以改写为：
+
+``` swift
+let M = try TF.Tensor.Matrix([[1, 2], [3, 4]])
 ```
 
 ### 访问张量原始数据
