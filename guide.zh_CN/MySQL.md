@@ -167,7 +167,7 @@ func fetchData() {
 
 	results.forEachRow { row in
 		let optionName = getRowString(forRow: row[0]) //保存选项表的Name名称字段，应该是所在行的第一列，所以是row[0].
-		let optionName = getRowString(forRow: row[1]) //保存选项表Value字段
+		let optionValue = getRowString(forRow: row[1]) //保存选项表Value字段
 		ary.append("\(optionName)":optionValue]) //保存到字典内
 	}
 }
@@ -190,7 +190,7 @@ public init()
 如果您的数据库中包含非ascii码，比如中文，那么必须要在连接前设置下列选项：
 
 ``` swift
-setOption(MYSQL_SET_CHARSET_NAME, "utf8")
+setOption(.MYSQL_SET_CHARSET_NAME, "utf8")
 ```
 
 ### close

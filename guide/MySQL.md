@@ -181,7 +181,7 @@ Getting data from your schema is essential, and relatively easy to do. After run
 
         results.forEachRow { row in
             let optionName = getRowString(forRow: row[0]) //Store our Option Name, which would be the first item in the row, and therefore row[0].
-            let optionName = getRowString(forRow: row[1]) //Store our Option Value
+            let optionValue = getRowString(forRow: row[1]) //Store our Option Value
 
 
             ary.append("\(optionName)":optionValue]) //store our options
@@ -206,7 +206,7 @@ Creates an instance of the MySQL class that allows you to interact with MySQL da
 If your dataset contains non-ascii characters, please set this option for proper encoding:
 
 ``` swift
-setOption(MYSQL_SET_CHARSET_NAME, "utf8")
+setOption(.MYSQL_SET_CHARSET_NAME, "utf8")
 ```
 
 ### close
