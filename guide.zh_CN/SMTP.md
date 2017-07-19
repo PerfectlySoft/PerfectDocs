@@ -97,6 +97,7 @@ do {
 - attachments: [String]，邮件附件文件名构成的数组，比如 ["/本地/计算机/文件.txt", "/本地/电脑/照片.jpg" ...]
 - content: String，邮件正文，可以是普通文本，或者是HTML
 - html: String，邮件正文的别名，和content 使用相同的变量
+- text: String，将内容设置为纯文本
 - send(completion: @escaping ((Int, String, String)->Void))，邮件发送函数，参数为回调函数。
 回调函数包括以下三个参数，详细含义请参考 Perfect-CURL `performFully()`函数：
   - code: Int，邮件服务器响应代码，正常值是零。
