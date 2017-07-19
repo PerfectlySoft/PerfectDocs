@@ -102,6 +102,7 @@ do {
 - attachments: [String], full path of attachments, i.e., ["/path/to/file1.txt", "/path/to/file2.gif" ...]
 - content: String, mail body in text, plain text or html
 - html: String, alias of `content` (shares the same variable as `content`)
+- text: String, set the content to plain text
 - send(completion: @escaping ((Int, String, String)->Void)), function of sending email with callback. The completion callback has three parameters; check Perfect-CURL `performFully()` for more information:
   - code: Int, mail server response code. Zero for OK.
   - header: String, mail server response header string.
