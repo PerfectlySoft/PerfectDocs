@@ -20,5 +20,5 @@ override func modifyValue(_ v: Any, forKey k: String) -> Any {
     return v
 }
 ```
-This will convert all `Date`s to PostgreSQL's `timestamp with timezone` type.
+This will convert all `Date`s to `String`s formatted as PostgreSQL's `timestamp with timezone` type.
 (The implementation of `timestamptz` is irrelevant other than it returns a `String`)
