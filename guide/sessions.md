@@ -1,6 +1,6 @@
 # Sessions
 
-Perfect includes session drivers for Redis, PostgreSQL, MySQL, SQLite3 and CouchDB servers, as well as in-memory session storage for development purposes. Support for MongoDB and Redis is planned for the near future.
+Perfect includes session drivers for Redis, PostgreSQL, MySQL, SQLite3, CouchDB and MongoDB servers, as well as in-memory session storage for development purposes.
 
 Session management is a foundational function for any web or application environment, and can provide linkage to authentication, transitional preference storage, and transactional data such as for a traditional shopping cart.
 
@@ -344,13 +344,13 @@ Importing the module, in Package.swift:
 .Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 1)
 ```
 
-Defining the CouchDB database to use for session storage:
+Defining the MongoDB database to use for session storage:
 
 ``` swift
 SessionConfig.mongoCollection = "perfectsessions"
 ```
 
-Defining the connection to the CouchDB server:
+Defining the connection to the MongoDB server:
 
 ``` swift
 MongoDBConnection.host = "localhost"
