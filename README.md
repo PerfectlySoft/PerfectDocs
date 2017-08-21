@@ -151,6 +151,9 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 * Platform specific Notes
 	* [Ubuntu 16.04: Starting Services at System Boot](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/starting-services.md)
 
+* Language Extensions:
+	* [Python](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/python.md)
+
 	 
 ## StORM, a Swift ORM
 

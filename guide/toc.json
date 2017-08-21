@@ -363,6 +363,10 @@
 		{
 			"name": "Turnstile Authentication",
 			"doc":  "Turnstile"
+		},
+		{
+			"name": "Language Extension",
+			"doc":  "python"
 		}
 	]
 }

@@ -357,6 +357,10 @@
 		{
 			"name": "Turnstile 认证",
 			"doc":  "Turnstile"
+		},
+		{
+			"name": "语言扩展",
+			"doc":  "python"
 		}
 	]
 }
