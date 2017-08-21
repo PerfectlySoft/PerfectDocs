@@ -1,6 +1,6 @@
 # Perfect - Python
 
-This project provides an express way to import Python 2.7 module as a Server Side Swift Library.
+This project provides an expressway to import Python 2.7 module as a Server Side Swift Library.
 
 This package builds with Swift Package Manager and is part of the [Perfect](https://github.com/PerfectlySoft/Perfect) project, but can also run independently.
 
