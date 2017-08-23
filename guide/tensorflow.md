@@ -643,3 +643,14 @@ if let data = metaBuf.data {
 ```
 
 If ready, you can call `runner.run()` as the previous chapter.
+
+### Device List of a Session
+
+Since TensorFlow 1.3.0+, you can access device information by calling `session.devices` property, which will return a tuple array:
+
+``` swift
+let dev = try g.runner().session.devices
+print(dev)
+// sample output:
+// ["/job:localhost/replica:0/task:0/cpu:0": (type: "CPU", memory: 268435456)]
+```

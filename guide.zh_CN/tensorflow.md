@@ -638,3 +638,14 @@ if let data = metaBuf.data {
 ```
 
 准备好之后，就可以调用`runner.run()`，和前面章节使用方法一样。
+
+### 会话过程的设备属性
+
+从 TensorFlow 1.3.0以上版本开始，可以调用 `session.devices`方法获得设备清单属性，返回值是一个元组数组：
+
+``` swift
+let dev = try g.runner().session.devices
+print(dev)
+// 样本输出：
+// ["/job:localhost/replica:0/task:0/cpu:0": (type: "CPU", memory: 268435456)]
+```
