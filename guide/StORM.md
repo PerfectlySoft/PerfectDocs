@@ -47,6 +47,8 @@ SQLite
 
 [Updating rows:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORM-Update.md) More detailed access to the update process.
 
+[Lifecycle events:](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/StORMLifecycleEvents.md) Details and examples of the global StORM lifecycle events.
+
 
 ## Datasource specific documentation for StORM
 
