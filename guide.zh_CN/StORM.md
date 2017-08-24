@@ -19,7 +19,7 @@ StORM 是为 Swift 语言配套的对象管理函数库（ORM），基于[Perfec
 
 * [SQLite3](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-SQLite.md)
 * [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-PostgreSQL.md)
-* [PostgreSQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-MySQL.md)
+* [MySQL](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-MySQL.md)
 * * [Apache CouchDB](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-CouchDB.md)
 
 
