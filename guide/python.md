@@ -137,3 +137,25 @@ if let name = person.load("name")?.value as? String,
 }
 ```
 
+### Callbacks
+
+Consider the following python code as you can execute a function as a parameter like `x = caller('Hello', callback)`:
+
+``` python
+def callback(msg):
+    return 'callback: ' + msg
+
+def caller(info, func):
+    return func(info)
+```
+
+The equivalent Swift code is nothing special but using the objective callback function as an argument before calling:
+
+``` swift
+if let fun = pymod.load("callback"),
+   let result = pymod.call("caller", args: ["Hello", fun]),
+   let v = result.value as? String {
+   		print(v)
+   	// it will be "callback: Hello"
+}
+```

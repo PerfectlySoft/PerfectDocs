@@ -136,3 +136,26 @@ if let name = person.load("name")?.value as? String,
       print(name, age, intro)
 }
 ```
+
+### 回调函数
+
+参考以下python代码，此时如果执行 `x = caller('Hello', callback)` 则可以将函数作为参数进行回调:
+
+``` python
+def callback(msg):
+    return 'callback: ' + msg
+
+def caller(info, func):
+    return func(info)
+```
+
+在Swift中等效的代码平淡无奇，只不过将待调函数作为参数而已：:
+
+``` swift
+if let fun = pymod.load("callback"),
+   let result = pymod.call("caller", args: ["Hello", fun]),
+   let v = result.value as? String {
+   		print(v)
+   	// 结果是 "callback: Hello"
+}
+```
