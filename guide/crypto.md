@@ -42,6 +42,21 @@ public extension String {
 	/// Verify the signature against the String data.
 	/// Returns true if the signature is verified. Returns false otherwise.
 	func verify(_ digest: Digest, signature: [UInt8], key: Key) -> Bool
+	/// Encrypt this buffer using the indicated cipher, password, and salt.
+	/// The string's UTF8 characters are encoded.
+	/// Resulting data is in PEM encoded CMS format.
+	func encrypt(_ cipher: Cipher,
+	             password: String,
+	             salt: String,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> String?
+	/// Decrypt this PEM encoded CMS buffer using the indicated password and salt.
+	/// Resulting decrypted data must be valid UTF-8 characters or the operation will fail.
+	func decrypt(_ cipher: Cipher,
+	             password: String,
+	             salt: String,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> String?
 }
 ```
 
@@ -74,6 +89,22 @@ if let digestBytes = testStr.digest(.sha256),
 ```
 
 The `sign` and `verify` functions permit a block of data to be cryptographically signed using a specified key and then later verified to ensure that the data has not been modified in any way. Signing can be done with either HMAC, RSA or EC type keys.
+
+The `encrypt` and `decrypt` functions accept a Cipher, password and salt value and encrypt/decrypt the data. These encryption functions produce and consume PEM encoded Cryptographic Message Syntax (CMS) data.
+
+```swift
+let cipher = Cipher.aes_256_cbc
+let password = "this is a good pw"
+let salt = "this is a salty salt"
+let data = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+guard let result = data.encrypt(cipher, password: password, salt: salt) else {
+	return // fatal error
+}
+guard let decryptedData = result.decrypt(cipher, password: password, salt: salt) else {
+	return // decryption error
+}
+// decryptedData == data
+```
 
 The second group of String extensions add convenience functions for creating a String from *non null terminated* UTF-8 characters. These characters can be given through either a `[UInt8]` or `UnsafeRawBufferPointer`.
 
@@ -116,6 +147,19 @@ public extension Array where Element: Octal {
 	func encrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
 	/// Encrypt this buffer using the indicated cipher, key an iv (initialization vector).
 	func decrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
+	/// Encrypt this buffer using the indicated cipher, password, and salt.
+	/// Resulting data is PEM encoded CMS format.
+	func encrypt(_ cipher: Cipher,
+	             password: [UInt8],
+	             salt: [UInt8],
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> [UInt8]?
+	/// Decrypt this PEM encoded CMS buffer using the indicated password and salt.
+	func decrypt(_ cipher: Cipher,
+	             password: [UInt8],
+	             salt: [UInt8],
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> [UInt8]?
 }
 ```
 
@@ -123,7 +167,9 @@ The encode, decode and digest functions work identically to the String versions,
 
 The `digest` function allows one to perform a message digest operation on the array values. The digest data is returned as a `[UInt8]`. nil is returned if the indicated digest is not supported by the underlying system.
 
-The `encrypt` and `decrypt` functions will encrypt/decrypt the array data based on the indicated `Cipher` enum value. These operations also require input for the key and initialization vector (iv) parameters.
+The first set of `encrypt` and `decrypt` functions will encrypt/decrypt the array data based on the indicated `Cipher` enum value. These operations also require input for the key and initialization vector (iv) parameters.
+
+The second set of `encrypt` and `decrypt` functions accept a Cipher, password and salt value and encrypt/decrypt the data. These encryption functions produce and consume PEM encoded Cryptographic Message Syntax (CMS) data.
 
 The sizes of the key and iv arrays will differ based the cipher in use. `Cipher` enum values provide properties for the individual cipher's `blockSize`, `keyLength` and `ivLength`. All of these values are indicated in bytes.
 
@@ -219,10 +265,96 @@ public extension UnsafeRawBufferPointer {
 	/// Decrypt this buffer using the indicated cipher, key and iv (initialization vector).
 	/// Returns a newly allocated buffer which must be freed by the caller.
 	func decrypt(_ cipher: Cipher, key: UnsafeRawBufferPointer, iv: UnsafeRawBufferPointer) -> UnsafeMutableRawBufferPointer?
+	/// Encrypt this buffer to PEM encoded CMS format using the indicated cipher, password, and salt.
+	/// Returns a newly allocated buffer which must be freed by the caller.
+	func encrypt(_ cipher: Cipher,
+	             password: UnsafeRawBufferPointer,
+	             salt: UnsafeRawBufferPointer,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> UnsafeMutableRawBufferPointer?
+	/// Decrypt this PEM encoded CMS buffer using the indicated password and salt.
+	/// Returns a newly allocated buffer which must be freed by the caller.
+	func decrypt(_ cipher: Cipher,
+	             password: UnsafeRawBufferPointer,
+	             salt: UnsafeRawBufferPointer,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> UnsafeMutableRawBufferPointer?
 }
 ```
 
 It's very important to adhere to the proper memory ownership guidelines when using these functions. Any `UnsafeMutableRawBufferPointer` returned by one of these functions must at some point be deallocated by the caller. All such return buffers will properly have their `.count` properties set to indicate their size. No `UnsafeRawBufferPointer` passed into a function will be deallocated or otherwise modified.
+
+## JSON Web Tokens (JWT)
+
+This crypto package provides an means for creating new JWT tokens and validating existing tokens.
+
+JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA. Source: [JWT](https://jwt.io/introduction/).
+
+New JWT tokens are created through the `JWTCreator` object.
+
+```swift
+/// Creates and signs new JWT tokens.
+public struct JWTCreator {
+	/// Creates a new JWT token given a payload.
+	/// The payload can then be signed to generate a JWT token string.
+	public init?(payload: [String:Any])
+	/// Sign and return a new JWT token string using an HMAC key.
+	/// Additional headers can be optionally provided.
+	/// Throws a JWT.Error.signingError if there is a problem generating the token string.
+	public func sign(alg: JWT.Alg, key: String, headers: [String:Any] = [:]) throws -> String
+	/// Sign and return a new JWT token string using the given key.
+	/// Additional headers can be optionally provided.
+	/// The key type must be compatible with the indicated `algo`.
+	/// Throws a JWT.Error.signingError if there is a problem generating the token string.
+	public func sign(alg: JWT.Alg, key: Key, headers: [String:Any] = [:]) throws -> String
+}
+```
+
+Existing JWT tokens can be validated through the `JWTVerifier` object.
+
+```swift
+/// Accepts a JWT token string and verifies its structural validity and signature.
+public struct JWTVerifier {
+	/// The headers obtained from the token.
+	public var header: [String:Any]
+	/// The payload carried by the token.
+	public var payload: [String:Any]
+	/// Create a JWTVerifier given a source string in the "aaaa.bbbb.cccc" format.
+	/// Returns nil if the given string is not a valid JWT.
+	/// *Does not perform verification in this step.* Call `verify` with your key to validate.
+	/// If verification succeeds then the `.headers` and `.payload` properties can be safely accessed.
+	public init?(_ jwt: String)
+	/// Verify the token based on the indicated algorithm and HMAC key.
+	/// Throws a JWT.Error.verificationError if any aspect of the token is incongruent.
+	/// Returns without any error if the token was able to be verified.
+	/// The parameter `algo` must match the token's "alg" header.
+	public func verify(algo: JWT.Alg, key: String) throws
+	/// Verify the token based on the indicated algorithm and key.
+	/// Throws a JWT.Error.verificationError if any aspect of the token is incongruent.
+	/// Returns without any error if the token was able to be verified.
+	/// The parameter `algo` must match the token's "alg" header.
+	/// The key type must be compatible with the indicated `algo`.
+	public func verify(algo: JWT.Alg, key: Key) throws
+}
+```
+
+The following example will create and then verify a token using the "HS256" alg scheme.
+
+```swift
+let name = "John Doe"
+let tstPayload = ["sub": "1234567890", "name": name, "admin": true] as [String : Any]
+let secret = "secret"
+guard let jwt1 = JWTCreator(payload: tstPayload) else {
+	return // fatal error
+}
+let token = try jwt1.sign(alg: .hs256, key: secret)
+guard let jwt = JWTVerifier(token) else {
+  return // fatal error
+}
+try jwt.verify(algo: .hs256, key: HMACKey(secret))
+let fndName = jwt.payload["name"] as? String
+// name == fndName!
+```
 
 ## Algorithms
 
