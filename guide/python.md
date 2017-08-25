@@ -83,6 +83,10 @@ str|String|
 list|[Any]|Recursively
 dict|[String:Any]|Recursively
 
+For example, you can convert a Swift `String` to `PyObj` by: `let pystr = "Hello".python()` or `let pystr = try PyObj(value:"Hello")`.
+
+To convert a `PyObj` to a Swift data type, e.g., a `String`, there are also two available approaches: `let str = pystr.value as? String` and `let str = String(python: pystr)`.
+
 
 ### Call A Python Function
 

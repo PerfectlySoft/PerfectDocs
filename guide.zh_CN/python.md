@@ -83,6 +83,9 @@ str|String|
 list|[Any]|递归转换
 dict|[String:Any]|递归转换
 
+比如，您可以把一个字符串 `String` 转换为 `PyObj`，通过 `let pystr = "Hello".python()` 或者 `let pystr = try PyObj(value:"Hello")` 完成转换。
+
+反过来，如果要把 `PyObj` 类转换为Swift数据类型，比如字符串，则仍然有两种方法：`let str = pystr.value as? String` 和 `let str = String(python: pystr)`。
 
 ### 执行Python函数
 
