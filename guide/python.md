@@ -23,7 +23,7 @@ Please make sure Xcode 8.3.3 / 9.0 or later version was installed.
 Add PerfectPython dependency to your Package.swift
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Python.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Python.git", majorVersion: 1)
 ```
 
 Then import two different libraries into the swift source code:

@@ -23,7 +23,7 @@ $ sudo apt-get install libpython2.7-dev
 首先在Package.swift中增加依存关系：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Python.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Python.git", majorVersion: 1)
 ```
 
 然后将下列头文件导入Swift源代码：
