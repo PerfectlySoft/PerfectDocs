@@ -149,6 +149,10 @@
 					"doc":  "logFiles"
 				},
 				{
+					"name": "Remote Logging",
+					"doc":  "logRemote"
+				},
+				{
 					"name": "OAuth2 and Providers",
 					"doc":  "OAuth2"
 				},
@@ -343,6 +347,10 @@
 					"doc":  "StORM-Update"
 				},
 				{
+					"name": "StORM Lifecycle Events",
+					"doc":  "StORMLifecycleEvents"
+				},
+				{
 					"name": "PostgresStORM",
 					"doc":  "StORM-PostgreSQL"
 				},
@@ -357,6 +365,10 @@
 				{
 					"name": "CouchDBStORM",
 					"doc":  "StORM-CouchDB"
+				},
+				{
+					"name": "MongoDBStoRM",
+					"doc":  "StORM-MongoDB"
 				}
 			]
 		},

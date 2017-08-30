@@ -56,7 +56,13 @@
 				},
 				{
 					"name": "HTTP请求与响应过滤器",
-					"doc":  "filters"
+					"doc":  "filters",
+					"contents": [
+						{
+							"name": "Web重定向",
+							"doc":  "webRedirects"
+						}
+					]
 				},
 				{
 					"name": "Session 会话管理",
@@ -141,6 +147,10 @@
 				{
 					"name": "Log日志文件",
 					"doc":  "logFiles"
+				},
+				{
+					"name": "远程日志服务器",
+					"doc":  "logRemote"
 				},
 				{
 					"name": "OAuth2 身份授权",
@@ -337,6 +347,10 @@
 					"doc":  "StORM-Update"
 				},
 				{
+					"name": "全局全周期事件",
+					"doc":  "StORMLifecycleEvents"
+				},
+				{
 					"name": "PostgresStORM",
 					"doc":  "StORM-PostgreSQL"
 				},
@@ -351,6 +365,10 @@
 				{
 					"name": "CouchDBStORM",
 					"doc":  "StORM-CouchDB"
+				},
+				{
+					"name": "MongoDBStoRM",
+					"doc":  "StORM-MongoDB"
 				}
 			]
 		},
