@@ -71,6 +71,7 @@
 		* [文件上传](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/fileUploads.md)
 	* [HTTPResponse响应对象](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPResponse.md)
 	* [HTTP请求与响应过滤器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/filters.md)
+		* [Web 重定向过滤器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/webRedirects.md)
 	* [Session 会话管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/sessions.md)
 		* [CSRF 安全功能](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/csrf.md)
 		* [CORS 安全功能](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/cors.md)
@@ -81,6 +82,8 @@
 	* [Mustache页面模板](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/mustache.md)
 	* [Markdown](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/Markdown.md)
 	* [HTTP请求日志记录器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPRequestLogging.md)
+	* [日志文件格式](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/logFiles.md)
+	* [远程日志服务器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/logRemote.md)
 * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/webSockets.md)
 * [基本工具](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/utilities.md)
 	* [字节流转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/bytes.md)
@@ -161,10 +164,12 @@ StORM 并非 Perfect.org 发行的项目，但是 Perfect 的函数库将 StORM 
 	* [StORM游标](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Cursor.md)
 	* [插入数据](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Insert.md)
 	* [更新数据](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-Update.md)
+	* [StORM 全局全周期事件](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORMLifecycleEvents.md)
 	* [PostgresStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-PostgreSQL.md)
 	* [SQLiteStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-SQLite.md)
 	* [MySQLStORM 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-MySQL.md)
 	* [Apache CouchDB 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-CouchDB.md)
+	* [MongoDB 对象关系管理](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/StORM-MongoDB.md)
 
  ## Perfect Turnstile – 用户身份验证管理
 
