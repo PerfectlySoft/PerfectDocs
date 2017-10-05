@@ -356,6 +356,8 @@ let fndName = jwt.payload["name"] as? String
 // name == fndName!
 ```
 
+It's important to note that the JWTVerifier will verify that the token is cryptographically sound, but it **does not** validate payload claims such as iss(uer) or exp(iration). You can obtain these from the payload dictionary and validate according to the needs of your application. 
+
 ## Algorithms
 
 The available encoding, digest and cipher algorithms are enumerated in the `Encoding`, `Digest` and `Cipher` enums, respectively.
