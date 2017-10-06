@@ -9,7 +9,7 @@
 [![Join the chat at http://perfect.ly](http://perfect.ly/badge.svg)](http://perfect.ly/badge.svg)
 
 
-Perfect is a complete and powerful toolbox, framework, and application server for Linux, iOS, and macOS (OS X). It provides everything a Swift engineer needs for developing lightweight, maintainable, and scalable apps and other REST services entirely in the Swift programming language for both client-facing and server-side applications.
+Perfect is a complete and powerful toolbox, framework, and application server for Linux and macOS. It provides everything a Swift engineer needs for developing lightweight, maintainable, and scalable apps and other REST services entirely in the Swift programming language for both client-facing and server-side applications.
 
 Built on a high-performance asynchronous networking engine, Perfect can also run on FastCGI, and it supports Secure Sockets Layer encryption. There are many other features including a suite of tools commonly required by internet servers such as WebSockets and iOS push notifications, but you are not limited to those options.
 

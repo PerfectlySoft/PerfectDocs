@@ -34,7 +34,7 @@ Everything you need is already installed.
 
 ### Ubuntu Linux
 
-Perfect runs in Ubuntu Linux 14.04, 15.10 and 16.04 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
+Perfect runs in Ubuntu Linux 16.04 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
 
 ```
 sudo apt-get install openssl libssl-dev uuid-dev
