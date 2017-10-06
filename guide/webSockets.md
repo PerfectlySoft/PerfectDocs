@@ -15,7 +15,7 @@ The WebSocket protocol is currently supported in most major browsers including G
 Add the WebSocket dependency to your Package.swift file:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 2)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 3)
 ```
 
 Then import the WebSocket library into your Swift source code as needed:
