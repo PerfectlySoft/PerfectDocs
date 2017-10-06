@@ -15,7 +15,7 @@ Perfect-Markdown is directly building on  [GerHobbelt's "upskirt"](https://githu
 Add dependencies to your Package.swift
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Markdown.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Markdown.git", majorVersion: 3)
 ```
 
 ## Import Perfect Markdown Library

@@ -4,12 +4,18 @@ The Perfect-CURL package provides support for [curl](https://curl.haxx.se) in Sw
 
 ## Building
 
-Ensure you have installed and activated the latest Swift 3.1+ tool chain.
+Ensure you have installed and activated the latest Swift 4.0+ tool chain.
 
 Add this package as a dependency in your Package.swift file.
 
+Swift 4 format:
 ```
-.Package(url: "https://github.com/PerfectlySoft/Perfect-CURL.git", majorVersion: 2)
+.package(url: "https://github.com/PerfectlySoft/Perfect-CURL.git", from: "3.0.0")
+```
+
+Swift 3 format:
+```
+.Package(url: "https://github.com/PerfectlySoft/Perfect-CURL.git", majorVersion: 3)
 ```
 
 ### Linux Build Notes

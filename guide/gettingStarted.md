@@ -11,9 +11,9 @@ After reading this guide, you will know:
 
 ## Prerequisites
 
-### Swift 3.0
+### Swift 4.0
 
-After you have installed a Swift 3.0 toolchain from [Swift.org](https://swift.org/getting-started/), open up a terminal window and type
+After you have installed a Swift 4.0 toolchain from [Swift.org](https://swift.org/getting-started/), open up a terminal window and type
 ```
 swift --version
 ```
@@ -21,14 +21,14 @@ swift --version
 It will produce a message similar to this one:
 
 ```
-Apple Swift version 3.0.1 (swiftlang-800.0.58.6 clang-800.0.42.1)
+Apple Swift version 4.0 (swiftlang-900.0.65 clang-900.0.37)
 Target: x86_64-apple-macosx10.9
 ```
-Make sure you are running the release version of Swift 3.0.1. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.1.
+Make sure you are running the release version of Swift 4.0+. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.1.
 
 You can find out which version of Swift you will need by looking in [the README of the main Perfect repo](https://github.com/PerfectlySoft/Perfect#compatibility-with-swift).
 
-### OS X
+### macOS
 
 Everything you need is already installed.
 

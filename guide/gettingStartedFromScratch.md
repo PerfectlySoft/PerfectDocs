@@ -4,9 +4,9 @@ This guide will take you through the steps of settings up a simple HTTP server f
 
 ## Prerequisites
 
-### Swift 3.0
+### Swift 4.0
 
-After you have installed a Swift 3.0 toolchain from [Swift.org](https://swift.org/getting-started/), open up a terminal window and type
+After you have installed a Swift 4.0+ toolchain from [Swift.org](https://swift.org/getting-started/), open up a terminal window and type
 ```
 swift --version
 ```
@@ -14,20 +14,20 @@ swift --version
 It will produce a message similar to this one:
 
 ```
-Apple Swift version 3.0.1 (swiftlang-800.0.58.6 clang-800.0.42.1)
+Apple Swift version 4.0 (swiftlang-900.0.65 clang-900.0.37)
 Target: x86_64-apple-macosx10.9
 ```
-Make sure you are running the release version of Swift 3.0.1. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.1.
+Make sure you are running the release version of Swift 4. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.1.
 
 You can find out which version of Swift you will need by looking in [the README of the main Perfect repo](https://github.com/PerfectlySoft/Perfect#compatibility-with-swift).
 
-### OS X
+### macOS
 
 Everything you need is already installed.
 
 ### Ubuntu Linux
 
-Perfect runs in Ubuntu Linux 14.04, 15.10 and 16.04 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
+Perfect runs in Ubuntu Linux 16.04 environments. Perfect relies on OpenSSL, libssl-dev, and uuid-dev. To install these, in the terminal, type:
 
 ```
 sudo apt-get install openssl libssl-dev uuid-dev
@@ -42,41 +42,75 @@ mkdir MyAwesomeProject
 cd MyAwesomeProject
 ```
 
-As a good developer practice, make this folder a git repo:
+Initialize a new SPM package with:
 
 ```
-git init
-touch README.md
-git add README.md
-git commit -m "Initial commit"
+swift package init --type executable
 ```
 
-It's also recommended to add a `.gitignore` similar to the contents of [this Swift .gitignore template from gitignore.io](https://www.gitignore.io/api/swift).
+This will create a variety of files and will produce the following output:
+
+```
+Creating executable package: MyAwesomeProject
+Creating Package.swift
+Creating README.md
+Creating .gitignore
+Creating Sources/
+Creating Sources/MyAwesomeProject/main.swift
+Creating Tests/
+```
 
 ### Create the Swift Package
 
-Now create a `Package.swift` file in the root of the repo with the following content. This is needed for the Swift Package Manager (SPM) to build the project.
+Open the `Package.swift` file. You will see it has this content:
 
-``` swift
+```
+// swift-tools-version:4.0
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
     name: "MyAwesomeProject",
     dependencies: [
-        .Package(
-        url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
-        majorVersion: 2
-        )
+        // Dependencies declare other packages that this package depends on.
+        // .package(url: /* package url */, from: "1.0.0"),
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+        .target(
+            name: "MyAwesomeProject",
+            dependencies: []),
     ]
 )
 ```
 
-Next create a folder called `Sources` and create a `main.swift` in there:
+Modify this file by adding a Perfect-HTTPServer dependency. The result should look like so:
 
 ```
-mkdir Sources
-echo 'print("Well hi there!")' >> Sources/main.swift
+// swift-tools-version:4.0
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "MyAwesomeProject",
+    dependencies: [
+        // Dependencies declare other packages that this package depends on.
+        .package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", from: "3.0.0")
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+        .target(
+            name: "MyAwesomeProject",
+            dependencies: ["PerfectHTTPServer"]),
+    ]
+)
 ```
+
+As you can see, the version for this dependency is set to 3.0.0 or higher. This is the latest version of the package as of this writing and is the version which explicitly supports Swift 4. You can also see that "PerfectHTTPServer" was added to the direct dependencies list for your "MyAwesomeProject" target.
 
 Now the project is ready to be built and run by running by the following two commands:
 
@@ -85,45 +119,35 @@ swift build
 .build/debug/MyAwesomeProject
 ```
 
-You should see the following output:
+You will see output as SPM resolves packages and then builds the project. Running the program will produce the following:
 
 ```
-Well hi there!
+Hello, world!
 ```
 
 ### Setting up the server
 
-Now that the Swift package is up and running, the next step is to implement the Perfect-HTTPServer. Open up the `Sources/main.swift` and change its content the following:
+Now that the Swift package has been created and compiles, the next step is to implement the Perfect-HTTPServer. Open up the `Sources/MyAwesomeProject/main.swift` file and replace its content with the following:
 
 ``` swift
-import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
 
-// Create HTTP server.
-let server = HTTPServer()
-
 // Register your own routes and handlers
 var routes = Routes()
-routes.add(method: .get, uri: "/", handler: {
-		request, response in
-		response.setHeader(.contentType, value: "text/html")
-		response.appendBody(string: "<html><title>Hello, world!</title><body>Hello, world!</body></html>")
-		response.completed()
-	}
-)
-
-// Add the routes to the server.
-server.addRoutes(routes)
-
-// Set a listen port of 8181
-server.serverPort = 8181
+routes.add(method: .get, uri: "/") {
+	request, response in
+	response.setHeader(.contentType, value: "text/html")
+	response.appendBody(string: "<html><title>Hello, world!</title><body>Hello, world!</body></html>")
+		.completed()
+}
 
 do {
 	// Launch the HTTP server.
-	try server.start()
-} catch PerfectError.networkError(let err, let msg) {
-	print("Network error thrown: \(err) \(msg)")
+	try HTTPServer.launch(
+		.server(name: "www.example.ca", port: 8181, routes: routes))
+} catch {
+	fatalError("\(error)") // fatal error launching one of the servers
 }
 ```
 
@@ -134,20 +158,23 @@ swift build
 .build/debug/MyAwesomeProject
 ```
 
+You will see a message as the server starts:
+
+```
+[INFO] Starting HTTP server www.example.ca on :::8181
+```
+
 The server is now running and waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit "control-c" to terminate the server.
 
 ### Xcode
 
-Swift Package Manager (SPM) can generate an Xcode project which can run the PerfectTemplate server and provide full source code editing and debugging for your project. Enter the following in your terminal:
+Swift Package Manager (SPM) can generate an Xcode project which can run the MyAwesomeProject server and provide full source code editing and debugging for your project. Enter the following in your terminal:
 
 ```
 swift package generate-xcodeproj
 ```
 
-Open the generated file "PerfectTemplate.xcodeproj" and add the following to the "Library Search Paths" for the project (not just the target):
+After opening the project ensure that you have selected the executable target and selected it to run on "My Mac". Also ensure that the correct Swift toolchain is selected. You can now run and debug the server directly in Xcode. If your application will access files within your project directory, for example HTML files in a webroot folder, choose the menu item "Product > Scheme > Edit Scheme…" and in the Options tab set the "Use Custom Working Directory" to your projects folder. This will enable you to run from within Xcode and still easily access files given relative paths.
 
-```
-$(PROJECT_DIR) - Recursive
-```
 
-Ensure that you have selected the executable target and selected it to run on "My Mac". Also ensure that the correct Swift toolchain is selected. You can now run and debug the server directly in Xcode.
+

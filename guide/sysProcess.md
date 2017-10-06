@@ -12,8 +12,8 @@ Add the "Perfect" project as a dependency in your Package.swift file:
 
 ``` swift
 .Package(
-	url: "https://github.com/PerfectlySoft/Perfect.git",
-	majorVersion: 2
+	url: "https://github.com/PerfectlySoft/PerfectLib.git",
+	majorVersion: 3
 	)
 ```
 In your file where you wish to use SysProcess, import the PerfectLib and add either SwiftGlibc or Darwin:

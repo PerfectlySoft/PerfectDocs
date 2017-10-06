@@ -10,7 +10,7 @@ The [Perfect Log Server](https://github.com/PerfectServers/Perfect-LogServer) is
 To include the dependency in your project, add the following to your project's Package.swift file:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 1),
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 3),
 ```
 
 Now add the import directive to the file you wish to use the logging in:

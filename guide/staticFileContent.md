@@ -13,77 +13,21 @@ For example, a handler which simply returns the request file might look as follo
 ```swift
 {
 	request, response in
-	StaticFileHandler(documentRoot: request.documentRoot).handleRequest(request: request, response: response)
+	StaticFileHandler(documentRoot: request.documentRoot)
+		.handleRequest(request: request, response: response)
 }
 ```
 
-However, unless custom behaviour is required, it is not necessary to handle this manually. Setting the server's ```documentRoot``` property will automatically install a handler which will serve any files from the indicated directory. Setting the server's document root is analogous to the following snippet:
+If your server is intended to only server static files it can be launched directly with a document root.
 
 ```swift
-let dir = Dir(documentRoot)
-if !dir.exists {
-	try Dir(documentRoot).create()
-}
-routes.add(method: .get, uri: "/**", handler: {
-	request, response in
-	StaticFileHandler(documentRoot: request.documentRoot).handleRequest(request: request, response: response)
-})
+try HTTPServer.launch(.server(name: "localhost", port: 8080, documentRoot: "/path/to/webroot"))
 ```
-
-The handler that gets installed will serve any files from the root or any sub-directories contained therein.
-
-An example of the documentRoot property usage is found in the PerfectTemplate:
-
-``` swift
-import PerfectLib
-import PerfectHTTP
-import PerfectHTTPServer
-
-// Create HTTP server.
-let server = HTTPServer()
-
-// Register your own routes and handlers
-var routes = Routes()
-routes.add(method: .get, uri: "/", handler: {
-		request, response in
-		response.appendBody(string: "<html>...</html>")
-		response.completed()
-	}
-)
-
-// Add the routes to the server.
-server.addRoutes(routes)
-
-// Set a listen port of 8181
-server.serverPort = 8181
-
-// Set a document root.
-// This is optional. If you do not want to serve 
-// static content then do not set this.
-// Setting the document root will automatically add a 
-// static file handler for the route
-server.documentRoot = "./webroot"
-
-// Gather command line options and further configure the server.
-// Run the server with --help to see the list of supported arguments.
-// Command line arguments will supplant any of the values set above.
-configureServer(server)
-
-do {
-	// Launch the HTTP server.
-	try server.start()
-} catch PerfectError.networkError(let err, let msg) {
-	print("Network error thrown: \(err) \(msg)")
-}
-
-``` 
-
-Note the `server.documentRoot = "./webroot"` line. It means that if there is a styles.css document in the specified webroot directory, then a request to the URI "/styles.css" will return that file to the browser.
 
 The following example establishes a virtual documents path, serving all URIs which begin with "/files" from the physical directory "/var/www/htdocs":
 
 ``` swift
-routes.add(method: .get, uri: "/files/**", handler: {
+routes.add(method: .get, uri: "/files/**") {
 	request, response in
 
 	// get the portion of the request path which was matched by the wildcard
@@ -95,9 +39,20 @@ routes.add(method: .get, uri: "/files/**", handler: {
 	// trigger the handling of the request, 
 	// with our documentRoot and modified path set
 	handler.handleRequest(request: request, response: response)
-	}
-)
+}
 ```
 
 In the route example above, a request to "/files/foo.html" would return the corresponding file "/var/www/htdocs/foo.html".
+
+### Content Compression and Performance
+
+By default, StaticFileHandler will send all file data to the client as quickly as possible. This means it will attempt to use the `sendfile` function which offers better performance when sending file data out over socket connections. There are two cases where this may not be possible or desirable. 
+
+The first case occurs when using an encrypted TLS/SSL connection. In this scenario StaticFileHandler will simply read and send out the file data in chunks. No action is required. StaticFileHandler will detect if the data is being sent over a secured connection and will disable the use of `sendfile`.
+
+The second case occurs when using content compression. Content compression and usage of `sendfile` do not mix and can give erratic results. To enable content compression with StaticFileHandler, `allowResponseFilters` must be set to true. This is accomplished with an additional parameter passed to the initializer:
+
+```swift
+StaticFileHandler(documentRoot: "/path/to/root/", allowResponseFilters: true)
+```
 

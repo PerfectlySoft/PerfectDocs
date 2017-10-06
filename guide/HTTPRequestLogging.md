@@ -64,7 +64,7 @@ The important parts of the configuration spec to add for enabling the Request Lo
 	"type":"request",
 	"priority":"high",
 	"name":RequestLogger.filterAPIRequest,
-	],
+],
 [
 	"type":"response",
 	"priority":"low",

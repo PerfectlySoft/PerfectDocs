@@ -35,7 +35,7 @@ Add the "Perfect-PostgreSQL" project as a dependency in your Package.swift file:
 ``` swift
 .Package(
 	url: "https://github.com/PerfectlySoft/Perfect-PostgreSQL.git",
-	majorVersion: 2
+	majorVersion: 3
 	)
 ```
 
@@ -50,7 +50,7 @@ swift package generate-xcodeproj
 To use the PostgreSQL connector in a source file, import the module:
 
 ``` swift
-import PostgreSQL
+import PerfectPostgreSQL
 ```
 
 ### Quick Start

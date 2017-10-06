@@ -25,7 +25,7 @@ Add the "Perfect-FileMaker" project as a dependency in your Package.swift file:
 ```swift
 .Package(
 	url:"https://github.com/PerfectlySoft/Perfect-FileMaker.git",
-	majorVersion: 2
+	majorVersion: 3
 	)
 ```
 

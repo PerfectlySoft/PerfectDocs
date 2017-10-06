@@ -149,6 +149,10 @@
 					"doc":  "logFiles"
 				},
 				{
+					"name": "Push Notifications",
+					"doc":  "iOSNotifications"
+				},
+				{
 					"name": "Remote Logging",
 					"doc":  "logRemote"
 				},

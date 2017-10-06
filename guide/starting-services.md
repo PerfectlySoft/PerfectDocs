@@ -14,7 +14,8 @@ Description=XXX API Server
 
 [Service]
 Type=simple
-ExecStart= /path/to/binary/APIServer
+WorkingDirectory=/path/to/binary/
+ExecStart=/path/to/binary/APIServer
 Restart=always
 PIDFile=/var/run/apiserver.pid
 

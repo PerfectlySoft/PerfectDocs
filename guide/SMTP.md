@@ -23,7 +23,7 @@ sudo apt-get install libssl-dev
 To use SMTP class, modify the Package.swift file and add following dependency:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-SMTP.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-SMTP.git", majorVersion: 3)
 ```
 
 Then import SMTP library into the Swift source code:

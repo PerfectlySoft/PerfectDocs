@@ -9,7 +9,7 @@ To use this module, add this project as a dependency in your Package.swift file.
 ```swift
 .Package(
 	url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", 
-	majorVersion: 2
+	majorVersion: 3
 	)
 ```
 

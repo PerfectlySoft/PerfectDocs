@@ -27,7 +27,7 @@ Add the "Perfect-SQLite" project as a dependency in your Package.swift file:
 ``` swift
 .Package(
 	url: "https://github.com/PerfectlySoft/Perfect-SQLite.git",
-	majorVersion: 2
+	majorVersion: 3
 	)
 ```
 
@@ -36,7 +36,7 @@ Add the "Perfect-SQLite" project as a dependency in your Package.swift file:
 First and foremost, in any of the source files you intend to use with SQLite, import the module with:
 
 ``` swift
-import SQLite
+import PerfectSQLite
 ```
 
 ### Quick Start
