@@ -25,7 +25,7 @@ sudo apt-get install libcurl4-openssl-dev libxml2-dev
 ``` swift
 .Package(
 	url:"https://github.com/PerfectlySoft/Perfect-FileMaker.git",
-	majorVersion: 2, minor: 0
+	majorVersion: 3
 	)
 ```
 

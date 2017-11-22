@@ -145,6 +145,10 @@
 					"doc":  "log"
 				},
 				{
+					"name": "消息推送",
+					"doc":  "iOSNotifications"
+				},
+				{
 					"name": "Log日志文件",
 					"doc":  "logFiles"
 				},

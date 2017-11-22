@@ -107,7 +107,7 @@ RedisClient.getClient(withIdentifier: RedisClientIdentifier()) {
 请在Package.swift 文件中增加依存关系：
 
 ```
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Redis.git", Version(0,0,0)..<Version(10,0,0))
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Redis.git", majorVersion: 3)
 ```
 
 

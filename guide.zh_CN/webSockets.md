@@ -10,7 +10,7 @@ WebSocket协议目前支持大多数主流浏览器，包括谷歌Chrome、微�
 请修改您的 Package.swift 文件并增加以下依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 2, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-WebSockets.git", majorVersion: 3)
 ```
 
 保存好后就可以在您的源程序内使用WebSocket函数库了：

@@ -10,64 +10,102 @@ Perfect-Crypto 是一个基于OpenSSL的通用加密算法函数库。该函数�
 
 为了使用本函数库，请确定在源代码开始段导入`import PerfectCrypto`.
 
-## 函数库初始化
+## 编译
 
-本函数库使用之前需要进行一次性初始化工作，而且需要在程序准备任何实质性编解码之前完成。调用`PerfectCrypto.isInitialized` 会进行初始化操作并在初始化完成后返回真值。虽然允许多次调用，但实际上最好在程序启动过程中使用。
+请在您的Package.swift文件中增加下列依存关系：
 
-## 类型扩展
-
-本函数库多数函数接口通过扩展基本变量类型完成，分别是：`String`（字符串）、 `Array<UInt8>`（字节数组）、`UnsafeRawBufferPointer`（通用缓冲区连续指针）以及 `UnsafeMutableRawBufferPointer`（通用可变缓冲区连续指针）。对应每个扩展类型增加的函数包括`encode/decode`（编解码）、`encrypt/decrypt`（加密解密）和`digest`（摘要码）。除此之外还包括原始二进制数据的处理、随机数生成等等。
-
-以下是函数参考，按照使用的方便程度进行排序，首先介绍高级调用方法，最后介绍一些基于指针基础上调用时要小心的底层函数。
-
-### 字符串
-
-字符串功能扩展分为两组，第一组是编解码和摘要码生成：
-
-```swift
-public extension String {
-	/// 根据编码类型将字符串解码为二进制数组
-	/// 将字符串的UTF8字符数据进行转换和解码
-	func decode(_ encoding: Encoding) -> [UInt8]?
-	/// 根据指定的编码方式将字符串编码为一个字节数组。
-	/// 将字符串的UTF8字符数据进行转换和编码
-	func encode(_ encoding: Encoding) -> [UInt8]?
-	/// 根据摘要算法将字符串UTF8内容生成字节数组作为该字符串的摘要码
-	func digest(_ digest: Digest) -> [UInt8]?
-}
+```
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Crypto.git", majorVersion: 3)
 ```
 
-`encode` / `decode` 编解码函数使用时需要输入编码类型 `Encoding`，输出结果是字节数组，或者如果在输入数据无效时输出为空。编码类型必须为函数库指定的编码类型枚举，比如 `.hex`（16进制），或者`.base64url`。
+## Linux 编译说明
 
-以下例子展示了如何将一个字符串进行base64编码，并解码为原字符串：
+请确保您的系统上已经安装了 libssl-dev 函数库
 
-```swift
-let testStr = "Räksmörgåsen"
-if let encoded = testStr.encode(.base64),
-	let decoded = encoded.decode(.base64),
-	let decodedStr = String(validatingUTF8: decoded) {
-	print(decodedStr)
-	// Räksmörgåsen
-}
+```
+sudo apt-get install libssl-dev
 ```
 
-摘要函数 `digest`允许对字符串进行摘要计算，所生成的摘要数据返回结果为字节数组 `[UInt8]`。如果系统不支持对应的摘要算法则返回为空。
+## 概述
 
-下列例子展示了如何对一个字符串进行SHA256摘要计算，输出结果再次转换为16进制可打印格式文本：
+本函数库将OpenSSL的部分功能进行了封装并在Swift基本类型上进行了扩展，主要内容包括：
+
+* 对于字符串、[UInt8] 和 UnsafeRawBufferPointer 指针增加了基本的编解码、摘要码和加密操作。
+* 针对于非零结尾指针创建UTF-8字符串的方法
+* 对OpenSSL BIO函数类的封装，提供可过滤的链式操作。
+
+## 使用范例
+
+### 16进制编解码
 
 ```swift
 let testStr = "Hello, world!"
-if let digestBytes = testStr.digest(.sha256),
-	let hexBytes = digestBytes.encode(.hex),
-	let hexBytesStr = String(validatingUTF8: hexBytes) {
-	print(hexBytesStr)
-	// 315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3
+guard let hexBytes = testStr.encode(.hex) else {
+	return
+}
+
+String(validatingUTF8: hexBytes) == "48656c6c6f2c20776f726c6421"
+
+guard let unHex = hexBytes.decode(.hex) else {
+	return
+}
+
+String(validatingUTF8: unHex) == testStr
+
+```
+
+### Base 64 编解码
+
+```swift
+let testStr = "Hello, world!"
+guard let baseBytes = testStr.encode(.base64) else {
+	return
+}
+
+String(validatingUTF8: baseBytes) == "SGVsbG8sIHdvcmxkIQ=="
+
+guard let unBase = baseBytes.decode(.base64) else {
+	return
+}
+
+String(validatingUTF8: unBase) == testStr
+```
+
+### 摘要码
+
+```swift
+let testStr = "Hello, world!"
+let testAnswer = "315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3"
+guard let enc = testStr.digest(.sha256)?.encode(.hex) else {
+	return
+}
+
+String(validatingUTF8: enc) == testAnswer
+```
+
+### HMAC 签名和校验
+
+下列代码用于 HMAC-SHA1 内容签名和 base64 编码，然后解码并校验。请根据需要自行调整.sha1 或者 .base64 算法：
+
+```swift
+let password = "用于测试的密码"
+let data = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+	
+if let signed = data.sign(.sha1, key: HMACKey(password))?.encode(.base64),
+	let base64Str = String(validatingUTF8: signed),
+	
+	let reRawData = base64Str.decode(.base64) {
+	
+	let verifyResult = data.verify(.sha1, signature: reRawData, key: HMACKey(password))
+	XCTAssert(verifyResult)
+} else {
+	XCTAssert(false, "签名失败")
 }
 ```
 
-第二组字符串扩展是从**非零结尾字符串**直接创建Swift标准字符串的方法，输入类型可以是 `[UInt8]` 或 `UnsafeRawBufferPointer`。
+### API参考
 
-```swift
+``` swift
 public extension String {
 	/// 从UTF8数组创建字符串，数组长度决定了转换内容长度；如果数据无效则字符串为空
 	init?(validatingUTF8 a: [UInt8])
@@ -77,15 +115,39 @@ public extension String {
 	/// 从字符串内获得缓冲区指针。
 	func withBufferPointer<Result>(_ body: (UnsafeRawBufferPointer) throws -> Result) rethrows -> Result
 }
-```
 
-上述最后一个方法`withBufferPointer`是专门用于获得该字符串对应的`UnsafeRawBufferPointer`缓冲区指针，内容包含的是UTF8数据。缓冲区只能在声明的闭包内使用。
+public extension String {
+	/// 将字符串转换为指定编码类型的线性表。
+	func encode(_ encoding: Encoding) -> [UInt8]?
+	/// 将字符串解码为制定编码类型的线性表。
+	func decode(_ encoding: Encoding) -> [UInt8]?
+	/// 摘要计算
+	func digest(_ digest: Digest) -> [UInt8]?
+	/// 根据算法和钥匙签署字符串并生成字节数组
+	func sign(_ digest: Digest, key: Key) -> [UInt8]?
+	/// 根据字符串验证签名
+	/// 验证成功返回真，否则返回伪
+	func verify(_ digest: Digest, signature: [UInt8], key: Key) -> Bool
+	/// 根据缓冲区密文、密码和盐对数据进行加密
+	/// 字符串的 UTF8 字符将被编码
+	/// 返回数据为CMS格式的PEM编码。
+	func encrypt(_ cipher: Cipher,
+	             password: String,
+	             salt: String,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> String?
+	/// 根据密码和盐进行CMS格式PEM编码数据解码
+	/// 解码结果必须为UTF8编码否则操作失败
+	func decrypt(_ cipher: Cipher,
+	             password: String,
+	             salt: String,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> String?
+}
 
-### Array&lt;UInt8&gt;
+public protocol Octal {}
+extension UInt8: Octal {}
 
-数组类型扩展只允许 `UInt8` 无符号字节整型。功能上包括编解码、加密解密、摘要计算以及创建随机数。
-
-```swift
 public extension Array where Element: Octal {
 	/// 将数组转换为指定编码类型的线性表。
 	func encode(_ encoding: Encoding) -> [UInt8]?
@@ -93,112 +155,271 @@ public extension Array where Element: Octal {
 	func decode(_ encoding: Encoding) -> [UInt8]?
 	/// 摘要计算
 	func digest(_ digest: Digest) -> [UInt8]?
-	/// 根据指定密码、类型和初始化向量进行加密
-	func encrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
-	/// 根据指定密码、类型和初始化向量进行解密
-	func decrypt(_ cipher: Cipher, key: [UInt8], iv: [UInt8]) -> [UInt8]?
+	/// 根据算法和钥匙签署字符串并生成字节数组
+	func sign(_ digest: Digest, key: Key) -> [UInt8]?
+	/// 根据字符串验证签名
+	/// 验证成功返回真，否则返回伪
+	func verify(_ digest: Digest, signature: [UInt8], key: Key) -> Bool
+	/// 根据缓冲区密文、密码和盐对数据进行加密
+	/// 字符串的 UTF8 字符将被编码
+	/// 返回数据为CMS格式的PEM编码。
+	func encrypt(_ cipher: Cipher,
+	             password: String,
+	             salt: String,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> String?
+	/// 根据密码和盐进行CMS格式PEM编码数据解码
+	/// 解码结果必须为UTF8编码否则操作失败
+	func decrypt(_ cipher: Cipher,
+	             password: String,
+	             salt: String,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> String?
 }
-```
 
-数组编解码和摘要计算的方法与字符串的上述扩展是一一对应的，除了数据类型为数组之外并无任何区别。使用时需要输入编码类型，返回结果为`[UInt8]`字节数组；如果输入内容无效则返回为空。编码类型必须为本函数库编码类型枚举所列，比如`.hex`（16进制） 或 `.base64url`。
-
-摘要函数 `digest`允许对数组进行摘要计算，所生成的摘要数据返回结果为字节数组 `[UInt8]`。如果系统不支持对应的摘要算法则返回为空。
-
-加密和解密函数 `encrypt` / `decrypt` 根据输入的加密类型枚举进行加密解密操作，使用时需要输入密码和初始化向量。
-
-根据加密算法的需要，钥匙和初始化向量的长度是不同的。在加密算法枚举中会提供每种算法所需要的 `blockSize` （缓冲区尺寸）、`keyLength` （钥匙长度）和 `ivLength` （初始化向量长度），所有这些长度类型的单位都是字节。
-
-下列代码展示了如何使用`.aes_256_cbc`算法对一个随机数组进行加密。这个例子中的钥匙和初始化向量也都是根据算法要求的对应长度自动生成的随机数。
-
-```swift
-let cipher = Cipher.aes_256_cbc
-	// 待加密数据
-let random = [UInt8](randomCount: 2048)
-	// 加密/解密使用的密码
-let key = [UInt8](randomCount: cipher.keyLength)
-	// 初始化向量
-let iv = [UInt8](randomCount: cipher.ivLength)
-
-if let encrypted = random.encrypt(cipher, key: key, iv: iv),
-	let decrypted = encrypted.decrypt(cipher, key: key, iv: iv) else {
-	
-	for (a, b) in zip(decrypted, random) {
-		(a == b)
-	}
-}
-```
-
-其中，随机数组的创建使用了下列扩展类型：
-
-```swift
-public extension Array where Element: Octal {
-	/// 根据指定长度创建数组并随机填写内容。
-	init(randomCount count: Int)
-}
-```
-
-随机数组意味着该数组的每一个字节元素的内容都是随机数。下列例子展示了如何生成一个16字节随机数并转换为base64字符串。
-
-```swift
-	// 生成16字节长度的随机数
-let random = [UInt8](randomCount: 16)
-if let base64 = random.encode(.base64),
-	let base64Str = String(validatingUTF8: base64) {
-	print(base64Str)
-}
-```
-
-### 指针类型扩展
-
-下列内容为在指针 `UnsafeMutableRawBufferPointer` 和 `UnsafeRawBufferPointer` 基础上使用缓冲区扩展而来的各类操作。其实功能和上面的内容都是一致的，只不过使用指针效率会更高一些。
-
-### 可变缓冲区指针
-
-使用可变缓冲区指针生成随机数组：
-
-```swift
-public extension UnsafeMutableRawBufferPointer {
-	/// 根据指定长度分配内存缓冲区并自动填写随机数
-	static func allocateRandom(count size: Int) -> UnsafeMutableRawBufferPointer?
-	/// 用随机数初始化缓冲区
-	func initializeRandom()
-}
-```
-
-静态方法 `allocateRandom` 用于分配一段内存缓冲区并自动填写随机数。使用后必须手工调用`deallocate`注销并释放该内存段。
-
-而`initializeRandom`方法则是假设内存已经分配好了，并使用这个已经分配好的指针进行随机内容填写，填写长度由该缓冲区指针长度 `.count` 值决定。
-
-### 不可变缓冲区指针
-
-下列扩展同样提供与上述`allocateRandom`相同的静态方法，以及加密解密、编码解码或者摘要计算。
-
-```swift
 public extension UnsafeRawBufferPointer {
-	/// 分配指定长度内存并填写随机数
-	static func allocateRandom(count size: Int) -> UnsafeRawBufferPointer?
 	/// 使用缓冲区生成编码内容，返回结果使用完后必须自行释放
 	func encode(_ encoding: Encoding) -> UnsafeMutableRawBufferPointer?
 	/// 使用缓冲区生成解码内容，返回结果使用完后必须自行释放
 	func decode(_ encoding: Encoding) -> UnsafeMutableRawBufferPointer?
 	/// 生成摘要内容，生成结果必须手工释放
 	func digest(_ digest: Digest) -> UnsafeMutableRawBufferPointer?
-	/// 使用指定算法、钥匙和初始化向量进行加密，返回结果必须手工释放
+	/// 根据算法和钥匙签署字符串并生成字节数组
+	/// 返回结果必须由用户自行释放内存
+	func sign(_ digest: Digest, key: Key) -> UnsafeMutableRawBufferPointer?
+	/// 根据数据验证签名
+	/// 验证成功返回真，否则返回伪
+	func verify(_ digest: Digest, signature: UnsafeRawBufferPointer, key: Key) -> Bool
+	/// 根据密文、密码和iv（初始化向量）对数据进行加密
+	/// 生成结果必须手工释放
 	func encrypt(_ cipher: Cipher, key: UnsafeRawBufferPointer, iv: UnsafeRawBufferPointer) -> UnsafeMutableRawBufferPointer?
-	/// 使用指定算法、钥匙和初始化向量进行解密，返回结果必须手工释放
+	/// 根据密文、密码和iv（初始化向量）对数据进行解密
+	/// 生成结果必须手工释放
 	func decrypt(_ cipher: Cipher, key: UnsafeRawBufferPointer, iv: UnsafeRawBufferPointer) -> UnsafeMutableRawBufferPointer?
+	/// 根据密文、密码和盐对数据进行进行CMS格式PEM加密
+	/// 生成结果必须手工释放
+	func encrypt(_ cipher: Cipher,
+	             password: UnsafeRawBufferPointer,
+	             salt: UnsafeRawBufferPointer,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> UnsafeMutableRawBufferPointer?
+   /// 根据密码和盐对数据进行进行CMS格式PEM解密
+	/// 生成结果必须手工释放
+	func decrypt(_ cipher: Cipher,
+	             password: UnsafeRawBufferPointer,
+	             salt: UnsafeRawBufferPointer,
+	             keyIterations: Int = 2048,
+	             keyDigest: Digest = .md5) -> UnsafeMutableRawBufferPointer?
+}
+
+public extension UnsafeRawBufferPointer {
+	/// 根据长度要求填充随机数
+	///
+	/// - 结果：内存被分配并被自动初始化为随机数
+	static func allocateRandom(count size: Int) -> UnsafeRawBufferPointer? 
 }
 ```
 
-使用上述指针时要格外小心，所有以 `UnsafeMutableRawBufferPointer` 为返回类型的结果必须由调用者进行手工内存释放。而且每个缓冲指针都有自己的 `.count` 属性用于计量其内存长度。而`UnsafeRawBufferPointer` 指针则不需要手工释放内存，但是也不能修改具体内容。
+### JSON 网络通行证 (JWT)
 
-## 算法
+本组件为JWT创建和验证函数库。
 
-本函数库提供了以下类型的编解码算法、加密解密算法和摘要算法：
+JSON Web Token (以下简称网络通行证JWT) 为开放互联网标准协议 (RFC 7519) 用于定义在通信双方会话过程中以JSON为载体安全传输加密信息的方法。该信息可以用于互信和校验因为采用数字签名。JWTs 可用于HMAC算法加密签名，或者采用RSA公开/私有钥匙对签名方法，详见 [JWT](https://jwt.io/introduction/).
 
-* 编码： base64, base64url, hex
-* 摘要： md4, md5, sha, sha1, dss, dss1, ecdsa, sha224, sha256, sha384, sha512, ripemd160, whirlpool, custom(String)
-* 加密： des\_ecb, des\_ede, des\_ede3, des\_ede\_ecb, des\_ede3\_ecb, des\_cfb64, des\_cfb1, des\_cfb8, des\_ede\_cfb64, des\_ede3\_cfb1, des\_ede3\_cfb8, des\_ofb, des\_ede\_ofb, des\_ede3\_ofb, des\_cbc, des\_ede\_cbc, des\_ede3\_cbc, desx\_cbc, des\_ede3\_wrap, rc4, rc4\_40, rc4\_hmac\_md5, rc2\_ecb, rc2\_cbc, rc2\_40\_cbc, rc2\_64\_cbc, rc2\_cfb64, rc2\_ofb, bf\_ecb, bf\_cbc, bf\_cfb64, bf\_ofb, cast5\_ecb, cast5\_cbc, cast5\_cfb64, cast5\_ofb, aes\_128\_ecb, aes\_128\_cbc, aes\_128\_cfb1, aes\_128\_cfb8, aes\_128\_cfb128, aes\_128\_ofb, aes\_128\_ctr, aes\_128\_ccm, aes\_128\_gcm, aes\_128\_xts, aes\_128\_wrap, aes\_192\_ecb, aes\_192\_cbc, aes\_192\_cfb1, aes\_192\_cfb8, aes\_192\_cfb128, aes\_192\_ofb, aes\_192\_ctr, aes\_192\_ccm, aes\_192\_gcm, aes\_192\_wrap, aes\_256\_ecb, aes\_256\_cbc, aes\_256\_cfb1, aes\_256\_cfb8, aes\_256\_cfb128, aes\_256\_ofb, aes\_256\_ctr, aes\_256\_ccm, aes\_256\_gcm, aes\_256\_xts, aes\_256\_wrap, aes\_128\_cbc\_hmac\_sha1, aes\_256\_cbc\_hmac\_sha1, aes\_128\_cbc\_hmac\_sha256, aes\_256\_cbc\_hmac\_sha256, camellia\_128\_ecb, camellia\_128\_cbc, camellia\_128\_cfb1, camellia\_128\_cfb8, camellia\_128\_cfb128, camellia\_128\_ofb, camellia\_192\_ecb, camellia\_192\_cbc, camellia\_192\_cfb1, camellia\_192\_cfb8, camellia\_192\_cfb128, camellia\_192\_ofb, camellia\_256\_ecb, camellia\_256\_cbc, camellia\_256\_cfb1, camellia\_256\_cfb8, camellia\_256\_cfb128, camellia\_256\_ofb, seed\_ecb, seed\_cbc, seed\_cfb128, seed\_ofb, custom(String)
+首先，新的JWT令牌可以可用 `JWTCreator` 对象创建。
 
-其中，摘要算法和加密算法的枚举类型还提供了定制的方法，即`custom`类型，由用户输入的算法名称决定，用于用户自行提供算法方案。所有算法基本上都基于OpenSSL但少数内容则是直接用Swift语言实现的，比如hex十六进制类型。
+```swift
+/// 创建并签署新的 JWT 令牌。
+public struct JWTCreator {
+	/// 根据荷载内容创建新的通行券。
+	/// 荷载内容可以用于创建JWT字符串
+	public init?(payload: [String:Any])
+	/// 使用HMAC钥匙创建并返回一个新的JWT令牌。
+	/// 可根据需要自行追加其他头数据
+	/// 如果生成令牌中出现问题，会抛出签名错误 JWT.Error.signingError
+	public func sign(alg: JWT.Alg, key: String, headers: [String:Any] = [:]) throws -> String
+	/// 根据指定钥匙签署并生成新的 JWT 令牌。
+	/// 可根据需要自行追加其他头数据
+	/// 钥匙类型必须与算法 `algo` 兼容
+	/// 如果生成令牌中出现问题，会抛出签名错误 JWT.Error.signingError
+	public func sign(alg: JWT.Alg, key: Key, headers: [String:Any] = [:]) throws -> String
+}
+```
 
+现有 JWT 通行证可以通过 `JWTVerifier` 对象进行验证
+
+```swift
+/// 接受一个 JWT 通行证并验证签名
+public struct JWTVerifier {
+	/// 从通行证内取出的头数据
+	public var header: [String:Any]
+	/// 通行证内的荷载数据
+	public var payload: [String:Any]
+	/// 从通行证字符串中创建 JWTVerifier 签名对象。通行证格式应该为 "aaaa.bbbb.cccc" 
+	/// 如果通行证无效则返回为 nil
+	/// *注意这一步不做验证* 必须手工调用 `verify` 验证钥匙
+	/// 如果验证成功，则头数据`.headers`和荷载数据 `.payload`才能安全生效
+	public init?(_ jwt: String)
+	/// 使用指定算法和HMAC钥匙验证通行证
+	/// 如果生成令牌中出现问题，会抛出验证错误 JWT.Error.verificationError
+	/// 如果验证无误则正常执行
+	/// 参数 `algo` 必须与通行证中的 "alg" 头数据字段吻合
+	public func verify(algo: JWT.Alg, key: String) throws
+	/// 使用指定算法和HMAC钥匙验证通行证
+	/// 如果生成令牌中出现问题，会抛出验证错误 JWT.Error.verificationError
+	/// 如果验证无误则正常执行
+	/// 参数 `algo` 必须与通行证中的 "alg" 头数据字段吻合
+	public func verify(algo: JWT.Alg, key: Key) throws
+}
+```
+
+以下示范说明了如何创建并使用“HS256”算法验证一个网络通行证。
+
+```swift
+let name = "John Doe"
+let tstPayload = ["sub": "1234567890", "name": name, "admin": true] as [String : Any]
+let secret = "secret"
+guard let jwt1 = JWTCreator(payload: tstPayload) else {
+	return // fatal error
+}
+let token = try jwt1.sign(alg: .hs256, key: secret)
+guard let jwt = JWTVerifier(token) else {
+  return // fatal error
+}
+try jwt.verify(algo: .hs256, key: HMACKey(secret))
+let fndName = jwt.payload["name"] as? String
+// name == fndName!
+```
+
+⚠️注意⚠️ JWTVerifier 能够验证通行证加密，但是 ⚠️**不会**⚠️ 验证数据内容，比如签发者（iss）和有效期（exp）。用户需要自行从荷载数据字典中提取上述信息并进行进一步用户身份验证。
+
+
+
+### 算法清单
+
+```swift
+/// 编码方法
+public enum Encoding {
+	case base64
+	case hex
+}
+
+/// 摘要码算法
+public enum Digest {
+	case md4
+	case md5
+	case sha
+	case sha1
+	case dss
+	case dss1
+	case ecdsa
+	case sha224
+	case sha256
+	case sha384
+	case sha512
+	case ripemd160
+	case whirlpool
+	
+	case custom(String)
+}
+
+/// 可用密文
+public enum Cipher {
+	case des_ecb
+	case des_ede
+	case des_ede3
+	case des_ede_ecb
+	case des_ede3_ecb
+	case des_cfb64
+	case des_cfb1
+	case des_cfb8
+	case des_ede_cfb64
+	case des_ede3_cfb1
+	case des_ede3_cfb8
+	case des_ofb
+	case des_ede_ofb
+	case des_ede3_ofb
+	case des_cbc
+	case des_ede_cbc
+	case des_ede3_cbc
+	case desx_cbc
+	case des_ede3_wrap
+	case rc4
+	case rc4_40
+	case rc4_hmac_md5
+	case rc2_ecb
+	case rc2_cbc
+	case rc2_40_cbc
+	case rc2_64_cbc
+	case rc2_cfb64
+	case rc2_ofb
+	case bf_ecb
+	case bf_cbc
+	case bf_cfb64
+	case bf_ofb
+	case cast5_ecb
+	case cast5_cbc
+	case cast5_cfb64
+	case cast5_ofb
+	case aes_128_ecb
+	case aes_128_cbc
+	case aes_128_cfb1
+	case aes_128_cfb8
+	case aes_128_cfb128
+	case aes_128_ofb
+	case aes_128_ctr
+	case aes_128_ccm
+	case aes_128_gcm
+	case aes_128_xts
+	case aes_128_wrap
+	case aes_192_ecb
+	case aes_192_cbc
+	case aes_192_cfb1
+	case aes_192_cfb8
+	case aes_192_cfb128
+	case aes_192_ofb
+	case aes_192_ctr
+	case aes_192_ccm
+	case aes_192_gcm
+	case aes_192_wrap
+	case aes_256_ecb
+	case aes_256_cbc
+	case aes_256_cfb1
+	case aes_256_cfb8
+	case aes_256_cfb128
+	case aes_256_ofb
+	case aes_256_ctr
+	case aes_256_ccm
+	case aes_256_gcm
+	case aes_256_xts
+	case aes_256_wrap
+	case aes_128_cbc_hmac_sha1
+	case aes_256_cbc_hmac_sha1
+	case aes_128_cbc_hmac_sha256
+	case aes_256_cbc_hmac_sha256
+	case camellia_128_ecb
+	case camellia_128_cbc
+	case camellia_128_cfb1
+	case camellia_128_cfb8
+	case camellia_128_cfb128
+	case camellia_128_ofb
+	case camellia_192_ecb
+	case camellia_192_cbc
+	case camellia_192_cfb1
+	case camellia_192_cfb8
+	case camellia_192_cfb128
+	case camellia_192_ofb
+	case camellia_256_ecb
+	case camellia_256_cbc
+	case camellia_256_cfb1
+	case camellia_256_cfb8
+	case camellia_256_cfb128
+	case camellia_256_ofb
+	case seed_ecb
+	case seed_cbc
+	case seed_cfb128
+	case seed_ofb
+	
+	case custom(String)
+}
+```

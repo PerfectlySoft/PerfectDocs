@@ -7,7 +7,7 @@
 请修改您的项目文件 Package.swift 并增加以下内容：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 0, minor: 0),
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 3),
 ```
 
 然后您可以用 `import` 语句导入该函数库：
