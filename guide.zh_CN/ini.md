@@ -2,7 +2,7 @@
 
 本项目是一个简单的[INI文件](http://baike.baidu.com/item/ini文件)解析器。
 
-本项目采用Swift 3.1 工具链中的SPM软件包管理器编译，是[Perfect](https://github.com/PerfectlySoft/Perfect) 项目的一部分，但也可以作为独立模块使用。
+本项目采用Swift 4 工具链中的SPM软件包管理器编译，是[Perfect](https://github.com/PerfectlySoft/Perfect) 项目的一部分，但也可以作为独立模块使用。
 
 ## 快速上手
 

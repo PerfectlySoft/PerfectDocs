@@ -8,7 +8,7 @@ Perfect 通过Perfect-XML模块提供 XML 和 HTML 解析功能。
 除了安装 PerfectLib 函数库之外，请在您的 Package.swift 文件中设置 Perfect-XML 函数库依存关系。
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-XML.git", majorVersion: 2, minor: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-XML.git", majorVersion: 3)
 ```
 
 在需要使用 XML 解析功能的源代码开头，请用下列程序声明使用：

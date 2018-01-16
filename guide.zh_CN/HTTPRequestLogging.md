@@ -1,13 +1,18 @@
 # HTTP 请求的日志记录
 
-如果希望把HTTP请求写入文件，请使用`Perfect-RequestLogger` 函数库
+如果希望把HTTP请求写入日志文件，请使用`Perfect-RequestLogger` 函数库
+
+## 相关范例
+
+* [Perfect-HTTPRequestLogging](https://github.com/PerfectExamples/Perfect-HTTPRequestLogging)
+* [Perfect-Session-Memory-Demo](https://github.com/PerfectExamples/Perfect-Session-Memory-Demo)
 
 ## 使用方法
 
 请在您的项目文件 `Package.swift` 中增加以下依存关系：
 
 ```swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-RequestLogger.git", majorVersion: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-RequestLogger.git", majorVersion: 1)
 ```
 
 对于要调用该功能的源程序，请在源程序文件开头增加导入语句：
@@ -16,21 +21,76 @@
 import PerfectRequestLogger
 ```
 
-这样在您的主程序 `main.swift`初始化服务器对象`server`之后，就可以将请求写入文件了：
+## 对于 PerfectHTTP 2.1 以上版本
+
+在您服务器 `main.swift` 增加下列内容
 
 ```swift
-// 初始化一个日志记录器
-let myLogger = RequestLogger()
+// 初始化日志记录器
+let httplogger = RequestLogger()
+
+// 配置服务器
+var confData: [String:[[String:Any]]] = [
+	"servers": [
+		[
+			"name":"localhost",
+			"port":8181,
+			"routes":[],
+			"filters":[
+				[
+					"type":"response",
+					"priority":"high",
+					"name":PerfectHTTPServer.HTTPFilter.contentCompression,
+					],
+				[
+					"type":"request",
+					"priority":"high",
+					"name":RequestLogger.filterAPIRequest,
+					],
+				[
+					"type":"response",
+					"priority":"low",
+					"name":RequestLogger.filterAPIResponse,
+					]
+			]
+		]
+	]
+]
+```
+其中配置关键在于增加下列过滤器：
+
+``` swift
+[
+	"type":"request",
+	"priority":"high",
+	"name":RequestLogger.filterAPIRequest,
+],
+[
+	"type":"response",
+	"priority":"low",
+	"name":RequestLogger.filterAPIResponse,
+]
+```
+这些请求/响应过滤器能够用于触发HTTP访问时记录日志。
+
+
+
+## 如果使用 PerfectHTTP 2.0 版本服务器
+
+在您服务器 `main.swift` 增加下列内容
+
+```swift
+// 初始化日志记录器
+let httplogger = RequestLogger()
 
 // 增加过滤器
-// 首先增加高优先级的过滤器
-server.setRequestFilters([(myLogger, .high)])
-// 最后增加低优先级的过滤器
-server.setResponseFilters([(myLogger, .low)])
+// 请求过滤器，高优先触发
+server.setRequestFilters([(httplogger, .high)])
+// 响应过滤器，最后一个触发
+server.setResponseFilters([(httplogger, .low)])
 ```
 
-这些请求/响应过滤器能够在调用HTTP请求和响应的闭包之前实现功能挂钩。
-
+这些请求/响应过滤器能够用于触发HTTP访问时记录日志。
 
 ## 设置日志文件的存储位置
 

@@ -4,12 +4,14 @@ Perfect-CURL 函数库提供了Swift 语言版本的[curl](https://curl.haxx.se)
 
 ## 编译
 
-请确保安装并激活最新的Swift 3.1以上版本工具链，并在Package.swift文件中追加依存关系：
+请确保安装并激活最新的Swift 4以上版本工具链，并在Package.swift文件中追加依存关系：
 ``` swift
-.Package(
+.package(
 	url: "https://github.com/PerfectlySoft/Perfect-Curl.git",
-	majorVersion: 2
+	from: "3.0.0"
 	)
+...
+dependencies: ["PerfectCURL"]
 ```
 
 ## 使用方法

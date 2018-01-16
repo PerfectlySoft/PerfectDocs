@@ -10,7 +10,7 @@
 首先请在您的项目中Pacakge.swift 文件增加依存关系：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 1),
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Logger.git", majorVersion: 3),
 ```
 
 下一步是在程序开始前导入日志记录模块：

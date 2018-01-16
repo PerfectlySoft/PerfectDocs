@@ -9,7 +9,7 @@ Mustache详细说明请见[Mustache标准（英文）](https://mustache.github.i
 ``` swift
 .Package(
 	url: "https://github.com/PerfectlySoft/Perfect-Mustache.git",
-	majorVersion: 2, minor: 0
+	majorVersion: 3
 	)
 ```
 

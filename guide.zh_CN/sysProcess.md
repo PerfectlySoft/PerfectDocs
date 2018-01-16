@@ -9,7 +9,7 @@
 ``` swift
 .Package(
 	url: "https://github.com/PerfectlySoft/Perfect.git",
-	majorVersion: 2, minor: 0
+	majorVersion: 3
 	)
 ```
 在具体需要调用系统进程的源代码文件开头，声明PerfectLib库文件并增加linux下SwiftGlibc或macOS的Darwin编译条件：

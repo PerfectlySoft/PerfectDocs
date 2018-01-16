@@ -35,7 +35,7 @@ sudo apt-get install libpq-dev
 ``` swift
 .Package(
 	url: "https://github.com/PerfectlySoft/Perfect-PostgreSQL.git",
-	majorVersion: 2, minor: 0
+	majorVersion: 3
 	)
 ```
 
@@ -50,7 +50,7 @@ swift package generate-xcodeproj
 如果在您的源程序内要使用PostgreSQL，请在程序开始部分声明导入库文件：
 
 ``` swift
-import PostgreSQL
+import PerfectPostgreSQL
 ```
 
 ### 快速开始

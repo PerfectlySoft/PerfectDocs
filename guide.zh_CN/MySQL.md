@@ -18,13 +18,6 @@ brew install mysql
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-同时还需要手工编辑以下路径的mysqlclient.pc文件
-
-```
-/usr/local/lib/pkgconfig/mysqlclient.pc
-```
-
-请删除`-fno-omit-frame-pointer`内容。而且这个文件默认是只读的，因此需要首先改变只读状态为可读写才能进行编辑
 
 ### Linux
 
@@ -41,7 +34,7 @@ sudo apt-get install libmysqlclient-dev
 请在您的Package.swift文件中增加“Perfect-MySQL”用于说明调用库函数的依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 3)
 ```
 
 ### 声明和导入
@@ -49,7 +42,7 @@ sudo apt-get install libmysqlclient-dev
 为了使用MySQL函数库，首先需要在您开发的源程序开始部分增加声明和导入操作：
 
 ``` swift
-import MySQL
+import PerfectMySQL
 ```
 
 ### 快速上手

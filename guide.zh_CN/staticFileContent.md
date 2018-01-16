@@ -13,77 +13,22 @@
 ``` swift
 {
     request, response in
-    StaticFileHandler(documentRoot: request.documentRoot).handleRequest(request: request, response: response)
+    StaticFileHandler(documentRoot: request.documentRoot)
+		.handleRequest(request: request, response: response)
 }
 ```
 
-但实际上没必要这么做，除非您需要定制静态文件句柄对象的行为。只要设置服务器的`documentRoot`属性就能够根据目标目录自动安装一个能够服务多个文件的句柄。服务器设置类似与以下代码：
+如果您的服务器只存放静态网页，则可以直接从文档根目录启动：
 
 ``` swift
-let dir = Dir(documentRoot)
-if !dir.exists {
-    try Dir(documentRoot).create()
-}
-routes.add(method: .get, uri: "/**", handler: {
-    request, response in
-    StaticFileHandler(documentRoot: request.documentRoot).handleRequest(request: request, response: response)
-})
+try HTTPServer.launch(.server(name: "localhost", port: 8080, documentRoot: "/path/to/webroot"))
 ```
 
-该句柄安装后可以服务于任何时候文档根目录下的文件以及包含的各级子目录。
+以下示例展示了一个虚拟的文档路径，所有"/files"开头的URI都映射到了物理路径"/var/www/htdocs"
 
-documentRoot属性的例子可以在PerfectTemplate项目模板中找到：
-
-``` swift
-import PerfectLib
-import PerfectHTTP
-import PerfectHTTPServer
-
-// 创建HTTP服务
-let server = HTTPServer()
-
-// 注册您自己的网页路由和控制句柄
-var routes = Routes()
-routes.add(method: .get, uri: "/", handler: {
-        request, response in
-        response.appendBody(string: "<html>...</html>")
-        response.completed()
-    }
-)
-
-// 将路由增加到服务器上
-server.addRoutes(routes)
-
-// 设置监听端口为8181
-server.serverPort = 8181
-
-// 设置文档根目录
-// 这是可选的。
-// 如果不希望提供静态内容就不需要设置。
-// 设置文档根目录后，
-// 系统会自动为路由增加一个静态文件处理句柄
-server.documentRoot = "./webroot"
-
-// 从命令行获得选项并继续配置服务器
-// 用运行服务器的命令行增加--help来浏览所有支持的参数。
-// 命令行参数会代替以上任何一个配置值。
-configureServer(server)
-
-do {
-    // 启动HTTP服务器
-    try server.start()
-} catch PerfectError.networkError(let err, let msg) {
-    print("网络发生错误：\(err) \(msg)")
-}
-
-```
-
-*⚠️注意⚠️* `server.documentRoot = "./webroot"`这一行。这意味着如果这里有一个styles.css文件，则任何关于URL"/styles.css"的请求都会将这个style.css文件返回给浏览器
-
-下面的例子建立了一个虚拟的文档目录，向所有资源路径"/files"开头的URL从物理目录"/var/www/htdocs"提供服务并响应。
 
 ``` swift
-routes.add(method: .get, uri: "/files/**", handler: {
+routes.add(method: .get, uri: "/files/**") {
     request, response in
 
     // 获得符合通配符的请求路径
@@ -95,8 +40,19 @@ routes.add(method: .get, uri: "/files/**", handler: {
     // 用我们的根目录和路径
     // 修改集触发请求的句柄
     handler.handleRequest(request: request, response: response)
-    }
 )
 ```
 
 在之前的请求响应路由例子中，一个发向“/files/foo.html”的请求将返回对应的文件“/var/www/htdocs/foo.html”
+
+### 页面压缩和性能提升
+
+默认情况下，StaticFileHandler 静态页面处理器会全力以赴把所有文件内容推送给客户端，也就是使用套接字的 `sendfile` 方法。不过有两种情况是无法实现的或者不希望发生的。
+
+第一种情况是是用TLS/SSL 加密通信。原本文件处理器会把整个文件的打开并发出所有数据块，而一旦采取加密形式，文件处理器不会有额外操作，只不过检测到加密连接时会关闭 `sendfile`的使用。
+
+另一种情况是流量压缩。内容压缩的过程不会和 `sendfile`进行混合使用。如果要启动压缩功能，只需要把`allowResponseFilters`打开即可：
+
+```swift
+StaticFileHandler(documentRoot: "/path/to/root/", allowResponseFilters: true)
+```
