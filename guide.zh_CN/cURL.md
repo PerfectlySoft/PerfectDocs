@@ -168,6 +168,9 @@ public extension CURLResponse {
 	/// 以JSON解码字典的方式读取数据
 	/// 如果非JSON数据则此项为空
 	public var bodyJSON: [String:Any]
+	/// 将返回的JSON数据进行结构性解码，返回可解码结构体
+	/// 如果数据格式不符合要求则会出错
+	public func bodyJSON<T: Decodable>(_ type: T.Type) throws -> T 
 }
 ```
 
