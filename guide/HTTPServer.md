@@ -10,7 +10,7 @@ When starting servers you can choose to wait until the servers have terminated (
 
 ## HTTPServer Configuration Data
 
-One or more Perfect HTTP servers can be configured and launched using structured configuration data. This includes setting elements such as the listen port and bind address but also permits pointing handlers to specific fuctions by name. This feature is required if loading server configuration data from a JSON file. In order to enable this functionality on Linux, you must build your SPM executable with an additional flag:
+One or more Perfect HTTP servers can be configured and launched using structured configuration data. This includes setting elements such as the listen port and bind address but also permits pointing handlers to specific functions by name. This feature is required if loading server configuration data from a JSON file. In order to enable this functionality on Linux, you must build your SPM executable with an additional flag:
 
 ```
 swift build -Xlinker --export-dynamic
@@ -256,6 +256,48 @@ public func custom404(data: [String:Any]) throws -> HTTPResponseFilter {
 ```
 
 Corresponding HTTPServer properties: `HTTPServer.setRequestFilters`, `HTTPServer.setResponseFilters`.
+
+### Sharing Information Among Request, Filter and Response
+
+Sometimes it is necessary to share certain information among HTTPRequest, HTTPFiler and HTTPResponse. For example, an authentication filter may decode a user id from cookies or JWT tokens and make the use profile available to the request session scope as a typical security design. 
+
+Although HTTP is stateless and blocking the transparency between filters and requests, Perfect HTTPServer still provides an indirect way to share these valuable information in each request and make the whole design more efficient:
+
+``` swift
+/// an authentication filter, which intercept all incoming request
+/// and assuming all successful login should present a token.
+func filter(request: HTTPRequest, response: HTTPResponse,
+                     callback: (HTTPRequestFilterResult) -> ()) {
+  guard let token = request.param("token"), 
+  let userId = token.decode(),
+  let profile = database.load(userId) as? Profile else {
+  	// the request doesn't hold a valid token
+  	// access denied
+  	response.status = .forbidden
+  	response.completed
+  	callback(.halt(request, response))
+  }
+  
+  	// user information retrieved successfully, 
+  	// now save this info into the memory
+  response.request.scratchPad["currentUserProfile"] = profile
+  	
+  // then invoke the following request
+  callback(.continue(request, response))
+}
+
+routes.add(Route(method: .get, uri: "/api/aboutUser", handler: {
+      request, response in
+      guard let profile 
+      	= response.request.scratchPad["currentUserProfile"] as? Profile
+		else {
+      		//something wrong
+      	}
+      	/// now you can directly use the profile
+    }))
+```
+
+In the above example, the priority filter intercepts the request first and translates the request into a user profile, then passes the user profile to the following requests, which implements a centralized authentication middleware.
 
 ### tlsConfig:
 
