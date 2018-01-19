@@ -256,6 +256,47 @@ public func custom404(data: [String:Any]) throws -> HTTPResponseFilter {
 
 对应的`HTTPServer`类对象属性： `HTTPServer.setRequestFilters`, `HTTPServer.setResponseFilters`.
 
+### 在请求/响应/过滤器之间共享信息
+
+有时候很需要在HTTP的请求响应和过滤器之间共享必要的信息。比如，如果存在一个用于用户身份验证的过滤器，时刻监控所有请求，并从请求中的cookie或者JWT中提取登录凭证，并根据凭证取出用户代码即用户档案文件，然后应用到所有与该请求相关的响应中，从而构成一个典型的安全系统设计。
+
+虽然HTTP是无状态的，并且过滤器和请求之间也不是透明的，但是Perfect HTTP服务器依然提供了一种间接方法用于在每个请求内部共享数据，使得整个系统设计更为紧凑高效：
+
+``` swift
+/// 认证中间层，用于监听所有请求，并假设请求内都必须包括有效的登录凭证
+func filter(request: HTTPRequest, response: HTTPResponse,
+                     callback: (HTTPRequestFilterResult) -> ()) {
+  guard let token = request.param("token"), 
+  let userId = token.decode(),
+  let profile = database.load(userId) as? Profile else {
+  	// 该请求不包含有效凭证
+  	// 拒绝访问
+  	response.status = .forbidden
+  	response.completed
+  	callback(.halt(request, response))
+  }
+  
+  	// 用户档案已经提取，现在暂存到内存
+  response.request.scratchPad["currentUserProfile"] = profile
+  	
+  // 触发后续请求
+  callback(.continue(request, response))
+}
+
+routes.add(Route(method: .get, uri: "/api/aboutUser", handler: {
+      request, response in
+      guard let profile 
+      	= response.request.scratchPad["currentUserProfile"] as? Profile
+		else {
+      		//something wrong
+      	}
+      	/// 现在可以直接使用用户档案变量profile
+    }))
+```
+
+上述例子中，具有优先级的过滤器首先拦截了请求，并从请求中根据凭证提取用户数据，然后把用户资料传递给后续请求，因此实现了一个典型的集中登录管理中间件。
+
+
 ### tlsConfig（传输安全配置）:
 
 即传输层安全协议配置信息。如果在配置中增加了`"tlsConfig"`条目，则服务器将尝试自动配置为一个HTTPS的认证服务器。TLS 配置字典应当包括如下关键信息：
