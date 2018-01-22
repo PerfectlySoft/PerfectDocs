@@ -60,7 +60,7 @@ swift build
 You should see the following output:
 
 ```
-Starting HTTP server on 0.0.0.0:8181 with document root ./webroot
+[INFO] Starting HTTP server localhost on 0.0.0.0:8181
 ```
 
 The server is now running and waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit "control-c" to terminate the server.
