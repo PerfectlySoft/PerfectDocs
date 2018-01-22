@@ -50,7 +50,7 @@ swift build
 您应该可以在终端控制台中看到类似下面的内容：
 
 ```
-Starting HTTP server on 0.0.0.0:8181 with document root ./webroot
+[INFO] Starting HTTP server localhost on 0.0.0.0:8181
 ```
 
 服务器现在已经运行并等待连接。从浏览器打开[http://localhost:8181/](http://127.0.0.1:8181/) 可以看到欢迎信息。在终端控制台中输入组合键“control-c”可以随时终止服务器运行。
