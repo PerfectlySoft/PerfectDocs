@@ -23,7 +23,7 @@
 
 <p align="center">
     <a href="https://developer.apple.com/swift/" target="_blank">
-        <img src="https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat" alt="Swift 3.0">
+        <img src="https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat" alt="Swift 4.0">
     </a>
     <a href="https://developer.apple.com/swift/" target="_blank">
         <img src="https://img.shields.io/badge/Platforms-OS%20X%20%7C%20Linux%20-lightgray.svg?style=flat" alt="Platforms OS X | Linux">
@@ -177,6 +177,8 @@ StORM is not distributed as a Perfect.org project; however, the Perfect librarie
 ## Perfect Turnstile – an authentication layer for Perfect
 
 [Turnstile](https://github.com/stormpath/Turnstile) is an Open Source project from [Stormpath](https://github.com/stormpath) focussing on standardizing authentication across platforms and frameworks. Thanks to work done by [Edward Jiang](https://github.com/edjiang) on Turnstile and a foundation linking Turnstile with Perfect, an authentication layer is available for Perfect.
+
+**⚠️NOTE⚠️** Turnstile is out of service as declared by its author, please check [Storm API Migration FAQ](https://stormpath.com/oktaplusstormpath?utm_source=github&utm_medium=readme&utm-campaign=okta-announcement) for more information.
 
 * [Perfect-Turnstile](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
 	* [Perfect Turnstile with SQLite Integration](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Turnstile.md)
