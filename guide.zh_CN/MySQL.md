@@ -437,6 +437,16 @@ public func close()
 
 该函数释放MySQL语句结构指针所占用的资源。请务必在应用结束后调用该语句，否则会消耗MySQL C API函数库的宝贵内存。通常在defer块内滞后执行，如前例[快速上手](#快速上手)所示。
 
+### ping 检查连接
+
+MySQL 在长时间待机时有可能超时断线，用 `ping()` 函数可以检测连接并根据需要自动重连。 
+
+``` swift
+guard mysql.ping() else {
+	// 彻底断线了
+}
+```
+
 ### reset 复位重置
 
 ``` swift
