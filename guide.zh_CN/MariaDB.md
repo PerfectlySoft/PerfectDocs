@@ -171,6 +171,16 @@ func setupMySQLDB() {
 	}
 
 	// 执行查询或者创建表格
+  	let sql = """
+  	CREATE TABLE IF NOT EXISTS ticket (
+	id VARCHAR(64) PRIMARY KEY NOT NULL,
+	expiration INTEGER)
+	"""
+	guard mysql.query(statement: sql) else {
+        // 验证是否创建成功
+        print(mysql.errorMessage())
+        return
+   }
 }
 ```
 
