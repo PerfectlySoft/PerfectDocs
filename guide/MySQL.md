@@ -226,6 +226,17 @@ public func close()
 
 Closes a connection to MySQL. Most commonly used as a defer after guarding a connection, making sure that your session will close no matter what the outcome.
 
+### ping
+
+MySQL connection will go away when idle timeout. The `ping()` function
+can confirm the connectivity and also reconnect if need.
+
+``` swift
+guard mysql.ping() else {
+	// connection lost
+}
+```
+
 ### clientInfo
 
 ``` swift
