@@ -139,8 +139,17 @@ Choosing the database is great, but it is much more helpful to run queries, such
 		        mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
 		    }
 		    
-		   //Run Query to Add Tables
-		   
+		  	//Run Query to Add Tables
+		  	let sql = """
+		  	CREATE TABLE IF NOT EXISTS ticket (
+    		id VARCHAR(64) PRIMARY KEY NOT NULL,
+			expiration INTEGER)
+    		"""
+			guard mysql.query(statement: sql) else {
+		        // verify the table was created successfully
+		        print(mysql.errorMessage())
+		        return
+		   }
 		   
 		}
 ```
