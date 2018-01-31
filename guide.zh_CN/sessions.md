@@ -36,36 +36,46 @@ Perfect 会话机制实现了存储每个会话的创建时间、最后一次访
 如果希望使用基于内存变量的会话管理，请在您的项目中修改Package.swift 文件并增加以下内容：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 3)
 ```
 
 ### 基于数据库的会话管理所需驱动
 
+Redis:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 3)
+```
+
 PostgreSQL:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 3)
 ```
 
 MySQL:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 3)
 ```
 
 SQLite3:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 3)
 ```
 
 CouchDB:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 3)
 ```
 
-Note: 注意，基于MongoDB 和 Redis 数据库的会话管理系统会很快发行。
+MongoDB:
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 3)
+```
 
 ## 配置
 
@@ -194,15 +204,37 @@ if let val = request.session.data["keyString"] as? String {
 
 ## 数据库驱动选项
 
-### PostgreSQL
+### Redis
 
-首先在 Package.swift 文件中追加依存关系：
+修改Package.swift并增加依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 3)
 ```
 
-定义 PostgreSQL 数据库服务器连接配置：
+设置数据库服务器连接参数：
+
+``` swift
+RedisSessionConnector.host = "localhost"
+RedisSessionConnector.port = 5432
+RedisSessionConnector.password = "secret"
+```
+
+创建会话驱动实例：
+
+``` swift
+let sessionDriver = SessionRedisDriver()
+```
+
+### PostgreSQL
+
+修改Package.swift并增加依存关系：
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 3)
+```
+
+设置数据库服务器连接参数：
 
 ``` swift
 PostgresSessionConnector.host = "localhost"
@@ -213,7 +245,7 @@ PostgresSessionConnector.database = "mydatabase"
 PostgresSessionConnector.table = "sessions"
 ```
 
-设置会话驱动：
+创建会话驱动实例：
 
 ``` swift
 let sessionDriver = SessionPostgresDriver()
@@ -221,13 +253,13 @@ let sessionDriver = SessionPostgresDriver()
 
 ### MySQL
 
-首先在 Package.swift 文件中追加依存关系：
+修改Package.swift并增加依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 3)
 ```
 
-定义 MySQL 数据库服务器连接配置：
+设置数据库服务器连接参数：
 
 ``` swift
 MySQLSessionConnector.host = "localhost"
@@ -238,7 +270,7 @@ MySQLSessionConnector.database = "mydatabase"
 MySQLSessionConnector.table = "sessions"
 ```
 
-设置会话驱动：
+创建会话驱动实例：
 
 ``` swift
 let sessionDriver = SessionMySQLDriver()
@@ -246,19 +278,19 @@ let sessionDriver = SessionMySQLDriver()
 
 ### SQLite
 
-首先在 Package.swift 文件中追加依存关系：
+修改Package.swift并增加依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 3)
 ```
 
-定义 SQLite 数据库服务器连接配置：
+设置数据库服务器连接参数：
 
 ``` swift
 SQLiteConnector.db = "./SessionDB"
 ```
 
-设置会话驱动：
+创建会话驱动实例：
 
 ``` swift
 let sessionDriver = SessionSQLiteDriver()
@@ -266,18 +298,19 @@ let sessionDriver = SessionSQLiteDriver()
 
 ### CouchDB
 
-首先在 Package.swift 文件中追加依存关系：
+修改Package.swift并增加依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 0, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 3)
 ```
 
-设置会话管理的后台CouchDB 数据库：
+配置用于保存会话的CouchDB数据库名称
 
 ``` swift
 SessionConfig.couchDatabase = "perfectsessions"
 ```
-定义 CouchDB 数据库服务器连接配置：
+
+设置数据库服务器连接参数：
 
 ``` swift
 CouchDBConnection.host = "localhost"
@@ -285,8 +318,35 @@ CouchDBConnection.username = "username"
 CouchDBConnection.password = "secret"
 ```
 
-设置会话驱动：
+创建会话驱动实例：
 
 ``` swift
 let sessionDriver = SessionCouchDBDriver()
+```
+
+### MongoDB
+
+修改Package.swift并增加依存关系：
+
+``` swift
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 3)
+```
+
+配置用于保存会话的Mongo数据库名称
+
+``` swift
+SessionConfig.mongoCollection = "perfectsessions"
+```
+
+设置数据库服务器连接参数：
+
+``` swift
+MongoDBConnection.host = "localhost"
+MongoDBConnection.database = "perfect_testing"
+```
+
+创建会话驱动实例：
+
+``` swift
+let sessionDriver = SessionMongoDBDriver()
 ```

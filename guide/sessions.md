@@ -40,7 +40,7 @@ Each of the modules has an associated example/demo. Much of the functionality de
 If using the in-memory driver, import the base module by including the following in your project's Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session.git", majorVersion: 3)
 ```
 
 ### Database-Specific Drivers
@@ -48,37 +48,37 @@ If using the in-memory driver, import the base module by including the following
 Redis:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 3)
 ```
 
 PostgreSQL:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 3)
 ```
 
 MySQL:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 3)
 ```
 
 SQLite3:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 3)
 ```
 
 CouchDB:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 3)
 ```
 
 MongoDB:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 3)
 ```
 
 
@@ -221,7 +221,7 @@ if let val = request.session.data["keyString"] as? String {
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 3)
 ```
 
 Defining the connection to the PostgreSQL server:
@@ -243,7 +243,7 @@ let sessionDriver = SessionRedisDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-PostgreSQL.git", majorVersion: 3)
 ```
 
 Defining the connection to the PostgreSQL server:
@@ -268,7 +268,7 @@ let sessionDriver = SessionPostgresDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 3)
 ```
 
 Defining the connection to the MySQL server:
@@ -293,7 +293,7 @@ let sessionDriver = SessionMySQLDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-SQLite.git", majorVersion: 3)
 ```
 
 Defining the connection to the SQLite server:
@@ -313,7 +313,7 @@ let sessionDriver = SessionSQLiteDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-CouchDB.git", majorVersion: 3)
 ```
 
 Defining the CouchDB database to use for session storage:
@@ -341,7 +341,7 @@ let sessionDriver = SessionCouchDBDriver()
 Importing the module, in Package.swift:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Session-MongoDB.git", majorVersion: 3)
 ```
 
 Defining the MongoDB database to use for session storage:
