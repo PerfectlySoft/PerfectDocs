@@ -98,7 +98,7 @@ Next, lets installed some of the packages needed by Swift to compile, and a few 
 sudo apt-get install make clang libicu-dev pkg-config libssl-dev libsasl2-dev libcurl4-openssl-dev uuid-dev git curl wget unzip -y
 ```
 
-Next, we will install Swift so the whole system has access to the binaries. At the moment, the latest available version of Swift binaries/libraries is `Swift 3.0 GM Candidate` - If you are not sure what's the latest version, head on to https://swift.org/download/ and check there. Because we're trying to make Perfect2.0 compile on this server we need to use Swift3.
+Next, we will install Swift so the whole system has access to the binaries. At the moment, the latest available version of Swift binaries/libraries is `Swift 4.0 GM Candidate` - If you are not sure what's the latest version, head on to https://swift.org/download/ and check there. Because we're trying to make Perfect2.0 compile on this server we need to use Swift3.
 
 ```
 cd /usr/src

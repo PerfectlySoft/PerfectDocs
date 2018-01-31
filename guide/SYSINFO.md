@@ -4,7 +4,7 @@ This project provides a Swift library to monitor system performance.
 
 This package builds with Swift Package Manager and is part of the [Perfect](https://github.com/PerfectlySoft/Perfect) project but can also be used as an independent module.
 
-Ensure you have installed and activated the latest Swift 3.1 tool chain.
+Ensure you have installed and activated the latest Swift 4.0 tool chain.
 
 ## Quick Start
 
@@ -12,7 +12,7 @@ Add Perfect SysInfo library to your Package.swift:
 
 ``` swift
 
-.Package(url: "https://github.com/PerfectlySoft/Perfect-SysInfo.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-SysInfo.git", majorVersion: 3)
 
 ```
 

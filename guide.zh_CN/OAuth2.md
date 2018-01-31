@@ -10,7 +10,7 @@ Perfect Authentication OAuth2 函数库提供了 [OAuth2](https://oauth.net/2/) 
 请在您的项目中修改Package.swift并增加下列依存关系：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Authentication.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-OAuth2.git", majorVersion: 3)
 ```
 
 然后导入OAuth2模块：

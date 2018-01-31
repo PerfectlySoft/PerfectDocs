@@ -24,7 +24,7 @@ PerfectGAMeasurementProtocol.hitType = "pageview"
 Add this project as a dependency in your Package.swift file.
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-GoogleAnalytics-MeasurementProtocol.git", majorVersion: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-GoogleAnalytics-MeasurementProtocol.git", majorVersion: 3)
 ```
 
 ## Example Usage

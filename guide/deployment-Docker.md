@@ -3,8 +3,8 @@
 This guide contains steps which will allow you to derive your Docker image for your Swift + Perfect application. This particular guide is for deriving from the *perfect2-swift20160620-ubuntu1510* image, which contains:
 
 * Ubuntu 15.10
-* Swift development snapshot 2016-06-20 (prior to Swift 3 being released)
-* Perfect 2
+* Swift development snapshot 2016-06-20 (prior to Swift 4 being released)
+* Perfect 3
 
 You'll need Docker to be available on your system:
 

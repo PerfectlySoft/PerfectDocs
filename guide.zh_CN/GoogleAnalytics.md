@@ -22,7 +22,7 @@ PerfectGAMeasurementProtocol.hitType = "pageview"
 请在您项目的Package.swift文件中增加如下依存关系：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-GoogleAnalytics-MeasurementProtocol.git", majorVersion: 0)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-GoogleAnalytics-MeasurementProtocol.git", majorVersion: 3)
 ```
 
 ## 使用范例

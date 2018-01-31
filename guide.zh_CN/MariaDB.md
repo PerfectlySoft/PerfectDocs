@@ -2,7 +2,7 @@
 
 MariaDB连接库提供了对MariaDB的使用封装，允许您的Perfect应用程序于MariaDB数据库进行交互操作。
 
-**⚠️注意⚠️** 因为 MySQL 和 MariaDB 的历史渊源，MariaDB 始终保持着与 MySQL 函数库一致的命名；但是，事实证明在 MySQL 的配置环境下 MariaDB 是无法直接编译连接的，虽然看起来可以兼容。因此 Perfect 2.0 分别为MySQL 和 MariaDB 各自提供了不同的驱动连接。
+**⚠️注意⚠️** 因为 MySQL 和 MariaDB 的历史渊源，MariaDB 始终保持着与 MySQL 函数库一致的命名；但是，事实证明在 MySQL 的配置环境下 MariaDB 是无法直接编译连接的，虽然看起来可以兼容。因此 Perfect 3.0 分别为MySQL 和 MariaDB 各自提供了不同的驱动连接。
 
 ### 系统要求
 
@@ -81,7 +81,7 @@ Libs_r: -L${libdir} -lmariadb -ldl -lm -lpthread
 请在您的Package.swift文件中增加“Perfect-MariaDB”用于说明调用库函数的依存关系：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-MariaDB.git", majorVersion: 2, minor: 0)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-MariaDB.git", majorVersion: 3)
 ```
 
 ### 声明和导入

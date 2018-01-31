@@ -23,7 +23,7 @@ sudo apt-get install libcurl4-openssl-dev
 
 ``` swift
 .Package(
-    url:"https://github.com/PerfectlySoft/Perfect-CouchDB.git",majorVersion: 0, minor: 0)
+    url:"https://github.com/PerfectlySoft/Perfect-CouchDB.git",majorVersion: 3)
 ```
 
 ### 头文件设置

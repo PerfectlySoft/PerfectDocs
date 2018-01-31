@@ -4,7 +4,7 @@
 
 该软件使用SPM进行编译和测试，本软件也是[Perfect](https://github.com/PerfectlySoft/Perfect)项目的一部分，但也可以独立使用。
 
-请确保您已经安装并激活了最新版本的 Swift 3.0 tool chain 工具链。
+请确保您已经安装并激活了最新版本的 Swift 4.0 tool chain 工具链。
 
 ## MacOS X 安装指南
 

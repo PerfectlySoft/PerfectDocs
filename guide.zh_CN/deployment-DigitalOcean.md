@@ -102,7 +102,7 @@ sudo apt-get upgrade -y
 sudo apt-get install make clang libicu-dev pkg-config libssl-dev libsasl2-dev libcurl4-openssl-dev uuid-dev git curl wget unzip -y
 ```
 
-随后，安装Swift。迄今为止Swift最新的可执行版本是`Swift 3.0 GM Candidate`。如果无法确定哪个版本是最新的，请查看[Swift下载](https://swift.org/download/) 。因为要编译基于Perfect2.0的应用程序，因此我们需要使用 Swift3.
+随后，安装Swift。迄今为止Swift最新的可执行版本是`Swift 4.0`。如果无法确定哪个版本是最新的，请查看[Swift下载](https://swift.org/download/) 。因为要编译基于Perfect2.0的应用程序，因此我们需要使用 Swift 4.
 
 ```
 cd /usr/src

@@ -12,7 +12,7 @@
 When including the dependency in your project's Package.swift dependencies, you will have access to all nested dependencies including the database connector.
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MongoDB-Storm.git", majorVersion: 1)
+.Package(url: "https://github.com/SwiftORM/MongoDB-Storm.git", majorVersion: 3)
 ```
 
 ## Creating a connection to your database

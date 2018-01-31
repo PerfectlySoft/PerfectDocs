@@ -13,13 +13,13 @@ Add this project as a dependency in your Package.swift file.
 PostgreSQL Driver:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-LocalAuthentication-PostgreSQL.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-LocalAuthentication-PostgreSQL.git", majorVersion: 3)
 ```
 
 MySQL Driver:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL.git", majorVersion: 3)
 ```
 
 ## Configuration

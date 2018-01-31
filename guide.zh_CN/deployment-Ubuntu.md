@@ -1,10 +1,10 @@
-# 为Swift 3 ＋ Perfect 2 创建 Ubuntu 15.10 基本镜像
+# 为Swift 4 ＋ Perfect 3 创建 Ubuntu 基本镜像
 
-本文将帮助您创建Ubuntu 15.10以使用Swift 3语言在PerfectlySoft公司的Perfect 2应用程序框架下开发项目。
+本文将帮助您创建Ubuntu 镜像以使用Swift 4语言在PerfectlySoft公司的Perfect 3应用程序框架下开发项目。
 
 ## Running as the Root User
 
-请首先安装准备好一个Ubuntu 15.10系统。为了方便学习，请按照以 **root** 用户顺序执行命令。您需要使用管理员账号和配套的密码。如果忽略这一步，那么在以下大部分内容内都需要使用 **sudo** 命令作为所有命令的开头
+请首先安装准备好一个Ubuntu系统。为了方便学习，请按照以 **root** 用户顺序执行命令。您需要使用管理员账号和配套的密码。如果忽略这一步，那么在以下大部分内容内都需要使用 **sudo** 命令作为所有命令的开头
 
 ```
 sudo su
@@ -38,11 +38,7 @@ screen -D -R perfect
 
 ## 通过APT安装项目必要的依存关系库
 
-Swift 3 ＋ Perfect 2需要一些函数库以支持其运行，可以通过APT命令行进行安装：
-
-```
-apt-get install make git clang libicu-dev libmysqlclient-dev libpq-dev sqlite3 libsqlite3-dev apache2-dev pkg-config libssl-dev libsasl2-dev libcurl4-openssl-dev uuid-dev wget
-```
+Swift 4 ＋ Perfect 3需要一些函数库以支持其运行，可以通过一个开源的脚本进行安装：[Perfect Ubuntu](https://github.com/PerfectlySoft/Perfect-Ubuntu.git)
 
 ## 从源代码安装 MongoDB
 
@@ -92,58 +88,27 @@ make install
 
 ## 结束
 
-恭喜！现在您的系统环境已经可以支持Swift 3 ＋ Perfect 2联合工作。
+恭喜！现在您的系统环境已经可以支持Swift 4 ＋ Perfect 3联合工作。
 
-## 尝试别的方法
+## 尝鲜
 
-如果您希望安装一个Swift在3.0之前的“开发快照”版本，以按照以下命令下载：
-
-```
-cd /usr/src/
-wget https://swift.org/builds/swift-3.0-preview-3/ubuntu1510/swift-3.0-PREVIEW-3/swift-3.0-PREVIEW-3-ubuntu15.10.tar.gz`
-```
-
-安装方法：
-
-```
-gunzip < swift-3.0-PREVIEW-3-ubuntu15.10.tar.gz | tar -C / -xv --strip-components 1
-```
-
-完成后删除压缩档：
-
-```
-rm swift-3.0-PREVIEW-3-ubuntu15.10.tar.gz
-```
-
-获取 Perfect 2 模板项目：
+获取 Perfect 3 模板项目：
 
 ```
 git clone https://github.com/PerfectlySoft/PerfectTemplate
 ```
 
-并编译：
+并编译运行：
 
 ```
 cd PerfectTemplate
-git checkout d13e8dd8eb4868fea36468758604fe05a48b9aa2
-swift build
-```
-
-编译完成后应用程序会出现在 `.build/debug/` 目录下。可以为方便使用拷贝到别的路径，比如 `/root/` 目录：
-
-```
-cp .build/debug/PerfectTemplate /root/
-```
-
-现在您就可以从 `/root/` 路径下执行程序。请小心，如果您还使用的是 **root** 用户，那么您的程序会获得 **root** 用户权限！
-
-```
-/root/PerfectTemplate --port 80
+swift run
 ```
 
 下一步即可通过 `curl` 命令测试服务器：
 
 ```
-curl http://127.0.0.1
+curl http://127.0.0.1:8181
 ```
+
 如果您发现任何问题，请进行[问题报告](http://jira.perfect.org:8080/servicedesk/customer/portal/1).

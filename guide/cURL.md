@@ -13,7 +13,7 @@ Swift 4 format:
 .package(url: "https://github.com/PerfectlySoft/Perfect-CURL.git", from: "3.0.0")
 ```
 
-Swift 3 format:
+Swift 4 format:
 ```
 .Package(url: "https://github.com/PerfectlySoft/Perfect-CURL.git", majorVersion: 3)
 ```

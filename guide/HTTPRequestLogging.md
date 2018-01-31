@@ -12,7 +12,7 @@ To log HTTP requests to a file, use the `Perfect-RequestLogger` module.
 Add the following dependency to the `Package.swift` file:
 
 ```swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-RequestLogger.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-RequestLogger.git", majorVersion: 3)
 ```
 
 In each file you wish to implement logging, import the module:

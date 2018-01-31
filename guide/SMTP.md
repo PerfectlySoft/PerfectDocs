@@ -3,7 +3,7 @@
 
 This project provides an SMTP library.
 
-This package builds with Swift Package Manager and is part of the [Perfect](https://github.com/PerfectlySoft/Perfect) project. Ensure you have installed and activated the latest Swift 3.0 tool chain.
+This package builds with Swift Package Manager and is part of the [Perfect](https://github.com/PerfectlySoft/Perfect) project. Ensure you have installed and activated the latest Swift 4.0 tool chain.
 
 ## Linux Build Note
 

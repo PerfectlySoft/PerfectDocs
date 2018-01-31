@@ -3,8 +3,8 @@
 本文介绍了如何为您的Swift + Perfect应用程序部署Docker镜像，特别是有代表性的 *perfect2-swift20160620-ubuntu1510* 镜像，内容包含：
 
 * Ubuntu 15.10
-* Swift 开发版本 016-06-20 (在Swift 3发行前的版本)
-* Perfect 2
+* Swift 开发版本 016-06-20 (在Swift 4发行前的版本)
+* Perfect 3
 
 Docker 在您的系统下可以按照如下方式进行安装：
 

@@ -121,7 +121,7 @@ We have [a system, written with Perfect](https://github.com/PerfectlySoft/Perfec
 
 * [iOS Notifications](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/iOSNotifications.md) @kjessup
 * [Deployment](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment.md)
-	* [Ubuntu 15.10](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Ubuntu1510.md)
+	* [Ubuntu](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/deployment-Ubuntu.md)
 	* Docker
 	* [Heroku](https://github.com/PerfectlySoft/Perfect/wiki/Deploying-with-Heroku)
 	* Azure

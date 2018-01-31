@@ -4,7 +4,7 @@
 
 本项目需要使用SPM软件包管理器编译并是[Perfect项目](https://github.com/PerfectlySoft/Perfect)的一个组成部分，但也可以独立使用。
 
-请确保您的系统已经安装了Swift 3.1工具链。源代码同时兼容Swift 4.0(已经过Xcode 9.0 beta 9M136h 测试)。
+请确保您的系统已经安装了Swift 4.0。
 
 ## 关于开发
 

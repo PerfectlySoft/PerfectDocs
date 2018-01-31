@@ -3,7 +3,7 @@
 
 创建一个新的Perfect项目最好的办法就是克隆[PerfectTemplate项目模板](https://github.com/PerfectlySoft/PerfectTemplate)或从该模板上开发新的Perfect分支。该模板提供一个非常简单的服务器并返回一条“你好，世界！”的服务器消息。您可以根据需要修改编辑。
 
-在开始之前，请详细阅读[依存关系](https://github.com/PerfectlySoft/Perfect/wiki/Dependencies)文档，同时您需要在您的系统平台上安装Swift 3.0 toolchain工具集。
+在开始之前，请详细阅读[依存关系](https://github.com/PerfectlySoft/Perfect/wiki/Dependencies)文档，同时您需要在您的系统平台上安装Swift 4.0 toolchain工具集。
 
 下一步是克隆项目模板。请从控制台命令行改变到您希望克隆项目的具体路径。将下列命令输入终端控制台然后下载名为“PerfectTemplate”的项目模板：
 
@@ -30,7 +30,7 @@ let package = Package(
 	targets: [],
 	dependencies: [
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
-			majorVersion: 2)
+			majorVersion: 3)
     ]
 )
 ```
@@ -46,7 +46,7 @@ let package = Package(
 上面的例子用一个宽范围的版本来保证模板项目依赖于HTTPServer服务器项目最新的版本。您可能希望限制当前项目于一个较为稳定的版本上。比如，如果只希望用v2版本的Perfect HTTPServer项目，则您的“*.Package*”条目可能看起来像下面这样：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 2)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 3)
 ```
 
 相信您的项目会不断发展，因此您也需要不断增加更多的库函数依存关系，所以需要将所有这些软件包的内容添加到**dependencies**清单中去。SPM会自动下载适合的版本配合您的项目一同编译。所有依存关系库文件都会下载到一个SPM自动创建的*Packages*目录下。比如，如果您希望在您的服务器上使用Mustache模板，则您的*Package.swift*文件可能会看起来像这样：
@@ -59,9 +59,9 @@ let package = Package(
 	targets: [],
 	dependencies: [
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
-			majorVersion: 2),
+			majorVersion: 3),
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-Mustache.git",
-			majorVersion: 2)
+			majorVersion: 3)
     ]
 )
 ```

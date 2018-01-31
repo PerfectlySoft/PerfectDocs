@@ -11,7 +11,7 @@
 When including the dependency in your project's Package.swift dependencies, you will have access to all nested dependencies including the database connector.
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MySQL-StORM", majorVersion: 1)
+.Package(url: "https://github.com/SwiftORM/MySQL-StORM", majorVersion: 3)
 ```
 
 ### A note about protecting from SQL Injection attacks

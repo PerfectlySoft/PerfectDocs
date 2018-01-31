@@ -11,7 +11,7 @@ Perfect WebRedirects 模块能够过滤特定路由（包括通配符路由）�
 首先在您的项目中Package.swift文件增加依存关系：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-WebRedirects", majorVersion: 1),
+.Package(url: "https://github.com/PerfectlySoft/Perfect-WebRedirects", majorVersion: 3),
 ```
 
 然后在您Perfect服务器的路由过滤器配置程序中，比如 `main.swift` 里增加如下过滤器：

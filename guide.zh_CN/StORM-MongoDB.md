@@ -12,7 +12,7 @@
 首先是在您的项目Package.swift中增加如下依存关系，注意该函数库包括了所有必要的其他组件，比如数据库连接件。
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MongoDB-Storm.git", majorVersion: 1)
+.Package(url: "https://github.com/SwiftORM/MongoDB-Storm.git", majorVersion: 3)
 ```
 
 ## 连接到数据库服务器

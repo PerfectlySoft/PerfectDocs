@@ -6,7 +6,7 @@ This package builds with Swift Package Manager and is part of the [Perfect](http
 
 ## Release Note
 
-This project is only compatible with Ubuntu 16.04 and Swift 3.1 Tool Chain.
+This project is only compatible with Ubuntu 16.04 and Swift 4.0 Tool Chain.
 
 ## Quick Start
 
@@ -23,10 +23,10 @@ During the installation, it will automatically ask for **license key**, **applic
 Configure Package.swift:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-NewRelic-linux.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-NewRelic-linux.git", majorVersion: 3)
 ```
 
-Import library into your code ( **NOTE** Since Swift 3.1 on linux has a significant linker issue, so module `PerfectNewRelic` must be accompanied with `Foundation`):
+Import library into your code ( **NOTE** Since Swift 4.0 on linux has a significant linker issue, so module `PerfectNewRelic` must be accompanied with `Foundation`):
 
 ``` swift
 import PerfectNewRelic

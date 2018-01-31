@@ -11,7 +11,7 @@ This package provides a method to schedule repeating/recurring events.
 In addition to the PerfectLib, you will need the Perfect-Repeater dependency in the Package.swift file:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Repeater.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Repeater.git", majorVersion: 3)
 ```
 
 ## Using Perfect Repeater

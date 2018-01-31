@@ -9,7 +9,7 @@
 配置 Package.swift 文件：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-INIParser.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-INIParser.git", majorVersion: 3)
 ```
 
 导入函数库：

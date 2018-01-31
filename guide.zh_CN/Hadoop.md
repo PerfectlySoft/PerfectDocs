@@ -4,7 +4,7 @@
 
 该软件使用SPM进行编译和测试，本软件也是[Perfect](https://github.com/PerfectlySoft/Perfect)项目的一部分。本软件包可独立使用，因此使用时可以脱离PerfectLib等其他组件。
 
-请确保您已经安装并激活了最新版本的 Swift 3.0 tool chain 工具链。
+请确保您已经安装并激活了最新版本的 Swift 4.0 tool chain 工具链。
 
 ### 问题报告、内容贡献和客户支持
 
@@ -21,7 +21,7 @@ PerfectHadoop 目前支持 Hadoop 3.0.0，以及 2.7.3 的部分功能。
 请在您的 Package.swift 文件中增加以下内容
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Hadoop.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Hadoop.git", majorVersion: 3)
 ```
 
 并在您的源程序部分增加以下函数库声明：
