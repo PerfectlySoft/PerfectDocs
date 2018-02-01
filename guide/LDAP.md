@@ -5,7 +5,7 @@ This project provides an express OpenLDAP class wrapper which enable access to O
 
 This package builds with Swift Package Manager and is part of the [Perfect](https://github.com/PerfectlySoft/Perfect) project.
 
-Ensure you have installed and activated the latest Swift 3.0 tool chain.
+Ensure you have installed and activated the latest Swift 4.0 tool chain.
 
 *Caution*: for the reason that LDAP is widely using in many different operating systems with variable implementations, API marked with (⚠️EXPERIMENTAL⚠️) indicates that this method might not be fully applicable to certain context. However, as an open source software library, you may modify the source code to meet a specific requirement.
 
@@ -14,7 +14,7 @@ Ensure you have installed and activated the latest Swift 3.0 tool chain.
 Add the following dependency to your project's Package.swift file:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-LDAP.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-LDAP.git", majorVersion: 3)
 ```
 
 Then import PerfectLDAP to your source code:

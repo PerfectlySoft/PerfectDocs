@@ -5,7 +5,7 @@
 
 该软件使用SPM进行编译和测试，本软件也是[Perfect](https://github.com/PerfectlySoft/Perfect)项目的一部分，但也可以独立使用。
 
-请确保您的系统已经安装了Swift 3.1工具链。
+请确保您的系统已经安装了Swift 4.0工具链。
 
 
 ## 快速上手
@@ -14,7 +14,7 @@
 
 ``` swift
 
-.Package(url: "https://github.com/PerfectlySoft/Perfect-SysInfo.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-SysInfo.git", majorVersion: 3)
 
 ```
 

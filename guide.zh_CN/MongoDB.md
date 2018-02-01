@@ -5,7 +5,7 @@ MongoDB库函数是在mongo-c语言库的基础上封装而成，能够为Swift�
 [Perfect](https://github.com/PerfectlySoft/Perfect)项目的组成部分，
 被设计为可以独立使用，不依赖PerfectLib或其它任何组件。
 
-请确保安装并激活了最新版本的Swift 3.0 toolchain。
+请确保安装并激活了最新版本的Swift 4.0 toolchain。
 
 ### 不同操作系统平台的准备工作
 
@@ -40,7 +40,7 @@ sudo apt-get install libmongoc
 ``` swift
 .Package(
 	url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git",
-	majorVersion: 2, minor: 0
+	majorVersion: 3
 	)
 ```
 

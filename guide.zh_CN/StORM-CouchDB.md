@@ -5,7 +5,7 @@
 请在您当前工程的 Package.swift 中增加以下依存关系：
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/CouchDB-Storm.git", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/CouchDB-Storm.git", majorVersion: 3)
 ```
 
 

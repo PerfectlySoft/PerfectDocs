@@ -25,16 +25,16 @@ Perfect 支持某些数据源集成，您可以在此基础之上根据项目需
 
 ``` swift
 // PostgreSQL
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-PostgreSQL.git", majorVersion: 3)
 
 // MySQL
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-MySQL.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-MySQL.git", majorVersion: 3)
 
 // SQLite
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-SQLite.git", majorVersion: 3)
 
 // CouchDB
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-CouchDB.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Turnstile-CouchDB.git", majorVersion: 3)
 ```
 
 ### JSON 路由

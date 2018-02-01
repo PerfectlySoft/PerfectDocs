@@ -4,7 +4,7 @@
 
 本项目采用Swift Package Manager 软件包管理器编译，是[Perfect](https://github.com/PerfectlySoft/Perfect) 项目的一部分，但是也可以独立运行
 
-在使用之前请准备好最新的Swift 3.1 / 4.0 工具链
+在使用之前请准备好最新的Swift 4.0 工具链
 
 ## Linux 编译事项
 
@@ -16,14 +16,14 @@ $ sudo apt-get install libpython2.7-dev
 
 ## MacOS 编译事项
 
-请确定 Xcode 8.3.3 / 9.0 以上版本已经正确安装
+请确定 Xcode 9.0 以上版本已经正确安装
 
 ## 快速上手
 
 首先在Package.swift中增加依存关系：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-Python.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-Python.git", majorVersion: 3)
 ```
 
 然后将下列头文件导入Swift源代码：

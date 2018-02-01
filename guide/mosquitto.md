@@ -4,7 +4,7 @@ This project provides a Swift class wrapper of `mosquitto` client library which 
 
 This package builds with Swift Package Manager and is part of the [Perfect](https://github.com/PerfectlySoft/Perfect) project, however, it can work independently as a Server Side Swift component.
 
-Ensure you have installed and activated the latest Swift 3.0 tool chain.
+Ensure you have installed and activated the latest Swift 4.0 tool chain.
 
 ## OS X Notes
 

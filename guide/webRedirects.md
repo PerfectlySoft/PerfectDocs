@@ -11,7 +11,7 @@ A demo showing the usage, and working of the Perfect WebRedirects module can be 
 Import the dependency into your project by specifying it in your project's Package.swift file, or adding it via Perfect Assistant.
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-WebRedirects", majorVersion: 1),
+.Package(url: "https://github.com/PerfectlySoft/Perfect-WebRedirects", majorVersion: 3),
 ```
 
 Then in your `main.swift` file where you configure your web server, add it as an import, and add the filter:

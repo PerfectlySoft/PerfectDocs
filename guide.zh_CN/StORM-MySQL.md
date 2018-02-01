@@ -5,7 +5,7 @@
 请首先在您的 Package.swift 文件中更新依存关系，以确保必要的函数库能够下载到编译环境用于数据库连接：
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/MySQL-StORM", majorVersion: 1, minor: 0)
+.Package(url: "https://github.com/SwiftORM/MySQL-StORM", majorVersion: 3)
 ```
 
 ### 关于防范SQL注入式攻击

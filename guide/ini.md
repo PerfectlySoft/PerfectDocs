@@ -9,7 +9,7 @@ This package builds with Swift Package Manager of Swift 4 Tool Chain and is part
 Configure Package.swift:
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-INIParser.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-INIParser.git", majorVersion: 3)
 ```
 
 Import library into your code:

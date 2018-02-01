@@ -11,7 +11,7 @@
 使用本函数库需要调用PerfectLib模块。此外，请追加Perfect-Repeater模块到您项目的Package.swift文件中去：
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-Repeater.git", majorVersion: 1)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-Repeater.git", majorVersion: 3)
 ```
 
 ## 使用方法

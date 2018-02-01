@@ -12,7 +12,7 @@
 When including the dependency in your project's Package.swift dependencies, you will have access to all nested dependencies including the database connector.
 
 ``` swift
-.Package(url: "https://github.com/SwiftORM/Postgres-Storm.git", majorVersion: 1)
+.Package(url: "https://github.com/SwiftORM/Postgres-Storm.git", majorVersion: 3)
 ```
 
 Please note that you may need to include the XML libraries for your platform as documented in [https://www.perfect.org/docs/xml.html](https://www.perfect.org/docs/xml.html)

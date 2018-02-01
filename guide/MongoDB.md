@@ -5,7 +5,7 @@ This package builds with the Swift Package Manager and is part of the
 [Perfect](https://github.com/PerfectlySoft/Perfect) project. It was written to
 be standalone, and does not require PerfectLib or any other components.
 
-Ensure you have installed and activated the latest Swift 3.0 toolchain.
+Ensure you have installed and activated the latest Swift 4.0 toolchain.
 
 ## Relevant Examples
 
@@ -47,7 +47,7 @@ Add this project as a dependency in your Package.swift file.
 ``` swift
 .Package(
 	url:"https://github.com/PerfectlySoft/Perfect-MongoDB.git", 
-	majorVersion: 2
+	majorVersion: 3
 	)
 ```
 

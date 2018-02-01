@@ -6,7 +6,7 @@
 
 ## 发行说明
 
-本项目只兼容 Ubuntu 16.04 和 Swift 3.1 工具链。
+本项目只兼容 Ubuntu 16.04 和 Swift 4.0 工具链。
 
 ## 快速上手
 
@@ -23,10 +23,10 @@ $ sudo ./install.sh
 请配置您工程的 Package.swift 文件并追加下列内容：
 
 ``` swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-NewRelic-linux.git", majorVersion: 1)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-NewRelic-linux.git", majorVersion: 3)
 ```
 
-请将函数库导入您的程序（ ⚠️**注意**⚠️ 由于 Swift 3.1 linux 版本存在一个明显的编译器问题，因此 `PerfectNewRelic` 导入时必须配合 `Foundation` 函数库):
+请将函数库导入您的程序（ ⚠️**注意**⚠️ 由于 Swift 4.0 linux 版本存在一个明显的编译器问题，因此 `PerfectNewRelic` 导入时必须配合 `Foundation` 函数库):
 
 ``` swift
 import PerfectNewRelic

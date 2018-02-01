@@ -2,7 +2,7 @@
 
 The MariaDB connector provides a wrapper around MariaDB, allowing interaction between your Perfect Applications and MariaDB databases. 
 
-**Note:** Because of the history of MySQL & MariaDB, MariaDB keeps the same names as MySQL API functions; however, it is not possible to compile MariaDB in a MySQL configuration "as-is" context. This is why Perfect 2.0 includes both MySQL & MariaDB connectors.
+**Note:** Because of the history of MySQL & MariaDB, MariaDB keeps the same names as MySQL API functions; however, it is not possible to compile MariaDB in a MySQL configuration "as-is" context. This is why Perfect 3.0 includes both MySQL & MariaDB connectors.
 
 ### System Requirements
 
@@ -82,7 +82,7 @@ Libs_r: -L${libdir} -lmariadb -ldl -lm -lpthread
 Add the "Perfect-MariaDB" project as a dependency in your Package.swift file:
 
 ``` swift
-.Package(url:"https://github.com/PerfectlySoft/Perfect-MariaDB.git", majorVersion: 2)
+.Package(url:"https://github.com/PerfectlySoft/Perfect-MariaDB.git", majorVersion: 3)
 ```
 
 ### Import

@@ -4,7 +4,7 @@
 
 The best way to start a new Perfect project is to fork or clone the [PerfectTemplate](https://github.com/PerfectlySoft/PerfectTemplate). It will give you a very simple "Hello, World!" server message which you can edit and modify however you wish.
 
-Before beginning, ensure you have read the [dependencies](https://github.com/PerfectlySoft/Perfect/wiki/Dependencies) document, and that you have a functioning Swift 3.0 toolchain for your platform.
+Before beginning, ensure you have read the [dependencies](https://github.com/PerfectlySoft/Perfect/wiki/Dependencies) document, and that you have a functioning Swift 4.0 toolchain for your platform.
 
 The next step is to clone the template project. Open a new command-line terminal and change directory (cd) where you want the project to be cloned. Type the following into your terminal to download a directory called “PerfectTemplate”:
 
@@ -32,7 +32,7 @@ let package = Package(
 	targets: [],
 	dependencies: [
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
-			majorVersion: 2)
+			majorVersion: 3)
     ]
 )
 ```
@@ -48,7 +48,7 @@ The second element is the **dependencies** list. This element indicates all of t
 The example above indicates a wide range of versions so that the template will always grab the newest revision of the HTTPServer project. You may want to restrict your dependencies to specific stable versions. For example, if you want to only build against version 2 of the Perfect HTTPServer project, your “*.Package*” element may look like the following:
 
 ```swift
-.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 2)
+.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 3)
 ```
 
 As your project grows and you add dependencies, you will put all of them in the **dependencies** list. SPM will automatically download the appropriate versions and compile them along with your project. All dependencies are downloaded into a *Packages* directory which SPM will automatically create. For example, if you wanted to use Mustache templates in your server, your *Package.swift* file might look like the following:
@@ -61,9 +61,9 @@ let package = Package(
 	targets: [],
 	dependencies: [
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
-			majorVersion: 2),
+			majorVersion: 3),
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-Mustache.git",
-			majorVersion: 2)
+			majorVersion: 3)
     ]
 )
 ```
@@ -75,7 +75,7 @@ As your dependency list grows, you may want to manage the list differently. The 
 ```swift
 import PackageDescription
 
-let versions = majorVersion: 2
+let versions = majorVersion: 3
 let urls = [
 	"https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
 	"https://github.com/PerfectlySoft/Perfect-FastCGI.git",
