@@ -123,7 +123,7 @@ do {
 
 	let demoStatement = "SELECT post_title, post_content FROM posts ORDER BY id DESC LIMIT :1"
 
-	try sqlite.forEachRow(statement: demoStatement, doBindings {
+	try sqlite.forEachRow(statement: demoStatement, doBindings: {
 		(statement: SQLiteStmt) -> () in
 
 		let bindValue = 5
