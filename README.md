@@ -41,20 +41,6 @@
 
 This library contains all the reference documentation and API reference-related material you need to run and use Perfect.
 
-### Issues, Pull Requests, and Support
-
-We have transitioned to using JIRA for dealing with all pull requests, bugs, and any other support-related issues. Therefore, the GitHub "issues" tab has been disabled.
-
-If you find a bug, or have a helpful suggestion to improve this documentation, [please raise it](http://jira.perfect.org:8080/servicedesk/customer/portal/1).
-
-Before you do, please view [a comprehensive list of all open issues](http://jira.perfect.org:8080/projects/ISS/issues).
-
-### Contributing
-
-We welcome all contributions to and recommendations for improving the Perfect documentation. We welcome contributions to Perfect’s documentation. If you spot a typo, bug, or other errata, or have additions or suggestions to recommend, please [create a pull request or log an issue in JIRA](http://jira.perfect.org:8080/servicedesk/customer/portal/1/user/login?destination=portal%2F1).
-
-We have [a system, written with Perfect](https://github.com/PerfectlySoft/PerfectDocGenerator), that picks up markdown files dynamically from this repository and incorporates them in an HTML docs site. This system will go live shortly.
-
 ## Table of Contents
 
 * [Introduction](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/introduction.md)
