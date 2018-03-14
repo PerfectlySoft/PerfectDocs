@@ -83,6 +83,7 @@ let package = Package(
 )
 ```
 然后修改以上内容为：
+
 ``` swift
 // swift-tools-version:4.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
@@ -108,7 +109,7 @@ let package = Package(
 
 ```
 mkdir Sources
-echo 'print("您好！")' >> Sources/main.swift
+echo 'print("您好！")' >> Sources/MyAwesomeProject/main.swift
 ```
 
 现在项目就已经准备好，可以通过以下两个命令编译和运行：
@@ -129,7 +130,7 @@ swift build
 
 ### 设置服务器
 
-现在已经确认Swift工具包已经准备好了。下一步就可以实现一个Perfect的HTTPServer服务器啦！打开`Sources/main.swift`文件，把内容替换为以下程序：
+现在已经确认Swift工具包已经准备好了。下一步就可以实现一个Perfect的HTTPServer服务器啦！打开`Sources/MyAwesomeProject/main.swift`文件，把内容替换为以下程序：
 
 ``` swift
 import PerfectHTTP
@@ -150,7 +151,8 @@ do {
 		.server(name: "www.example.ca", port: 8181, routes: routes))
 } catch {
 	fatalError("\(error)") // fatal error launching one of the servers
-}```
+}
+```
 
 然后再次编译运行当前项目：
 
