@@ -35,7 +35,7 @@ Database client library packages can add CRUD support by implementing a few prot
 * <a href="#error-handling">Error Handling</a>
 * <a href="#logging">Logging</a>
 
-
+<a name="general-usage"></a>
 ## General Usage
 
 This is a simple example to show how CRUD is used.
@@ -109,12 +109,14 @@ for user in query {
 }
 ```
 
+<a name="operations"></a>
 ## Operations
 
 Activity in CRUD is accomplished by obtaining a database connection object and then chaining a series of operations on that database. Some operations execute immediately while others (select) are executed lazily. Each operation that is chained will return an object which can be further chained or executed.
 
 Operations are grouped here according to the objects which implement them. Note that many of the type definitions shown below have been abbreviated for simplicity and some functions implemented in extensions have been moved in to keep things in a single block.
 
+<a name="database"></a>
 ### Database
 
 A Database object wraps and maintains a connection to a database. Database connectivity is specified by using a `DatabaseConfigurationProtocol` object. These will be specific to the database in question.
@@ -145,6 +147,7 @@ public struct Database<C: DatabaseConfigurationProtocol>: DatabaseProtocol {
 
 The operations available on a Database object include `transaction`, `create`, and `table`. 
 
+<a name="transaction"></a>
 #### Transaction
 
 The `transaction` operation will execute the body between a set of "BEGIN" and "COMMIT" or "ROLLBACK" statements. If the body completes execution without throwing an error then the transaction will be committed, otherwise it is rolled-back.
@@ -172,6 +175,7 @@ let value = try db.transaction {
 }
 ```
 
+<a name="create"></a>
 #### Create
 
 The `create` operation is given a Codable type. It will create a table corresponding to the type's structure. The table's primary key can be indicated as well as a "create policy" which determines some aspects of the operation. 
@@ -199,6 +203,7 @@ try db.create(TestTable1.self, primaryKey: \.id, policy: .reconcileTable)
 
 Calling create on a table which already exists is a harmless operation resulting in no changes unless the `.reconcileTable` or `.dropTable` policies are indicated. Existing tables will not be modified to match changes in the corresponding Codable type unless `.reconcileTable` is indicated.
 
+<a name="table"></a>
 #### Table
 
 The `table` operation returns a Table object based on the indicated Codable type. Table objects are used to perform further operations.
@@ -215,6 +220,7 @@ Example usage:
 let table1 = db.table(TestTable1.self)
 ```
 
+<a name="sql"></a>
 #### SQL
 
 CRUD can also execute bespoke SQL statements, mapping the results to an array of any suitable Codable type.
@@ -232,6 +238,7 @@ Example Usage:
 try db.sql("SELECT * FROM mytable WHERE id = 2", TestTable1.self)
 ```
 
+<a name="table-1"></a>
 ### Table
 
 **Table** can follow: `Database`.
@@ -253,6 +260,7 @@ let table1 = db.table(TestTable1.self)
 
 In the example above, TestTable1 is the OverAllForm. Any destructive operations will affect the corresponding database table. Any selects will produce a collection of TestTable1 objects.
 
+<a name="join"></a>
 ### Join
 
 **Join** can follow: `table`, `order`, `limit`, or another `join`.
@@ -494,6 +502,7 @@ Any joined type tables which are not explicitly included in a join will be set t
 
 If a joined table is included in a join but there are no resulting joined objects, the OverAllForm's property will be set to an empty array.
 
+<a name="where"></a>
 ### Where
 
 **Where** can follow: `table`, `join`, `order`.
@@ -582,6 +591,7 @@ try table.where(\TestTable2.name !=% "me") // not begins with
 try table.where(\TestTable2.name %!= "me") // not ends with
 ```
 
+<a name="order"></a>
 ### Order
 
 **Order** can follow: `table`, `join`.
@@ -609,6 +619,7 @@ let query = try db.table(TestTable1.self)
 
 When the above query is executed it will apply orderings to both the main list of returned objects and to their individual "subTables" collections.
 
+<a name="limit"></a>
 ### Limit
 
 **Limit** can follow: `order`, `join`, `table`.
@@ -637,6 +648,7 @@ let query = try db.table(TestTable1.self)
 			.where(\TestTable2.name == "Me")
 ```
 
+<a name="update"></a>
 ### Update
 
 **Update** can follow: `table`, `where` (when `where` follows `table`).
@@ -676,6 +688,7 @@ XCTAssertEqual("New One Updated", j2[0].name)
 XCTAssertEqual(40, j2[0].integer)
 ```
 
+<a name="insert"></a>
 ### Insert
 
 **Insert** can follow: `table`.
@@ -704,6 +717,7 @@ let newTwo = TestTable1(id: 2001, name: "New One", integer: 40, double: nil, blo
 try table.insert([newOne, newTwo], setKeys: \.id, \.name)
 ```
 
+<a name="delete"></a>
 ### Delete
 
 **Delete** can follow: `table`, `where` (when `where` follows `table`).
@@ -732,6 +746,7 @@ let j2 = try query.select().map { $0 }
 assert(j2.count == 0)
 ```
 
+<a name="select"></a>
 ### Select & Count
 
 **Select** can follow: `where`, `order`, `limit`, `join`, `table`.
@@ -760,6 +775,7 @@ let count = try query.count()
 assert(count == values.count)
 ```
 
+<a name="codable-types"></a>
 ## Codable Types
 
 Most `Codable` types can be used with CRUD, often, depending on your needs, with no modifications. All of a type's relevant properties will be mapped to columns in the database table. You can customize the column names by adding a `CodingKeys` property to your type. 
@@ -808,11 +824,13 @@ struct TestTable2: Codable {
 
 Joined types should be an Optional array of Codable objects. Above, the `TestTable1` struct has a joined type on its `subTables` property: `let subTables: [TestTable2]?`. Joined types will only be populated when the corresponding table is joined using the `join` operation.
 
+<a name="identity"></a>
 ### Identity
 
 When CRUD creates the table corresponding to a type it attempts to determine what the primary key for the table will be. You can explicitly indicate which property is the primary key when you call the `create` operation. If you do not indicate the key then a property named "id" will be sought. If there is no "id" property then the table will be created without a primary key.
 Note that a custom primary key name can be specified when creating tables "shallow" but not when recursively creating them. See the "Create" operation for more details.
 
+<a name="error-handling"></a>
 ## Error Handling
 
 Any error which occurs during SQL generation, execution, or results fetching will produce a thrown Error object. 
@@ -825,6 +843,7 @@ CRUD will throw `CRUDSQLExeError` for errors occurring during SQL statement exec
 
 All of the CRUD errors are tied into the logging system. When they are thrown the error messages will appear in the log. Individual database client libraries may throw other errors when they occur.
 
+<a name="logging"></a>
 ## Logging
 
 CRUD contains a built-in logging system which is designed to record errors which occur. It can also record individual SQL statements which are generated. CRUD logging is done asynchronously. You can flush all pending log messages by calling `CRUDLogging.flush()`.
