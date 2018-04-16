@@ -109,6 +109,10 @@
 			]
 		},
 		{
+			"name":"CRUD",
+			"doc":"crud"
+		},
+		{
 			"name": "WebSockets",
 			"doc":  "webSockets"
 		},

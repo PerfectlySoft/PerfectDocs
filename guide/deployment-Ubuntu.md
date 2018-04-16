@@ -110,5 +110,3 @@ You can test this application from a different shell with the `curl` command:
 ```
 curl http://127.0.0.1:8181
 ```
-
-If you find an issue, [please report it](http://jira.perfect.org:8080/servicedesk/customer/portal/1).
