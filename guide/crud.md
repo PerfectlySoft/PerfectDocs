@@ -1,4 +1,4 @@
-# Perfect CRUD [简体中文](README.zh_CN.md)
+# Perfect CRUD
 
 CRUD is an object-relational mapping (ORM) system for Swift 4+. CRUD takes Swift 4 `Codable` types and maps them to SQL database tables. CRUD can create tables based on `Codable` types and perform inserts and updates of objects in those tables. CRUD can also perform selects and joins of tables, all in a type-safe manner.
 
