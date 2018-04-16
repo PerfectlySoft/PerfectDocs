@@ -68,6 +68,7 @@ This library contains all the reference documentation and API reference-related 
 	* [Mustache](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/mustache.md)
 	* [Markdown](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/Markdown.md)
 	* [HTTP Request Logging](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/HTTPRequestLogging.md)
+* [CRUD](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/crud.md)
 * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/webSockets.md)
 * [Utilities](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/utilities.md)
 	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md)
