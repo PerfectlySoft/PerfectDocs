@@ -23,7 +23,7 @@
 
 <p align="center">
     <a href="https://developer.apple.com/swift/" target="_blank">
-        <img src="https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat" alt="Swift 4.0">
+        <img src="https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat" alt="Swift 4.1">
     </a>
     <a href="https://developer.apple.com/swift/" target="_blank">
         <img src="https://img.shields.io/badge/Platforms-OS%20X%20%7C%20Linux%20-lightgray.svg?style=flat" alt="Platforms OS X | Linux">
@@ -84,6 +84,7 @@
 	* [HTTP请求日志记录器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/HTTPRequestLogging.md)
 	* [日志文件格式](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/logFiles.md)
 	* [远程日志服务器](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/logRemote.md)
+* [CRUD](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/crud.md)
 * [WebSockets](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/webSockets.md)
 * [基本工具](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/utilities.md)
 	* [字节流转换](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide.zh_CN/bytes.md)
