@@ -6,14 +6,44 @@ CRUD 采用了一种简洁明了但是又表达形式丰富多样、数据类型
 
 目前可以使用的实际数据实现可以在这里找到：[SQLite](https://github.com/PerfectlySoft/Perfect-SQLite)、[Postgres](https://github.com/PerfectlySoft/Perfect-PostgreSQL)和[MySQL](https://github.com/PerfectlySoft/Perfect-MySQL)。
 
-## 使用方法
+# Contents
+* <a href="#general-usage">General Usage</a>
+* <a href="#operations">Operations</a>
+	* <a href="#database">Database</a>
+		* <a href="#transaction">Transaction</a>
+		* <a href="#create">Create</a>
+			* <a href="#create-policy">Policy</a>
+		* <a href="#table">Table</a>
+		* <a href="#sql">SQL</a>
+	* <a href="#table-1">Table</a>
+	* <a href="#join">Join</a>
+		* <a href="#parent-child">Parent Child</a>
+		* <a href="#many-to-many">Many to Many</a>
+		* <a href="#self-join">Self Join</a>
+		* <a href="#junction-join">Junction Join</a>
+	* <a href="#where">Where</a>
+		* <a href="#expression-operators">Expression Operators</a>
+	* <a href="#order">Order</a>
+	* <a href="#limit">Limit</a>
+	* <a href="#update">Update</a>
+	* <a href="#insert">Insert</a>
+	* <a href="#delete">Delete</a>
+	* <a href="#select">Select</a>
+	* <a href="#count">Count</a>
+* <a href="#codable-types">Codable Types</a>
+	* <a href="#identity">Identity</a>
+* <a href="#error-handling">Error Handling</a>
+* <a href="#logging">Logging</a>
+
+<a name="general-usage"></a>
+
+## General Usage
 
 以下是CRUD的简明实用方法
 
 ```swift
 // CRUD 可以应用到大多数可编码类型：
 struct PhoneNumber: Codable {
-	let id: UUID
 	let personId: UUID
 	let planetCode: Int
 	let number: String
@@ -26,7 +56,8 @@ struct Person: Codable {
 }
 
 // 使用CRUD首先需要创建数据库连接，创建数据连接的方法根据具体数据库客户端有所不同。
-// 首先创建一个 `Database` 对象并进行配置，以下示范代码采用了SQLite作为演示：
+// 首先创建一个 `Database` 对象并进行配置，以下示范代码采用了SQLite作为演示。
+// 但是所有代码对于各种其他数据库来说应该都是一样的
 
 let db = Database(configuration: try SQLiteDatabaseConfiguration(testDBName))
 
@@ -41,32 +72,35 @@ let numbersTable = db.table(PhoneNumber.self)
 
 // 如果索引不存在，则自动为personId追加一个索引
 try numbersTable.index(\.personId)
+
+// 插入样本数据
 do {
-	// 示范如何插入数据
-	let personId1 = UUID()
-	let personId2 = UUID()
-	try personTable.insert([
-		Person(id: personId1, firstName: "Owen", lastName: "Lars", phoneNumbers: nil),
-		Person(id: personId2, firstName: "Beru", lastName: "Lars", phoneNumbers: nil)])
+	// 插入样本数据
+	let owen = Person(id: UUID(), firstName: "Owen", lastName: "Lars", phoneNumbers: nil)
+	let beru = Person(id: UUID(), firstName: "Beru", lastName: "Lars", phoneNumbers: nil)
+	
+	// 插入人员记录
+	try personTable.insert([owen, beru])
+	
+	// 设置电话好吗
 	try numbersTable.insert([
-		PhoneNumber(id: UUID(), personId: personId1, planetCode: 12, number: "555-555-1212"),
-		PhoneNumber(id: UUID(), personId: personId1, planetCode: 15, number: "555-555-2222"),
-		PhoneNumber(id: UUID(), personId: personId2, planetCode: 12, number: "555-555-1212")
-	])
+		PhoneNumber(personId: owen.id, planetCode: 12, number: "555-555-1212"),
+		PhoneNumber(personId: owen.id, planetCode: 15, number: "555-555-2222"),
+		PhoneNumber(personId: beru.id, planetCode: 12, number: "555-555-1212")])
 }
 
-// 查询示范：检索所有姓氏为Lars的人，同时电话号码为区号12
+// 执行查询
+// 找到所有姓氏为Lars 并且电话区号为12的人。
 let query = try personTable
-		.order(by: \.lastName)
+		.order(by: \.lastName, \.firstName)
 	.join(\.phoneNumbers, on: \.id, equals: \.personId)
 		.order(descending: \.planetCode)
-	.where(\Person.lastName == .string("Lars") && \PhoneNumber.planetCode == .integer(12))
+	.where(\Person.lastName == "Lars" && \PhoneNumber.planetCode == 12)
 	.select()
-	
-// 遍历查询结果并打印姓名
+
+// 遍历结果集并打印名单
 for user in query {
-	print("\(user.firstName) \(user.lastName)")
-	// 因为合并了电话本这个表格，所以此处可以一并列出
+	// We joined PhoneNumbers, so we should have values here.
 	guard let numbers = user.phoneNumbers else {
 		continue
 	}
@@ -76,13 +110,15 @@ for user in query {
 }
 ```
 
-## 操作方法
+<a name="operations"></a>
+## Operations
 
 CRUD 的主要操作集中于数据库对象连接之后进行一系列的数据库操作。某些操作是立刻执行的，而另外一些操作（比如select查询）是根据需要才实际执行。每个操作的结果都是可以继续作为参考进行下一步操作，即链式操作。
 
 以下操作介绍的分类是依据实现相应操作的有关对象。注意为了便于示范，很多类型定义都是缩写，而且部分函数以扩展方式实现，以确保整体性集中。
 
-### Database （数据对象）
+<a name="database"></a>
+### Database
 
 数据库对象用于封装数据库连接，通过 `DatabaseConfigurationProtocol` 协议对象实现，并根据具体数据库实现有所不同：
  
@@ -113,7 +149,8 @@ public struct Database<C: DatabaseConfigurationProtocol>: DatabaseProtocol {
 
 数据库对象的操作包括事务 `transaction`、表格创建 `create`和表格引用 `table`。
 
-#### transaction （事务对象）
+<a name="transaction"></a>
+#### Transaction
 
 数据库事务操作 `transaction` 会执行在 “BEGIN“和”COMMIT“（或 “ROLLBACK”） 之间的系列子操作。如果这个系列操作中间没有抛出错误，则事务提交成功，否则会回滚。
 
@@ -131,7 +168,17 @@ try db.transaction {
 }
 ```
 
-#### create （表格创建）
+事务操作的尾随闭包允许带返回值
+
+```swift
+let value = try db.transaction {
+	... further operations
+	return 42
+}
+```
+
+<a name="create"></a>
+#### Create
 
 表格创建的操作必须通过一个可编码的数据结构实例化完成。在具备条件的情况下会将实例的结构创建同构数据表。表格主索引可以在创建中声明，也可以通过“表格创建规则”用于隐式说明。
 
@@ -150,15 +197,16 @@ public extension DatabaseProtocol {
 try db.create(TestTable1.self, primaryKey: \.id, policy: .reconcileTable)
 ```
 
-`TableCreatePolicy` 表格创建规则包括下列选项：
+<a name="create-policy">`TableCreatePolicy`</a> 表格创建规则包括下列选项：
 
-* .shallow （浅表创建）- 如果声明，则合并类型的表格不会自动创建；如果不声明，则所有合并类型的表格都会自动创建，并使用“id“字段作为表格主关键字索引。如果主索引无法应用则会出错。
+* .reconcileTable（求同除异）- 如果数据库存在同名表格但字段有所不同，则现存表格的字段将根据当前新的定义进行调整，即如果包含新字段，则增加新字段；如果表内存在未定义的字段，则未定义的旧字段将被删除。唯一注意的是，如果旧表存在同名字段但是类型不一致，则该旧字段会保持不动。比如新字段类型为字符串而旧字段为整型变量，则这种变更不会发生。
+* .shallow （浅表创建）- 如果声明，则合并类型的表格不会自动创建；如果不声明，则所有合并类型的表格都会自动创建。
 * .dropTable （先删后建）- 创建表格前先删除同名表格。这个方式在软件开发和测试阶段特别好用，或者对于某些只保存临时数据的表格也很适用，只要程序重启则旧表格会被自动覆盖。
-* .reconcileTable（求同除异）- 如果数据库存在同名表格，则对于同名表格内名称相同但类型不同的字段，会被调整为与新类型；如果同名表格内缺失新表格字段，则新字段被追加；如果同名旧表格存在不同名称的字段，则会被删除。
 
-只要不应用.dropTable和.reconcileTable规则，即使表格存在，调用表格创建操作实际上是安全的，现存表格结构和记录都不会修改。
+只要不应用 `.dropTable` 和 `.reconcileTable` 规则，即使表格存在，调用表格创建操作实际上是安全的，现存表格结构和记录都不会修改。
 
-#### table （数据表对象）
+<a name="table"></a>
+#### Table
 
 `table` 操作返回数据表的可编码对象，用于后续操作。
 
@@ -174,7 +222,31 @@ public protocol DatabaseProtocol {
 let table1 = db.table(TestTable1.self)
 ```
 
-### Table（数据表对象）
+<a name="sql"></a>
+#### SQL
+
+CRUD 也可以直接执行SQL语句，返回结果为任何适当的可编码类型数组。
+
+```swift
+public extension Database {
+	func sql(_ sql: String, bindings: Bindings = []) throws
+	func sql<A: Codable>(_ sql: String, bindings: Bindings = [], _ type: A.Type) throws -> [A]
+}
+```
+
+比如
+
+```swift
+try db.sql("SELECT * FROM mytable WHERE id = 2", TestTable1.self)
+```
+
+<a name="table-1"></a>
+### Table
+
+**Table** 可跟随：`Database`.
+
+**Table** 支持：`update`, `insert`, `delete`, `join`, `order`, `limit`, `where`, `select`, and `count`.
+
 
 数据表对象用于执行数据更新、插入、删除或者查询。表对象实例的获得必须通过数据库对象配以预定义可编码结构实现。数据表对象只能够出现在表数据相关操作中，而且必须在相关链式操作开始之前准备好。
 
@@ -191,20 +263,219 @@ let table1 = db.table(TestTable1.self)
 
 上面的例子中测试表1即为统合类型。对于该对象的删除操作将直接转换为数据表删除；针对该对象的select查询操作则自动生成测试表1的结果记录集对象。
 
-**Table** 从 `Database` 中创建实例
+<a name="join"></a>
+### Join
 
-**Table** 支持的操作： `update`, `insert`, `delete`, `join`, `order`, `limit`, `where`, `select`, and `count`.
+**Join** 可跟随： `table`, `order`, `limit`, 或另外一个 `join`.
 
-### Join （横向合并）
+**Join** 支持：`join`, `where`, `order`, `limit`, `select`, `count`.
 
-`join` 表格横向合并操作能够将不同表对象的查询结果集合进行整体合并，生成统合类型对象。合并结果是一个父一级统合类型的一个属性。注意横向合并只有在真正执行“select”查询操作时才会真的执行。合并后的操作目前暂时不支持更新、插入和删除（也不支持递归删除和递归更新）。
+合并操作能够将父子关系表格或者多对多关系的表格进行合并查询。
+
+<a name="parent-child">Parent-child</a> 父子关系表格示范：
+
+```swift
+struct Parent: Codable {
+	let id: Int
+	let children: [Child]?
+}
+struct Child: Codable {
+	let id: Int
+	let parentId: Int
+}
+try db.transaction {
+	try db.create(Parent.self, policy: [.shallow, .dropTable]).insert(
+		Parent(id: 1, children: nil))
+	try db.create(Child.self, policy: [.shallow, .dropTable]).insert(
+		[Child(id: 1, parentId: 1),
+		 Child(id: 2, parentId: 1),
+		 Child(id: 3, parentId: 1)])
+}
+let join = try db.table(Parent.self)
+	.join(\.children,
+		  on: \.id,
+		  equals: \.parentId)
+	.where(\Parent.id == 1)
+guard let parent = try join.first() else {
+	return XCTFail("Failed to find parent id: 1")
+}
+guard let children = parent.children else {
+	return XCTFail("Parent had no children")
+}
+XCTAssertEqual(3, children.count)
+for child in children {
+	XCTAssertEqual(child.parentId, parent.id)
+}
+```
+
+上述范例将子对象整合到了父对象的 `.children` 属性中，其对象类型是一个数组 `[Child]?` 。当查询执行时，所有parentId值为1 的子表记录都会被整合到查询结果中，形成典型的父子关系。
+
+<a name="many-to-many">Many-to-many</a> 多对多范例：
+
+```swift
+struct Student: Codable {
+	let id: Int
+	let classes: [Class]?
+}
+struct Class: Codable {
+	let id: Int
+	let students: [Student]?
+}
+struct StudentClasses: Codable {
+	let studentId: Int
+	let classId: Int
+}
+try db.transaction {
+	try db.create(Student.self, policy: [.dropTable, .shallow]).insert(
+		Student(id: 1, classes: nil))
+	try db.create(Class.self, policy: [.dropTable, .shallow]).insert([
+		Class(id: 1, students: nil),
+		Class(id: 2, students: nil),
+		Class(id: 3, students: nil)])
+	try db.create(StudentClasses.self, policy: [.dropTable, .shallow]).insert([
+		StudentClasses(studentId: 1, classId: 1),
+		StudentClasses(studentId: 1, classId: 2),
+		StudentClasses(studentId: 1, classId: 3)])
+}
+let join = try db.table(Student.self)
+	.join(\.classes,
+		  with: StudentClasses.self,
+		  on: \.id,
+		  equals: \.studentId,
+		  and: \.id,
+		  is: \.classId)
+	.where(\Student.id == 1)
+guard let student = try join.first() else {
+	return XCTFail("Failed to find student id: 1")
+}
+guard let classes = student.classes else {
+	return XCTFail("Student had no classes")
+}
+XCTAssertEqual(3, classes.count)
+for aClass in classes {
+	let join = try db.table(Class.self)
+		.join(\.students,
+			  with: StudentClasses.self,
+			  on: \.id,
+			  equals: \.classId,
+			  and: \.id,
+			  is: \.studentId)
+		.where(\Class.id == aClass.id)
+	guard let found = try join.first() else {
+		XCTFail("Class with no students")
+		continue
+	}
+	guard nil != found.students?.first(where: { $0.id == student.id }) else {
+		XCTFail("Student not found in class")
+		continue
+	}
+}
+```
+
+<a name="self-join">Self Join</a> 自联合范例：
+
+```swift
+struct Me: Codable {
+	let id: Int
+	let parentId: Int
+	let mes: [Me]?
+	init(id i: Int, parentId p: Int) {
+		id = i
+		parentId = p
+		mes = nil
+	}
+}
+try db.transaction {
+	try db.create(Me.self, policy: .dropTable).insert([
+		Me(id: 1, parentId: 0),
+		Me(id: 2, parentId: 1),
+		Me(id: 3, parentId: 1),
+		Me(id: 4, parentId: 1),
+		Me(id: 5, parentId: 1)])
+}
+let join = try db.table(Me.self)
+	.join(\.mes, on: \.id, equals: \.parentId)
+	.where(\Me.id == 1)
+guard let me = try join.first() else {
+	return XCTFail("Unable to find me.")
+}
+guard let mes = me.mes else {
+	return XCTFail("Unable to find meesa.")
+}
+XCTAssertEqual(mes.count, 4)
+```
+
+<a name="junction-join">Junction Join</a> 多表联合：
+
+```swift
+struct Student: Codable {
+	let id: Int
+	let classes: [Class]?
+	init(id i: Int) {
+		id = i
+		classes = nil
+	}
+}
+struct Class: Codable {
+	let id: Int
+	let students: [Student]?
+	init(id i: Int) {
+		id = i
+		students = nil
+	}
+}
+struct StudentClasses: Codable {
+	let studentId: Int
+	let classId: Int
+}
+try db.transaction {
+	try db.create(Student.self, policy: [.dropTable, .shallow]).insert(
+		Student(id: 1))
+	try db.create(Class.self, policy: [.dropTable, .shallow]).insert([
+		Class(id: 1),
+		Class(id: 2),
+		Class(id: 3)])
+	try db.create(StudentClasses.self, policy: [.dropTable, .shallow]).insert([
+		StudentClasses(studentId: 1, classId: 1),
+		StudentClasses(studentId: 1, classId: 2),
+		StudentClasses(studentId: 1, classId: 3)])
+}
+let join = try db.table(Student.self)
+	.join(\.classes,
+		  with: StudentClasses.self,
+		  on: \.id,
+		  equals: \.studentId,
+		  and: \.id,
+		  is: \.classId)
+	.where(\Student.id == 1)
+guard let student = try join.first() else {
+	return XCTFail("Failed to find student id: 1")
+}
+guard let classes = student.classes else {
+	return XCTFail("Student had no classes")
+}
+XCTAssertEqual(3, classes.count)
+```
+
+合并操作目前不支持更新、插入或者删除（以及层叠删除、递归更新等等， 都不支持）。
+
+合并协议包括两个公用函数，一个用于处理双表联合，一个用于多表联合（三个以上）。
 
 ```swift
 public protocol JoinAble: TableProtocol {
+	// standard join
 	func join<NewType: Codable, KeyType: Equatable>(
 		_ to: KeyPath<OverAllForm, [NewType]?>,
 		on: KeyPath<OverAllForm, KeyType>,
 		equals: KeyPath<NewType, KeyType>) throws -> Join<OverAllForm, Self, NewType, KeyType>
+	// junction join
+	func join<NewType: Codable, Pivot: Codable, FirstKeyType: Equatable, SecondKeyType: Equatable>(
+		_ to: KeyPath<OverAllForm, [NewType]?>,
+		with: Pivot.Type,
+		on: KeyPath<OverAllForm, FirstKeyType>,
+		equals: KeyPath<Pivot, FirstKeyType>,
+		and: KeyPath<NewType, SecondKeyType>,
+		is: KeyPath<Pivot, SecondKeyType>) throws -> JoinPivot<OverAllForm, Self, NewType, Pivot, FirstKeyType, SecondKeyType>
 }
 ```
 
@@ -216,24 +487,30 @@ public protocol JoinAble: TableProtocol {
 
 `equals` - 等价于统合类型的“on“字段路径，用于关系数据库的外部索引。
 
-举例：
+多表联合（三个以上，含三个）需要六个参数。
 
-```swift
-let table = db.table(TestTable1.self)
-let join = try table.join(\.subTables, on: \.id, equals: \.parentId)
-```
+`to` - 指向统合类型属性的字段路径。该字段路径指向的应该是一个可选类型数组，其元素类型应该是非集成的可编码数据结构。该属性用于设置结果集对象。
 
-上述例子中，测试表2与测试表1的.subTables子表进行了横向合并，类型是 `[TestTable2]?`。当该查询真正执行时，所有测试表2中parentId与测试表1主索引字段id一致的数据记录将被包含在查询结果集内。
+`with` - 联合后的表格类型。
 
-如果不明确横向合并的结果类型，则合并后的表类型对于任何统合对象的实例都会置为nil。
+`on` - 用于统合类型的主索引的字段路径（通常就是主数据表的主索引字段）。
 
-如果表格完成了合并但是结果集内没有数据记录，则统合类型属性为一个空数组。
+`equals` - 等价于统合类型的“on“字段路径，用于关系数据库的外部索引。
 
-**Join** 可跟随操作: `table`, `order`, `limit`, 或者是另外一个 `join`.
+`and` - 指向子表的字段路径，用于联合表关键字段（通常为主表主索引）
 
-**Join** 支持操作： `join`, `where`, `order`, `limit`, `select`, `count`.
+`is` - 联合表的字段路径，应等价于子表的 `and` 属性。
 
-### Where （过滤器对象）
+如果不特别声明，任何联合后的表格都会在同和对象查询完成之后设置为空。
+
+如果声明引用了一个联合表但是没有实际联合对象查询结果，则统合对象的结果属性会被设置为一个空数组。
+
+<a name="where"></a>
+### Where
+
+**Where** 可跟随：`table`, `join`, `order`.
+
+**Where** 支持： `select`, `count`, `update` (when following `table`), `delete` (when following `table`).
 
 `where` 操作用于定义数据结果的过滤条件，过滤数据的结果可以用于查询、更新或者删除。只有在进行查询/统计、更新或删除操作时，才可以使用Where子句（过滤器对象）。
 
@@ -245,71 +522,84 @@ public protocol WhereAble: TableProtocol {
 
 Where 操作虽然是可选的，但是每个链式操作只允许有一个 `where` 子句，并且必须置于整个链式操作的末端作为限制条件。
 
-举例：
+示范代码：
 
 ```swift
 let table = db.table(TestTable1.self)
-// 插入一条记录，然后查询这条数据
-let newOne = TestTable1(id: 2000, name: "New One", integer: 40, double: nil, blob: nil, subTables: nil)
+// insert a new object and then find it
+let newOne = TestTable1(id: 2000, name: "New One", integer: 40)
 try table.insert(newOne)
-
-// 根据 id 检索数据对象
-let query = table.where(\TestTable1.id == .integer(newOne.id))
-guard let foundNewOne = try query.select().first else {
+// search for this one object by id
+let query = table.where(\TestTable1.id == newOne.id)
+guard let foundNewOne = try query.first() else {
 	...
 }
 ```
 
-`where` 操作的参数是一个 `Expression`（表达式）对象。表达式对象是用于定义所有合法操作的一个枚举类型，这种方式使得Swift的表达式语法可以直接映射为SQL表达式。CRUD函数库用这种方式实现SQL语句的参数化和实例生成，所以最终用户不用去考虑如何绑定数据，比如加引号或者对二进制数据进行编码之类。
+<a name="expression-operators"></a>
+`where` 操作的参数是一个 `CRUDBooleanExpression` 布尔表达式对象，由一下任何运算符构造：
 
-多数表达式类型结果都是简单集合类型，比如`.string(String)` 或者 `.null`；其他表达式为二进制或者逻辑操作，比如`AND`或者 `==`。对应的Swift 表达式是 `&&` and `==`。
+标准 Swift 运算符：
 
-为了说明具体使用方法，参考下列两行等价语句：
+• 等价：`==`, `!=`
 
-```swift
-let query1 = table.where(\TestTable1.id == .integer(newOne.id))
-let query2 = table.where(
-	.equality(.keyPath(\TestTable1.id), .integer(newOne.id)))
-```
+• 比较： `<`, `<=`, `>`, `>=`
 
-第一个查询使用了Swift语法创建where子句，而第二个方法看起来更加啰嗦一些，但是结果是一样的。
+• 逻辑 `!`, `&&`, `||`
 
-CRUD `Expression` 提供如下重载运算表达式：
+自定义运算符：
 
-```swift
-public extension Expression {
-	static func &&(lhs: Expression, rhs: Expression) -> Expression
-	static func ||(lhs: Expression, rhs: Expression) -> Expression
-	static func ==(lhs: Expression, rhs: Expression) -> Expression
-	static func !=(lhs: Expression, rhs: Expression) -> Expression
-	static func <(lhs: Expression, rhs: Expression) -> Expression
-	static func <=(lhs: Expression, rhs: Expression) -> Expression
-	static func >(lhs: Expression, rhs: Expression) -> Expression
-	static func >=(lhs: Expression, rhs: Expression) -> Expression
-	static prefix func !(rhs: Expression) -> Expression
-}
-```
+• 包含/不包含: `~`, `!~`
 
-此处不在赘述上述表达式的其他重载版本，比如左子式运算或者右子式运算等等，用于生成字符串、整数或者浮点数之类的简洁表达。
+• 类似于： `%=%`, `=%`, `%=`, `%!=%`, `!=%`, `%!=` 
 
-其他有关的字段路径左子式运算表达包括：
+对于等价或者比较运算符，左边的运算单元必须为可编码类型的一个字段路径，而右边的运算单元可以是这些类型： Int, Double, String, [UInt8], Bool, UUID, 或者 Date。字段路径可以是可选属性值，此时右运算单元可以是 nil，用于匹配查询中的空与非空类型。
+
+上述等价和比较运算符是类型安全的，也就意味着，比如不能将整数与字符串直接比较。而右运算单元必须于左边的字段路径类型匹配。这种方式是Swift语言的典型应用，应该不会有意外。
+
+通过表格或者联合查询而来的结果可以应用上述表达式。如果在查询中使用了并非在此定义的其他路径字段类型，则可能会导致运行时错误发生。
+
+在下列代码中：
 
 ```swift
-public extension Expression {
-	static func == <T: Codable>(lhs: PartialKeyPath<T>, rhs: Expression) -> Expression
-	static func != <T: Codable>(lhs: PartialKeyPath<T>, rhs: Expression) -> Expression
-	static func > <T: Codable>(lhs: PartialKeyPath<T>, rhs: Expression) -> Expression
-	static func >= <T: Codable>(lhs: PartialKeyPath<T>, rhs: Expression) -> Expression
-	static func < <T: Codable>(lhs: PartialKeyPath<T>, rhs: Expression) -> Expression
-	static func <= <T: Codable>(lhs: PartialKeyPath<T>, rhs: Expression) -> Expression
-}
+table.where(\TestTable1.id > 20)
 ```
 
-**Where** 可以跟随：`table`, `join`, `order`.
+`\TestTable1.id` 是一个路径字段，指向该对象的整型 id。右运算单元 20 是一个常量，而大于号 `>` 将二者进行运算操作并产生一个 `CRUDBooleanExpression` 布尔表达式用于直接限定 `where` 自居或者用于其他更复杂的表达式。
 
-**Where** 支持 `select`, `count`, `update` (跟随 `table`), `delete` (跟随 `table`).
+逻辑运算符允许两个 `CRUDBooleanExpresssion`进行或与非操作 `and`、`or`和 `not`。具体方法是使用 Swift标准运算符： `&&`、 `||`和 `!` 
 
-### Order （排序对象）
+```swift
+table.where(\TestTable1.id > 20 && 
+	!(\TestTable1.name == "Me" || \TestTable1.name == "You"))
+```
+
+包含/不包含运算的右运算单元为数组。
+
+```swift
+table.where(\TestTable1.id ~ [2, 4])
+table.where(\TestTable1.id !~ [2, 4])
+```
+
+上述例子展示了所有 TestTable1 对象中 id 值属于数组内元素，或者不属于数组内元素（第二个例子）。
+
+Like （类似于）运算符只用于字符串操作，用于说明字符串以预期方式匹配或者包含，用于文本字段检索：
+
+```swift
+try table.where(\TestTable2.name %=% "me") // 名称内包含 `me`
+try table.where(\TestTable2.name =% "me") // 名称以 `me` 开始
+try table.where(\TestTable2.name %= "me") // 名称以 `me` 结束
+try table.where(\TestTable2.name %!=% "me") // 名称内不包含 `me`
+try table.where(\TestTable2.name !=% "me") // 名称不以 `me` 开始
+try table.where(\TestTable2.name %!= "me") // 名称不以 `me` 结束
+```
+
+<a name="order"></a>
+### Order
+
+**Order** 可跟随： `table`, `join`.
+
+**Order** 支持： `join`, `where`, `order`, `limit` `select`, `count`.
 
 `order` 排序操作将应用于查询结果集或者特定合并表的内容排序。排序操作应当立刻跟随`table`对象或者`join`对象。
 
@@ -332,11 +622,12 @@ let query = try db.table(TestTable1.self)
 
 上述例子执行的时候，结果集首先在主清单内排序，随后其子表的数据结果集也进行了排序。
 
-**Order** 可跟随： `table`, `join`.
+<a name="limit"></a>
+### Limit
 
-**Order** 可支持： `join`, `where`, `order`, `limit` `select`, `count`.
+**Limit** 可跟随： `order`, `join`, `table`.
 
-### Limit（限制数量）
+**Limit** 支持： `join`, `where`, `order`, `select`, `count`.
 
 `limit` 操作可以跟随 `table`、`join` 或者 `order` 操作。限制操作可以用于返回数据集行数，同时可以包括可忽略的数据行总数（用于查询分页）。比如查询结果前5行被忽略，而从第6行开始返回。
 
@@ -360,11 +651,12 @@ let query = try db.table(TestTable1.self)
 			.where(\TestTable2.name == .string("Me"))
 ```
 
-**Limit** 可跟随怒： `order`, `join`, `table`.
+<a name="update"></a>
+### Update
 
-**Limit** 支持： `join`, `where`, `order`, `select`, `count`.
+**Update** 可跟随： `table`, `where` (when `where` follows `table`).
 
-### Update （更新对象）
+**Update** 支持：即时操作。
 
 `update` 操作用于替换现有数据记录的具体内容。替换操作总是跟随着 `where` 子句，但是不是必须的。如果不提供 `where` 过滤则更新将应用到数据库表格的所有记录。
 
@@ -381,30 +673,30 @@ public protocol UpdateAble: TableProtocol {
 举例：
 
 ```swift
-let table = db.table(TestTable1.self)
-let newOne = TestTable1(id: 2000, name: "New One", integer: 40, double: nil, blob: nil, subTables: nil)
-try db.transaction {
-	try table.insert(newOne)
-	let newOne2 = TestTable1(id: 2000, name: "New One Updated", integer: 41, double: nil, blob: nil, subTables: nil)
-	try table
-		.where(\TestTable1.id == .integer(newOne.id))
+let newOne = TestTable1(id: 2000, name: "New One", integer: 40)
+let newId: Int = try db.transaction {
+	try db.table(TestTable1.self).insert(newOne)
+	let newOne2 = TestTable1(id: 2000, name: "New One Updated", integer: 41)
+	try db.table(TestTable1.self)
+		.where(\TestTable1.id == newOne.id)
 		.update(newOne2, setKeys: \.name)
+	return newOne2.id
 }
-let results = try table
-	.where(\TestTable1.id == .integer(newOne.id))
+let j2 = try db.table(TestTable1.self)
+	.where(\TestTable1.id == newId)
 	.select().map { $0 }
-
-assert(results.count == 1)
-assert(results[0].id == 2000)
-assert(results[0].name == "New One Updated")
-assert(results[0].integer == 40)
+XCTAssertEqual(1, j2.count)
+XCTAssertEqual(2000, j2[0].id)
+XCTAssertEqual("New One Updated", j2[0].name)
+XCTAssertEqual(40, j2[0].integer)
 ```
 
-**Update** 可跟随： `table`, `where` (当 `where` 子句跟随了 `table`对象).
+<a name="insert"></a>
+### Insert
 
-**Update** 支持立刻查询。
+**Insert** 可跟随：`table`.
 
-### Insert （插入对象）
+**Insert** 支持：即时操作
 
 插入操作用于数据库新增数据，每次可以插入一条或者多条数据，可以特别说明指定插入某些字段，或者排除某些字段的内容。插入操作必须跟随表对象 `table1`。
 
@@ -428,11 +720,12 @@ let newTwo = TestTable1(id: 2001, name: "New One", integer: 40, double: nil, blo
 try table.insert([newOne, newTwo], setKeys: \.id, \.name)
 ```
 
-**Insert** 可跟随： `table`.
+<a name="delete"></a>
+### Delete
 
-**Insert** 支持立刻执行。
+**Delete** 可跟随： `table`, `where` (when `where` follows `table`).
 
-### Delete （删除对象）
+**Delete** 支持：即时操作。
 
 删除操作用于删除一条或者多条符合查询条件的数据，通常伴随 `where`子句，虽然不是必须的。如果不跟随where子句进行过滤限制，则所有数据都会被删掉。
 
@@ -456,22 +749,24 @@ let j2 = try query.select().map { $0 }
 assert(j2.count == 0)
 ```
 
-**Delete** 可跟随： `table`, `where` (当 `where` 子句跟随 `table`).
+<a name="select"></a>
+### Select & Count
 
-**Delete** 支持立刻执行
+**Select** 可跟随： `where`, `order`, `limit`, `join`, `table`.
 
-### Select & Count （查询和计数）
+**Select** 支持：遍历
 
-查询操作返回可遍历结果集。
+<a name="select">Select</a> 查询操作返回可遍历结果集。
 
 ```swift
 public protocol SelectAble: TableProtocol {
 	func select() throws -> Select<OverAllForm, Self>
 	func count() throws -> Int
+	func first() throws -> OverAllForm?
 }
 ```
 
-计数操作和查询操作类似，但是会即刻执行，并仅返回结果集数量，并且不会返回实际的对象实例。
+<a name="count">Count</a> 计数操作和查询操作类似，但是会即刻执行，并仅返回结果集数量，并且不会返回实际的对象实例。
 
 举例：
 
@@ -483,11 +778,8 @@ let count = try query.count()
 assert(count == values.count)
 ```
 
-**Select** 可跟随： `where`, `order`, `limit`, `join`, `table`.
-
-**Select** 支持遍历
-
-## Codable Types （可编码类型）
+<a name="codable-types"></a>
+## Codable Types
 
 大部分可编码类型都可以使用CRUD函数库，通常可以满足需求，不需要修改。所有这些兼容的Swift类型结构体都可以映射到数据库表格的同名字段上。但是您可以将目标映射的字段名修改为不同名称，修改方法是在类型名称上追加“CodingKeys”属性。
 
@@ -535,13 +827,16 @@ struct TestTable2: Codable {
 
 联合类型应该是一组Codable可编码对象的数组。在上面例子里面，测试表1的子表属性是一个联合类型`let subTables: [TestTable2]?`。联合类型只有再对应的表进行联合操作之后，才会返回真实的数据。
 
-### Identity （序号字段）
+<a name="identity"></a>
+### Identity
 
-所有CRUD可编码类型都强制包含一个 `id` 字段。当CRUD 进行表格创建操作时，需要明确主索引。您可以在创建表操作中显式声明主索引字段。如果不声明，则默认表格操作会以 `id`字段为主索引目标。如果没有明确声明主索引，又不存在id字段，则创建表格的操作会报错。
+
+当CRUD 进行表格创建操作时，需要明确主索引。您可以在创建表操作中显式声明主索引字段。如果不声明，则默认表格操作会以 `id`字段为主索引目标。如果没有明确声明主索引，又不存在id字段，则创建表格的操作就不会包括主索引字段。
 
 注意如果以浅表规则（shallow）创建表格时，虽然可以指定主索引，但是却无法递归指定主索引。详见表创建操作。
 
-## 错误处理
+<a name="error-handling"></a>
+## Error Handling
 
 所有在SQL语句创建、执行或者结果提取的时候，如果有错误发生，都会抛出错误对象。
 
@@ -553,7 +848,8 @@ struct TestTable2: Codable {
 
 所有CRUD出错都会在日志系统中体现。对于数据库驱动的内部错误，是根据驱动自身定义而来。
 
-## 日志
+<a name="logging"></a>
+## Logging
 
 CRUD 提供一个内建的日志系统用于记录错误，同时也能够记录每一条SQL语句的创建。CRUD日志记录是异步的，可以通过调用`CRUDLogging.flush()`强制将日志信息写入到磁盘。
 
