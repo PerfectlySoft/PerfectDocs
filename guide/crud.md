@@ -591,6 +591,32 @@ try table.where(\TestTable2.name !=% "me") // not begins with
 try table.where(\TestTable2.name %!= "me") // not ends with
 ```
 
+**Property Optionals**
+
+In some cases you may need to query using an optional parameter in your model. In the `Person` model above, we may need to add an optional `height` field:
+
+```swift
+struct Person: Codable {
+	// ...
+	var height: Double? // height in cm
+}
+```
+
+In the case we wanted to search for `People` who have not yet provided their height, this simple query will find all rows where `height` is `NULL`.
+
+```swift
+let people = try personTable.where(\Person.height == nil).select().map{ $0 }
+```
+
+Alternatively, you may need to query for individuals a certain height or taller.
+
+```swift
+let queryHeight = 170.0
+let people = try personTable.where(\Person.height! >= queryHeight).select().map{ $0 }
+```
+
+Notice the force-unwraped key path - `\Person.height!`. _This is type-safe_ and required by the compiler in order to compare the optional type on the model to the non-optional value in the query.
+
 <a name="order"></a>
 ### Order
 
@@ -598,7 +624,7 @@ try table.where(\TestTable2.name %!= "me") // not ends with
 
 **Order** supports: `join`, `where`, `order`, `limit` `select`, `count`.
 
-An `order` operation introduces an ordering of the over-all resulting objects and/or of the objects selected for a particular join. An order operation should immediately follow either a `table` or a `join`.
+An `order` operation introduces an ordering of the over-all resulting objects and/or of the objects selected for a particular join. An order operation should immediately follow either a `table` or a `join`. You may also order over fields with optional types.
 
 ```swift
 public protocol OrderAble: TableProtocol {
@@ -618,6 +644,19 @@ let query = try db.table(TestTable1.self)
 ```
 
 When the above query is executed it will apply orderings to both the main list of returned objects and to their individual "subTables" collections.
+
+Ordering by a nullable field:
+
+```swift
+struct Person: Codable {
+	// ...
+	var height: Double? // height in cm
+}
+
+// ...
+
+let person = try personTable.order(descending: \.height).select().map {$0}
+```
 
 <a name="limit"></a>
 ### Limit
