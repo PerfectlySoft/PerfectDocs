@@ -17,11 +17,11 @@ APNs 远程消息函数库。该组件用于您的服务器向iOS / macOS设备�
 
 ## 获取 APN 授权码
 
-要使用苹果设备消息推送服务APN，您需要首先获得一个APN授权代码。这个代码可以在苹果开发者网站上取得。登录到您的开发者账号并选择 "Certificates, IDs &amp; Profiles" 菜单，在证书中选择"APNs Auth Key"。
+要使用苹果设备消息推送服务APN，您需要首先获得一个APN授权代码。这个代码可以在苹果开发者网站上取得。登录到您的开发者账号并选择 "Certificates, IDs &amp; Profiles" 菜单，在"Keys"下，选择"All"。
 
-如果还没有创建或者下载授权码，请点击”➕“创建一个新代码。注意需要选择 **Apple Push Notification Authentication Key (Sandbox & Production)**，即苹果设备推送消息认证码（沙箱及产品）。该授权码可以同时在开发阶段和生产部署阶段使用，适用于所有您的iOS / macOS设备。
+如果还没有创建或者下载授权码，请点击”➕“创建一个新代码。输入私有钥匙的名称，并选择 **Apple Push Notifications service (APNs)**，即 Apple推送通知服务（APNs）。该授权码可以同时在开发阶段和生产部署阶段使用，适用于所有您的iOS / macOS设备。
 
-点击 "Continue" 后可以下载 **私有钥匙** 。此时必须下载并保存该文件，并拷贝屏幕上十位字长的“钥匙代码”。
+点击 "Continue" 后，再点击"Confirm"，可以下载 **私有钥匙** 。此时必须下载并保存该文件，并拷贝屏幕上十位字长的“钥匙代码”。
 
 最后需要确定您的开发团队账号。点击"Account"浏览器上方的，选择 "Membership" 会员视图能够找到"Team ID"团队编号，也是10位字符串。请记录该字符串。
 
@@ -41,7 +41,7 @@ APNs 远程消息函数库。该组件用于您的服务器向iOS / macOS设备�
 ``` swift
 import PerfectNotifications
 
-// 应用程序名称，我们用这个名称来配置，但是不一定非得是这个形式
+// 应用程序名称(即Bundle Identifier)，我们用这个名称来配置，但是不一定非得是这个形式
 let notificationsAppId = "my.app.id"
 
 let apnsKeyIdentifier = "AB90CD56XY"
