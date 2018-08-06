@@ -202,7 +202,48 @@ However, if you installed version 5.7 from the Debian distribution, the data dir
 Coming soon...
 
 ### PostgreSQL
-Coming soon...
+First Install docker on your Digital Ocean Linux box (this is for the standard DO 16.04 Ubuntu image )
+``` sudo apt-get install docker.io ```
+
+Now that docker is installed we need to go about installing the postgres docker container.  for that we’ll need a directory to put the database in.  On an abstract level, using a docker image of postgres is like a black box, commands from CLI go into the docker container (running separate from the rest of the OS, then pop out in where ever you direct the container to put the database.  in this case, we are going to put it in a new /postgres folder 
+
+But before making that folder lets build a systemd service.  That'll make it so that if our server ever goes down, etc, this service will automatically start it running again.
+
+Create the service and jump into the new .service file using Visual Instrument (or preferred editor): ```sudo vi /etc/systemd/system/perfect-postgres.service```
+
+Now that you are in the editor, copy paste the following (replace SERVICE_NAME with your desired name for the service (I used perfect-postgres), USER with your current username (set above), MYSECRETPASSWORD with-- you guessed it --a secure password, DB_NAME with your desired database name and please don't use underscores in your names-- dashes are fine.): 
+```
+[Service] 
+ExecStart=/usr/bin/docker run --rm -p 5432:5432 --name SERVICE_NAME -e POSTGRES_USER=USER -e POSTGRES_PASSWORD=MYSECRETPASSWORD -e POSTGRES_DB=DB_NAME -v /postgres:/var/lib/postgresql/data postgres
+Restart=always  
+
+[Install]
+WantedBy=multi-user.target  
+```
+NOTE: The ```Restart=always``` is the part that makes it so that if the server ever restarts, so will postgres/ the database.  
+
+Great work.  Now (if in ```vi```) press the ESC button to get out of INSERT mode and then type ```:wq```, the : for command, w for save and q for quit.
+
+Now that the service is set up we need to refresh the systemd startup list so that it will have our new service on it:
+```sudo systemctl daemon-reload```
+and then enable our service (use your service name):
+```sudo systemctl enable SERVICE_NAME ```
+this should show you something that looks like this: 
+```Created symlink from /etc/systemd/system/multi-user.target.wants/perfect-postgres.service to /etc/systemd/system/perfect-postgres.service.
+```
+Great, let's start the service: ```sudo systemctl start perfect-postgres ```
+And check out some of its logs to make sure it is working via journalctl  (systemd's logs): 
+```sudo journalctl -f -u perfect-postgres```
+Cool.  Now back to working in linux, we need to install postgres.  ``` sudo apt-get install postgresql ```
+
+After successfully doing that I tried to hop into the newly created database using my newly installed postgresql with: ```psql -d DB_NAME -U USER```
+I got this error: ```psql: FATAL:  Peer authentication failed for user "USER"```
+
+If this also happens to you, you may have more success loggin in via remote. Note, this is not in your ssh session, just another terminal window:
+```$ psql -d DB_NAME -U USER -h DIGITAL_OCEAN_BOX_IP_ADDRESS ```
+The -h is for the host, use your D.O. IP Address.  
+
+Great, you should be set up with a postgresql database to use with your perfect project.  On to the next: Setting up folders, autocompiling, etc!
 
 ### MongoDB
 Coming soon...
