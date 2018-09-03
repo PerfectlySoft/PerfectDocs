@@ -9,7 +9,7 @@ MySQL连接库提供了对MySQL的使用封装，允许您的Perfect应用程序
 需要使用Homebrew安装MySQL。
 
 ```
-brew install mysql
+brew install mysql@5.7
 ```
 
 如果需要安装Homebrew，请用下面的命令行进行安装：
@@ -17,6 +17,13 @@ brew install mysql
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
+
+⚠️**注意**⚠️ Perfect目前支持的最后一个mysql自制软件版本是5.7，所以当你的构建中发现一些遗漏类型问题时，请尝试使用此命令：
+
+```
+$ brew install mysql@5.7 && brew link mysql@5.7 --force
+```
+
 
 
 ### Linux

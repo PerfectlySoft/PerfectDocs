@@ -9,7 +9,7 @@ The MySQL connector provides a wrapper around MySQL, allowing interaction betwee
 Requires the use of Homebrew’s MySQL. 
 
 ```
-brew install mysql
+brew install mysql@5.7
 ```
 
 If you need Homebrew, you can install it with: 
@@ -25,6 +25,12 @@ Unfortunately, at this point in time you will need to edit the mysqlclient.pc fi
 ```
 
 Remove the occurrence of "-fno-omit-frame-pointer". This file is read-only by default so you will need to change its permissions first.
+
+⚠️**NOTE**⚠️ The last mysql homebrew version that Perfect currently supports is 5.7, so please try this command when some missing type issues were found on your build:
+
+```
+$ brew install mysql@5.7 && brew link mysql@5.7 --force
+```
 
 ### Linux 
 
