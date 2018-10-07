@@ -7,10 +7,15 @@ For more general information on Mustache, consult the [mustache specification](h
 To use this module, add this project as a dependency in your Package.swift file.
 
 ```swift
-.Package(
-	url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", 
-	majorVersion: 3
-	)
+.package(url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", from: "3.0.0")
+```
+
+Next, add "PerfectMustache" to the list of dependencies for the target that will use PerfectMustache.
+
+Example target configuration:
+
+```swift
+targets: [.target(name: "PerfectTemplate", dependencies: ["PerfectHTTPServer", "PerfectMustache"])]
 ```
 
 Then import the Mustache Module in your source code before using:
@@ -105,10 +110,11 @@ let responseString = try context.formulateResponse(withCollector: collector)
 
 ### Tag Support
 
-This Mustache template processor supports:
+This mustache template processor supports:
 
 * {{regularTags}}
 * {{{unencodedTags}}}
+* {{& unescapedTags}}
 * {{# sections}} ... {{/sections}}
 * {{^ invertedSections}} ... {{/invertedSections}}
 * {{! comments}}
