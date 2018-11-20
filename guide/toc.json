@@ -137,6 +137,10 @@
 					"doc":  "dir"
 				},
 				{
+					"name": "Environmental Variables",
+					"doc":  "env"
+				},
+				{
 					"name": "File",
 					"doc":  "file"
 				},

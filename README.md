@@ -74,6 +74,7 @@ This library contains all the reference documentation and API reference-related 
 	* [Bytes](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/bytes.md)
 	* [File](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/file.md)
 	* [Dir](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/dir.md)
+	* [Environmental Variables](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/env.md)
 	* [Threading](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/thread.md)
 	* [Networking](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/net.md) @kjessup
 	* [OAuth2 and Providers](https://github.com/PerfectlySoft/PerfectDocs/blob/master/guide/OAuth2.md)
