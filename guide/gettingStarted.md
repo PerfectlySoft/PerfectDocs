@@ -11,9 +11,14 @@ After reading this guide, you will know:
 
 ## Prerequisites
 
-### Swift 4.0
+### Swift
 
-After you have installed a Swift 4.0 toolchain from [Swift.org](https://swift.org/getting-started/), open up a terminal window and type
+**Minimum Required Version**: <a name="mrv" href="https://developer.apple.com/swift/" target="_blank">
+        <img src="https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat" alt="Swift 4.1">
+    </a>
+    
+After you have installed the [Minimum Required Version](#mrv) toolchain from [Swift.org](https://swift.org/getting-started/), open up a terminal window and type
+
 ```
 swift --version
 ```
@@ -21,10 +26,10 @@ swift --version
 It will produce a message similar to this one:
 
 ```
-Apple Swift version 4.0 (swiftlang-900.0.65 clang-900.0.37)
+Apple Swift version <Minimum Required Version> (swiftlang-900.0.65 clang-900.0.37)
 Target: x86_64-apple-macosx10.9
 ```
-Make sure you are running the release version of Swift 4.0+. Perfect will not compile successfully if you are running a version of Swift that is lower than 3.0.1.
+Make sure you are running the release version of Swift [Minimum Required Version](#mrv). Perfect will not compile successfully if you are running a version of Swift that is lower than the [Minimum Required Version](#mrv).
 
 You can find out which version of Swift you will need by looking in [the README of the main Perfect repo](https://github.com/PerfectlySoft/Perfect#compatibility-with-swift).
 
@@ -47,8 +52,13 @@ When building on Linux, OpenSSL 1.0.2+ is required for this package. On Ubuntu 1
 Now you’re ready to build your first web application starter project.
 
 ### Build Starter Project
+**Minimum Swift Version**: <a name="starter_version" href="https://developer.apple.com/swift/" target="_blank">
+        <img src="https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat" alt="Swift 5.0">
+    </a>
 
 The following will clone and build an empty starter project. It will launch a local server that will run on port 8181 on your computer:
+
+⚠️: In order to build the Starter Project, you will need to install the [Minimum Swift Version](#starter_version) toolkit
 
 ```
 git clone https://github.com/PerfectlySoft/PerfectTemplate.git
