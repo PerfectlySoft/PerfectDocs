@@ -224,7 +224,7 @@ Importing the module, in Package.swift:
 .Package(url:"https://github.com/PerfectlySoft/Perfect-Session-Redis.git", majorVersion: 3)
 ```
 
-Defining the connection to the PostgreSQL server:
+Defining the connection to the Redis server:
 
 ``` swift
 RedisSessionConnector.host = "localhost"
